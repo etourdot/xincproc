@@ -1,0 +1,9 @@
+element(***)
+/1/1
+element(rose red/1/1)
+element(p:l/2/3)
+element(p^l/2/3)
+element(/1/1)element(^^^)
+element(/1/1)element(/1/2
+unknown(somedata)
+xlimit(1/1)

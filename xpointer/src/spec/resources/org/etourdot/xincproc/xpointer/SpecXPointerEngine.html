@@ -1,0 +1,21 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<body>
+<h1>XPointer valid pointers</h1>
+
+<div class="example">
+    <h3>Example</h3>
+
+    <p>Given these pointers:</p>
+    <table>
+        <tr>
+            <th>Pointer content</th>
+            <th>Representation</th>
+        </tr>
+        <tr>
+            <td concordion:set="#strPtr">element(intro)</td>
+            <td concordion:assertEquals="getPointerAnalysed(#strPtr)">element(intro,)</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
