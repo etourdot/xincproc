@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Including an XML document using an XPointer element schema. -->
+<!-- Including an XML document using an XPointerHelper element schema. -->
 <document>
   <p>The relevant excerpt is:</p>
   <quotation>

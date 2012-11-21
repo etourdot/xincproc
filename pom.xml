@@ -6,7 +6,7 @@
     <artifactId>xincproc</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
-        <!--module>xinclude</module-->
+        <module>xinclude</module>
         <module>xpointer</module>
     </modules>
 
@@ -56,7 +56,7 @@
     <properties>
         <!-- Libraries versions -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <slf4j.version>1.6.5</slf4j.version>
+        <slf4j.version>1.7.2</slf4j.version>
         <logback-classic.version>1.0.6</logback-classic.version>
         <xmlunit.version>1.3</xmlunit.version>
         <junit.version>4.10</junit.version>

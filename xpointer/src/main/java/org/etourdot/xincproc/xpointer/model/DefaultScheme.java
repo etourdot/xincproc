@@ -8,10 +8,10 @@ import javax.xml.namespace.QName;
  * Date: 22/09/12
  * Time: 11:02
  */
-public abstract class DefaultScheme implements PointerPart {
+abstract class DefaultScheme implements PointerPart {
     private QName shemeName;
 
-    public DefaultScheme(QName shemeName) {
+    DefaultScheme(QName shemeName) {
         this.shemeName = shemeName;
     }
 

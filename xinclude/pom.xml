@@ -33,6 +33,15 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        <dependency>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.etourdot</groupId>
+            <artifactId>xpointer</artifactId>
+            <version>${version}</version>
+        </dependency>
     </dependencies>
 
 </project>

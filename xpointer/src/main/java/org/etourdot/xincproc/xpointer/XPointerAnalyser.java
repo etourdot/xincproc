@@ -5,13 +5,12 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import org.antlr.runtime.*;
-import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.CommonTreeNodeStream;
-import org.etourdot.xincproc.xpointer.model.*;
-
-import java.util.StringTokenizer;
+import org.etourdot.xincproc.xpointer.model.ElementScheme;
+import org.etourdot.xincproc.xpointer.model.ShortHand;
+import org.etourdot.xincproc.xpointer.model.XPathScheme;
+import org.etourdot.xincproc.xpointer.model.XPointerScheme;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,31 +18,18 @@ import java.util.StringTokenizer;
  * Date: 22/09/12
  * Time: 15:21
  */
-public final class XPointerAnalyser {
-    static final String FIND_ELEMENTS = "for $d in #EXPR# return $d";
-    static final String ID_SEARCH_EXPR = "//*[@id='#ID#']|fn:id('#ID#')";
-    static final String FIND_XPATH= "for $d in #PATH# return $d";
+final class XPointerAnalyser {
+    private static final Logger log = LoggerFactory.getLogger(XPointerAnalyser.class);
+    private static final String FIND_ELEMENTS = "for $d in #EXPR# return $d";
+    private static final String ID_SEARCH_EXPR = "(//*[@id='#ID#']|fn:id('#ID#'))";
+    private static final String FIND_XPATH= "for $d in #PATH# return $d";
     private static class ChildSequenceFunction implements Function<String, String> {
         @Override
         public String apply(String s) {
             return "/*[" + s + "]";
         }
     }
-    public static final Function<String, String> CHILDSEQ_FUNCTION = new ChildSequenceFunction();
-
-    public static Pointer analyse(final String stringToAnalyse) throws RecognitionException {
-        final CharStream input = new ANTLRStringStream(stringToAnalyse);
-        final XPointerLexer xPointerLexer = new XPointerLexer(input);
-        final CommonTokenStream commonTokenStream = new CommonTokenStream(xPointerLexer);
-        XPointerParser xPointerParser = new XPointerParser(commonTokenStream);
-        XPointerParser.pointer_return result = xPointerParser.pointer();
-        CommonTree ast = (CommonTree) result.getTree();
-        CommonTreeNodeStream nodes = new CommonTreeNodeStream(ast);
-        nodes.setTokenStream(commonTokenStream);
-        XPointerTree xPointerTree = new XPointerTree(nodes);
-        xPointerTree.setPointerFactory(new PointerFactory());
-        return xPointerTree.pointer();
-    }
+    private static final Function<String, String> CHILDSEQ_FUNCTION = new ChildSequenceFunction();
 
     public static String getQueryFromElementScheme(final ElementScheme elementScheme) {
         StringBuilder findExpr = new StringBuilder();

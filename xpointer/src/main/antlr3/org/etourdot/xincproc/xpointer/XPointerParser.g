@@ -6,6 +6,8 @@ options {
     superClass  =   AbstractXPointerParser;
     ASTLabelType=   CommonTree;
     tokenVocab  =   XPointerLexer;
+    backtrack = true;
+    memoize=true;
 }
 
 tokens {
@@ -25,7 +27,10 @@ tokens {
 
 @header {
     package org.etourdot.xincproc.xpointer;
+    import org.etourdot.xincproc.xpointer.exceptions.*;
+
 }
+
 
 // Parser rules
 pointer
@@ -33,7 +38,7 @@ pointer
 	|	schemebased -> ^(POINTER schemebased)
 	;
 shorthand
-	:	ncname
+	:	NCNAME
 	;
 schemebased
 	:	pointerpart (S? pointerpart)*   -> pointerpart+
@@ -43,21 +48,29 @@ pointerpart
 	|	XPATH LBRACE schemedata RBRACE              -> ^(XPATHSCHEME schemedata)
 	| 	XPOINTER LBRACE xpointerschemedata RBRACE   -> ^(XPOINTERSCHEME xpointerschemedata)
 	|	XMLNS LBRACE xmlnsschemedata RBRACE         -> ^(XMLNSSCHEME xmlnsschemedata)
-	|	qname LBRACE schemedata RBRACE              -> ^(OTHERSCHEME qname schemedata)
+	|	otherscheme_pointerpart
 	;
+	    catch[RecognitionException e] {
+            log.debug("ici0");
+            recover(input,e);
+        }
+otherscheme_pointerpart
+	:   qname LBRACE schemedata RBRACE              -> ^(OTHERSCHEME qname schemedata)
+	;
+    catch[RecognitionException e] {
+        log.debug("ici1");
+        throw e;
+    }
 elementschemedata
-	:	ncname          -> ^(DATAS ^(ELEMENT ncname))
-	|   (ncname childsequence) -> ^(DATAS ^(ELEMENT ncname) ^(CHILDSEQUENCE childsequence))
-	| 	childsequence	-> ^(DATAS ^(CHILDSEQUENCE childsequence))
-	;
-childsequence
-	:	CHILDSEQUENCE
+	:	NCNAME          -> ^(DATAS ^(ELEMENT NCNAME))
+	|   (NCNAME CHILDSEQUENCE) -> ^(DATAS ^(ELEMENT NCNAME) ^(CHILDSEQUENCE CHILDSEQUENCE))
+	| 	CHILDSEQUENCE	-> ^(DATAS ^(CHILDSEQUENCE CHILDSEQUENCE))
 	;
 schemedata
 	:	escapeddata*	-> ^(DATAS escapeddata*)
 	;
 xmlnsschemedata
-	:	ncname S? EQUAL S? escapednamespacename	-> ^(DATAS ^(PREFIX ncname) ^(NAMESPACE escapednamespacename))
+	:	NCNAME S? EQUAL S? escapednamespacename	-> ^(DATAS ^(PREFIX NCNAME) ^(NAMESPACE escapednamespacename))
 	;
 escapednamespacename
 	:	escapeddata*	-> ^(DATAS escapeddata*)
@@ -69,10 +82,13 @@ escapeddata
 	:	~(LBRACE|RBRACE|CIRC|S)
 	|	LBRACE! schemedata RBRACE!
 	;
-qname	:	p=ncname (COLON l=ncname)?	-> ^(QNAME ^(PREFIX $p) ^(LOCALNAME $l))
+qname
+    :	(NCNAME COLON)? NCNAME	-> ^(QNAME NCNAME+)
 	;
-ncname	:	NCNAME
-	;
+	catch[RecognitionException e] {
+        log.debug("ici2");
+	    throw e;
+    }
 function
 	:	STRINGRANGE -> ^(FUNCTION STRINGRANGE)
 	;

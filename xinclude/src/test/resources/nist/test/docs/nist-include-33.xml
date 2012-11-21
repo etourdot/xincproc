@@ -1,5 +1,5 @@
 <?xml version='1.0'?>
-<!-- Including an XML document using an XPointer element schema. -->
+<!-- Including an XML document using an XPointerHelper element schema. -->
 <document>
   <quotation>
     <include xmlns="http://www.w3.org/2001/XInclude"

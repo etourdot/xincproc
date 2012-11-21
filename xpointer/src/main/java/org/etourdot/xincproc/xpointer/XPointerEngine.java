@@ -3,11 +3,19 @@ package org.etourdot.xincproc.xpointer;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import net.sf.saxon.s9api.*;
-import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.tree.CommonTree;
+import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.etourdot.xincproc.xpointer.exceptions.XPointerException;
 import org.etourdot.xincproc.xpointer.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
+import java.io.StringWriter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,7 +24,9 @@ import javax.xml.transform.Source;
  * Time: 11:18
  */
 public class XPointerEngine {
-    static final String QUERY =
+    private static final Logger log = LoggerFactory.getLogger(XPointerEngine.class);
+
+    private static final String QUERY =
             "declare variable $nodes external;" +
             "element root {" +
             "  for $x in $nodes" +
@@ -36,9 +46,17 @@ public class XPointerEngine {
             "         default return $x" +
             "  }" +
             "}";
+    private static DefaultXPointerErrorHandler defaultXPointerErrorHandler = new DefaultXPointerErrorHandler();
+    private static class NilXPointerErrorHandler implements XPointerErrorHandler {
+        @Override
+        public void reportError(String error) {
+        }
+    }
+    private static NilXPointerErrorHandler nilXPointerErrorHandler = new NilXPointerErrorHandler();
 
-    final Processor processor;
-    XQueryEvaluator xQueryEvaluator;
+    private final Processor processor;
+    private XPointerErrorHandler xPointerErrorHandler;
+    private XQueryEvaluator xQueryEvaluator;
 
     public XPointerEngine() {
         this(new Processor(false));
@@ -56,11 +74,57 @@ public class XPointerEngine {
         }
     }
 
-    public Pointer getPointer(final String pointerStr) throws RecognitionException {
-        return XPointerAnalyser.analyse(pointerStr);
+    Pointer getPointer(final String pointerStr) throws XPointerException {
+        log.debug("start analyse '{}'", pointerStr);
+        final CharStream input = new ANTLRStringStream(pointerStr);
+        log.debug("-> start lexer analyse");
+        final XPointerLexer xPointerLexer = new XPointerLexer(input);
+        final CommonTokenStream commonTokenStream = new CommonTokenStream(xPointerLexer);
+        XPointerParser xPointerParser = new XPointerParser(commonTokenStream);
+        xPointerParser.setErrorHandler(xPointerErrorHandler);
+        XPointerParser.pointer_return result = null;
+        try
+        {
+            log.debug("-> start parser analyse");
+            result = xPointerParser.pointer();
+        }
+        catch (Exception e)
+        {
+            log.error("parser exception", e);
+            throw new XPointerException(e);
+        }
+        CommonTree ast = (CommonTree) result.getTree();
+        CommonTreeNodeStream nodes = new CommonTreeNodeStream(ast);
+        nodes.setTokenStream(commonTokenStream);
+        XPointerTree xPointerTree = new XPointerTree(nodes);
+        xPointerTree.setErrorHandler(xPointerErrorHandler);
+        xPointerTree.setPointerFactory(new PointerFactory());
+        Pointer pointer = null;
+        try
+        {
+            log.debug("-> start tree analyse");
+            pointer = xPointerTree.pointer();
+        }
+        catch (Exception e)
+        {
+            log.error("tree exception", e);
+            throw new XPointerException(e);
+        }
+        log.debug("end analyse '{}'", pointerStr);
+        return pointer;
     }
 
-    public XdmValue execute(final String pointerStr, final Source source) throws RecognitionException,
+    public String execute(final String pointerStr, final Source source) throws XPointerException,
+            SaxonApiException {
+        final XdmValue xdmValue = executeToXdmValue(pointerStr, source);
+        StringWriter stringWriter = new StringWriter();
+        Serializer serializer = processor.newSerializer(stringWriter);
+        serializer.setOutputProperty(Serializer.Property.OMIT_XML_DECLARATION, "yes");
+        serializer.serializeXdmValue(xdmValue);
+        return stringWriter.toString();
+    }
+
+    XdmValue executeToXdmValue(final String pointerStr, final Source source) throws XPointerException,
             SaxonApiException {
         final Pointer pointer = getPointer(pointerStr);
         if (pointer.isShortHand()) {
@@ -70,7 +134,7 @@ public class XPointerEngine {
         }
     }
 
-    public void execute(final String pointerStr, final Source source, final Destination destination) throws RecognitionException,
+    public void executeToDestination(final String pointerStr, final Source source, final Destination destination) throws XPointerException,
             SaxonApiException {
         final Pointer pointer = getPointer(pointerStr);
         if (pointer.isShortHand()) {
@@ -78,6 +142,14 @@ public class XPointerEngine {
         } else {
             executeSchemaPointer(pointer, source, destination);
         }
+    }
+
+    public void setXPointerErrorHandler(XPointerErrorHandler xPointerErrorHandler) {
+        this.xPointerErrorHandler = xPointerErrorHandler;
+    }
+
+    public XPointerErrorHandler getxPointerErrorHandler() {
+        return xPointerErrorHandler;
     }
 
     private XdmValue executeSchemaPointer(final Pointer pointer, final Source source) throws SaxonApiException {
@@ -139,7 +211,7 @@ public class XPointerEngine {
         ImmutableList<XmlNsScheme> listXmlns = xmlnsBuilder.build();
         for (XmlNsScheme xmlNsScheme : listXmlns) {
             final QName qName = xmlNsScheme.getQName();
-            xQueryCompiler.declareNamespace(qName.getPrefix(), qName.getLocalPart());
+            xQueryCompiler.declareNamespace(qName.getLocalPart(), qName.getNamespaceURI());
         }
     }
 
@@ -172,5 +244,13 @@ public class XPointerEngine {
         final XQueryEvaluator xQueryEvShortHand = xQueryExecutable.load();
         xQueryEvShortHand.setSource(source);
         return xQueryEvShortHand;
+    }
+
+    public static XPointerErrorHandler createNilXPointerErrorHandler() {
+        return nilXPointerErrorHandler;
+    }
+
+    public static XPointerErrorHandler createDefaultXPointerErrorHandler() {
+        return defaultXPointerErrorHandler;
     }
 }

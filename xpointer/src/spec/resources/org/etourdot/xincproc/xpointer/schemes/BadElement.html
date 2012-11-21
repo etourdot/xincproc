@@ -1,0 +1,69 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<body>
+
+    <h1>Bad Element Scheme expression</h1>
+
+    <p>
+        What's up when element expression is not well formed ?
+    </p>
+
+    <cite>
+        If either the NCName or the child sequence does not locate an element, no element is identified by the pointer
+        part as a whole.
+    </cite>
+
+    <div class="example">
+
+        <h3>Example</h3>
+
+        <p>Given a simple xml  :</p>
+
+        <pre concordion:set="#document">
+            &lt;catalog&gt;
+                &lt;book id="book1"&gt;
+                    &lt;author id="auth1"&gt;Gambardella, Matthew&lt;/author&gt;
+                    &lt;title&gt;XML Developer's Guide&lt;/title&gt;
+                    &lt;genre id="bk101"&gt;Computer&lt;/genre&gt;
+                    &lt;price&gt;44.95&lt;/price&gt;
+                    &lt;publish_date&gt;2000-10-01&lt;/publish_date&gt;
+                    &lt;description&gt;An in-depth look at creating applications
+                        with XML.&lt;/description&gt;
+                &lt;/book&gt;
+            &lt;/catalog&gt;
+        </pre>
+
+        <p>Expressions matching nodes:</p>
+
+        <table concordion:execute="#result = execute(#pointer,#document)">
+            <tr>
+                <th concordion:set="#pointer">Pointer content</th>
+                <th concordion:assertEquals="#result.result">Result</th>
+                <th concordion:assertEquals="#result.error">ErrorHandler</th>
+            </tr>
+            <tr>
+                <td>element(///)</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>element(no:book1)</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <cite>
+        The element() scheme does not use the namespace binding context because it does not support qualified names.
+    </cite>
+
+    <div class="example">
+
+        <h3>Example</h3>
+
+        <p>Given the same xml document than previous example.</p>
+
+    </div>
+</body>
+</html>

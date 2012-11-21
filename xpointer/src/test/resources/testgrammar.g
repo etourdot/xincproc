@@ -69,7 +69,7 @@ ENTITY  :   '&' ('A'..'Z' | '_' | 'a'..'z' | DIGIT)+ ';'
 S       :   ('\u0009' | '\u000A' | '\u000D' | '\u0020')+ { $channel = HIDDEN; }
 	;
 
-pointer
+pointerHelper
         :   	shorthand   -> ^(POINTER shorthand)
 	|	schemebased -> ^(POINTER schemebased)
 	;
