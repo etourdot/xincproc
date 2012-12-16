@@ -1,0 +1,71 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<body>
+
+    <h1>XPointer Scheme</h1>
+
+    <p>
+        XIncProc XPointer processor support partial <a href="http://www.w3.org/TR/xptr-xpointer/">XPointer XPointer Scheme</a>
+    </p>
+
+    <cite>
+        The scheme data consists only of an xpath expression. It doesn't support yet additionnal xpath terms and concept
+        defined in the xpointer scheme() recommandation (http://www.w3.org/TR/xptr-xpointer/#terminology)
+    </cite>
+
+    <div class="example">
+
+        <h3>Example</h3>
+
+        <p>Given a simple xml  :</p>
+
+        <pre concordion:set="#document">
+            &lt;catalog&gt;
+                &lt;book id="book1"&gt;
+                    &lt;author id="auth1"&gt;Gambardella, Matthew&lt;/author&gt;
+                    &lt;title&gt;XML Developer's Guide&lt;/title&gt;
+                    &lt;genre id="bk101"&gt;Computer&lt;/genre&gt;
+                    &lt;price&gt;44.95&lt;/price&gt;
+                    &lt;publish_date&gt;2000-10-01&lt;/publish_date&gt;
+                    &lt;description&gt;An in-depth look at creating applications
+                        with XML.&lt;/description&gt;
+                &lt;/book&gt;
+            &lt;/catalog&gt;
+        </pre>
+
+        <p>Expressions matching nodes:</p>
+
+        <table concordion:execute="#result = execute(#pointer,#document)">
+            <tr>
+                <th concordion:set="#pointer">Pointer content</th>
+                <th concordion:assertEquals="#result.result">Result</th>
+                <th concordion:assertEquals="#result.error">Error</th>
+            </tr>
+            <tr>
+                <td>xpointer(//.[@id='auth1'])</td>
+                <td>&lt;author id="auth1"&gt;Gambardella, Matthew&lt;/author&gt;</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>xpointer(//price/following-sibling::*)</td>
+                <td>&lt;publish_date&gt;2000-10-01&lt;/publish_date&gt;&lt;description&gt;An in-depth look at creating applications
+                    with XML.&lt;/description&gt;</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>xpointer(//author/@id='auth1')</td>
+                <td>true</td>
+                <td></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <h2>Further Details</h2>
+
+    <ul>
+        <li><a href="BadXPointer.html">What's up when xpointer expression is not well formed ?</a></li>
+        <li><a href="NotSupportedXPointer.html">What's up when xpointer expression contains unsuported xpath terms ?</a></li>
+    </ul>
+
+</body>
+</html>

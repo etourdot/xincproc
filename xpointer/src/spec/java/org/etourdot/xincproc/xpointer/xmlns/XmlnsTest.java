@@ -1,4 +1,4 @@
-package org.etourdot.xincproc.xpointer.schemes;
+package org.etourdot.xincproc.xpointer.xmlns;
 
 import org.concordion.integration.junit4.ConcordionRunner;
 import org.etourdot.xincproc.xpointer.AbstractXPointerTest;

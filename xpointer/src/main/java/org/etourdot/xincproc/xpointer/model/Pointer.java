@@ -26,7 +26,11 @@ public class Pointer {
 
     public Pointer(List<PointerPart> schemeBased) {
         this.shortHand = null;
-        this.schemeBased = new ImmutableList.Builder<PointerPart>().addAll(schemeBased).build();
+        ImmutableList.Builder<PointerPart> builder = new ImmutableList.Builder<PointerPart>();
+        if (schemeBased != null) {
+            builder.addAll(schemeBased);
+        }
+        this.schemeBased = builder.build();
     }
 
     public void addPointerPart(PointerPart pointerPart) {

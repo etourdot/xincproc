@@ -1,4 +1,4 @@
-package org.etourdot.xincproc.xpointer.schemes;
+package org.etourdot.xincproc.xpointer.xpointer;
 
 import org.concordion.integration.junit4.ConcordionRunner;
 import org.etourdot.xincproc.xpointer.AbstractXPointerTest;
@@ -11,5 +11,5 @@ import org.junit.runner.RunWith;
  * Time: 23:39
  */
 @RunWith(ConcordionRunner.class)
-public class BadXmlnsTest extends AbstractXPointerTest {
+public class BadXPointerTest extends AbstractXPointerTest {
 }

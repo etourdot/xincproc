@@ -3,7 +3,9 @@ tree grammar XPointerTree;
 options {
     ASTLabelType=   CommonTree;
     tokenVocab  =   XPointerParser;
-    superClass  = AbstractXPointerTree;
+    superClass  =   AbstractXPointerTree;
+    backtrack   =   true;
+    memoize     =   true;
 }
 
 @header {
@@ -22,6 +24,7 @@ pointer returns [Pointer xpointer]
 	    {
 	        $xpointer =  new Pointer($sch.parts);
 	    }
+	|   POINTER
 	;
 
 shorthand returns [ShortHand shortHand]
@@ -30,6 +33,7 @@ shorthand returns [ShortHand shortHand]
 	        $shortHand = factory.createShortHand($n.text);
 	    }
 	;
+
 schemebased returns [List parts]
 scope {
     List pointerParts;
@@ -44,51 +48,67 @@ scope {
 	;
 
 pointerpart
-	:	^(ELEMENTSCHEME d1=elementschemedata)
-	    {
-	        $schemebased::pointerParts.add(factory.createElementScheme($d1.name, $d1.data));
-	    }
-	|	^(XPATHSCHEME d2=schemedata)
-	    {
-            StringBuilder builder = new StringBuilder();
-            for (final String aData : $d2.datas)
-            {
-                builder.append(aData);
-            }
-	        $schemebased::pointerParts.add(factory.createXPathScheme(builder.toString()));
-	    }
-	| 	^(XPOINTERSCHEME d3=schemedata)
-        {
-            StringBuilder builder = new StringBuilder();
-            for (final String aData : $d3.datas)
-            {
-                builder.append(aData);
-            }
-            $schemebased::pointerParts.add(factory.createXPointerScheme(builder.toString()));
-        }
-	|	^(XMLNSSCHEME d4=xmlnsschemedata)
-	    {
-	        XmlNsScheme xmlnsScheme = factory.createXmlNsScheme($d4.prefix, $d4.namespace);
-	        if (xmlnsScheme != null)
-	        {
-	            $schemebased::pointerParts.add(xmlnsScheme);
-            }
-	    }
-	|	^(OTHERSCHEME qname schemedata)
+	:	pointerpart_element
+	|   pointerpart_xpath
+	|	pointerpart_xpointer
+	| 	pointerpart_xmlns
+	|	pointerpart_otherscheme
 	;
 
+pointerpart_element
+    :   ^(ELEMENTSCHEME d1=elementschemedata?)
+        {
+            ElementScheme elementScheme = factory.createElementScheme($d1.name, $d1.data);
+            if (elementScheme != null) {
+                $schemebased::pointerParts.add(elementScheme);
+             }
+        }
+    ;
+
+pointerpart_xpath
+    :   ^(XPATHSCHEME d2=xpathschemedata)
+        {
+            $schemebased::pointerParts.add(factory.createXPathScheme($d2.xpathdatas));
+        }
+    ;
+
+pointerpart_xpointer
+    :   ^(XPOINTERSCHEME d3=xpathschemedata)
+        {
+            $schemebased::pointerParts.add(factory.createXPointerScheme($d3.xpathdatas));
+        }
+    ;
+
+pointerpart_xmlns
+    :   ^(XMLNSSCHEME d4=xmlnsschemedata)
+        {
+            XmlNsScheme xmlnsScheme = factory.createXmlNsScheme($d4.prefix, $d4.namespace);
+            if (xmlnsScheme != null)
+            {
+                $schemebased::pointerParts.add(xmlnsScheme);
+            }
+        }
+    ;
+
+pointerpart_otherscheme
+    :   ^(OTHERSCHEME q=qname s=schemedata)
+        {
+             emitErrorMessage("Warning: '" + $q.text + "' scheme is not supported");
+        }
+    ;
+
 elementschemedata returns [String name, String data]
-	:	^(DATAS ^(ELEMENT n=NCNAME))
+	:	^(ELEMENT n=NCNAME)
 	    {
 	        $name = $n.text;
 	        $data = "";
 	    }
-	|   ^(DATAS ^(ELEMENT n=NCNAME) ^(CHILDSEQUENCE c1=childsequence))
+	|   ^(ELEMENT n=NCNAME) ^(CHILDSEQUENCE c1=childsequence)
 	    {
 	        $name = $n.text;
 	        $data = ($c1.text!=null)?$c1.text:"";
 	    }
-	| 	^(DATAS ^(CHILDSEQUENCE c2=childsequence))
+	| 	^(CHILDSEQUENCE c2=childsequence)
 	    {
 	        $name = "";
 	        $data = ($c2.text!=null)?$c2.text:"";
@@ -102,25 +122,37 @@ elementschemedata returns [String name, String data]
 childsequence
 	:	CHILDSEQUENCE
 	;
-schemedata returns[List<String> datas]
-@init { $datas = new ArrayList<String>(); }
-	:	^(DATAS (e1=escapeddatas { $datas.add($e1.text);})*)
-	;
-xmlnsschemedata returns [String prefix, String namespace]
-	:	^(DATAS ^(PREFIX n=NCNAME) ^(NAMESPACE e=escapeddatas))
-	    {
-	        $prefix = $n.text;
-	        $namespace = $e.text;
-	    }
-	;
-escapeddatas
-	:	~(LBRACE|RBRACE|CIRC|S)
-	|	schemedata
-	;
-qname
-    :	^(QNAME NCNAME+)
+
+schemedata returns [String datas]
+@init { StringBuilder builder = new StringBuilder(); }
+@after { $datas = builder.toString(); }
+	:	(e1=escapeddatas { builder.append($e1.text);})*
 	;
 
-function
-	:	^(FUNCTION STRINGRANGE)
+xmlnsschemedata returns [String prefix, String namespace]
+@init { StringBuilder builder = new StringBuilder(); }
+@after { $namespace = builder.toString(); }
+	:	^(PREFIX n=NCNAME) { $prefix = $n.text; } ^(NAMESPACE (e=escapeddatas { builder.append($e.text); })*)
+
+	;
+
+xpathschemedata returns [String xpathdatas]
+@init { StringBuilder builder = new StringBuilder(); }
+@after { $xpathdatas = builder.toString(); }
+	:	(d=xpathescapeddata { builder.append($d.text); })*
+	;
+
+xpathescapeddata
+    :	ESCCIRC
+    |   ESCLBRACE
+    |   ESCRBRACE
+    |   ~(CIRC)
+    ;
+
+escapeddatas
+    :	~(LBRACE|RBRACE|CIRC|S)
+    ;
+
+qname
+    :	^(QNAME NCNAME?)
 	;

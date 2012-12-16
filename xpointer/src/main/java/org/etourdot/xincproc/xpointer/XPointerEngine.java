@@ -47,6 +47,25 @@ public class XPointerEngine {
             "  }" +
             "}";
     private static DefaultXPointerErrorHandler defaultXPointerErrorHandler = new DefaultXPointerErrorHandler();
+
+    public String verifyXPathExpression(ImmutableList.Builder<XmlNsScheme> xmlnsBuilder, String xpathExpression)
+            throws SaxonApiException {
+        log.debug("verifyXPathExpression: {}", xpathExpression);
+        XPathCompiler xPathCompiler = processor.newXPathCompiler();
+        for (XmlNsScheme xmlNsScheme : xmlnsBuilder.build()) {
+            final String localPart = xmlNsScheme.getQName().getLocalPart();
+            final String namespaceUri = xmlNsScheme.getQName().getNamespaceURI();
+            log.debug("declareNamespace {}:{}", localPart, namespaceUri);
+            xPathCompiler.declareNamespace(localPart, namespaceUri);
+        }
+        try {
+            xPathCompiler.compile(xpathExpression);
+        } catch (SaxonApiException e) {
+            return e.getCause().getMessage();
+        }
+        return "";
+    }
+
     private static class NilXPointerErrorHandler implements XPointerErrorHandler {
         @Override
         public void reportError(String error) {
@@ -94,21 +113,23 @@ public class XPointerEngine {
             throw new XPointerException(e);
         }
         CommonTree ast = (CommonTree) result.getTree();
-        CommonTreeNodeStream nodes = new CommonTreeNodeStream(ast);
-        nodes.setTokenStream(commonTokenStream);
-        XPointerTree xPointerTree = new XPointerTree(nodes);
-        xPointerTree.setErrorHandler(xPointerErrorHandler);
-        xPointerTree.setPointerFactory(new PointerFactory());
         Pointer pointer = null;
-        try
-        {
-            log.debug("-> start tree analyse");
-            pointer = xPointerTree.pointer();
-        }
-        catch (Exception e)
-        {
-            log.error("tree exception", e);
-            throw new XPointerException(e);
+        if (ast != null) {
+            CommonTreeNodeStream nodes = new CommonTreeNodeStream(ast);
+            nodes.setTokenStream(commonTokenStream);
+            XPointerTree xPointerTree = new XPointerTree(nodes);
+            xPointerTree.setErrorHandler(xPointerErrorHandler);
+            xPointerTree.setPointerFactory(new PointerFactory());
+            try
+            {
+                log.debug("-> start tree analyse");
+                pointer = xPointerTree.pointer();
+            }
+            catch (Exception e)
+            {
+                log.error("tree exception", e);
+                throw new XPointerException(e);
+            }
         }
         log.debug("end analyse '{}'", pointerStr);
         return pointer;
@@ -117,21 +138,30 @@ public class XPointerEngine {
     public String execute(final String pointerStr, final Source source) throws XPointerException,
             SaxonApiException {
         final XdmValue xdmValue = executeToXdmValue(pointerStr, source);
-        StringWriter stringWriter = new StringWriter();
-        Serializer serializer = processor.newSerializer(stringWriter);
-        serializer.setOutputProperty(Serializer.Property.OMIT_XML_DECLARATION, "yes");
-        serializer.serializeXdmValue(xdmValue);
-        return stringWriter.toString();
+        if (xdmValue != null) {
+            StringWriter stringWriter = new StringWriter();
+            Serializer serializer = processor.newSerializer(stringWriter);
+            serializer.setOutputProperty(Serializer.Property.OMIT_XML_DECLARATION, "yes");
+            serializer.serializeXdmValue(xdmValue);
+            return stringWriter.toString();
+        } else {
+            return "";
+        }
     }
 
     XdmValue executeToXdmValue(final String pointerStr, final Source source) throws XPointerException,
             SaxonApiException {
         final Pointer pointer = getPointer(pointerStr);
-        if (pointer.isShortHand()) {
-            return executeShorthandPointer(pointer, source);
+        if (pointer != null) {
+            if (pointer.isShortHand()) {
+                return executeShorthandPointer(pointer, source);
+            } else {
+                return executeSchemaPointer(pointer, source);
+            }
         } else {
-            return executeSchemaPointer(pointer, source);
+            return null;
         }
+
     }
 
     public void executeToDestination(final String pointerStr, final Source source, final Destination destination) throws XPointerException,
@@ -182,7 +212,7 @@ public class XPointerEngine {
     }
 
     private void constructXQueryEvaluatorBuilder(Pointer pointer, ImmutableList.Builder<XQueryEvaluator> xQueryEvaluatorBuilder)
-            throws SaxonApiException {
+        throws SaxonApiException {
         ImmutableList.Builder<XmlNsScheme> xmlnsBuilder = new ImmutableList.Builder<XmlNsScheme>();
         for (PointerPart part : pointer.getSchemeBased()) {
             if (part instanceof XmlNsScheme) {
@@ -194,14 +224,37 @@ public class XPointerEngine {
                 if (part instanceof ElementScheme) {
                     query = XPointerAnalyser.getQueryFromElementScheme((ElementScheme) part);
                 } else if (part instanceof XPointerScheme) {
-                    query = XPointerAnalyser.getQueryFromXPointerScheme((XPointerScheme) part);
+                    final String validExpr = verifyXPathExpression(xmlnsBuilder, ((XPointerScheme) part).getExpression());
+                    if (Strings.isNullOrEmpty(validExpr)) {
+                        query = XPointerAnalyser.getQueryFromXPointerScheme((XPointerScheme) part);
+                    } else {
+                        if (xPointerErrorHandler != null) {
+                            xPointerErrorHandler.reportError(validExpr);
+                        }
+                    }
                 } else if (part instanceof XPathScheme) {
-                    query = XPointerAnalyser.getQueryFromXPathScheme((XPathScheme) part);
+                    final String validExpr = verifyXPathExpression(xmlnsBuilder, ((XPathScheme) part).getExpression());
+                    if (Strings.isNullOrEmpty(validExpr)) {
+                        query = XPointerAnalyser.getQueryFromXPathScheme((XPathScheme) part);
+                    } else {
+                        if (xPointerErrorHandler != null) {
+                            xPointerErrorHandler.reportError(validExpr);
+                        }
+                    }
                 }
                 if (!Strings.isNullOrEmpty(query)) {
-                    final XQueryExecutable xQueryExecutable = xQueryCompiler.compile(query);
-                    final XQueryEvaluator xQueryEvalPart = xQueryExecutable.load();
-                    xQueryEvaluatorBuilder.add(xQueryEvalPart);
+                    final XQueryExecutable xQueryExecutable;
+                    try {
+                        xQueryExecutable = xQueryCompiler.compile(query);
+                        final XQueryEvaluator xQueryEvalPart = xQueryExecutable.load();
+                        xQueryEvaluatorBuilder.add(xQueryEvalPart);
+                    } catch (SaxonApiException e) {
+                        if (xPointerErrorHandler != null) {
+                            xPointerErrorHandler.reportError(e.getMessage());
+                        } else {
+                            throw e;
+                        }
+                    }
                 }
             }
         }
@@ -211,6 +264,7 @@ public class XPointerEngine {
         ImmutableList<XmlNsScheme> listXmlns = xmlnsBuilder.build();
         for (XmlNsScheme xmlNsScheme : listXmlns) {
             final QName qName = xmlNsScheme.getQName();
+            log.debug("declareNamespaces:{},{}", qName.getPrefix(), qName.getNamespaceURI());
             xQueryCompiler.declareNamespace(qName.getLocalPart(), qName.getNamespaceURI());
         }
     }

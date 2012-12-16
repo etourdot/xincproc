@@ -22,6 +22,14 @@ XPATH	    :   'xpath';
 ELEMENT	    :   'element';
 XMLNS	    :   'xmlns';
 STRINGRANGE :	'string-range';
+RANGETO     :   'range-to';
+POINT       :   'point';
+RANGE       :   'range';
+COVERINGRANGE:  'covering-range';
+RANGEINSIDE :   'range-inside';
+STARTPOINT  :   'start-point';
+HERE        :   'here';
+ORIGIN      :   'origin';
 
 DIGIT	    :   '0'..'9';
 fragment NCNAMESTARTCHAR
@@ -35,7 +43,7 @@ fragment NCNAMECHAR
 	        ;
 
 SPECIALCARS
-	        :	'"' | '\'' | '_' | '[' | ']' | '/' | ',' | '*' | '-' | '.'
+	        :	'"' | '\'' | '_' | '[' | ']' | '/' | ',' | '*' | '-' | '.' | '@'
 	        ;
 
 NCNAME	    :  NCNAMESTARTCHAR NCNAMECHAR*
@@ -48,5 +56,5 @@ CHILDSEQUENCE
 ENTITY      :   '&' ('A'..'Z' | '_' | 'a'..'z' | DIGIT)+ ';'
 	        ;
 
-S           :   ('\u0009' | '\u000A' | '\u000D' | '\u0020')+ { $channel = HIDDEN; }
+S           :   ('\u0009' | '\u000A' | '\u000D' | '\u0020')+
 	        ;

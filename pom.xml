@@ -54,8 +54,9 @@
     </developers>
     
     <properties>
-        <!-- Libraries versions -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Libraries versions -->
         <slf4j.version>1.7.2</slf4j.version>
         <logback-classic.version>1.0.6</logback-classic.version>
         <xmlunit.version>1.3</xmlunit.version>

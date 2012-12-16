@@ -1,10 +1,12 @@
 package org.etourdot.xincproc.xpointer;
 
 import com.google.common.base.Charsets;
+import com.google.common.collect.ImmutableList;
 import com.google.common.io.Files;
 import net.sf.saxon.s9api.Processor;
 import net.sf.saxon.s9api.Serializer;
 import org.etourdot.xincproc.xpointer.model.Pointer;
+import org.etourdot.xincproc.xpointer.model.XmlNsScheme;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.List;
 
+import static junit.framework.Assert.assertEquals;
 import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
 
 /**
@@ -60,7 +63,8 @@ public class XPointerEngineTest {
         File validPointersFile = new File(this.getClass().getClassLoader().getResource("invalid_pointers.txt").getFile());
         List<String> lines = Files.readLines(validPointersFile, Charsets.UTF_8);
         for (String line : lines) {
-            log.debug("##############");
+            PrintableXPointerErrorHandler printableXPointerErrorHandler = new PrintableXPointerErrorHandler();
+            xPointerEngine.setXPointerErrorHandler(printableXPointerErrorHandler);
             try {
                 Pointer pointer = xPointerEngine.getPointer(line);
                 if (pointer != null && (pointer.isSchemeBased() || pointer.isShortHand())) {
@@ -91,5 +95,28 @@ public class XPointerEngineTest {
         xPointerEngine.executeToDestination("element(id3)", source, serializer);
         String result = new String(baos.toByteArray());
         assertXMLEqual("<etat xml:id=\"id3\">VIGUEUR</etat>", result);
+    }
+
+    @Test
+    public void testVerifyXPathExpression() throws Exception {
+        Processor processor = new Processor(false);
+        XPointerEngine xPointerEngine = new XPointerEngine();
+        String validExpr = xPointerEngine.verifyXPathExpression(new ImmutableList.Builder<XmlNsScheme>(), "//price/following-sibling::*");
+        assertEquals("", validExpr);
+        validExpr = xPointerEngine.verifyXPathExpression(new ImmutableList.Builder<XmlNsScheme>(), "//price/following-sibling:*");
+        assertEquals("Prefix following-sibling has not been declared", validExpr);
+    }
+
+    @Test
+    public void testExecuteBadXPath() throws Exception {
+        Processor processor = new Processor(false);
+        XPointerEngine xPointerEngine = new XPointerEngine();
+        PrintableXPointerErrorHandler printableXPointerErrorHandler = new PrintableXPointerErrorHandler();
+        xPointerEngine.setXPointerErrorHandler(printableXPointerErrorHandler);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Serializer serializer = processor.newSerializer(baos);
+        xPointerEngine.executeToDestination("xpath(//@id='auth1'])", source, serializer);
+        assertEquals("", new String(baos.toByteArray()));
+        assertEquals("Unexpected token \"]\" beyond end of expression", printableXPointerErrorHandler.toString());
     }
 }

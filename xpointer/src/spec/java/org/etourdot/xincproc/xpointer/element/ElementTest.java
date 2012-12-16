@@ -1,4 +1,4 @@
-package org.etourdot.xincproc.xpointer.schemes;
+package org.etourdot.xincproc.xpointer.element;
 
 import net.sf.saxon.s9api.SaxonApiException;
 import org.concordion.integration.junit4.ConcordionRunner;

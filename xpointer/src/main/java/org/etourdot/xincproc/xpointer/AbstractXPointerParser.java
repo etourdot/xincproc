@@ -47,4 +47,10 @@ public abstract class AbstractXPointerParser extends Parser {
             xPointerErrorHandler.reportError(msg);
         }
     }
+
+    @Override
+    protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
+        RecognitionException e = new MismatchedTokenException(ttype, input);
+        throw e;
+    }
 }

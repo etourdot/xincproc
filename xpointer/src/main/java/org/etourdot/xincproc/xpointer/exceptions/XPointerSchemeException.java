@@ -1,5 +1,6 @@
 package org.etourdot.xincproc.xpointer.exceptions;
 
+import org.antlr.runtime.IntStream;
 import org.antlr.runtime.RecognitionException;
 
 /**
@@ -9,4 +10,7 @@ import org.antlr.runtime.RecognitionException;
  * Time: 23:19
  */
 public class XPointerSchemeException extends RecognitionException {
+    public XPointerSchemeException(IntStream input) {
+        super(input);
+    }
 }
