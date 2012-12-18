@@ -14,8 +14,7 @@ import javax.xml.namespace.QName;
 public class PointerFactory {
     public ElementScheme createElementScheme(String name, String data) {
         try {
-            ElementScheme elementScheme = new ElementScheme(name, data);
-            return elementScheme;
+            return new ElementScheme(name, data);
         } catch (ElementSchemeException e) {
             return null;
         }

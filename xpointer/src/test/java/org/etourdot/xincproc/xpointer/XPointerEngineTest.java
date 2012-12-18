@@ -99,7 +99,6 @@ public class XPointerEngineTest {
 
     @Test
     public void testVerifyXPathExpression() throws Exception {
-        Processor processor = new Processor(false);
         XPointerEngine xPointerEngine = new XPointerEngine();
         String validExpr = xPointerEngine.verifyXPathExpression(new ImmutableList.Builder<XmlNsScheme>(), "//price/following-sibling::*");
         assertEquals("", validExpr);

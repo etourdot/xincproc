@@ -5,7 +5,6 @@ package org.etourdot.xincproc.xpointer;
  * User: etourdot
  * Date: 18/11/12
  * Time: 18:33
- * To change this template use File | Settings | File Templates.
  */
 public class PrintableXPointerErrorHandler implements XPointerErrorHandler {
     private final StringBuilder stringBuilder;

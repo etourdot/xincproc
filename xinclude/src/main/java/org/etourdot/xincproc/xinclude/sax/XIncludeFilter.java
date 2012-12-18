@@ -42,7 +42,6 @@ import org.xml.sax.helpers.XMLFilterImpl;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import javax.xml.namespace.QName;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.SAXSource;
 import java.io.*;
 import java.net.URI;
@@ -288,10 +287,6 @@ public class XIncludeFilter extends XMLFilterImpl
             throw new XIncludeResourceException(e.getMessage());
         }
         catch (XPathException e)
-        {
-            throw new XIncludeFatalException(e.getMessage());
-        }
-        catch (TransformerException e)
         {
             throw new XIncludeFatalException(e.getMessage());
         }

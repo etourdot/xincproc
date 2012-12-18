@@ -46,10 +46,9 @@ public class XPointerEngine {
             "         default return $x" +
             "  }" +
             "}";
-    private static DefaultXPointerErrorHandler defaultXPointerErrorHandler = new DefaultXPointerErrorHandler();
+    private static final DefaultXPointerErrorHandler defaultXPointerErrorHandler = new DefaultXPointerErrorHandler();
 
-    public String verifyXPathExpression(ImmutableList.Builder<XmlNsScheme> xmlnsBuilder, String xpathExpression)
-            throws SaxonApiException {
+    public String verifyXPathExpression(ImmutableList.Builder<XmlNsScheme> xmlnsBuilder, String xpathExpression) {
         log.debug("verifyXPathExpression: {}", xpathExpression);
         XPathCompiler xPathCompiler = processor.newXPathCompiler();
         for (XmlNsScheme xmlNsScheme : xmlnsBuilder.build()) {
@@ -71,7 +70,7 @@ public class XPointerEngine {
         public void reportError(String error) {
         }
     }
-    private static NilXPointerErrorHandler nilXPointerErrorHandler = new NilXPointerErrorHandler();
+    private static final NilXPointerErrorHandler nilXPointerErrorHandler = new NilXPointerErrorHandler();
 
     private final Processor processor;
     private XPointerErrorHandler xPointerErrorHandler;

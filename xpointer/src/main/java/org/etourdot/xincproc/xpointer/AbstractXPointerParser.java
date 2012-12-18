@@ -50,7 +50,6 @@ public abstract class AbstractXPointerParser extends Parser {
 
     @Override
     protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
-        RecognitionException e = new MismatchedTokenException(ttype, input);
-        throw e;
+        throw new MismatchedTokenException(ttype, input);
     }
 }
