@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>net.sf.saxon</groupId>
-            <artifactId>saxon-he</artifactId>
+            <artifactId>Saxon-He</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.etourdot</groupId>
             <artifactId>xpointer</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.concordion</groupId>
@@ -53,10 +53,6 @@
         <dependency>
             <groupId>xom</groupId>
             <artifactId>xom</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>

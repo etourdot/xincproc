@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>xpointer</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -27,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>net.sf.saxon</groupId>
-            <artifactId>saxon-he</artifactId>
+            <artifactId>Saxon-He</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
