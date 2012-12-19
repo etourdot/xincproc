@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>net.sf.saxon</groupId>
-            <artifactId>Saxon-He</artifactId>
+            <artifactId>Saxon-HE</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
