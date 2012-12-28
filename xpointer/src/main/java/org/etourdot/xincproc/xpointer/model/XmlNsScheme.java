@@ -13,21 +13,25 @@ public class XmlNsScheme extends DefaultScheme {
 
     private QName qName;
 
-    public XmlNsScheme(QName qName) {
+    public XmlNsScheme(final QName qName)
+    {
         super(XMLNS_NAME);
         this.qName = qName;
     }
 
-    public QName getQName() {
+    public QName getQName()
+    {
         return qName;
     }
 
-    public void setQName(QName qName) {
+    public void setQName(final QName qName)
+    {
         this.qName = qName;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return XMLNS_NAME + "(" + qName + ")";
     }
 }

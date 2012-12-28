@@ -11,16 +11,19 @@ import javax.xml.namespace.QName;
 public class OtherScheme extends DefaultScheme {
     private String schemeData;
 
-    public OtherScheme(QName nameScheme, String schemeData) {
+    public OtherScheme(final QName nameScheme, final String schemeData)
+    {
         super(nameScheme);
         this.schemeData = schemeData;
     }
 
-    public String getSchemeData() {
+    public String getSchemeData()
+    {
         return schemeData;
     }
 
-    public void setSchemeData(String schemeData) {
+    public void setSchemeData(final String schemeData)
+    {
         this.schemeData = schemeData;
     }
 }

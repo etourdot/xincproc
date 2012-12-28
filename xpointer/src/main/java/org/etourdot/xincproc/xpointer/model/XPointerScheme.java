@@ -13,21 +13,25 @@ public class XPointerScheme extends DefaultScheme {
 
     private String expression;
 
-    public XPointerScheme(String expression) {
+    public XPointerScheme(final String expression)
+    {
         super(XPOINTER_NAME);
         this.expression = expression;
     }
 
-    public String getExpression() {
+    public String getExpression()
+    {
         return expression;
     }
 
-    public void setExpression(String expression) {
+    public void setExpression(final String expression)
+    {
         this.expression = expression;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return XPOINTER_NAME + "(" + expression + ")";
     }
 }

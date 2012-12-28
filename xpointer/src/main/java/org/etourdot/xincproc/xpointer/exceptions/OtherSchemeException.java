@@ -10,7 +10,8 @@ import org.antlr.runtime.RecognitionException;
  * Time: 00:05
  */
 public class OtherSchemeException extends RecognitionException {
-    public OtherSchemeException(IntStream input) {
+    public OtherSchemeException(final IntStream input)
+    {
         super(input);
     }
 }

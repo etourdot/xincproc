@@ -15,11 +15,13 @@ public abstract class AbstractXPointerLexer extends Lexer {
     {
     }
 
-    public AbstractXPointerLexer(CharStream input) {
+    public AbstractXPointerLexer(final CharStream input)
+    {
         this(input, new RecognizerSharedState());
     }
 
-    AbstractXPointerLexer(CharStream input, RecognizerSharedState state) {
+    AbstractXPointerLexer(final CharStream input, final RecognizerSharedState state)
+    {
         super(input,state);
     }
 }

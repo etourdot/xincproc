@@ -12,19 +12,25 @@ import javax.xml.namespace.QName;
  * Time: 15:48
  */
 public class PointerFactory {
-    public ElementScheme createElementScheme(String name, String data) {
-        try {
+    public ElementScheme createElementScheme(final String name, final String data)
+    {
+        try
+        {
             return new ElementScheme(name, data);
-        } catch (ElementSchemeException e) {
+        }
+        catch (final ElementSchemeException e)
+        {
             return null;
         }
     }
 
-    public ShortHand createShortHand(String name) {
+    public ShortHand createShortHand(final String name)
+    {
         return new ShortHand(name);
     }
 
-    public XmlNsScheme createXmlNsScheme(String localpart, String uri) {
+    public XmlNsScheme createXmlNsScheme(final String localpart, final String uri)
+    {
         if (!Strings.isNullOrEmpty(localpart))
         {
             return new XmlNsScheme(new QName(uri, localpart));
@@ -35,19 +41,23 @@ public class PointerFactory {
         }
     }
 
-    public XmlNsScheme createXmlNsScheme(QName qName) {
+    public XmlNsScheme createXmlNsScheme(final QName qName)
+    {
         return new XmlNsScheme(qName);
     }
 
-    public XPathScheme createXPathScheme(String xpath) {
+    public XPathScheme createXPathScheme(final String xpath)
+    {
         return new XPathScheme(xpath);
     }
 
-    public XPointerScheme createXPointerScheme(String xpath) {
+    public XPointerScheme createXPointerScheme(final String xpath)
+    {
         return new XPointerScheme(xpath);
     }
 
-    public OtherScheme createOtherScheme(QName qName, String data) {
+    public OtherScheme createOtherScheme(final QName qName, final String data)
+    {
         return new OtherScheme(qName, data);
     }
 }

@@ -16,33 +16,40 @@ public class ElementScheme extends DefaultScheme {
     private String name;
     private String childSequence;
 
-    public ElementScheme(String name, String childSequence) throws ElementSchemeException {
+    public ElementScheme(final String name, final String childSequence) throws ElementSchemeException
+    {
         super(ELEMENT_NAME);
-        if (Strings.isNullOrEmpty(name) && Strings.isNullOrEmpty(childSequence)) {
+        if (Strings.isNullOrEmpty(name) && Strings.isNullOrEmpty(childSequence))
+        {
             throw new ElementSchemeException();
         }
         this.name = name;
         this.childSequence = childSequence;
     }
 
-    public String getChildSequence() {
+    public String getChildSequence()
+    {
         return childSequence;
     }
 
-    public void setChildSequence(String childSequence) {
+    public void setChildSequence(final String childSequence)
+    {
         this.childSequence = childSequence;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name)
+    {
         this.name = name;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return ELEMENT_NAME + "(" + name + ',' + childSequence + ")";
     }
 }

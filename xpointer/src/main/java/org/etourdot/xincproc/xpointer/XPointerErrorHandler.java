@@ -7,5 +7,5 @@ package org.etourdot.xincproc.xpointer;
  * Time: 21:25
  */
 public interface XPointerErrorHandler {
-    void reportError(String error);
+    void reportError(final String error);
 }

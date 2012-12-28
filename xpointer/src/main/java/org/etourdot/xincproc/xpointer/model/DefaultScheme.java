@@ -11,15 +11,18 @@ import javax.xml.namespace.QName;
 abstract class DefaultScheme implements PointerPart {
     private QName shemeName;
 
-    DefaultScheme(QName shemeName) {
+    DefaultScheme(final QName shemeName)
+    {
         this.shemeName = shemeName;
     }
 
-    public QName getShemeName() {
+    public QName getShemeName()
+    {
         return shemeName;
     }
 
-    public void setShemeName(QName shemeName) {
+    public void setShemeName(final QName shemeName)
+    {
         this.shemeName = shemeName;
     }
 }

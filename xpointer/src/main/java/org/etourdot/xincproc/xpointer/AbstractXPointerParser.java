@@ -14,42 +14,55 @@ public abstract class AbstractXPointerParser extends Parser {
     protected static final Logger log = LoggerFactory.getLogger(AbstractXPointerParser.class);
     private XPointerErrorHandler xPointerErrorHandler;
 
-    public AbstractXPointerParser(TokenStream input) {
+    public AbstractXPointerParser(final TokenStream input)
+    {
         super(input);
     }
 
-    public AbstractXPointerParser(TokenStream input, RecognizerSharedState state) {
+    public AbstractXPointerParser(final TokenStream input, final RecognizerSharedState state)
+    {
         super(input, state);
     }
 
-    public void setErrorHandler(XPointerErrorHandler xPointerErrorHandler) {
+    public void setErrorHandler(final XPointerErrorHandler xPointerErrorHandler)
+    {
         this.xPointerErrorHandler = xPointerErrorHandler;
     }
 
-    protected void reportOtherSchemeError(RecognitionException re) {
-        if (re instanceof MismatchedTokenException) {
+    protected void reportOtherSchemeError(final RecognitionException re)
+    {
+        if (re instanceof MismatchedTokenException)
+        {
             emitErrorMessage("Warning: unknown scheme '" + ((MismatchedTokenException) re).token.getText() + "'");
         }
     }
 
-    protected void reportElementSchemeError(RecognitionException re) {
-        if (re instanceof NoViableAltException) {
+    protected void reportElementSchemeError(final RecognitionException re)
+    {
+        if (re instanceof NoViableAltException)
+        {
             emitErrorMessage("Warning: unknown element scheme data '" + ((NoViableAltException) re).token.getText() + "'");
         }
     }
 
     @Override
-    public void emitErrorMessage(String msg) {
+    public void emitErrorMessage(final String msg)
+    {
         log.debug("emitErrorMessage '{}'", msg);
-        if (xPointerErrorHandler==null) {
+        if (xPointerErrorHandler==null)
+        {
             super.emitErrorMessage(msg);
-        } else {
+        }
+        else
+        {
             xPointerErrorHandler.reportError(msg);
         }
     }
 
     @Override
-    protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
+    protected Object recoverFromMismatchedToken(final IntStream input, final int ttype, final BitSet follow)
+            throws RecognitionException
+    {
         throw new MismatchedTokenException(ttype, input);
     }
 }

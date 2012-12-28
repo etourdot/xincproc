@@ -10,7 +10,8 @@ import org.antlr.runtime.RecognitionException;
  * Time: 23:19
  */
 public class XPointerSchemeException extends RecognitionException {
-    public XPointerSchemeException(IntStream input) {
+    public XPointerSchemeException(final IntStream input)
+    {
         super(input);
     }
 }

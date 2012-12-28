@@ -12,21 +12,25 @@ public class ShortHand extends DefaultScheme {
     private static final QName SHORTHAND_NAME = new QName("shorthand");
     private String name;
 
-    public ShortHand(String name) {
+    public ShortHand(final String name)
+    {
         super(SHORTHAND_NAME);
         this.name = name;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name)
+    {
         this.name = name;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return SHORTHAND_NAME + "(" + name + ")";
     }
 }

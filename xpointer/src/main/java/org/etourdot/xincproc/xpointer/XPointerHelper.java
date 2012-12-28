@@ -37,10 +37,10 @@ public final class XPointerHelper
     private static final QName XINCPROC_ROOT_QNAME = new QName(XINCPROC_NAMESPACE_URI, "root", XINCPROC_PREFIX);
     private static final QName XINCPROC_TOP_QNAME = new QName(XINCPROC_NAMESPACE_URI, "top", XINCPROC_PREFIX);
 
-    public static boolean isRootElement(final QName element)
+    public static boolean isNotRootElement(final QName element)
     {
         assert element != null;
-        return XINCPROC_ROOT_QNAME.equals(element);
+        return !XINCPROC_ROOT_QNAME.equals(element);
     }
 
     public static boolean isTopElement(final QName element)
@@ -52,7 +52,7 @@ public final class XPointerHelper
     public static Iterable<XdmNode> getTopElements(final XdmNode node)
     {
         assert node != null;
-        ImmutableList.Builder<XdmNode> listElementBuilder = new ImmutableList.Builder<XdmNode>();
+        final ImmutableList.Builder<XdmNode> listElementBuilder = new ImmutableList.Builder<XdmNode>();
         final XdmSequenceIterator iterator = getChildrenIterator(node);
         while (iterator.hasNext())
         {

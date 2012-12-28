@@ -48,26 +48,33 @@ public class XPointerEngine {
             "}";
     private static final DefaultXPointerErrorHandler defaultXPointerErrorHandler = new DefaultXPointerErrorHandler();
 
-    public String verifyXPathExpression(ImmutableList.Builder<XmlNsScheme> xmlnsBuilder, String xpathExpression) {
+    public String verifyXPathExpression(final ImmutableList.Builder<XmlNsScheme> xmlnsBuilder, final String xpathExpression)
+    {
         log.debug("verifyXPathExpression: {}", xpathExpression);
-        XPathCompiler xPathCompiler = processor.newXPathCompiler();
-        for (XmlNsScheme xmlNsScheme : xmlnsBuilder.build()) {
+        final XPathCompiler xPathCompiler = processor.newXPathCompiler();
+        for (final XmlNsScheme xmlNsScheme : xmlnsBuilder.build())
+        {
             final String localPart = xmlNsScheme.getQName().getLocalPart();
             final String namespaceUri = xmlNsScheme.getQName().getNamespaceURI();
             log.debug("declareNamespace {}:{}", localPart, namespaceUri);
             xPathCompiler.declareNamespace(localPart, namespaceUri);
         }
-        try {
+        try
+        {
             xPathCompiler.compile(xpathExpression);
-        } catch (SaxonApiException e) {
+        }
+        catch (final SaxonApiException e)
+        {
             return e.getCause().getMessage();
         }
         return "";
     }
 
-    private static class NilXPointerErrorHandler implements XPointerErrorHandler {
+    private static class NilXPointerErrorHandler implements XPointerErrorHandler
+    {
         @Override
-        public void reportError(String error) {
+        public void reportError(String error)
+        {
         }
     }
     private static final NilXPointerErrorHandler nilXPointerErrorHandler = new NilXPointerErrorHandler();
@@ -76,29 +83,34 @@ public class XPointerEngine {
     private XPointerErrorHandler xPointerErrorHandler;
     private XQueryEvaluator xQueryEvaluator;
 
-    public XPointerEngine() {
+    public XPointerEngine()
+    {
         this(new Processor(false));
     }
 
-    public XPointerEngine(final Processor processor) {
+    public XPointerEngine(final Processor processor)
+    {
         this.processor = processor;
         final XQueryCompiler xQueryCompiler= processor.newXQueryCompiler();
         try {
             final XQueryExecutable xQueryExecutable = xQueryCompiler.compile(QUERY);
             xQueryEvaluator = xQueryExecutable.load();
-        } catch (SaxonApiException e) {
+        }
+        catch (final SaxonApiException e)
+        {
             //TODO
             e.printStackTrace();
         }
     }
 
-    Pointer getPointer(final String pointerStr) throws XPointerException {
+    Pointer getPointer(final String pointerStr) throws XPointerException
+    {
         log.debug("start analyse '{}'", pointerStr);
         final CharStream input = new ANTLRStringStream(pointerStr);
         log.debug("-> start lexer analyse");
         final XPointerLexer xPointerLexer = new XPointerLexer(input);
         final CommonTokenStream commonTokenStream = new CommonTokenStream(xPointerLexer);
-        XPointerParser xPointerParser = new XPointerParser(commonTokenStream);
+        final XPointerParser xPointerParser = new XPointerParser(commonTokenStream);
         xPointerParser.setErrorHandler(xPointerErrorHandler);
         XPointerParser.pointer_return result = null;
         try
@@ -106,17 +118,18 @@ public class XPointerEngine {
             log.debug("-> start parser analyse");
             result = xPointerParser.pointer();
         }
-        catch (Exception e)
+        catch (final Exception e)
         {
             log.error("parser exception", e);
             throw new XPointerException(e);
         }
         CommonTree ast = (CommonTree) result.getTree();
         Pointer pointer = null;
-        if (ast != null) {
-            CommonTreeNodeStream nodes = new CommonTreeNodeStream(ast);
+        if (ast != null)
+        {
+            final CommonTreeNodeStream nodes = new CommonTreeNodeStream(ast);
             nodes.setTokenStream(commonTokenStream);
-            XPointerTree xPointerTree = new XPointerTree(nodes);
+            final XPointerTree xPointerTree = new XPointerTree(nodes);
             xPointerTree.setErrorHandler(xPointerErrorHandler);
             xPointerTree.setPointerFactory(new PointerFactory());
             try
@@ -124,7 +137,7 @@ public class XPointerEngine {
                 log.debug("-> start tree analyse");
                 pointer = xPointerTree.pointer();
             }
-            catch (Exception e)
+            catch (final Exception e)
             {
                 log.error("tree exception", e);
                 throw new XPointerException(e);
@@ -135,122 +148,173 @@ public class XPointerEngine {
     }
 
     public String execute(final String pointerStr, final Source source) throws XPointerException,
-            SaxonApiException {
+            SaxonApiException
+    {
         final XdmValue xdmValue = executeToXdmValue(pointerStr, source);
-        if (xdmValue != null) {
-            StringWriter stringWriter = new StringWriter();
+        if (xdmValue != null)
+        {
+            final StringWriter stringWriter = new StringWriter();
             Serializer serializer = processor.newSerializer(stringWriter);
             serializer.setOutputProperty(Serializer.Property.OMIT_XML_DECLARATION, "yes");
             serializer.serializeXdmValue(xdmValue);
             return stringWriter.toString();
-        } else {
+        }
+        else
+        {
             return "";
         }
     }
 
     XdmValue executeToXdmValue(final String pointerStr, final Source source) throws XPointerException,
-            SaxonApiException {
+            SaxonApiException
+    {
         final Pointer pointer = getPointer(pointerStr);
-        if (pointer != null) {
-            if (pointer.isShortHand()) {
+        if (pointer != null)
+        {
+            if (pointer.isShortHand())
+            {
                 return executeShorthandPointer(pointer, source);
-            } else {
+            }
+            else
+            {
                 return executeSchemaPointer(pointer, source);
             }
-        } else {
+        }
+        else
+        {
             return null;
         }
 
     }
 
     public void executeToDestination(final String pointerStr, final Source source, final Destination destination) throws XPointerException,
-            SaxonApiException {
+            SaxonApiException
+    {
         final Pointer pointer = getPointer(pointerStr);
-        if (pointer.isShortHand()) {
+        if (pointer.isShortHand())
+        {
             executeShorthandPointer(pointer, source, destination);
-        } else {
+        }
+        else
+        {
             executeSchemaPointer(pointer, source, destination);
         }
     }
 
-    public void setXPointerErrorHandler(XPointerErrorHandler xPointerErrorHandler) {
+    public void setXPointerErrorHandler(final XPointerErrorHandler xPointerErrorHandler)
+    {
         this.xPointerErrorHandler = xPointerErrorHandler;
     }
 
-    public XPointerErrorHandler getxPointerErrorHandler() {
+    public XPointerErrorHandler getxPointerErrorHandler()
+    {
         return xPointerErrorHandler;
     }
 
-    private XdmValue executeSchemaPointer(final Pointer pointer, final Source source) throws SaxonApiException {
-        ImmutableList<XQueryEvaluator> listxXQueryEvaluators = initListXQueryEvaluator(pointer, source, null);
-        if (!listxXQueryEvaluators.isEmpty()) {
+    private XdmValue executeSchemaPointer(final Pointer pointer, final Source source) throws SaxonApiException
+    {
+        final ImmutableList<XQueryEvaluator> listxXQueryEvaluators = initListXQueryEvaluator(pointer, source, null);
+        if (!listxXQueryEvaluators.isEmpty())
+        {
             return listxXQueryEvaluators.get(0).evaluate();
-        } else {
+        }
+        else
+        {
             return new XdmValue(XdmEmptySequence.getInstance());
         }
     }
 
-    private XdmValue executeShorthandPointer(final Pointer pointer, final Source source) throws SaxonApiException {
+    private XdmValue executeShorthandPointer(final Pointer pointer, final Source source) throws SaxonApiException
+    {
         final XQueryEvaluator xQueryEvShortHand = getShortHandXQueryEvaluator(pointer, source);
         return xQueryEvShortHand.evaluate();
     }
 
     private void executeSchemaPointer(final Pointer pointer, final Source source, final Destination destination)
-            throws SaxonApiException {
-        ImmutableList<XQueryEvaluator> listxXQueryEvaluators = initListXQueryEvaluator(pointer, source, destination);
-        if (!listxXQueryEvaluators.isEmpty()) {
+            throws SaxonApiException
+    {
+        final ImmutableList<XQueryEvaluator> listxXQueryEvaluators = initListXQueryEvaluator(pointer, source, destination);
+        if (!listxXQueryEvaluators.isEmpty())
+        {
             listxXQueryEvaluators.get(0).run();
         }
     }
 
-    private ImmutableList<XQueryEvaluator> initListXQueryEvaluator(Pointer pointer, Source source,
-                                                                   Destination destination) throws SaxonApiException {
-        ImmutableList.Builder<XQueryEvaluator> xQueryEvaluatorBuilder = new ImmutableList.Builder<XQueryEvaluator>();
+    private ImmutableList<XQueryEvaluator> initListXQueryEvaluator(final Pointer pointer, final Source source,
+                                                                   final Destination destination)
+            throws SaxonApiException
+    {
+        final ImmutableList.Builder<XQueryEvaluator> xQueryEvaluatorBuilder = new ImmutableList.Builder<XQueryEvaluator>();
         constructXQueryEvaluatorBuilder(pointer, xQueryEvaluatorBuilder);
         return setSourceAndDestination(source, destination, xQueryEvaluatorBuilder);
     }
 
-    private void constructXQueryEvaluatorBuilder(Pointer pointer, ImmutableList.Builder<XQueryEvaluator> xQueryEvaluatorBuilder)
-        throws SaxonApiException {
-        ImmutableList.Builder<XmlNsScheme> xmlnsBuilder = new ImmutableList.Builder<XmlNsScheme>();
-        for (PointerPart part : pointer.getSchemeBased()) {
-            if (part instanceof XmlNsScheme) {
+    private void constructXQueryEvaluatorBuilder(final Pointer pointer, final ImmutableList.Builder<XQueryEvaluator> xQueryEvaluatorBuilder)
+        throws SaxonApiException
+    {
+        final ImmutableList.Builder<XmlNsScheme> xmlnsBuilder = new ImmutableList.Builder<XmlNsScheme>();
+        for (final PointerPart part : pointer.getSchemeBased())
+        {
+            if (part instanceof XmlNsScheme)
+            {
                 xmlnsBuilder.add((XmlNsScheme) part);
-            } else {
+            }
+            else
+            {
                 final XQueryCompiler xQueryCompiler = processor.newXQueryCompiler();
                 declareNamespaces(xmlnsBuilder, xQueryCompiler);
                 String query = null;
-                if (part instanceof ElementScheme) {
+                if (part instanceof ElementScheme)
+                {
                     query = XPointerAnalyser.getQueryFromElementScheme((ElementScheme) part);
-                } else if (part instanceof XPointerScheme) {
+                }
+                else if (part instanceof XPointerScheme)
+                {
                     final String validExpr = verifyXPathExpression(xmlnsBuilder, ((XPointerScheme) part).getExpression());
-                    if (Strings.isNullOrEmpty(validExpr)) {
+                    if (Strings.isNullOrEmpty(validExpr))
+                    {
                         query = XPointerAnalyser.getQueryFromXPointerScheme((XPointerScheme) part);
-                    } else {
-                        if (xPointerErrorHandler != null) {
-                            xPointerErrorHandler.reportError(validExpr);
-                        }
                     }
-                } else if (part instanceof XPathScheme) {
-                    final String validExpr = verifyXPathExpression(xmlnsBuilder, ((XPathScheme) part).getExpression());
-                    if (Strings.isNullOrEmpty(validExpr)) {
-                        query = XPointerAnalyser.getQueryFromXPathScheme((XPathScheme) part);
-                    } else {
-                        if (xPointerErrorHandler != null) {
+                    else
+                    {
+                        if (xPointerErrorHandler != null)
+                        {
                             xPointerErrorHandler.reportError(validExpr);
                         }
                     }
                 }
-                if (!Strings.isNullOrEmpty(query)) {
+                else if (part instanceof XPathScheme)
+                {
+                    final String validExpr = verifyXPathExpression(xmlnsBuilder, ((XPathScheme) part).getExpression());
+                    if (Strings.isNullOrEmpty(validExpr))
+                    {
+                        query = XPointerAnalyser.getQueryFromXPathScheme((XPathScheme) part);
+                    }
+                    else
+                    {
+                        if (xPointerErrorHandler != null)
+                        {
+                            xPointerErrorHandler.reportError(validExpr);
+                        }
+                    }
+                }
+                if (!Strings.isNullOrEmpty(query))
+                {
                     final XQueryExecutable xQueryExecutable;
-                    try {
+                    try
+                    {
                         xQueryExecutable = xQueryCompiler.compile(query);
                         final XQueryEvaluator xQueryEvalPart = xQueryExecutable.load();
                         xQueryEvaluatorBuilder.add(xQueryEvalPart);
-                    } catch (SaxonApiException e) {
-                        if (xPointerErrorHandler != null) {
+                    }
+                    catch (final SaxonApiException e)
+                    {
+                        if (xPointerErrorHandler != null)
+                        {
                             xPointerErrorHandler.reportError(e.getMessage());
-                        } else {
+                        }
+                        else
+                        {
                             throw e;
                         }
                     }
@@ -259,38 +323,50 @@ public class XPointerEngine {
         }
     }
 
-    private void declareNamespaces(ImmutableList.Builder<XmlNsScheme> xmlnsBuilder, XQueryCompiler xQueryCompiler) {
-        ImmutableList<XmlNsScheme> listXmlns = xmlnsBuilder.build();
-        for (XmlNsScheme xmlNsScheme : listXmlns) {
+    private void declareNamespaces(final ImmutableList.Builder<XmlNsScheme> xmlnsBuilder, final  XQueryCompiler xQueryCompiler)
+    {
+        final ImmutableList<XmlNsScheme> listXmlns = xmlnsBuilder.build();
+        for (XmlNsScheme xmlNsScheme : listXmlns)
+        {
             final QName qName = xmlNsScheme.getQName();
             log.debug("declareNamespaces:{},{}", qName.getPrefix(), qName.getNamespaceURI());
             xQueryCompiler.declareNamespace(qName.getLocalPart(), qName.getNamespaceURI());
         }
     }
 
-    private ImmutableList<XQueryEvaluator> setSourceAndDestination(Source source, Destination destination,
-                                                                   ImmutableList.Builder<XQueryEvaluator> xQueryEvaluatorBuilder)
-            throws SaxonApiException {
-        ImmutableList<XQueryEvaluator> listxXQueryEvaluators = xQueryEvaluatorBuilder.build();
-        for (int i = 0 ; i < listxXQueryEvaluators.size() ; i++) {
-            if (i==0) {
+    private ImmutableList<XQueryEvaluator> setSourceAndDestination(final Source source, final Destination destination,
+                                                                   final ImmutableList.Builder<XQueryEvaluator> xQueryEvaluatorBuilder)
+            throws SaxonApiException
+    {
+        final ImmutableList<XQueryEvaluator> listxXQueryEvaluators = xQueryEvaluatorBuilder.build();
+        for (int i = 0 ; i < listxXQueryEvaluators.size() ; i++)
+        {
+            if (i==0)
+            {
                 listxXQueryEvaluators.get(i).setSource(source);
             }
-            if (i<(listxXQueryEvaluators.size()-1)) {
+            if (i<(listxXQueryEvaluators.size()-1))
+            {
                 listxXQueryEvaluators.get(i).setDestination(listxXQueryEvaluators.get(i+1));
-            } else if (i==(listxXQueryEvaluators.size()-1)) {
+            }
+            else if (i==(listxXQueryEvaluators.size()-1))
+            {
                 listxXQueryEvaluators.get(i).setDestination(destination);
             }
         }
         return listxXQueryEvaluators;
     }
 
-    private void executeShorthandPointer(final Pointer pointer, final Source source, final Destination destination) throws SaxonApiException {
+    private void executeShorthandPointer(final Pointer pointer, final Source source, final Destination destination)
+            throws SaxonApiException
+    {
         final XQueryEvaluator xQueryEvShortHand = getShortHandXQueryEvaluator(pointer, source);
         xQueryEvShortHand.run(destination);
     }
 
-    private XQueryEvaluator getShortHandXQueryEvaluator(Pointer pointer, Source source) throws SaxonApiException {
+    private XQueryEvaluator getShortHandXQueryEvaluator(final Pointer pointer, final Source source)
+            throws SaxonApiException
+    {
         final String query = XPointerAnalyser.getQueryFromShortHand(pointer.getShortHand());
         final XQueryCompiler xQueryCompiler = processor.newXQueryCompiler();
         final XQueryExecutable xQueryExecutable = xQueryCompiler.compile(query);
@@ -299,11 +375,13 @@ public class XPointerEngine {
         return xQueryEvShortHand;
     }
 
-    public static XPointerErrorHandler createNilXPointerErrorHandler() {
+    public static XPointerErrorHandler createNilXPointerErrorHandler()
+    {
         return nilXPointerErrorHandler;
     }
 
-    public static XPointerErrorHandler createDefaultXPointerErrorHandler() {
+    public static XPointerErrorHandler createDefaultXPointerErrorHandler()
+    {
         return defaultXPointerErrorHandler;
     }
 }

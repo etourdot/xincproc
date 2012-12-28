@@ -13,21 +13,25 @@ public class XPathScheme extends DefaultScheme {
 
     private String expression;
 
-    public XPathScheme(String expression) {
+    public XPathScheme(final String expression)
+    {
         super(XPATH_NAME);
         this.expression = expression;
     }
 
-    public String getExpression() {
+    public String getExpression()
+    {
         return expression;
     }
 
-    public void setExpression(String expression) {
+    public void setExpression(final String expression)
+    {
         this.expression = expression;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return XPATH_NAME + "(" + expression + ")";
     }
 }
