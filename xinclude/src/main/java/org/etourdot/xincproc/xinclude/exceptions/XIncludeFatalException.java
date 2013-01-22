@@ -19,12 +19,14 @@
  */
 package org.etourdot.xincproc.xinclude.exceptions;
 
+import org.xml.sax.SAXException;
+
 /**
  * @author Emmanuel Tourdot
  */
-public class XIncludeFatalException extends Exception
+public class XIncludeFatalException extends SAXException
 {
-    public XIncludeFatalException(final Throwable nestedException)
+    public XIncludeFatalException(final Exception nestedException)
     {
         super(nestedException);
     }

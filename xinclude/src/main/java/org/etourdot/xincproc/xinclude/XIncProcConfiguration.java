@@ -20,11 +20,11 @@
 package org.etourdot.xincproc.xinclude;
 
 import net.sf.saxon.s9api.Processor;
-import org.etourdot.xincproc.xinclude.stax.XIncProcStaxFactory;
 import org.etourdot.xincproc.xpointer.XPointerEngine;
 import org.xml.sax.helpers.NamespaceSupport;
 
 import javax.xml.namespace.QName;
+import javax.xml.transform.ErrorListener;
 
 /**
  * @author Emmanuel Tourdot
@@ -53,9 +53,7 @@ public class XIncProcConfiguration
     private boolean baseUrisFixup = true;
     private boolean languageFixup = true;
     private String xincfactory;
-    private XIncProcFactory factory;
-    private XIncProcEngineHandler engine;
-    private Processor processor;
+    private final Processor processor;
     private XPointerEngine xPointerEngine;
 
     public XIncProcConfiguration()
@@ -63,37 +61,9 @@ public class XIncProcConfiguration
         this.processor = new Processor(false);
     }
 
-    public XIncProcConfiguration(Processor processor)
+    public XIncProcConfiguration(final Processor processor)
     {
         this.processor = processor;
-    }
-
-    public XIncProcEngineHandler getEngine()
-    {
-        if (engine == null)
-        {
-            engine = getFactory().newEngine();
-        }
-        return engine;
-    }
-
-    public XIncProcFactory getFactory()
-    {
-        if (factory == null)
-        {
-            factory = new XIncProcStaxFactory(this);
-            if (xincfactory != null)
-            {
-                try {
-                    factory = (XIncProcFactory) getClass().getClassLoader().loadClass(xincfactory).newInstance();
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return factory;
     }
 
     public XPointerEngine getXPointerEngine()
@@ -105,7 +75,7 @@ public class XIncProcConfiguration
         return xPointerEngine;
     }
 
-    public void setConfigurationProperty(String name, Object value)
+    public void setConfigurationProperty(final String name, final Object value)
     {
         if (XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID.equals(name))
         {
@@ -131,7 +101,7 @@ public class XIncProcConfiguration
         }
     }
 
-    public Object getConfigurationProperty(String name)
+    public Object getConfigurationProperty(final String name)
     {
         if (XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID.equals(name))
         {
@@ -142,6 +112,11 @@ public class XIncProcConfiguration
             return languageFixup;
         }
         return null;
+    }
+
+    public void setErrorListener(final ErrorListener errorListener)
+    {
+        getProcessor().getUnderlyingConfiguration().setErrorListener(errorListener);
     }
 
     public boolean isBaseUrisFixup() {
@@ -162,22 +137,8 @@ public class XIncProcConfiguration
         this.languageFixup = languageFixup;
     }
 
-    public void setXIncProcFactory(final String className)
-    {
-        this.xincfactory = className;
-    }
-
-    public String getXIncProcFactory()
-    {
-        return this.xincfactory;
-    }
-
     public Processor getProcessor()
     {
         return processor;
-    }
-
-    public void setProcessor(Processor processor) {
-        this.processor = processor;
     }
 }

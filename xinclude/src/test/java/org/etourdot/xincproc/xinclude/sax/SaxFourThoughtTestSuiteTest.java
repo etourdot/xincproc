@@ -26,7 +26,7 @@ import org.junit.Test;
  * @author Emmanuel Tourdot
  */
 public class SaxFourThoughtTestSuiteTest extends AbstractSuiteTest {
-    
+
     @Test
     public void fourthought_include_01() throws Exception
     {

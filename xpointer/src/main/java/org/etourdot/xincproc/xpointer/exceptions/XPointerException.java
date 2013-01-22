@@ -11,4 +11,9 @@ public class XPointerException extends Exception {
     {
         super(cause);
     }
+
+    public XPointerException(final String message, final Throwable cause)
+    {
+        super(message, cause);
+    }
 }

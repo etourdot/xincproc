@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -49,7 +49,6 @@ public final class XIncProcUtils {
         final String accept = (acceptAtt==null)? null : acceptAtt.getValue();
         final Attribute acceptLanguageAtt = startElement.getAttributeByName(XIncProcConfiguration.ATT_ACCEPT_LANGUAGE);
         final String acceptLanguage = (acceptLanguageAtt==null)? null : acceptLanguageAtt.getValue();
-        verifyXIncludeAttributes(href, parse, xpointer, encoding, accept, acceptLanguage);
     }
 
     /**
@@ -69,83 +68,9 @@ public final class XIncProcUtils {
         final String encoding = atts.getValue("", XIncProcConfiguration.ATT_ENCODING.getLocalPart());
         final String accept = atts.getValue("", XIncProcConfiguration.ATT_ACCEPT.getLocalPart());
         final String acceptLanguage = atts.getValue("", XIncProcConfiguration.ATT_ACCEPT_LANGUAGE.getLocalPart());
-        verifyXIncludeAttributes(href, parse, xpointer, encoding, accept, acceptLanguage);
     }
 
-    /**
-     * Test Attributes
-     * @param href
-     * @param parse
-     * @param xpointer
-     * @param encoding
-     * @param accept
-     * @param acceptLanguage
-     * @throws XIncludeFatalException
-     * @throws XIncludeResourceException
-     */
-    static void verifyXIncludeAttributes(final String href, final String parse, final String xpointer,
-                                                 final String encoding, final String accept, final String acceptLanguage)
-            throws XIncludeFatalException, XIncludeResourceException
-    {
-        if (Strings.isNullOrEmpty(href))
-        {
-            if ((Strings.isNullOrEmpty(parse) || XIncProcConfiguration.XML.equals(parse)) && Strings.isNullOrEmpty(xpointer))
-            {
-                throw new XIncludeFatalException("If the href attribute is absent when parse=\"xml\", the xpointer attribute must be present.");
-            }
-        }
-        else
-        {
-            if (href.contains("#"))
-            {
-                throw new XIncludeFatalException("Fragment identifiers must not be used.");
-            }
-            try
-            {
-                new URI(href);
-
-            }
-            catch (final URISyntaxException e)
-            {
-                throw new XIncludeFatalException("Href must be a valid URI");
-            }
-        }
-
-        if (!Strings.isNullOrEmpty(parse))
-        {
-            if (!XIncProcConfiguration.XML.equals(parse) && !XIncProcConfiguration.TEXT.equals(parse))
-            {
-                throw new XIncludeFatalException("Parse value must be \"xml\" or \"text\".");
-            }
-            if (XIncProcConfiguration.TEXT.equals(parse)) {
-                if (!Strings.isNullOrEmpty(xpointer))
-                {
-                    throw new XIncludeFatalException("The xpointer attribute must not be present when parse=\"text\"");
-                }
-                try
-                {
-                    if (!Strings.isNullOrEmpty(encoding))
-                    {
-                        Charset.forName(encoding);
-                    }
-                }
-                catch (final Exception e)
-                {
-                    throw new XIncludeResourceException("Encoding attribute should be a valid encoding name");
-                }
-            }
-        }
-        if (!Strings.isNullOrEmpty(accept) && checkVal(accept))
-        {
-            throw new XIncludeFatalException("Attribute \"Accept\" containing characters outside the range #x20 through #x7E");
-        }
-        if (!Strings.isNullOrEmpty(acceptLanguage) && checkVal(acceptLanguage))
-        {
-            throw new XIncludeFatalException("Attribute \"AcceptLanguage\" containing characters outside the range #x20 through #x7E");
-        }
-    }
-
-    /**
+     /**
      * Return if element is Xinclude or not
      * @param qname
      * @return
@@ -181,21 +106,30 @@ public final class XIncProcUtils {
         return false;
     }
 
-
-    public static boolean checkVal(final String val)
+    public static URI computeBase(final List<URI> uris)
     {
-        final byte[] bytes = val.getBytes();
-        for (byte aByte : bytes)
+        final Iterator<URI> it = uris.iterator();
+        URI resultURI = it.next();
+        while (it.hasNext())
         {
-            if (aByte < 32 || aByte > 126)
-            {
-                return true;
-            }
+            final URI uri = it.next();
+            resultURI = resultURI.resolve(uri);
         }
-        return false;
+        return  resultURI;
     }
 
-    public static URI computeBase(final Stack<URI> stack)
+    public static URI resolveBase(final URI baseURI, final List<URI> uris) throws XIncludeFatalException
+    {
+        final URI computedUri = computeBase(uris);
+        final URI resolvedUri = baseURI.resolve(computedUri);
+        if (resolvedUri.compareTo(baseURI)==0)
+        {
+            throw new XIncludeFatalException("Inclusion loop error");
+        }
+        return resolvedUri;
+    }
+
+    private static URI computeBase(final Stack<URI> stack)
     {
         assert !stack.isEmpty();
         final Iterator<URI> it = stack.iterator();

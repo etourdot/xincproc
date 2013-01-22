@@ -14,17 +14,48 @@ import java.io.StringReader;
  * Time: 23:41
  */
 public abstract class AbstractXPointerTest {
-    public Result execute(String pointer, String source) throws SaxonApiException, XPointerException {
-        Result result = new Result();
-        XPointerEngine xPointerEngine = new XPointerEngine();
-        PrintableXPointerErrorHandler printableXPointerErrorHandler = new PrintableXPointerErrorHandler();
+
+    public Result executeWithBaseFixup(final String pointer, final String source, final String baseURI)
+            throws SaxonApiException, XPointerException
+    {
+        final XPointerEngine xPointerEngine = new XPointerEngine();
+        xPointerEngine.setBaseURI((baseURI.equals("null"))?null:baseURI);
+        return getResult(pointer, source, xPointerEngine);
+    }
+
+    public Result executeWithLang(final String pointer, final String lang, final String source)
+            throws SaxonApiException, XPointerException
+    {
+        final XPointerEngine xPointerEngine = new XPointerEngine();
+        if ("(null)".equals(lang))
+        {
+            xPointerEngine.setLanguage(null);
+        }
+        else
+        {
+            xPointerEngine.setLanguage(lang);
+        }
+        return getResult(pointer, source, xPointerEngine);
+    }
+
+    private Result getResult(String pointer, String source, XPointerEngine xPointerEngine) throws XPointerException, SaxonApiException {
+        final Result result = new Result();
+        final PrintableXPointerErrorHandler printableXPointerErrorHandler = new PrintableXPointerErrorHandler();
         xPointerEngine.setXPointerErrorHandler(printableXPointerErrorHandler);
         result.result = xPointerEngine.execute(pointer, new SAXSource(new InputSource(new StringReader(source))));
         result.error = printableXPointerErrorHandler.toString();
         return result;
     }
 
-    class Result {
+    public Result execute(final String pointer, final String source)
+        throws SaxonApiException, XPointerException
+    {
+        final XPointerEngine xPointerEngine = new XPointerEngine();
+        return getResult(pointer, source, xPointerEngine);
+    }
+
+    class Result
+    {
         public String result;
         public String error;
     }

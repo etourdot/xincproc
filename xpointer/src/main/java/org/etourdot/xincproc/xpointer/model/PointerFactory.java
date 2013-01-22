@@ -33,7 +33,7 @@ public class PointerFactory {
     {
         if (!Strings.isNullOrEmpty(localpart))
         {
-            return new XmlNsScheme(new QName(uri, localpart));
+            return createXmlNsScheme(new QName(uri, localpart));
         }
         else
         {

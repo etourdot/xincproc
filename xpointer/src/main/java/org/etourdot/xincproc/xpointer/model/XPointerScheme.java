@@ -11,27 +11,15 @@ import javax.xml.namespace.QName;
 public class XPointerScheme extends DefaultScheme {
     private static final QName XPOINTER_NAME = new QName("xpointer");
 
-    private String expression;
-
     public XPointerScheme(final String expression)
     {
         super(XPOINTER_NAME);
         this.expression = expression;
     }
 
-    public String getExpression()
-    {
-        return expression;
-    }
-
-    public void setExpression(final String expression)
-    {
-        this.expression = expression;
-    }
-
     @Override
     public String toString()
     {
-        return XPOINTER_NAME + "(" + expression + ")";
+        return XPOINTER_NAME + "(" + super.getExpression() + ")";
     }
 }

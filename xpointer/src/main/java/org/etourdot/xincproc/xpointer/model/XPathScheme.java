@@ -11,21 +11,9 @@ import javax.xml.namespace.QName;
 public class XPathScheme extends DefaultScheme {
     private static final QName XPATH_NAME = new QName("xpath");
 
-    private String expression;
-
     public XPathScheme(final String expression)
     {
         super(XPATH_NAME);
-        this.expression = expression;
-    }
-
-    public String getExpression()
-    {
-        return expression;
-    }
-
-    public void setExpression(final String expression)
-    {
         this.expression = expression;
     }
 

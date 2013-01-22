@@ -43,7 +43,7 @@ fragment NCNAMECHAR
 	        ;
 
 SPECIALCARS
-	        :	'"' | '\'' | '_' | '[' | ']' | '/' | ',' | '*' | '-' | '.' | '@'
+	        :	'"' | '\'' | '_' | '[' | ']' | '/' | ',' | '*' | '-' | '.' | '@' | '<' | '>'
 	        ;
 
 NCNAME	    :  NCNAMESTARTCHAR NCNAMECHAR*

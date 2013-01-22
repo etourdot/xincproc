@@ -52,11 +52,6 @@ public class Pointer {
         return shortHand;
     }
 
-    public void setShortHand(final ShortHand shortHand)
-    {
-        this.shortHand = shortHand;
-    }
-
     public boolean isSchemeBased()
     {
         return !schemeBased.isEmpty();
@@ -65,11 +60,6 @@ public class Pointer {
     public ImmutableList<PointerPart> getSchemeBased()
     {
         return schemeBased;
-    }
-
-    public void setSchemeBased(final ImmutableList<PointerPart> schemeBased)
-    {
-        this.schemeBased = schemeBased;
     }
 
     @Override

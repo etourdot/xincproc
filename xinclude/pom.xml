@@ -43,6 +43,10 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr-runtime</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.concordion</groupId>
             <artifactId>concordion</artifactId>
         </dependency>

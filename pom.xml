@@ -56,6 +56,7 @@
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Libraries versions -->
         <slf4j.version>1.7.2</slf4j.version>
@@ -82,6 +83,7 @@
         <itest.testOutputDirectory>${project.build.directory}/integrationtest-classes</itest.testOutputDirectory>
         <concordion.reportDirectory>${project.build.directory}/concordion-reports</concordion.reportDirectory>
         <maven-failsafe-plugin.version>2.9</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>2.9</maven-surefire-plugin.version>
     </properties>
 
     <licenses>
@@ -129,7 +131,6 @@
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr-runtime</artifactId>
                 <version>${antlr-runtime.version}</version>
-                <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>org.antlr</groupId>
@@ -324,6 +325,11 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

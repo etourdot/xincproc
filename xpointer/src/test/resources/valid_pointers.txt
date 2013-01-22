@@ -4,6 +4,7 @@ test:xpath(somedata)element(/1/1)
 xpath(/doc/p[contains(.,'^(') and contains(.,'^)')])
 xpointer(id('f2'))element(/1/2)
 xpath(/doc/p[position()&lt;3])
+xpath(/doc/p[position()>3])
 xpath(/doc/p[1]/node())
 element(intro)
 chap1

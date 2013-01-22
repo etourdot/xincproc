@@ -16,16 +16,12 @@ public class ShortHand extends DefaultScheme {
     {
         super(SHORTHAND_NAME);
         this.name = name;
+        this.expression = ID_SEARCH_EXPR.replaceAll("#ID#", name);
     }
 
     public String getName()
     {
         return name;
-    }
-
-    public void setName(final String name)
-    {
-        this.name = name;
     }
 
     @Override

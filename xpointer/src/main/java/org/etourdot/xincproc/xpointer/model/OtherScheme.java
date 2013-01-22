@@ -21,9 +21,4 @@ public class OtherScheme extends DefaultScheme {
     {
         return schemeData;
     }
-
-    public void setSchemeData(final String schemeData)
-    {
-        this.schemeData = schemeData;
-    }
 }

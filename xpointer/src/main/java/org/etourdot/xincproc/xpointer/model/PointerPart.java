@@ -7,4 +7,5 @@ package org.etourdot.xincproc.xpointer.model;
  * Time: 22:43
  */
 public interface PointerPart {
+    String getExpression();
 }

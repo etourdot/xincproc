@@ -26,19 +26,20 @@
             République française et le Gouvernement de la République du Bénin relatif à la gestion concertée des flux
             migratoires et au codéveloppement (1)
         </titrefull>
-        <etat>VIGUEUR</etat>
+        <etat xml:id="id5">VIGUEUR</etat>
         <date_debut/>
         <date_fin/>
         <autorite/>
         <ministere/>
     </meta_texte_version>
     <article>
-        <meta_article>
+        <meta_article xml:base="/test/">
             <num>unique.</num>
             <etat xml:id="id3">VIGUEUR</etat>
             <date_debut>2999-01-01</date_debut>
             <date_fin>2999-01-01</date_fin>
             <type>AUTONOME</type>
+            <author id="auth1">myself</author>
             <titre>LOI n°2009-581
                 du 25 mai 2009 art unique.
             </titre>
@@ -57,7 +58,7 @@
             <lien_art xml:id="id2" debut="2999-01-01" fin="2999-01-01" id="JORFARTI000020664906" num="unique." origine="JORF"
                       etat="VIGUEUR"/>
         </versions_art>
-        <contenu>
+        <contenu id="id4" xml:lang="fr">
             <para>Est autorisée l'approbation de l'accord entre le Gouvernement de la République française et le
                 Gouvernement de la République du Bénin relatif à la gestion concertée des flux migratoires et au
                 codéveloppement (ensemble cinq annexes), signé à Cotonou le 28 novembre 2007, et dont le texte est

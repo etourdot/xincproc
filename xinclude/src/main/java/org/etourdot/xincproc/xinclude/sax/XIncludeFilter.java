@@ -124,7 +124,7 @@ public class XIncludeFilter extends XMLFilterImpl
         {
 
         }
-        else if (!XPointerHelper.isRootElement(qnameElt))
+        else if (XPointerHelper.isNotRootElement(qnameElt))
         {
             final String baseAtt = attributes.getValue(NamespaceSupport.XMLNS, XIncProcConfiguration.XMLBASE_QNAME.getLocalPart());
             final AttributesImpl attributesImpl = new AttributesImpl(attributes);
@@ -197,7 +197,7 @@ public class XIncludeFilter extends XMLFilterImpl
         {
 
         }
-        else if (!XPointerHelper.isRootElement(qnameElt))
+        else if (XPointerHelper.isNotRootElement(qnameElt))
         {
             this.level --;
             if (XIncProcUtils.isXInclude(qnameElt))

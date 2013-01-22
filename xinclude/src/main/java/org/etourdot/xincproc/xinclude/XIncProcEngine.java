@@ -19,27 +19,35 @@
  */
 package org.etourdot.xincproc.xinclude;
 
-import net.sf.saxon.s9api.Processor;
+import net.sf.saxon.s9api.*;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
-import org.etourdot.xincproc.xinclude.sax.XIncludeFilter;
+import org.etourdot.xincproc.xinclude.sax.XIncProcXIncludeFilter;
+import org.etourdot.xincproc.xinclude.sax.XIncludeContext;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLFilter;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
+import javax.xml.transform.sax.SAXSource;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * @author Emmanuel Tourdot
  */
-public class XIncProcEngine implements XIncProcEngineHandler
+public class XIncProcEngine
 {
 
     private static XIncProcConfiguration configuration;
 
     public XIncProcEngine()
     {
-        this.configuration = new XIncProcConfiguration();
+        configuration = new XIncProcConfiguration();
     }
 
     public XIncProcEngine(final XIncProcConfiguration configuration)
@@ -47,38 +55,80 @@ public class XIncProcEngine implements XIncProcEngineHandler
         this.configuration = configuration;
     }
 
-    public XIncProcEngine(Processor processor)
+    public XIncProcEngine(final Processor processor)
     {
-        if (this.configuration != null)
-        {
-            this.configuration.setProcessor(processor);
-        }
-        else
-        {
-            this.configuration = new XIncProcConfiguration(processor);
-        }
+        configuration = new XIncProcConfiguration(processor);
     }
 
-    public static XIncludeFilter newXIncludeFilter(final URI baseURI) {
-        return new XIncludeFilter(baseURI, configuration);
-    }
-
-    @Override
-    public void parse(final URI baseURI, final OutputStream output) throws XIncludeFatalException
+    public static XMLFilter newXIncludeFilter(final URI baseURI)
     {
-        configuration.getEngine().parse(baseURI, output);
+        XIncludeContext context = new XIncludeContext(configuration);
+        context.setSourceURI(baseURI);
+        return new XIncProcXIncludeFilter(context);
     }
 
-    @Override
+    public void parse(final URI baseURI, final OutputStream output)
+            throws XIncludeFatalException
+    {
+        final XMLFilter filter = newXIncludeFilter(baseURI);
+        final InputSource inputSource = new InputSource(baseURI.toASCIIString());
+        try
+        {
+            final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+            filter.setParent(xmlReader);
+            final SAXSource saxSource = new SAXSource(inputSource);
+            saxSource.setXMLReader(filter);
+            final XdmNode node = configuration.getProcessor().newDocumentBuilder().wrap(saxSource);
+            Serializer serializer = configuration.getProcessor().newSerializer(output);
+            configuration.getProcessor().writeXdmValue(node, serializer);
+        }
+        catch (final SAXException e)
+        {
+            throw new XIncludeFatalException(e);
+        }
+        catch (SaxonApiException e)
+        {
+            throw new XIncludeFatalException(e);
+        }
+    }
+
     public void parse(final Source source, final Result result) throws XIncludeFatalException
     {
-        configuration.getEngine().parse(source, result);
+        //parse(source, result);
     }
 
-    @Override
-    public void parse(final InputStream source, final String systemId, final OutputStream result) throws XIncludeFatalException
+    public void parse(final InputStream source, final String systemId, final OutputStream output)
+            throws XIncludeFatalException
     {
-        configuration.getEngine().parse(source, systemId, result);
+        final Processor processor = configuration.getProcessor();
+        final XMLFilter filter;
+        try
+        {
+            filter = newXIncludeFilter(new URI(systemId));
+        } catch (final URISyntaxException e)
+        {
+            throw new XIncludeFatalException(e);
+        }
+        final InputSource inputSource = new InputSource(source);
+        inputSource.setSystemId(systemId);
+        try
+        {
+            final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+            filter.setParent(xmlReader);
+            final SAXSource saxSource = new SAXSource(inputSource);
+            saxSource.setXMLReader(filter);
+            final XdmNode node = processor.newDocumentBuilder().build(saxSource);
+            Serializer serializer = processor.newSerializer(output);
+            processor.writeXdmValue(node, serializer);
+        }
+        catch (final SAXException e)
+        {
+            throw new XIncludeFatalException(e.getMessage());
+        }
+        catch (SaxonApiException e)
+        {
+            throw new XIncludeFatalException(e.getMessage());
+        }
     }
 
     public XIncProcConfiguration getConfiguration()

@@ -9,20 +9,23 @@ import javax.xml.namespace.QName;
  * Time: 11:02
  */
 abstract class DefaultScheme implements PointerPart {
-    private QName shemeName;
+    final static String ID_SEARCH_EXPR = "(//*[@id='#ID#']|id('#ID#'))";
 
-    DefaultScheme(final QName shemeName)
+    String expression;
+    private QName schemeName;
+
+    DefaultScheme(final QName schemeName)
     {
-        this.shemeName = shemeName;
+        this.schemeName = schemeName;
     }
 
-    public QName getShemeName()
+    public QName getSchemeName()
     {
-        return shemeName;
+        return schemeName;
     }
 
-    public void setShemeName(final QName shemeName)
+    public String getExpression()
     {
-        this.shemeName = shemeName;
+        return expression;
     }
 }

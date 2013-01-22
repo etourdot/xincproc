@@ -1,0 +1,48 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<body>
+<h1>API Usage</h1>
+<p>Here a simple example of XIncProc XInclude Api Usage</p>
+<p>The expression to find node "genre" with XPointer Framework is very simple: "<span concordion:set="#pointer">bk101</span>"
+    (see <a href="http://www.w3.org/TR/xptr-framework/#shorthand">Shorthand Pointer</a>)</p>
+<div class="example" concordion:execute="#result = execute(#pointer,#document)">
+<p>Code to find "genre" node with XPointer engine is as simple as this:</p>
+<ol>
+    <li>
+        Instanciate a XIncProcEngine:
+        <pre>
+            XIncProcEngine xIncProcEngine = new XIncProcEngine();
+        </pre>
+    </li>
+    <li>
+        Set a source into an InputStream (source including xinclude instructions of course) :
+        <pre>
+            InputStream sourceStream = ;
+        </pre>
+    </li>
+    <li>
+        Call a parse function that resolve xinclude instructions into a new outputstream.
+        NB: The source's base URI is needed for xml:base fixup.
+        <pre>
+            xIncProcEngine.parse(sourceStream, baseUri, outputStream);
+        </pre>
+        Et voila !
+    </li>
+</ol>
+<hr/>
+<p>For example, that source document :</p>
+<pre concordion:set="#source">
+    &lt;x xmlns:xi="http://www.w3.org/2001/XInclude"&gt;
+        &lt;xi:include href="include1.xml"/&gt;
+    &lt;/x&gt;
+</pre>
+<p>including this document:</p>
+<pre>&lt;foo/&gt;</pre>
+<p>The parsed result document will be this: </p>
+<pre concordion:assertEquals="execute(#source)">
+    &lt;x xmlns:xi="http://www.w3.org/2001/XInclude"&gt;
+    &lt;foo/&gt;
+    &lt;/x&gt;
+</pre>
+</div>
+</body>
+</html>

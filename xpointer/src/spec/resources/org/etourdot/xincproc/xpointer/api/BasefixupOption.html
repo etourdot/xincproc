@@ -1,0 +1,103 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<body>
+
+    <h1>Base fixup option</h1>
+
+    <p>
+        XIncProc XPointer processor api support an option to fix xml:base attribute
+    </p>
+
+    <div class="example">
+
+        <h3>Example</h3>
+
+        <p>Given a simple xml  :</p>
+
+        <pre concordion:set="#document">
+            &lt;doc  xmlns:xlink="http://www.w3.org/1999/xlink"&gt;
+                &lt;head id="h1"&gt;
+                    &lt;title&gt;Virtual Library&lt;/title&gt;
+                &lt;/head&gt;
+                &lt;body xml:base="http://example.org/today/"&gt;
+                &lt;paragraph&gt;See &lt;link xlink:type="simple" xlink:href="new.xml"&gt;what's
+                    new&lt;/link&gt;!&lt;/paragraph&gt;
+                &lt;paragraph&gt;Check out the hot picks of the day!&lt;/paragraph&gt;
+                &lt;olist xml:base="/hotpicks/"&gt;
+                    &lt;item id="it1"&gt;
+                        &lt;link xlink:type="simple" xlink:href="pick1.xml"&gt;Hot Pick #1&lt;/link&gt;
+                    &lt;/item&gt;
+                    &lt;item&gt;
+                        &lt;link xlink:type="simple" xlink:href="pick2.xml"&gt;Hot Pick #2&lt;/link&gt;
+                    &lt;/item&gt;
+                    &lt;item&gt;
+                        &lt;link xlink:type="simple" xlink:href="pick3.xml"&gt;Hot Pick #3&lt;/link&gt;
+                    &lt;/item&gt;
+                &lt;/olist&gt;
+                &lt;/body&gt;
+            &lt;/doc&gt;
+        </pre>
+
+        <ol>
+            <li>
+                Instanciate a XPointerEngine:
+                <pre>
+                    final XPointerEngine xPointerEngine = new XPointerEngine();
+                </pre>
+            </li>
+            <li>
+                Set the base fixup option to true
+                <pre>
+                    xPointerEngine.setBaseURI("<span concordion:set="#baseuri">test.xml</span>");
+                </pre>
+            </li>
+            <li>
+                Set the error handler and execute
+                <pre>
+                    final PrintableXPointerErrorHandler printableXPointerErrorHandler = new PrintableXPointerErrorHandler();
+                    xPointerEngine.setXPointerErrorHandler(printableXPointerErrorHandler);
+                    xPointerEngine.execute(pointer, new SAXSource(new InputSource(new StringReader(source))));
+                </pre>
+            </li>
+        </ol>
+
+        <p>Expressions matching nodes:</p>
+
+        <table concordion:execute="#result = executeWithBaseFixup(#pointer,#document,#baseuri)">
+            <tr>
+                <th concordion:set="#pointer">Pointer content</th>
+                <th concordion:assertEquals="#result.result">Result</th>
+                <th concordion:assertEquals="#result.error">Error</th>
+            </tr>
+            <tr>
+                <td>h1</td>
+                <td>&lt;head xml:base="test.xml" id="h1"&gt; &lt;title xmlns:xlink="http://www.w3.org/1999/xlink"&gt;Virtual Library&lt;/title&gt; &lt;/head&gt;</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>it1</td>
+                <td>&lt;item xml:base="http://example.org/hotpicks/" id="it1"&gt; &lt;link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="pick1.xml"&gt;Hot Pick #1&lt;/link&gt; &lt;/item&gt;</td>
+                <td></td>
+            </tr>
+        </table>
+
+        <p>With base fixup false:
+            <pre>
+                xPointerEngine.setBaseURI(<span concordion:set="#baseuri">null</span>);
+            </pre>
+        </p>
+        <table concordion:execute="#result = executeWithBaseFixup(#pointer,#document,#baseuri)">
+            <tr>
+                <th concordion:set="#pointer">Pointer content</th>
+                <th concordion:assertEquals="#result.result">Result</th>
+                <th concordion:assertEquals="#result.error">Error</th>
+            </tr>
+            <tr>
+                <td>it1</td>
+                <td>&lt;item xml:base="http://example.org/hotpicks/" id="it1"&gt; &lt;link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="pick1.xml"&gt;Hot Pick #1&lt;/link&gt; &lt;/item&gt;</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

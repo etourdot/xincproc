@@ -24,11 +24,6 @@ public class XmlNsScheme extends DefaultScheme {
         return qName;
     }
 
-    public void setQName(final QName qName)
-    {
-        this.qName = qName;
-    }
-
     @Override
     public String toString()
     {

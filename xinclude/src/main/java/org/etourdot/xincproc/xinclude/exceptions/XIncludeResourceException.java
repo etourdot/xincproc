@@ -19,12 +19,14 @@
  */
 package org.etourdot.xincproc.xinclude.exceptions;
 
+import org.xml.sax.SAXException;
+
 /**
  * @author Emmanuel Tourdot
  */
-public class XIncludeResourceException extends Exception
+public class XIncludeResourceException extends SAXException
 {
-    public XIncludeResourceException(final Throwable nestedException)
+    public XIncludeResourceException(final Exception nestedException)
     {
         super(nestedException);
     }
