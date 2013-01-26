@@ -17,8 +17,9 @@
  *
  * $Id$
  */
-package org.etourdot.xincproc.xinclude;
+package org.etourdot.xincproc.xinclude.sax;
 
+import org.etourdot.xincproc.xinclude.AbstractSuiteTest;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.junit.Test;
 

@@ -2,6 +2,7 @@ package org.etourdot.xincproc.xinclude.sax;
 
 import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
+import org.xml.sax.InputSource;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -15,6 +16,9 @@ import java.util.Stack;
  * Time: 09:16
  */
 public class XIncludeContext implements Cloneable {
+    private enum Pass {PASS_ONE, PASS_TWO};
+
+    private Pass currentPass;
     private URI sourceURI;
     private URI baseURI;
     private String language;
@@ -27,10 +31,14 @@ public class XIncludeContext implements Cloneable {
     private boolean inInclude;
     private boolean inFallback;
     private boolean injectingXInclude;
+    private boolean needSecondPass;
+    private boolean proceedPassTwo;
+    private InputSource source;
 
     public XIncludeContext(final XIncProcConfiguration configuration)
     {
         this.configuration = configuration;
+        this.currentPass = Pass.PASS_ONE;
     }
 
     public boolean isLanguageFixup() {
@@ -87,8 +95,14 @@ public class XIncludeContext implements Cloneable {
 
     public void removePath()
     {
-        oldPathStack.pop();
-        pathStack.pop();
+        if (!oldPathStack.empty())
+        {
+            oldPathStack.pop();
+        }
+        if (!pathStack.empty())
+        {
+            pathStack.pop();
+        }
     }
 
     public XIncProcConfiguration getConfiguration()
@@ -160,6 +174,56 @@ public class XIncludeContext implements Cloneable {
         this.proceedFallback = proceedFallback;
     }
 
+    public boolean isNeedSecondPass()
+    {
+        return needSecondPass;
+    }
+
+    public void setNeedSecondPass(final boolean needSecondPass)
+    {
+        this.needSecondPass = needSecondPass;
+    }
+
+    public InputSource getSource()
+    {
+        return source;
+    }
+
+    public void setSource(final InputSource source)
+    {
+        this.source = source;
+    }
+
+    public boolean isPassOne()
+    {
+        return currentPass.equals(Pass.PASS_ONE);
+    }
+    public boolean isPassTwo()
+    {
+        return currentPass.equals(Pass.PASS_TWO);
+    }
+
+    public void inPassOne()
+    {
+        this.currentPass = Pass.PASS_ONE;
+    }
+
+    public void inPassTwo()
+    {
+        this.currentPass = Pass.PASS_TWO;
+        this.needSecondPass = false;
+    }
+
+    public boolean isProceedPassTwo()
+    {
+        return proceedPassTwo;
+    }
+
+    public void setProceedPassTwo(final boolean proceedPassTwo)
+    {
+        this.proceedPassTwo = proceedPassTwo;
+    }
+
     @Override
     protected XIncludeContext clone()
             throws CloneNotSupportedException
@@ -171,5 +235,12 @@ public class XIncludeContext implements Cloneable {
     public String toString()
     {
         return "sourceURI:"+sourceURI+",baseURI:"+baseURI+",lang:"+ getLanguage()+",baseFixup:"+isBaseFixup();
+    }
+
+    boolean isUsable()
+    {
+        return (isInFallback() && isNeedFallback()) ||
+               (!isInFallback() && !isInInclude()) ||
+               (isInInclude() && isInjectingXInclude());
     }
 }

@@ -154,11 +154,11 @@ public class XPointerEngineTest {
         assertEquals("<author xml:base=\"/test/\" id=\"auth1\">myself</author>", result);
     }
 
-    /*public void testExecuteSaxDestination() throws Exception
+    @Test
+    public void testID() throws Exception
     {
-
-        final SAXDestination saxDestination = new SAXDestination();
-        final String result = xPointerEngine.execute("xmlns(bad_expression) xpath(//author[@id='auth1'])", source);
-        assertEquals("<author xml:base=\"/test/\" id=\"auth1\">myself</author>", result);
-    }*/
+        source = new SAXSource(new InputSource(getClass().getClassLoader().getResourceAsStream("idtst.xml")));
+        final String result = xPointerEngine.execute("element(/1/2)xpointer(id('f2'))", source);
+        assertEquals("<family fnumber=\"f2\">Clark</family>", result);
+    }
 }

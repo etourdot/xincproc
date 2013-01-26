@@ -30,6 +30,7 @@ import net.sf.saxon.s9api.Serializer;
 import net.sf.saxon.s9api.XdmNode;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
+import org.etourdot.xincproc.xinclude.sax.XIncProcXIncludeFilter;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,13 +95,26 @@ public abstract class AbstractSuiteTest {
         final Processor processor = engine.getConfiguration().getProcessor();
         final InputSource input = new InputSource(new FileReader(urlTest.getPath()));
         final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
-        final XMLFilter filter = XIncProcEngine.newXIncludeFilter(urlTest.toURI());
+        XIncProcXIncludeFilter filter = (XIncProcXIncludeFilter) XIncProcEngine.newXIncludeFilter(urlTest.toURI());
         filter.setParent(xmlReader);
-        final SAXSource source = new SAXSource(input);
+        SAXSource source = new SAXSource(input);
         source.setXMLReader(filter);
-        final XdmNode node = processor.newDocumentBuilder().wrap(source);
+        XdmNode node = processor.newDocumentBuilder().wrap(source);
+        LOG.debug("result after pass 1:{}",node);
+        if (filter.getContext().isNeedSecondPass())
+        {
+            InputSource inputSource1 = new InputSource(new StringReader(node.toString()));
+            InputSource inputSource2 = new InputSource(new StringReader(node.toString()));
+            filter = (XIncProcXIncludeFilter) XIncProcEngine.newXIncludeFilter(urlTest.toURI());
+            filter.getContext().inPassTwo();
+            filter.getContext().setSource(inputSource1);
+            filter.setParent(xmlReader);
+            source = new SAXSource(inputSource2);
+            source.setXMLReader(filter);
+            node = processor.newDocumentBuilder().wrap(source);
+        }
         final Diff diff = checkXdmNodeWithResult(node, urlResult.getPath());
-        LOG.debug("result:{}",node);
+        LOG.debug("final result:{}",node);
         LOG.debug("Diff result:{}", diff.toString());
         assertTrue("TestSax:" + urlTest, diff.similar());
     }

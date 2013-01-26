@@ -44,13 +44,17 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
     private int level;
     private final Stack<String> currentLangStack;
 
-
     public XIncProcXIncludeFilter(XIncludeContext context)
     {
         this.context = context;
         this.currentLangStack = new Stack<String>();
         currentLangStack.push(context.getLanguage());
         LOG.debug("new XIncProcXIncludeFilter context={}", context);
+    }
+
+    public XIncludeContext getContext()
+    {
+        return context;
     }
 
     @Override
@@ -68,10 +72,10 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
     public void endDocument() throws SAXException
     {
         if (!context.isInjectingXInclude()) {
-            LOG.trace("endDocument@{}", Integer.toHexString(hashCode()));
+            LOG.trace("endDocument@{}:{}", Integer.toHexString(hashCode()), context.isNeedSecondPass());
             super.endDocument();
         }
-    }
+     }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes)
@@ -104,7 +108,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
             }
         }
         final QName elementQName = new QName(uri, localName);
-        if (XIncProcUtils.isXInclude(elementQName))
+        if (XIncProcUtils.isXInclude(elementQName) && !context.isProceedPassTwo())
         {
             context.setInInclude(true);
             if (xIncludeAttributes.isBasePresent())
@@ -117,7 +121,17 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
             }
             else
             {
-                context.addPath(context.getBaseURI());
+                if (context.isPassOne())
+                {
+                    context.setNeedSecondPass(true);
+                    super.startPrefixMapping(qName.substring(0,qName.indexOf(":")), elementQName.getNamespaceURI());
+                    super.startElement(uri, localName, qName, attributesImpl);
+                    return;
+                }
+                else
+                {
+                    context.addPath(context.getSourceURI());
+                }
             }
             try
             {
@@ -156,7 +170,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
         {
             throw new XIncludeFatalException("No Fallback element");
         }
-        else if (isUsable())
+        else if (context.isUsable())
         {
             int langAttIdx = attributesImpl.getIndex(NamespaceSupport.XMLNS, XIncProcConfiguration.XMLLANG_QNAME.getLocalPart());
             if (langAttIdx >= 0)
@@ -176,13 +190,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
                 throw new XIncludeFatalException(e);
             }
         }
-    }
-
-    private boolean isUsable()
-    {
-        return (context.isInFallback() && context.isNeedFallback()) ||
-               (!context.isInFallback() && !context.isInInclude()) ||
-               (context.isInInclude() && context.isInjectingXInclude());
     }
 
     private void includeTextContent(final XIncludeAttributes xIncludeAttributes)
@@ -233,10 +240,22 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
             newContext.setInFallback(false);
             newContext.setInjectingXInclude(false);
             newContext.setProceedFallback(false);
+            if (newContext.isPassTwo())
+            {
+                newContext.setProceedPassTwo(true);
+            }
             final XMLFilterImpl filter = new XIncProcXIncludeFilter(newContext);
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
             filter.setParent(xmlReader);
-            final SAXSource source = new SAXSource(xmlReader, new InputSource(new FileReader(sourceURI.getPath())));
+            final SAXSource source;
+            if (newContext.isPassTwo())
+            {
+                source = new SAXSource(xmlReader, newContext.getSource());
+            }
+            else
+            {
+                source = new SAXSource(xmlReader, new InputSource(new FileReader(sourceURI.getPath())));
+            }
             source.setXMLReader(filter);
             DocumentInfo docInfo  = context.getConfiguration().getProcessor().getUnderlyingConfiguration().buildDocument(source);
             XdmNode node = new XdmNode(docInfo);
@@ -247,7 +266,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
             {
                 XPointerEngine xPointerEngine = new XPointerEngine(context.getConfiguration().getProcessor());
                 xPointerEngine.setLanguage(newContext.getLanguage());
-                if (context.getConfiguration().isBaseUrisFixup())
+                if (context.getConfiguration().isBaseUrisFixup() && newContext.getBaseURI() != null)
                 {
                     xPointerEngine.setBaseURI(newContext.getBaseURI().toASCIIString());
                 }
@@ -299,7 +318,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
             context.setProceedFallback(true);
             context.setInFallback(false);
         }
-        else if (XIncProcUtils.isXInclude(elementQName))
+        else if (XIncProcUtils.isXInclude(elementQName) && !context.isNeedSecondPass())
         {
             if (context.isNeedFallback())
             {
@@ -310,7 +329,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
             context.setInInclude(false);
             context.removePath();
         }
-        else if (isUsable())
+        else if (context.isUsable())
         {
             if (!currentLangStack.empty())
             {
@@ -324,7 +343,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
     public void characters(char[] ch, int start, int length)
             throws SAXException
     {
-        if (isUsable())
+        if (context.isUsable())
         {
             LOG.trace("characters@{}: {}", Integer.toHexString(hashCode()), new String(ch).substring(start,start+length).trim());
             super.characters(ch, start, length);
@@ -372,7 +391,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
     public void processingInstruction(final String target, final String data)
             throws SAXException
     {
-        if (isUsable())
+        if (context.isUsable())
         {
             super.processingInstruction(target, data);
         }
