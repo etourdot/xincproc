@@ -16,7 +16,6 @@ import java.io.ByteArrayOutputStream;
  * Time: 23:20
  */
 public class TransfoHandlerTest {
-    @Test
     public void newTest() throws Exception {
         InputSource source = new InputSource(getClass().getClassLoader().getResourceAsStream("idtst.xml"));
         String query = "for $x in (/*[1]/*[2] union fn:id('f2') union fn:id('f2')) return $x";
@@ -31,6 +30,7 @@ public class TransfoHandlerTest {
         qe.run();
         System.out.println(new String(baos.toByteArray()));
     }
+    @Test
 
     public void monTest() throws Exception {
         // Create a reader, and set it's content handler to be the TransformerHandler.
@@ -44,6 +44,7 @@ public class TransfoHandlerTest {
         // It's a good idea for the parser to send lexical events.
         // The TransformerHandler is also a LexicalHandler.
         reader.setProperty("http://xml.org/sax/properties/lexical-handler", sampleTestHandler);
+        reader.setProperty("http://xml.org/sax/properties/declaration-handler", sampleTestHandler);
         reader.setDTDHandler(sampleTestHandler);
         reader.setEntityResolver(sampleTestHandler);
 

@@ -13,6 +13,7 @@ import org.etourdot.xincproc.xpointer.exceptions.XPointerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.*;
+import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.NamespaceSupport;
 import org.xml.sax.helpers.XMLFilterImpl;
@@ -35,7 +36,7 @@ import java.util.Stack;
  * Date: 18/12/12
  * Time: 23:13
  */
-public class XIncProcXIncludeFilter extends XMLFilterImpl {
+public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHandler {
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcXIncludeFilter.class);
     public static final String FIXUP_XML_LANG = "fixup-xml-lang";
     public static final String FIXUP_XML_BASE = "fixup-xml-base";
@@ -257,6 +258,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
                 source = new SAXSource(xmlReader, new InputSource(new FileReader(sourceURI.getPath())));
             }
             source.setXMLReader(filter);
+            xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
+            xmlReader.setDTDHandler(filter);
+            xmlReader.setEntityResolver(filter);
             DocumentInfo docInfo  = context.getConfiguration().getProcessor().getUnderlyingConfiguration().buildDocument(source);
             XdmNode node = new XdmNode(docInfo);
             final XMLReader parser = XMLReaderFactory.createXMLReader();
@@ -306,10 +310,41 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
     }
 
     @Override
+    public InputSource resolveEntity(final String publicId, final String systemId)
+            throws SAXException, IOException
+    {
+        LOG.trace("resolveEntity:{},{}",publicId, systemId);
+        return super.resolveEntity(publicId, systemId);
+    }
+
+    @Override
+    public void setDocumentLocator(final Locator locator)
+    {
+        LOG.trace("setDocumentLocator");
+        super.setDocumentLocator(locator);
+    }
+
+    @Override
+    public void skippedEntity(final String name)
+            throws SAXException
+    {
+        LOG.trace("skippedEntity:{}",name);
+        super.skippedEntity(name);
+    }
+
+    @Override
+    public void unparsedEntityDecl(final String name, final String publicId, final String systemId, final String notationName)
+            throws SAXException
+    {
+        LOG.trace("unparsedEntityDecl:{},{},{},{}",name,publicId, systemId, notationName);
+        super.unparsedEntityDecl(name, publicId, systemId, notationName);
+    }
+
+    @Override
     public void endElement(String uri, String localName, String qName)
             throws SAXException
     {
-        LOG.trace("endElement@{}: {}, {}, {}", Integer.toHexString(hashCode()), uri, localName, qName);
+        LOG.trace("endElement@{}:{},{},{}", Integer.toHexString(hashCode()), uri, localName, qName);
         -- level;
         final QName elementQName = new QName(uri, localName);
         if (XIncProcUtils.isFallback(elementQName))
@@ -396,5 +431,61 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl {
             super.processingInstruction(target, data);
         }
     }
+
+    @Override
+    public void startDTD(final String name, final String publicId, final String systemId)
+            throws SAXException
+    {
+        LOG.trace("startDTD:{},{},{}", name,publicId,systemId);
+    }
+
+    @Override
+    public void endDTD() throws SAXException {
+        LOG.trace("endDTD");
+    }
+
+    @Override
+    public void startEntity(final String name)
+            throws SAXException
+    {
+        LOG.trace("startEntity:{}", name);
+    }
+
+    @Override
+    public void endEntity(final String name)
+            throws SAXException
+    {
+        LOG.trace("startDTD:{}", name);
+    }
+
+    @Override
+    public void startCDATA()
+            throws SAXException
+    {
+        LOG.trace("startCDATA");
+    }
+
+    @Override
+    public void endCDATA()
+            throws SAXException
+    {
+        LOG.trace("endCDATA");
+    }
+
+    @Override
+    public void comment(final char[] ch, final int start, final int length)
+            throws SAXException
+    {
+        LOG.trace("comment: {}", new String(ch).substring(start, start + length));
+    }
+
+    @Override
+    public void notationDecl(final String name, final String publicId, final String systemId)
+            throws SAXException
+    {
+        LOG.trace("notationDecl:{},{},{}", name,publicId,systemId);
+        super.notationDecl(name, publicId, systemId);
+    }
+
 
 }

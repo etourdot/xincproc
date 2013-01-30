@@ -1,13 +1,14 @@
 package org.etourdot.xincproc.xpointer;
 
 import org.xml.sax.*;
+import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
 
 import java.io.IOException;
 import java.io.PrintStream;
 
 
-public class SampleTestHandler implements ContentHandler, LexicalHandler, DTDHandler, EntityResolver {
+public class SampleTestHandler implements ContentHandler, LexicalHandler, DTDHandler, EntityResolver, DeclHandler {
 
     private PrintStream printStream = System.out;
 
@@ -141,5 +142,25 @@ public class SampleTestHandler implements ContentHandler, LexicalHandler, DTDHan
     public InputSource resolveEntity(final String publicId, final String systemId) throws SAXException, IOException {
         printStream.println("resolveEntity:"+publicId);
         return null;
+    }
+
+    @Override
+    public void elementDecl(final String name, final String model) throws SAXException {
+        printStream.println("elementDecl:"+name+":"+model);
+    }
+
+    @Override
+    public void attributeDecl(final String eName, final String aName, final String type, final String mode, final String value) throws SAXException {
+        printStream.println("attributeDecl:"+eName+":"+aName+":"+type+":"+mode+":"+value);
+    }
+
+    @Override
+    public void internalEntityDecl(final String name, final String value) throws SAXException {
+        printStream.println("internalEntityDecl:"+name+":"+value);
+    }
+
+    @Override
+    public void externalEntityDecl(final String name, final String publicId, final String systemId) throws SAXException {
+        printStream.println("externalEntityDecl:"+name+":"+publicId+":"+systemId);
     }
 }

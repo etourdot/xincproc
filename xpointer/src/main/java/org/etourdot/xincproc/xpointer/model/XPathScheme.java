@@ -14,7 +14,7 @@ public class XPathScheme extends DefaultScheme {
     public XPathScheme(final String expression)
     {
         super(XPATH_NAME);
-        this.expression = expression;
+        this.expression = expression.replaceAll("\\^\\(", "(").replaceAll("\\^\\)",")").replaceAll("\\^\\^", "^");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package org.etourdot.xincproc.xpointer;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.s9api.*;
@@ -21,6 +22,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.StringWriter;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,7 +43,7 @@ public class XPointerEngine {
         " declare variable $val external;                                                   " +
         " for $x in $val                                                                    ";
     private static final String FIND_QUERY_DYNAMIC =
-        "  for $x in #VAL#                                                                  ";
+        "  for $x in (#VAL#)                                                                ";
     private static final String FIND_QUERY_END =
         " return typeswitch($x)                                                             " +
         "    case element() return                                                          " +
@@ -123,6 +125,7 @@ public class XPointerEngine {
     private XQueryExecutable xQueryExecutableShorthand;
     private XQueryExecutable xQueryExecutableScheme;
     private XPathCompiler xPathCompiler;
+    private XQueryCompiler xQueryCompiler;
 
     private XPointerErrorHandler xPointerErrorHandler;
 
@@ -180,7 +183,7 @@ public class XPointerEngine {
     {
         try
         {
-            final XQueryCompiler xQueryCompiler = processor.newXQueryCompiler();
+            xQueryCompiler = processor.newXQueryCompiler();
             xQueryExecutableShorthand = xQueryCompiler.compile(FIND_QUERY_START + FIND_QUERY_SHORTHAND + FIND_QUERY_END);
             xQueryExecutableScheme = xQueryCompiler.compile(FIND_QUERY_START + FIND_QUERY_SCHEME + FIND_QUERY_END);
             xPathCompiler = processor.newXPathCompiler();
@@ -300,14 +303,14 @@ public class XPointerEngine {
         }
         catch (final XPathException e)
         {
-            throw new XPointerException(e);
+            throw new XPointerException(e.getLocalizedMessage(), e);
         }
     }
 
     private void executeShorthandPointer(final ShortHand shortHand, final Source source, final Destination destination)
             throws XPointerException
     {
-        final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(shortHand, source, source);
+        final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(shortHand, source);
         try
         {
             for (final Iterator<XdmItem> itResults = xQueryEvaluator.iterator(); itResults.hasNext(); ) {
@@ -317,7 +320,7 @@ public class XPointerEngine {
         }
         catch (final SaxonApiException e)
         {
-            throw new XPointerException(e);
+            throw new XPointerException(e.getLocalizedMessage(), e);
         }
     }
 
@@ -326,6 +329,7 @@ public class XPointerEngine {
     {
         Source sourceTransform = source;
         final int nbPointerPart = pointer.getSchemeBased().size();
+        final ImmutableList.Builder<String> builderExpressions = new ImmutableList.Builder<String>();
         for (int i = 0 ; i < nbPointerPart ; i++)
         {
             final PointerPart part = pointer.getSchemeBased().get(i);
@@ -334,56 +338,61 @@ public class XPointerEngine {
                 final XmlNsScheme xmlNsScheme = (XmlNsScheme) part;
                 final QName qName = xmlNsScheme.getQName();
                 xPathCompiler.declareNamespace(qName.getLocalPart(), qName.getNamespaceURI());
+                xQueryCompiler.declareNamespace(qName.getLocalPart(), qName.getNamespaceURI());
             }
-            else
+            else if (part instanceof XPathScheme)
             {
-                final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(part, sourceTransform, source);
-                if (i == (nbPointerPart-1))
+                final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(part, sourceTransform);
+                try
                 {
-                    try
+                    final TeeDestination teeDestination;
+                    if (i == (nbPointerPart-1))
                     {
-                        TeeDestination teeDestination = new TeeDestination(destination, new SAXDestination(new SampleTestHandler()));
+                        teeDestination = new TeeDestination(destination, new SAXDestination(new SampleTestHandler()));
                         xQueryEvaluator.run(teeDestination);
+                        return;
                     }
-                    catch (final SaxonApiException e)
+                    else
                     {
-                        throw new XPointerException(e);
-                    }
-                }
-                else
-                {
-                    final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    final Serializer serializer = new Serializer(baos);
-                    TeeDestination teeDestination = new TeeDestination(serializer, new SAXDestination(new SampleTestHandler()));
-                    try
-                    {
+                        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        teeDestination = new TeeDestination(new Serializer(baos), new SAXDestination(new SampleTestHandler()));
                         xQueryEvaluator.run(teeDestination);
-                    }
-                    catch (final SaxonApiException e)
-                    {
-                        throw new XPointerException(e);
-                    }
-                    try
-                    {
                         sourceTransform = processor.getUnderlyingConfiguration().buildDocument(
                                 new StreamSource(new ByteArrayInputStream(baos.toByteArray())));
                     }
-                    catch (final XPathException e)
-                    {
-                        throw new XPointerException(e);
-                    }
+                }
+                catch (final SaxonApiException e)
+                {
+                    throw new XPointerException(e.getLocalizedMessage(), e);
+                }
+                catch (final XPathException e)
+                {
+                    throw new XPointerException(e.getLocalizedMessage(), e);
                 }
             }
+            else
+            {
+                builderExpressions.add(part.getExpression());
+            }
+        }
+        final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(builderExpressions.build(), sourceTransform);
+        try
+        {
+            TeeDestination teeDestination = new TeeDestination(destination, new SAXDestination(new SampleTestHandler()));
+            xQueryEvaluator.run(teeDestination);
+        }
+        catch (final SaxonApiException e)
+        {
+            throw new XPointerException(e.getLocalizedMessage(), e);
         }
     }
 
     private XPathSelector getXPathSelector(final PointerPart part)
             throws XPointerException
     {
-        final String xpathExpression = part.getExpression().replaceAll("\\^\\(", "(").replaceAll("\\^\\)",")").replaceAll("\\^\\^", "^");
         try
         {
-            final XPathExecutable xPathExecutable = xPathCompiler.compile(xpathExpression);
+            final XPathExecutable xPathExecutable = xPathCompiler.compile(part.getExpression());
             return xPathExecutable.load();
         }
         catch (final SaxonApiException e)
@@ -403,11 +412,30 @@ public class XPointerEngine {
         }
         catch (final SaxonApiException e)
         {
-            throw new XPointerException(e);
+            throw new XPointerException(e.getLocalizedMessage(), e);
         }
     }
 
-    private XQueryEvaluator getXQueryEvaluator(final PointerPart pointerPart, final Source source, final Source originalSource)
+    private XQueryEvaluator getXQueryEvaluator(final List<String> expressions, final Source source)
+            throws XPointerException
+    {
+        final XQueryEvaluator xQueryEvaluator;
+        final String newStringquery = FIND_QUERY_DYNAMIC.replaceAll("#VAL#", Joiner.on(" union ").join(expressions));
+        try
+        {
+            xQueryEvaluator = xQueryCompiler.compile(FIND_QUERY_START + newStringquery + FIND_QUERY_END).load();
+            xQueryEvaluator.setSource(source);
+        }
+        catch (final SaxonApiException e)
+        {
+            throw new XPointerException(e.getLocalizedMessage(), e);
+        }
+        xQueryEvaluator.setExternalVariable(new net.sf.saxon.s9api.QName("ctxbase"), baseURIValue);
+        xQueryEvaluator.setExternalVariable(new net.sf.saxon.s9api.QName("ctxlang"), languageValue);
+        return xQueryEvaluator;
+    }
+
+    private XQueryEvaluator getXQueryEvaluator(final PointerPart pointerPart, final Source source)
             throws XPointerException
     {
         final XQueryEvaluator xQueryEvaluator;
@@ -418,32 +446,19 @@ public class XPointerEngine {
             xQueryEvaluator = xQueryExecutableShorthand.load();
             xQueryEvaluator.setExternalVariable(new net.sf.saxon.s9api.QName("shorthand"), shorthandValue);
         }
-        else if (pointerPart instanceof XPointerScheme)
-        {
-            final XQueryCompiler xQueryCompiler = processor.newXQueryCompiler();
-            String newStringquery = FIND_QUERY_DYNAMIC.replaceAll("#VAL#", pointerPart.getExpression());
-            try {
-                xQueryEvaluator = xQueryCompiler.compile(FIND_QUERY_START + newStringquery + FIND_QUERY_END).load();
-            }
-            catch (SaxonApiException e)
-            {
-                throw new XPointerException(e);
-            }
-        }
         else
         {
             xQueryEvaluator = xQueryExecutableScheme.load();
             final XdmValue contextItem = getContextItem(source, pointerPart);
             xQueryEvaluator.setExternalVariable(new net.sf.saxon.s9api.QName("val"), contextItem);
         }
-
         try
         {
-            xQueryEvaluator.setSource(originalSource);
+            xQueryEvaluator.setSource(source);
         }
         catch (final SaxonApiException e)
         {
-            throw new XPointerException(e);
+            throw new XPointerException(e.getLocalizedMessage(), e);
         }
         xQueryEvaluator.setExternalVariable(new net.sf.saxon.s9api.QName("ctxbase"), baseURIValue);
         xQueryEvaluator.setExternalVariable(new net.sf.saxon.s9api.QName("ctxlang"), languageValue);
@@ -468,20 +483,5 @@ public class XPointerEngine {
     public static XPointerErrorHandler createDefaultXPointerErrorHandler()
     {
         return defaultXPointerErrorHandler;
-    }
-
-    class XPointerExecutor {
-        private XPathSelector xPathSelector;
-        private XQueryEvaluator xQueryEvaluator;
-
-        public void setxPathSelector(final XPathSelector xPathSelector)
-        {
-            this.xPathSelector = xPathSelector;
-        }
-
-        public void setxQueryEvaluator(final XQueryEvaluator xQueryEvaluator)
-        {
-            this.xQueryEvaluator = xQueryEvaluator;
-        }
     }
 }
