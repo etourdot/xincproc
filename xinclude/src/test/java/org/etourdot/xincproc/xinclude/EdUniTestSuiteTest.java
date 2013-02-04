@@ -19,19 +19,21 @@
  */
 package org.etourdot.xincproc.xinclude;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
  * @author Emmanuel Tourdot
  */
 public class EdUniTestSuiteTest extends XIncProcSuiteTest {
-    /*
-    @Test
+    @Ignore
     public void eduni_include_01() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("eduni/test/book.xml"),
              getClass().getClassLoader().getResource("eduni/result/book.xml"));
     }
 
-    @Test
+    @Ignore
     public void eduni_include_02() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("eduni/test/extract.xml"),
@@ -44,5 +46,4 @@ public class EdUniTestSuiteTest extends XIncProcSuiteTest {
         testSuccess(getClass().getClassLoader().getResource("eduni/test/lang.xml"),
              getClass().getClassLoader().getResource("eduni/result/lang.xml"));
     }
-    */
 }

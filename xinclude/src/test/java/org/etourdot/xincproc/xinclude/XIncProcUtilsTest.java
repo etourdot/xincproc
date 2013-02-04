@@ -1,8 +1,16 @@
 package org.etourdot.xincproc.xinclude;
 
+import net.sf.saxon.om.DocumentInfo;
+import net.sf.saxon.s9api.Processor;
+import org.etourdot.xincproc.xpointer.SampleTestHandler;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 import javax.xml.namespace.QName;
+import javax.xml.transform.sax.SAXSource;
 import java.net.URI;
 
 import static org.junit.Assert.*;
@@ -73,8 +81,18 @@ public class XIncProcUtilsTest {
         assertEquals("xinclude/para.xml", base.toASCIIString());
     }
 
-    @Test
-    public void testResolveBase() throws Exception {
-
+    @Ignore
+    public void testLexicalHandler() throws Exception {
+        final InputSource inputSource = new InputSource(getClass().getClassLoader().getResourceAsStream("nist/test/ents/prtids.xml"));
+        final SAXSource source = new SAXSource(inputSource);
+        final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+        SampleTestHandler handler = new SampleTestHandler();;
+        xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", handler);
+        xmlReader.setContentHandler(handler);
+        source.setXMLReader(xmlReader);
+        final Processor processor = new Processor(false);
+        DocumentInfo docInfo  = processor.getUnderlyingConfiguration().buildDocument(source);
+        //xmlReader.parse(inputSource);
+        fail();
     }
 }

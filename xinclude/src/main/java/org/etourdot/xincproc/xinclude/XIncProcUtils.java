@@ -1,7 +1,10 @@
 package org.etourdot.xincproc.xinclude;
 
 import com.google.common.base.Strings;
-import com.google.common.io.Resources;
+import com.google.common.io.ByteStreams;
+import com.google.common.io.CharStreams;
+import com.google.common.io.InputSupplier;
+import com.google.common.net.HttpHeaders;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException;
 import org.xml.sax.Attributes;
@@ -9,11 +12,14 @@ import org.xml.sax.Attributes;
 import javax.xml.namespace.QName;
 import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.List;
@@ -118,14 +124,18 @@ public final class XIncProcUtils {
         return  resultURI;
     }
 
-    public static URI resolveBase(final URI baseURI, final List<URI> uris) throws XIncludeFatalException
+    public static URI resolveBase(final URI baseURI, final List<URI> uris)
+            throws XIncludeFatalException
     {
-        final URI computedUri = computeBase(uris);
-        final URI resolvedUri = baseURI.resolve(computedUri);
-        if (resolvedUri.compareTo(baseURI)==0)
+        URI resolvedUri = baseURI;
+        for (URI uri : uris)
+        {
+            resolvedUri = baseURI.resolve(uri);
+        }
+        /*if (resolvedUri.compareTo(baseURI)==0)
         {
             throw new XIncludeFatalException("Inclusion loop error");
-        }
+        }*/
         return resolvedUri;
     }
 
@@ -161,21 +171,36 @@ public final class XIncProcUtils {
      * @throws XIncludeFatalException
      * @throws XIncludeResourceException
      */
-    public static String readTextURI(final URI source, final String encoding) throws XIncludeFatalException, XIncludeResourceException
+    public static String readTextURI(final URI source, final String encoding,
+                                     final String accept, final String acceptLanguage)
+            throws XIncludeFatalException, XIncludeResourceException
     {
         try
         {
             final URL url = source.toURL();
+            final URLConnection urlConnection = url.openConnection();
+            if (accept != null)
+            {
+                urlConnection.setRequestProperty(HttpHeaders.ACCEPT, accept);
+            }
+            if (acceptLanguage != null)
+            {
+                urlConnection.setRequestProperty(HttpHeaders.ACCEPT_LANGUAGE, acceptLanguage);
+            }
+            final InputStream urlInputStream = urlConnection.getInputStream();
+            final byte[] inputBytes = ByteStreams.toByteArray(urlInputStream);
+            urlInputStream.close();
+            InputSupplier<ByteArrayInputStream> supplier = ByteStreams.newInputStreamSupplier(inputBytes);
             final Charset charset;
             if (encoding == null)
             {
-                charset = Charset.defaultCharset();
+                charset = EncodingUtils.getCharset(supplier.getInput());
             }
             else
             {
                 charset = Charset.forName(encoding);
             }
-            return Resources.toString(url, charset);
+            return CharStreams.toString(CharStreams.newReaderSupplier(supplier, charset));
         }
         catch (MalformedURLException e)
         {

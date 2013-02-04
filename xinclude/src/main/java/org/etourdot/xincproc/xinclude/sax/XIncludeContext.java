@@ -1,13 +1,15 @@
 package org.etourdot.xincproc.xinclude.sax;
 
+import net.sf.saxon.s9api.XdmNode;
 import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
+import org.etourdot.xincproc.xinclude.XIncProcUtils;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
-import org.xml.sax.InputSource;
+import org.xml.sax.helpers.AttributesImpl;
+import org.xml.sax.helpers.NamespaceSupport;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.net.URISyntaxException;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,29 +18,87 @@ import java.util.Stack;
  * Time: 09:16
  */
 public class XIncludeContext implements Cloneable {
-    private enum Pass {PASS_ONE, PASS_TWO};
-
-    private Pass currentPass;
-    private URI sourceURI;
-    private URI baseURI;
-    private String language;
-    private final Stack<String> oldPathStack = new Stack<String>();
-    private final Stack<URI> pathStack = new Stack<URI>();
     private final XIncProcConfiguration configuration;
+
+    private enum Treatment {TREAT_ALL_INCLUDES, TREAT_INCLUDES_WITHOUT_HREF};
+    private Treatment currentTreatment;
+    private boolean needTreatIncludeWithoutHref;
+
+    private URI initialBaseURI;
+    private URI currentBaseURI;
+    private URI stackedBaseURI;
+    private final Deque<URI> basesURIDeque = new ArrayDeque<URI>();
+
+    private String language;
+    private String currentLang;
+    private final Deque<String> langDeque = new ArrayDeque<String>();
+
+    private URI sourceURI;
+    private URI hrefURI;
+    private final Deque<String> xincludeDeque = new ArrayDeque<String>();
+
     private boolean needFallback;
     private boolean  proceedFallback;
-    private Exception currentException;
     private boolean inInclude;
     private boolean inFallback;
-    private boolean injectingXInclude;
-    private boolean needSecondPass;
-    private boolean proceedPassTwo;
-    private InputSource source;
+    private int injectingXIncludeCount;
+
+    private Exception currentException;
+    private XdmNode sourceNode;
 
     public XIncludeContext(final XIncProcConfiguration configuration)
     {
         this.configuration = configuration;
-        this.currentPass = Pass.PASS_ONE;
+        this.currentTreatment = Treatment.TREAT_ALL_INCLUDES;
+        this.injectingXIncludeCount = 0;
+    }
+
+    public XIncProcConfiguration getConfiguration()
+    {
+        return configuration;
+    }
+
+    public void updateContextWithElementAttributes(final AttributesImpl attributes)
+            throws XIncludeFatalException
+    {
+        final int baseAttIdx = attributes.getIndex(NamespaceSupport.XMLNS,
+                XIncProcConfiguration.XMLBASE_QNAME.getLocalPart());
+        if (baseAttIdx >= 0)
+        {
+            try
+            {
+                this.currentBaseURI = new URI(attributes.getValue(baseAttIdx));
+                addBaseURIPath(currentBaseURI);
+            }
+            catch (final URISyntaxException e)
+            {
+                throw new XIncludeFatalException("Invalid base URI");
+            }
+        }
+        else
+        {
+            this.currentBaseURI = null;
+        }
+        final int langAttIdx = attributes.getIndex(NamespaceSupport.XMLNS,
+                XIncProcConfiguration.XMLLANG_QNAME.getLocalPart());
+        if (langAttIdx >= 0)
+        {
+            this.currentLang = attributes.getValue(langAttIdx);
+            this.langDeque.addLast(this.currentLang);
+        }
+        else
+        {
+            this.currentLang = null;
+        }
+    }
+
+    public void updateContextWhenEndElement()
+    {
+        if (currentBaseURI != null)
+        {
+            removeBaseURIPath(currentBaseURI);
+            currentBaseURI = null;
+        }
     }
 
     public boolean isLanguageFixup() {
@@ -70,54 +130,74 @@ public class XIncludeContext implements Cloneable {
         this.currentException = currentException;
     }
 
-    public List<URI> getPaths()
-    {
-        return new ArrayList<URI>(pathStack);
-    }
-
-        public void addPath(final URI path)
+    public void addInInclusionChain(final URI path, final String pointer)
             throws XIncludeFatalException
     {
-        addPath(path, null);
-    }
-
-    public void addPath(final URI path, final String pointer)
-            throws XIncludeFatalException
-    {
-        final String oldPath = path.toASCIIString() + ((pointer!=null)?("#" + pointer):"");
-        if (oldPathStack.search(oldPath) >= 0)
+        final String xincludePath = path.toASCIIString() + ((pointer!=null)?("#" + pointer):"");
+        if (xincludeDeque.contains(xincludePath))
         {
-            throw new XIncludeFatalException("Inclusion Loop on path: " + oldPath);
+            throw new XIncludeFatalException("Inclusion Loop on path: " + xincludePath);
         }
-        oldPathStack.push(oldPath);
-        pathStack.push(path);
+        xincludeDeque.addLast(xincludePath);
     }
 
-    public void removePath()
+    public void removeFromInclusionChain()
     {
-        if (!oldPathStack.empty())
+        xincludeDeque.pollLast();
+    }
+
+    public URI getInitialBaseURI() {
+        return initialBaseURI;
+    }
+
+    public void setInitialBaseURI(final URI initialBaseURI) {
+        this.initialBaseURI = initialBaseURI;
+        if (!this.basesURIDeque.isEmpty())
         {
-            oldPathStack.pop();
+            this.stackedBaseURI = XIncProcUtils.computeBase(getBaseURIPaths());
         }
-        if (!pathStack.empty())
-        {
-            pathStack.pop();
-        }
+        this.currentBaseURI = null;
+        this.basesURIDeque.clear();
     }
 
-    public XIncProcConfiguration getConfiguration()
+    public void addBaseURIPath(final URI basePath)
     {
-        return configuration;
+        basesURIDeque.addLast(basePath);
     }
 
-    public URI getBaseURI()
+    public List<URI> getBaseURIPaths()
     {
-        return baseURI;
+        return new ArrayList<URI>(basesURIDeque);
     }
 
-    public void setBaseURI(final URI baseURI)
+    public void removeBaseURIPath(final URI basePath)
     {
-        this.baseURI = baseURI;
+        basesURIDeque.removeLastOccurrence(basePath);
+    }
+
+    public URI getCurrentBaseURI()
+    {
+        return currentBaseURI;
+    }
+
+    public URI getStackedBaseURI()
+    {
+        return stackedBaseURI;
+    }
+
+    public URI getHrefURI()
+    {
+        return hrefURI;
+    }
+
+    public void setHrefURI(final URI hrefURI)
+    {
+        this.hrefURI = hrefURI;
+    }
+
+    public String getCurrentLang()
+    {
+        return currentLang;
     }
 
     public String getLanguage()
@@ -156,12 +236,22 @@ public class XIncludeContext implements Cloneable {
 
     public boolean isInjectingXInclude()
     {
-        return injectingXInclude;
+        return this.injectingXIncludeCount > 0;
     }
 
-    public void setInjectingXInclude(final boolean injectingXInclude)
+    public void startInjectingXInclude()
     {
-        this.injectingXInclude = injectingXInclude;
+        this.injectingXIncludeCount ++;
+    }
+
+    public void stopInjectingXInclude()
+    {
+        this.injectingXIncludeCount --;
+    }
+
+    public void noInjectingXInclude()
+    {
+        this.injectingXIncludeCount = 0;
     }
 
     public boolean isProceedFallback()
@@ -174,54 +264,40 @@ public class XIncludeContext implements Cloneable {
         this.proceedFallback = proceedFallback;
     }
 
-    public boolean isNeedSecondPass()
+    public boolean isNeedTreatIncludeWithoutHref()
     {
-        return needSecondPass;
+        return needTreatIncludeWithoutHref;
     }
 
-    public void setNeedSecondPass(final boolean needSecondPass)
+    public void setNeedTreatIncludeWithoutHref(final boolean needTreatIncludeWithoutHref)
     {
-        this.needSecondPass = needSecondPass;
+        this.needTreatIncludeWithoutHref = needTreatIncludeWithoutHref;
     }
 
-    public InputSource getSource()
+    public XdmNode getSourceNode()
     {
-        return source;
+        return sourceNode;
     }
 
-    public void setSource(final InputSource source)
+    public void setSourceNode(final XdmNode sourceNode)
     {
-        this.source = source;
+        this.sourceNode = sourceNode;
     }
 
-    public boolean isPassOne()
+    public boolean isTreatAllIncludes()
     {
-        return currentPass.equals(Pass.PASS_ONE);
-    }
-    public boolean isPassTwo()
-    {
-        return currentPass.equals(Pass.PASS_TWO);
+        return currentTreatment.equals(Treatment.TREAT_ALL_INCLUDES);
     }
 
-    public void inPassOne()
+    public boolean isTreatIncludeWithoutHref()
     {
-        this.currentPass = Pass.PASS_ONE;
+        return currentTreatment.equals(Treatment.TREAT_INCLUDES_WITHOUT_HREF);
     }
 
-    public void inPassTwo()
+    public void treatIncludesWithoutHref()
     {
-        this.currentPass = Pass.PASS_TWO;
-        this.needSecondPass = false;
-    }
-
-    public boolean isProceedPassTwo()
-    {
-        return proceedPassTwo;
-    }
-
-    public void setProceedPassTwo(final boolean proceedPassTwo)
-    {
-        this.proceedPassTwo = proceedPassTwo;
+        this.currentTreatment = Treatment.TREAT_INCLUDES_WITHOUT_HREF;
+        this.needTreatIncludeWithoutHref = false;
     }
 
     @Override
@@ -234,7 +310,7 @@ public class XIncludeContext implements Cloneable {
     @Override
     public String toString()
     {
-        return "sourceURI:"+sourceURI+",baseURI:"+baseURI+",lang:"+ getLanguage()+",baseFixup:"+isBaseFixup();
+        return "sourceURI:"+sourceURI+"\n,currentBase:"+currentBaseURI+",hrefURI:"+ hrefURI +"\n,stackedBase:"+stackedBaseURI+",lang:"+ getLanguage();
     }
 
     boolean isUsable()

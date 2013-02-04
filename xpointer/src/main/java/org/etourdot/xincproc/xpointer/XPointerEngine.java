@@ -2,7 +2,6 @@ package org.etourdot.xincproc.xpointer;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
-import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.s9api.*;
 import net.sf.saxon.trans.XPathException;
 import org.antlr.runtime.ANTLRStringStream;
@@ -11,6 +10,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.etourdot.xincproc.xpointer.exceptions.XPointerException;
+import org.etourdot.xincproc.xpointer.exceptions.XPointerResourceException;
 import org.etourdot.xincproc.xpointer.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -286,31 +286,28 @@ public class XPointerEngine {
             throws XPointerException
     {
         final Pointer pointer = getPointer(pointerStr);
-        try
+        final XdmNode node = processor.newDocumentBuilder().wrap(source);
+        if (pointer != null)
         {
-            final DocumentInfo documentInfo = processor.getUnderlyingConfiguration().buildDocument(source);
-            if (pointer != null)
+            if (pointer.isShortHand())
             {
-                if (pointer.isShortHand())
-                {
-                    executeShorthandPointer(pointer.getShortHand(), documentInfo, destination);
-                }
-                else
-                {
-                    executeSchemaPointer(pointer, documentInfo, destination);
-                }
+                executeShorthandPointer(pointer.getShortHand(), node, destination);
+            }
+            else
+            {
+                executeSchemaPointer(pointer, node, destination);
             }
         }
-        catch (final XPathException e)
+        else
         {
-            throw new XPointerException(e.getLocalizedMessage(), e);
+            throw new XPointerResourceException("Unknown pointer expression");
         }
     }
 
-    private void executeShorthandPointer(final ShortHand shortHand, final Source source, final Destination destination)
+    private void executeShorthandPointer(final ShortHand shortHand, final XdmNode node, final Destination destination)
             throws XPointerException
     {
-        final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(shortHand, source);
+        final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(shortHand, node.asSource());
         try
         {
             for (final Iterator<XdmItem> itResults = xQueryEvaluator.iterator(); itResults.hasNext(); ) {
@@ -324,10 +321,10 @@ public class XPointerEngine {
         }
     }
 
-    private void executeSchemaPointer(final Pointer pointer, final Source source, final Destination destination)
+    private void executeSchemaPointer(final Pointer pointer, final XdmNode node, final Destination destination)
             throws XPointerException
     {
-        Source sourceTransform = source;
+        Source sourceTransform = node.asSource();
         final int nbPointerPart = pointer.getSchemeBased().size();
         final ImmutableList.Builder<String> builderExpressions = new ImmutableList.Builder<String>();
         for (int i = 0 ; i < nbPointerPart ; i++)

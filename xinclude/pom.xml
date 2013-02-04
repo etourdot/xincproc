@@ -22,6 +22,10 @@
             <artifactId>commons-cli</artifactId>
         </dependency>
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
@@ -81,9 +85,9 @@
                         <version>2.5</version>
                         <configuration>
                             <filesets>
-                                <fileset>
+                                <!--fileset>
                                     <directory>${spec.testSourceDirectory}/org/etourdot/xincproc/xinclude/testsuite</directory>
-                                </fileset>
+                                </fileset-->
                                 <fileset>
                                     <directory>${spec.docDirectory}/org/etourdot/xincproc/xinclude/testsuite</directory>
                                 </fileset>
@@ -102,19 +106,17 @@
                                     <target>
                                         <!--echo message="Unzip xinclude test archive" />
                                         <unzip src="${spec.docDirectory}/XIncl20060927.zip" dest="${spec.docDirectory}" /-->
-                                        <echo message="Generate integration tests classes" />
+                                        <!--echo message="Generate integration tests classes" />
                                         <java fork="true" jar="${net.sf.saxon:Saxon-HE:jar}" failonerror="true">
                                             <arg value="-s:${spec.docDirectory}/XIncl20060927/testdescr.xml" />
                                             <arg value="-xsl:${spec.docDirectory}/xsl/test-suite-to-java.xsl" />
-                                            <!-- akward output path needed by saxon ??? -->
                                             <arg value="-o:${spec.testSourceDirectory}/org/etourdot/xincproc/xinclude/testsuite/dir/" />
-                                        </java>
+                                        </java-->
                                         <echo message="Generate integration tests pages" />
                                         <java fork="true" jar="${net.sf.saxon:Saxon-HE:jar}" failonerror="true">
                                             <arg value="-s:${spec.docDirectory}/XIncl20060927/testdescr.xml" />
                                             <arg value="-xsl:${spec.docDirectory}/xsl/test-suite-to-html.xsl" />
-                                            <!-- akward output path needed by saxon ??? -->
-                                            <arg value="-o:${spec.docDirectory}/org/etourdot/xincproc/xinclude/testsuite/dir/" />
+                                            <arg value="-o:${spec.docDirectory}/org/etourdot/xincproc/xinclude/testsuite/TestSuite.html" />
                                         </java>
                                     </target>
                                 </configuration>

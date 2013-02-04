@@ -55,6 +55,7 @@ public class XProcTestSuiteTest extends XIncProcSuiteTest {
     }
 
     @Ignore("Unidentified maven encoding problem")
+    //@Test
     public void xproc_include_04() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("xproc/test/input-en-cs.xml"),
@@ -62,6 +63,7 @@ public class XProcTestSuiteTest extends XIncProcSuiteTest {
     }
 
     @Ignore("Unidentified maven encoding problem")
+    //@Test
     public void xproc_include_05() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("xproc/test/input-en-cs.xml"),

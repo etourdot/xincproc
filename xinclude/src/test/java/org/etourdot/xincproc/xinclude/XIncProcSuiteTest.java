@@ -19,10 +19,8 @@
  */
 package org.etourdot.xincproc.xinclude;
 
-import com.google.common.base.Charsets;
 import com.google.common.io.Closeables;
 import com.google.common.io.Files;
-import com.google.common.io.Resources;
 import net.sf.saxon.lib.Validation;
 import net.sf.saxon.s9api.Processor;
 import org.custommonkey.xmlunit.Diff;
@@ -31,7 +29,10 @@ import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.StringReader;
 import java.net.URL;
 import java.nio.charset.Charset;
 
@@ -84,9 +85,9 @@ public abstract class XIncProcSuiteTest {
         final FileInputStream source = new FileInputStream(urlTest.getPath());
         engine.parse(source, urlTest.toExternalForm(), output);
         final String resultat = output.toString("UTF-8");
-        //final Diff diff = new Diff(Resources.toString(urlResult, Charsets.UTF_8),resultat);
-        final Diff diff = XMLUnit.compareXML(Resources.toString(urlResult, Charsets.UTF_8), resultat);
-        //LOG.debug("Diff result:{}", diff.toString());
+        LOG.debug("resultat:{}", resultat);
+        final Diff diff = XMLUnit.compareXML(XIncProcUtils.readTextURI(urlResult.toURI(),null,null,null), resultat);
+        LOG.debug("Diff result:{}", diff.toString());
         Closeables.closeQuietly(source);
         assertTrue("testSuccess:" + urlTest, diff.similar());
     }

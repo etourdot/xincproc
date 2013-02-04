@@ -6,12 +6,12 @@
     <xsl:output method="html" />
 
     <xsl:template match="testsuite">
-        <xsl:call-template name="generateTOC"/>
+        <!--xsl:call-template name="generateTOC"/-->
+        <html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:ext="urn:concordion-extensions:2010">
+            <body>
         <xsl:for-each select="testcases">
-            <xsl:variable name="caseName"><xsl:value-of select="concat('TestSuite', position())"/></xsl:variable>
-            <xsl:result-document href="{concat($caseName,'.html')}">
-                <html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:ext="urn:concordion-extensions:2010">
-                <body>
+            <!--xsl:variable name="caseName"><xsl:value-of select="concat('TestSuite', position())"/></xsl:variable>
+            <xsl:result-document href="{concat($caseName,'.html')}"-->
                 <h1><xsl:value-of select="@creator"/></h1>
                 <table>
                     <tr>
@@ -36,10 +36,10 @@
                         </tr>
                     </xsl:for-each>
                 </table>
-                </body>
-                </html>
-            </xsl:result-document>
+            <!--/xsl:result-document-->
         </xsl:for-each>
+            </body>
+        </html>
     </xsl:template>
 
     <xsl:template name="generateTOC">

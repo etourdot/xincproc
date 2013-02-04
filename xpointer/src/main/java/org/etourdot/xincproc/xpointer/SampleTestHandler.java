@@ -1,14 +1,13 @@
 package org.etourdot.xincproc.xpointer;
 
 import org.xml.sax.*;
-import org.xml.sax.ext.DeclHandler;
-import org.xml.sax.ext.LexicalHandler;
+import org.xml.sax.ext.DefaultHandler2;
 
 import java.io.IOException;
 import java.io.PrintStream;
 
 
-public class SampleTestHandler implements ContentHandler, LexicalHandler, DTDHandler, EntityResolver, DeclHandler {
+public class SampleTestHandler extends DefaultHandler2 implements ContentHandler, DTDHandler {
 
     private PrintStream printStream = System.out;
 
@@ -162,5 +161,17 @@ public class SampleTestHandler implements ContentHandler, LexicalHandler, DTDHan
     @Override
     public void externalEntityDecl(final String name, final String publicId, final String systemId) throws SAXException {
         printStream.println("externalEntityDecl:"+name+":"+publicId+":"+systemId);
+    }
+
+    @Override
+    public InputSource getExternalSubset(final String name, final String baseURI) throws SAXException, IOException {
+        printStream.println("getExternalSubset:"+name+":"+baseURI);
+        return super.getExternalSubset(name, baseURI);    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public InputSource resolveEntity(final String name, final String publicId, final String baseURI, final String systemId) throws SAXException, IOException {
+        printStream.println("resolveEntity:"+name+":"+publicId+":"+baseURI+":"+systemId);
+        return super.resolveEntity(name, publicId, baseURI, systemId);    //To change body of overridden methods use File | Settings | File Templates.
     }
 }

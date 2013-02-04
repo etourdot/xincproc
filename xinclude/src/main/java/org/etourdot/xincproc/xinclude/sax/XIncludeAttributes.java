@@ -97,7 +97,7 @@ class XIncludeAttributes {
         final Optional<String> hrefAtt = Optional.fromNullable(attributes.getValue(XIncProcConfiguration.ATT_HREF.getLocalPart()));
         try
         {
-            if (hrefAtt.isPresent())
+            if (hrefAtt.isPresent() && !Strings.isNullOrEmpty(hrefAtt.get()))
             {
                 href = Optional.of(new URI(hrefAtt.get()));
             }
