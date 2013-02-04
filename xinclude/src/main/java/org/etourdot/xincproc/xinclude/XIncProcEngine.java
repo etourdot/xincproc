@@ -19,14 +19,16 @@
  */
 package org.etourdot.xincproc.xinclude;
 
-import net.sf.saxon.s9api.*;
+import net.sf.saxon.s9api.Processor;
+import net.sf.saxon.s9api.SaxonApiException;
+import net.sf.saxon.s9api.Serializer;
+import net.sf.saxon.s9api.XdmNode;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.etourdot.xincproc.xinclude.sax.XIncProcXIncludeFilter;
 import org.etourdot.xincproc.xinclude.sax.XIncludeContext;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLFilter;
-import org.xml.sax.XMLReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xml.sax.*;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import javax.xml.transform.Result;
@@ -41,9 +43,8 @@ import java.net.URISyntaxException;
 /**
  * @author Emmanuel Tourdot
  */
-public class XIncProcEngine
-{
-
+public class XIncProcEngine {
+    private static final Logger LOG = LoggerFactory.getLogger(XIncProcEngine.class);
     private static XIncProcConfiguration configuration;
 
     public XIncProcEngine()
@@ -63,9 +64,16 @@ public class XIncProcEngine
 
     public static XMLFilter newXIncludeFilter(final URI baseURI)
     {
-        XIncludeContext context = new XIncludeContext(configuration);
+        final XIncludeContext context = new XIncludeContext(configuration);
         context.setSourceURI(baseURI);
-        return new XIncProcXIncludeFilter(context);
+        final XMLFilter filter = new XIncProcXIncludeFilter(context);
+        return filter;
+    }
+
+    public static XMLFilter newXIncludeFilter(final XIncludeContext context)
+    {
+        final XMLFilter filter = new XIncProcXIncludeFilter(context);
+        return filter;
     }
 
     public void parse(final URI baseURI, final OutputStream output)
@@ -77,9 +85,10 @@ public class XIncProcEngine
         try
         {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+            xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
+            xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
             filter.setParent(xmlReader);
-            final SAXSource saxSource = new SAXSource(inputSource);
-            saxSource.setXMLReader(filter);
+            final SAXSource saxSource = new SAXSource(filter, inputSource);
             final XdmNode node = processor.newDocumentBuilder().wrap(saxSource);
             Serializer serializer = processor.newSerializer(output);
             processor.writeXdmValue(node, serializer);
@@ -102,6 +111,7 @@ public class XIncProcEngine
     public void parse(final InputStream input, final String systemId, final OutputStream output)
             throws XIncludeFatalException
     {
+        LOG.trace("parse:{}", systemId);
         final Processor processor = configuration.getProcessor();
         final XIncProcXIncludeFilter filter;
         final URI uri;
@@ -118,21 +128,25 @@ public class XIncProcEngine
         try
         {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+            xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
+            xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
             filter.setParent(xmlReader);
-            final SAXSource saxSource = new SAXSource(inputSource);
-            saxSource.setXMLReader(filter);
+            final SAXSource saxSource = new SAXSource(filter, inputSource);
             XdmNode node = processor.newDocumentBuilder().build(saxSource);
+            LOG.trace("parse result:{}", node.toString());
             if (filter.getContext().isNeedSecondPass())
             {
-                InputSource inputSource1 = new InputSource(new StringReader(node.toString()));
-                InputSource inputSource2 = new InputSource(new StringReader(node.toString()));
-                final XIncProcXIncludeFilter secondFilter = (XIncProcXIncludeFilter) newXIncludeFilter(uri);
-                secondFilter.getContext().inPassTwo();
-                secondFilter.getContext().setSource(inputSource1);
-                secondFilter.setParent(xmlReader);
-                final SAXSource secondSource = new SAXSource(inputSource2);
-                secondSource.setXMLReader(secondFilter);
-                node = processor.newDocumentBuilder().wrap(secondSource);
+                LOG.trace("parse into second pass");
+                final XIncProcXIncludeFilter filter2 = (XIncProcXIncludeFilter) newXIncludeFilter(uri);
+                final XMLReader xmlReader2 = XMLReaderFactory.createXMLReader();
+                filter2.getContext().inPassTwo();
+                filter2.getContext().setSourceNode(node);
+                xmlReader2.setProperty("http://xml.org/sax/properties/lexical-handler", filter2);
+                xmlReader2.setProperty("http://xml.org/sax/properties/declaration-handler", filter2);
+                filter2.setParent(xmlReader2);
+                final SAXSource source2 = new SAXSource(filter2, new InputSource(new StringReader(node.toString())));
+                node = processor.newDocumentBuilder().build(source2);
+                LOG.trace("parse result second pass:{}", node.toString());
             }
             Serializer serializer = processor.newSerializer(output);
             processor.writeXdmValue(node, serializer);

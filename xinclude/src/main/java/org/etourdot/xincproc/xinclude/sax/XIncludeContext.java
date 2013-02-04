@@ -1,8 +1,8 @@
 package org.etourdot.xincproc.xinclude.sax;
 
+import net.sf.saxon.s9api.XdmNode;
 import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
-import org.xml.sax.InputSource;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -30,15 +30,16 @@ public class XIncludeContext implements Cloneable {
     private Exception currentException;
     private boolean inInclude;
     private boolean inFallback;
-    private boolean injectingXInclude;
+    private int injectingXIncludeCount;
     private boolean needSecondPass;
     private boolean proceedPassTwo;
-    private InputSource source;
+    private XdmNode sourceNode;
 
     public XIncludeContext(final XIncProcConfiguration configuration)
     {
         this.configuration = configuration;
         this.currentPass = Pass.PASS_ONE;
+        this.injectingXIncludeCount = 0;
     }
 
     public boolean isLanguageFixup() {
@@ -156,12 +157,27 @@ public class XIncludeContext implements Cloneable {
 
     public boolean isInjectingXInclude()
     {
-        return injectingXInclude;
+        return this.injectingXIncludeCount > 0;
     }
 
-    public void setInjectingXInclude(final boolean injectingXInclude)
+    public void startInjectingXInclude()
+            throws XIncludeFatalException
     {
-        this.injectingXInclude = injectingXInclude;
+        this.injectingXIncludeCount ++;
+        if (injectingXIncludeCount > 5)
+        {
+            throw new XIncludeFatalException("Inclusion Loop");
+        }
+    }
+
+    public void stopInjectingXInclude()
+    {
+        this.injectingXIncludeCount --;
+    }
+
+    public void noInjectingXInclude()
+    {
+        this.injectingXIncludeCount = 0;
     }
 
     public boolean isProceedFallback()
@@ -184,14 +200,14 @@ public class XIncludeContext implements Cloneable {
         this.needSecondPass = needSecondPass;
     }
 
-    public InputSource getSource()
+    public XdmNode getSourceNode()
     {
-        return source;
+        return sourceNode;
     }
 
-    public void setSource(final InputSource source)
+    public void setSourceNode(final XdmNode sourceNode)
     {
-        this.source = source;
+        this.sourceNode = sourceNode;
     }
 
     public boolean isPassOne()

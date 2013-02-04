@@ -1,5 +1,6 @@
 package org.etourdot.xincproc.xinclude.api;
 
+import org.concordion.api.ExpectedToFail;
 import org.concordion.integration.junit4.ConcordionRunner;
 import org.etourdot.xincproc.xinclude.XIncProcEngine;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
@@ -19,6 +20,7 @@ import java.io.StringReader;
  * Time: 12:08
  */
 @RunWith(ConcordionRunner.class)
+@ExpectedToFail
 public class ApiTest {
     public String execute(String source) throws XIncludeFatalException {
         XIncProcEngine xIncProcEngine = new XIncProcEngine();

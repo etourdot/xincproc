@@ -5,7 +5,7 @@ import org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException;
 import org.junit.Test;
 import org.xml.sax.helpers.AttributesImpl;
 
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created with IntelliJ IDEA.

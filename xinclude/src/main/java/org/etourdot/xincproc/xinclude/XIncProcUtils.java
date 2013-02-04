@@ -2,6 +2,8 @@ package org.etourdot.xincproc.xinclude;
 
 import com.google.common.base.Strings;
 import com.google.common.io.Resources;
+import org.apache.commons.io.ByteOrderMark;
+import org.apache.commons.io.input.BOMInputStream;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException;
 import org.xml.sax.Attributes;
@@ -14,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.List;
@@ -161,15 +164,28 @@ public final class XIncProcUtils {
      * @throws XIncludeFatalException
      * @throws XIncludeResourceException
      */
-    public static String readTextURI(final URI source, final String encoding) throws XIncludeFatalException, XIncludeResourceException
+    public static String readTextURI(final URI source, final String encoding)
+            throws XIncludeFatalException, XIncludeResourceException
     {
         try
         {
             final URL url = source.toURL();
+            final URLConnection urlConnection = url.openConnection();
             final Charset charset;
             if (encoding == null)
             {
-                charset = Charset.defaultCharset();
+                BOMInputStream bomIn = new BOMInputStream(urlConnection.getInputStream(), ByteOrderMark.UTF_8,
+                        ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE,
+                        ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_32BE);
+                final String guessCharset = bomIn.getBOMCharsetName();
+                if (guessCharset == null)
+                {
+                    charset = Charset.defaultCharset();
+                }
+                else
+                {
+                    charset = Charset.forName(guessCharset);
+                }
             }
             else
             {

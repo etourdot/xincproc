@@ -84,9 +84,9 @@ public abstract class XIncProcSuiteTest {
         final FileInputStream source = new FileInputStream(urlTest.getPath());
         engine.parse(source, urlTest.toExternalForm(), output);
         final String resultat = output.toString("UTF-8");
-        //final Diff diff = new Diff(Resources.toString(urlResult, Charsets.UTF_8),resultat);
+        LOG.debug("resultat:{}", resultat);
         final Diff diff = XMLUnit.compareXML(Resources.toString(urlResult, Charsets.UTF_8), resultat);
-        //LOG.debug("Diff result:{}", diff.toString());
+        LOG.debug("Diff result:{}", diff.toString());
         Closeables.closeQuietly(source);
         assertTrue("testSuccess:" + urlTest, diff.similar());
     }
