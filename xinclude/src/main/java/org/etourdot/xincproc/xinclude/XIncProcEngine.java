@@ -93,7 +93,7 @@ public class XIncProcEngine {
         {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
             xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
-            xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
+            //xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
             filter.setParent(xmlReader);
             final SAXSource saxSource = new SAXSource(filter, inputSource);
             final XdmNode node = processor.newDocumentBuilder().wrap(saxSource);
@@ -138,7 +138,6 @@ public class XIncProcEngine {
         {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
             xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
-            xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
             filter.setParent(xmlReader);
             final SAXSource saxSource = new SAXSource(filter, inputSource);
             XdmNode node = processor.newDocumentBuilder().build(saxSource);
@@ -151,7 +150,6 @@ public class XIncProcEngine {
                 filter2.getContext().treatIncludesWithoutHref();
                 filter2.getContext().setSourceNode(node);
                 xmlReader2.setProperty("http://xml.org/sax/properties/lexical-handler", filter2);
-                xmlReader2.setProperty("http://xml.org/sax/properties/declaration-handler", filter2);
                 filter2.setParent(xmlReader2);
                 final SAXSource source2 = new SAXSource(filter2, new InputSource(new StringReader(node.toString())));
                 node = processor.newDocumentBuilder().build(source2);

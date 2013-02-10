@@ -16,7 +16,6 @@ import org.etourdot.xincproc.xpointer.exceptions.XPointerResourceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.*;
-import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.ext.Locator2Impl;
 import org.xml.sax.helpers.AttributesImpl;
@@ -42,7 +41,7 @@ import java.util.Stack;
  * Date: 18/12/12
  * Time: 23:13
  */
-public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler, LexicalHandler {
+public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHandler {
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcXIncludeFilter.class);
     public static final String FIXUP_XML_LANG = "fixup-xml-lang";
     public static final String FIXUP_XML_BASE = "fixup-xml-base";
@@ -257,7 +256,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             else
             {
                 xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
-                xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
                 source = new SAXSource(filter, new InputSource(new FileReader(sourceURI.getPath())));
                 //source.setXMLReader(filter);
                 if (!xIncludeAttributes.isXPointerPresent())
@@ -270,7 +268,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             final XMLReader parser = XMLReaderFactory.createXMLReader();
             parser.setContentHandler(this);
             parser.setProperty("http://xml.org/sax/properties/lexical-handler", this);
-            parser.setProperty("http://xml.org/sax/properties/declaration-handler", this);
             context.startInjectingXInclude();
             if (xIncludeAttributes.isXPointerPresent())
             {
@@ -520,38 +517,5 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     {
         LOG.trace("notationDecl:{},{},{}", name,publicId,systemId);
         super.notationDecl(name, publicId, systemId);
-    }
-
-
-    @Override
-    public void elementDecl(final String name, final String model)
-            throws SAXException
-    {
-        LOG.trace("elementDecl:{},{}", name, model);
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void attributeDecl(final String eName, final String aName, final String type, final String mode, final String value)
-            throws SAXException
-    {
-        LOG.trace("attributeDecl:{},{},{},{},{}", eName, aName, type, mode, value);
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void internalEntityDecl(final String name, final String value)
-            throws SAXException
-    {
-        LOG.trace("internalEntityDecl:{},{},{}", name, value);
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void externalEntityDecl(final String name, final String publicId, final String systemId)
-            throws SAXException
-    {
-        LOG.trace("externalEntityDecl:{},{},{}", name, publicId, systemId);
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 }
