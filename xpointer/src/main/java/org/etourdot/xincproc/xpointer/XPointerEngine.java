@@ -250,6 +250,7 @@ public class XPointerEngine {
      * @throws XPointerException
      */
     public String execute(final String pointerStr, final Source source)
+        throws XPointerException
     {
         try
         {
@@ -293,9 +294,13 @@ public class XPointerEngine {
             {
                 executeShorthandPointer(pointer.getShortHand(), node, destination);
             }
-            else
+            else if (pointer.isSchemeBased())
             {
                 executeSchemaPointer(pointer, node, destination);
+            }
+            else
+            {
+                throw new XPointerResourceException("Unknown pointer expression");
             }
         }
         else

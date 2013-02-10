@@ -36,8 +36,8 @@ import java.io.StringReader;
 import java.net.URL;
 import java.nio.charset.Charset;
 
+import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * @author Emmanuel Tourdot
@@ -89,7 +89,7 @@ public abstract class XIncProcSuiteTest {
         final Diff diff = XMLUnit.compareXML(XIncProcUtils.readTextURI(urlResult.toURI(),null,null,null), resultat);
         LOG.debug("Diff result:{}", diff.toString());
         Closeables.closeQuietly(source);
-        assertTrue("testSuccess:" + urlTest, diff.similar());
+        assertTrue("testSuccess:" + urlTest, diff.identical());
     }
 
     protected void testException(final URL urlTest, final Class exception)

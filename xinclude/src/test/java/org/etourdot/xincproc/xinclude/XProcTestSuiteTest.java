@@ -105,7 +105,7 @@ public class XProcTestSuiteTest extends XIncProcSuiteTest {
                 getClass().getClassLoader().getResource("xproc/result/xinclude-o005.xml"), false, false);
     }
 
-    @Test
+    @Ignore
     public void xproc_include_opt_06() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("xproc/test/xinclude-o006.xml"),

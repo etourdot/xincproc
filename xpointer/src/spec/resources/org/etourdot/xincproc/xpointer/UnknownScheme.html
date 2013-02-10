@@ -1,0 +1,63 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<body>
+
+    <h1>Unknonw Scheme expression</h1>
+
+    <p>
+        What's up when xpointer expression contains unknown schemes ?
+    </p>
+
+    <cite>
+        When multiple pointer parts are provided, an XPointer processor must evaluate them in left-to-right order.
+        If the XPointer processor does not support the scheme used in a pointer part, it skips that pointer part.
+        If a pointer part does not identify any subresources, evaluation continues and the next pointer part, if any,
+        is evaluated.
+        The result of the first pointer part whose evaluation identifies one or more subresources is reported
+        by the XPointer processor as the result of the pointer as a whole, and evaluation stops.
+        If no pointer part identifies subresources, it is an error.
+    </cite>
+
+    <div class="example">
+
+        <h3>Example</h3>
+
+        <p>Given a simple xml  :</p>
+
+        <pre concordion:set="#document">
+            &lt;catalog&gt;
+                &lt;book id="book1"&gt;
+                    &lt;author id="auth1"&gt;Gambardella, Matthew&lt;/author&gt;
+                    &lt;title&gt;XML Developer's Guide&lt;/title&gt;
+                    &lt;genre id="bk101"&gt;Computer&lt;/genre&gt;
+                    &lt;price&gt;44.95&lt;/price&gt;
+                    &lt;publish_date&gt;2000-10-01&lt;/publish_date&gt;
+                    &lt;description&gt;An in-depth look at creating applications
+                        with XML.&lt;/description&gt;
+                &lt;/book&gt;
+            &lt;/catalog&gt;
+        </pre>
+
+        <p>Expressions matching nodes:</p>
+
+        <table concordion:execute="#result = execute(#pointer,#document)">
+            <tr>
+                <th concordion:set="#pointer">Pointer content</th>
+                <th concordion:assertEquals="#result.result">Result</th>
+                <th concordion:assertEquals="#result.error">ErrorHandler</th>
+            </tr>
+            <tr>
+                <td>xlimit(1)element(auth1)</td>
+                <td>&lt;author id="auth1"&gt;Gambardella, Matthew&lt;/author&gt;</td>
+                <td>Warning: 'xlimit' scheme is not supported</td>
+            </tr>
+            <tr>
+                <td>xlimit(1)</td>
+                <td></td>
+                <td>Warning: 'xlimit' scheme is not supported Unknown pointer expression</td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+</html>

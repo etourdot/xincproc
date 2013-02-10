@@ -7,6 +7,7 @@ package org.etourdot.xincproc.xpointer.exceptions;
  * Time: 23:16
  */
 public class XPointerException extends Exception {
+
     public XPointerException(final Throwable cause)
     {
         super(cause);

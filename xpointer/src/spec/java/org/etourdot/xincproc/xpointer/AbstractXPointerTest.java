@@ -1,6 +1,5 @@
 package org.etourdot.xincproc.xpointer;
 
-import net.sf.saxon.s9api.SaxonApiException;
 import org.etourdot.xincproc.xpointer.exceptions.XPointerException;
 import org.xml.sax.InputSource;
 
@@ -16,7 +15,7 @@ import java.io.StringReader;
 public abstract class AbstractXPointerTest {
 
     public Result executeWithBaseFixup(final String pointer, final String source, final String baseURI)
-            throws SaxonApiException, XPointerException
+            throws XPointerException
     {
         final XPointerEngine xPointerEngine = new XPointerEngine();
         xPointerEngine.setBaseURI((baseURI.equals("null"))?null:baseURI);
@@ -24,7 +23,7 @@ public abstract class AbstractXPointerTest {
     }
 
     public Result executeWithLang(final String pointer, final String lang, final String source)
-            throws SaxonApiException, XPointerException
+            throws XPointerException
     {
         final XPointerEngine xPointerEngine = new XPointerEngine();
         if ("(null)".equals(lang))
@@ -38,7 +37,9 @@ public abstract class AbstractXPointerTest {
         return getResult(pointer, source, xPointerEngine);
     }
 
-    private Result getResult(String pointer, String source, XPointerEngine xPointerEngine) throws XPointerException, SaxonApiException {
+    private Result getResult(String pointer, String source, XPointerEngine xPointerEngine)
+            throws XPointerException
+    {
         final Result result = new Result();
         final PrintableXPointerErrorHandler printableXPointerErrorHandler = new PrintableXPointerErrorHandler();
         xPointerEngine.setXPointerErrorHandler(printableXPointerErrorHandler);
@@ -48,7 +49,7 @@ public abstract class AbstractXPointerTest {
     }
 
     public Result execute(final String pointer, final String source)
-        throws SaxonApiException, XPointerException
+        throws XPointerException
     {
         final XPointerEngine xPointerEngine = new XPointerEngine();
         return getResult(pointer, source, xPointerEngine);

@@ -37,11 +37,7 @@ public class XIncludeContext implements Cloneable {
     private URI hrefURI;
     private final Deque<String> xincludeDeque = new ArrayDeque<String>();
 
-    private boolean needFallback;
     private boolean  proceedFallback;
-    private boolean inInclude;
-    private boolean inFallback;
-    private int injectingXIncludeCount;
 
     private Exception currentException;
     private XdmNode sourceNode;
@@ -50,12 +46,23 @@ public class XIncludeContext implements Cloneable {
     {
         this.configuration = configuration;
         this.currentTreatment = Treatment.TREAT_ALL_INCLUDES;
-        this.injectingXIncludeCount = 0;
     }
 
     public XIncProcConfiguration getConfiguration()
     {
         return configuration;
+    }
+
+    public static XIncludeContext newContext(final XIncludeContext contextToCopy)
+    {
+        final XIncludeContext newContext = new XIncludeContext(contextToCopy.getConfiguration());
+        newContext.currentBaseURI = contextToCopy.currentBaseURI;
+        newContext.stackedBaseURI = contextToCopy.stackedBaseURI;
+        newContext.basesURIDeque.addAll(contextToCopy.basesURIDeque);
+        newContext.language = contextToCopy.language;
+        newContext.langDeque.addAll(contextToCopy.langDeque);
+        newContext.xincludeDeque.addAll(contextToCopy.xincludeDeque);
+        return newContext;
     }
 
     public void updateContextWithElementAttributes(final AttributesImpl attributes)
@@ -210,50 +217,6 @@ public class XIncludeContext implements Cloneable {
         this.language = language;
     }
 
-    public boolean isInFallback() {
-        return inFallback;
-    }
-
-    public void setInFallback(boolean inFallback) {
-        this.inFallback = inFallback;
-    }
-
-    public boolean isInInclude() {
-        return inInclude;
-    }
-
-    public void setInInclude(boolean inInclude) {
-        this.inInclude = inInclude;
-    }
-
-    public boolean isNeedFallback() {
-        return needFallback;
-    }
-
-    public void setNeedFallback(boolean needFallback) {
-        this.needFallback = needFallback;
-    }
-
-    public boolean isInjectingXInclude()
-    {
-        return this.injectingXIncludeCount > 0;
-    }
-
-    public void startInjectingXInclude()
-    {
-        this.injectingXIncludeCount ++;
-    }
-
-    public void stopInjectingXInclude()
-    {
-        this.injectingXIncludeCount --;
-    }
-
-    public void noInjectingXInclude()
-    {
-        this.injectingXIncludeCount = 0;
-    }
-
     public boolean isProceedFallback()
     {
         return proceedFallback;
@@ -311,12 +274,5 @@ public class XIncludeContext implements Cloneable {
     public String toString()
     {
         return "sourceURI:"+sourceURI+"\n,currentBase:"+currentBaseURI+",hrefURI:"+ hrefURI +"\n,stackedBase:"+stackedBaseURI+",lang:"+ getLanguage();
-    }
-
-    boolean isUsable()
-    {
-        return (isInFallback() && isNeedFallback()) ||
-               (!isInFallback() && !isInInclude()) ||
-               (isInInclude() && isInjectingXInclude());
     }
 }
