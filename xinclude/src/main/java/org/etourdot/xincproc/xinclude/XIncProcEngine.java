@@ -93,7 +93,6 @@ public class XIncProcEngine {
         {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
             xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
-            //xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
             filter.setParent(xmlReader);
             final SAXSource saxSource = new SAXSource(filter, inputSource);
             final XdmNode node = processor.newDocumentBuilder().wrap(saxSource);

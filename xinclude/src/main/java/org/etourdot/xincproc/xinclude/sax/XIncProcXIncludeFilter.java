@@ -1,6 +1,5 @@
 package org.etourdot.xincproc.xinclude.sax;
 
-import net.sf.saxon.event.ReceivingContentHandler;
 import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.s9api.SAXDestination;
 import net.sf.saxon.s9api.XdmNode;
@@ -50,6 +49,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     private int level;
     private final Stack<String> currentLangStack;
     private boolean needEndXinclude;
+    private boolean inDTD;
+    LexicalHandler	lexicalHandler;
+    private static String lexicalID = "http://xml.org/sax/properties/lexical-handler";
 
     public XIncProcXIncludeFilter(XIncludeContext context)
     {
@@ -62,6 +64,33 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     public XIncludeContext getContext()
     {
         return context;
+    }
+
+    @Override
+    public void setProperty (String uri, Object value)
+            throws SAXNotRecognizedException, SAXNotSupportedException
+    {
+        if (lexicalID.equals(uri))
+        {
+            lexicalHandler = (LexicalHandler) value;
+        }
+        else
+        {
+            super.setProperty(uri, value);
+        }
+    }
+
+    @Override
+    public void parse (InputSource in)
+            throws SAXException, IOException
+    {
+        XMLReader parent = getParent();
+
+        if (parent != null)
+        {
+            parent.setProperty(lexicalID, this);
+        }
+        super.parse (in);
     }
 
     @Override
@@ -198,7 +227,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     private void includeTextContent(final XIncludeAttributes xIncludeAttributes)
             throws XIncludeFatalException, XIncludeResourceException
     {
-        //final URI sourceURI = XIncProcUtils.resolveBase(context.getSourceURI(), context.getBaseURIPaths());
         String content = XIncProcUtils.readTextURI(context.getSourceURI(), xIncludeAttributes.getEncoding(),
                 xIncludeAttributes.getAccept(), xIncludeAttributes.getAcceptLanguage());
         try
@@ -225,18 +253,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
                 context.setLanguage(currentLangStack.peek());
             }
             final URI sourceURI = context.getSourceURI();
-            /*if (xIncludeAttributes.isBasePresent())
-            {
-                sourceURI = context.getSourceURI().resolve(xIncludeAttributes.getBase().resolve(xIncludeAttributes.getHref()));
-            }
-            else if (xIncludeAttributes.isHrefPresent())
-            {
-                sourceURI = context.getSourceURI().resolve(xIncludeAttributes.getHref());
-            }
-            else
-            {
-                sourceURI = context.getSourceURI();
-            }*/
             final XIncludeContext newContext = context.clone();
             newContext.setHrefURI(xIncludeAttributes.getHref());
             newContext.setInitialBaseURI(sourceURI);
@@ -257,7 +273,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             {
                 xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
                 source = new SAXSource(filter, new InputSource(new FileReader(sourceURI.getPath())));
-                //source.setXMLReader(filter);
                 if (!xIncludeAttributes.isXPointerPresent())
                 {
                     source.setSystemId(sourceURI.toASCIIString());
@@ -331,7 +346,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
         try {
             LOG.trace("resolveEntity:{},{},{}", publicId, systemId, XIncProcUtils.resolveBase(new URI(systemId), context.getBaseURIPaths()));
         } catch (URISyntaxException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         return super.resolveEntity(publicId, systemId);
     }
@@ -465,11 +480,21 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             throws SAXException
     {
         LOG.trace("startDTD:{},{},{}", name,publicId,systemId);
+        inDTD = true;
+        if (lexicalHandler != null)
+        {
+            lexicalHandler.startDTD(name, publicId, systemId);
+        }
     }
 
     @Override
     public void endDTD() throws SAXException {
         LOG.trace("endDTD");
+        inDTD = false;
+        if (lexicalHandler != null)
+        {
+            lexicalHandler.endDTD();
+        }
     }
 
     @Override
@@ -477,13 +502,21 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             throws SAXException
     {
         LOG.trace("startEntity:{}", name);
+        if (lexicalHandler != null)
+        {
+            lexicalHandler.startEntity(name);
+        }
     }
 
     @Override
     public void endEntity(final String name)
             throws SAXException
     {
-        LOG.trace("startDTD:{}", name);
+        LOG.trace("endEntity:{}", name);
+        if (lexicalHandler != null)
+        {
+            lexicalHandler.endEntity(name);
+        }
     }
 
     @Override
@@ -491,6 +524,10 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             throws SAXException
     {
         LOG.trace("startCDATA");
+        if (lexicalHandler != null)
+        {
+            lexicalHandler.startCDATA();
+        }
     }
 
     @Override
@@ -498,6 +535,10 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             throws SAXException
     {
         LOG.trace("endCDATA");
+        if (lexicalHandler != null)
+        {
+            lexicalHandler.endCDATA();
+        }
     }
 
     @Override
@@ -505,9 +546,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             throws SAXException
     {
         LOG.trace("comment: {}", new String(ch).substring(start, start + length));
-        if (getContentHandler() instanceof ReceivingContentHandler)
+        if (lexicalHandler != null && !inDTD && !(context.isInInclude() && !context.isInjectingXInclude()))
         {
-            ((ReceivingContentHandler) getContentHandler()).comment(ch, start, length);
+            lexicalHandler.comment(ch, start, length);
         }
     }
 
