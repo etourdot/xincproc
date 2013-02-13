@@ -20,6 +20,7 @@
 package org.etourdot.xincproc.xinclude;
 
 import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * @author Emmanuel Tourdot
@@ -37,7 +38,7 @@ public class HaroldTestSuiteTest extends XIncProcSuiteTest {
         testSuccess(getClass().getClassLoader().getResource("harold/test/includedocumentwithintradocumentreferences.xml"),
                 getClass().getClassLoader().getResource("harold/result/includedocumentwithintradocumentreferences.xml"));
     }
-    @Ignore("xml base repeat problem")
+    @Ignore
     public void harold_10() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("harold/test/marshtestwithxmlbase.xml"),
@@ -61,7 +62,7 @@ public class HaroldTestSuiteTest extends XIncProcSuiteTest {
         testSuccess(getClass().getClassLoader().getResource("harold/test/metafallbacktest2.xml"),
                 getClass().getClassLoader().getResource("harold/result/metafallbacktest2.xml"));
     }
-    @Ignore
+    @Test
     public void harold_55() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("harold/test/fallbacktest2.xml"),

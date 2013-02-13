@@ -7,7 +7,7 @@
     </layout>
   </appender>
 
-  <logger name="org.etourdot" level="TRACE"/>
+  <logger name="org.etourdot" level="DEBUG"/>
 
 
   <root level="debug">

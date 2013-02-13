@@ -46,17 +46,19 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     public static final String FIXUP_XML_BASE = "fixup-xml-base";
     private final XIncludeContext context;
     private final Map<String, String> namespaces = new HashMap<String, String>();
-    private int level;
     private final Stack<String> currentLangStack;
     private boolean needEndXinclude;
     private boolean inDTD;
     LexicalHandler	lexicalHandler;
     private static String lexicalID = "http://xml.org/sax/properties/lexical-handler";
 
-    private boolean needFallback;
-    private int inFallbackCount;
-    private int inXIncludeCount;
-    private int injectingXIncludeCount;
+    private boolean alreadyProceedFallback;
+
+    private int elementLevel;
+    private int fallbackLevel;
+    private int xIncludeLevel;
+    private int needFallbackLevel;
+    private int injectingXIncludeLevel;
 
 
     public XIncProcXIncludeFilter(XIncludeContext context)
@@ -64,8 +66,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
         this.context = context;
         this.currentLangStack = new Stack<String>();
         currentLangStack.push(context.getLanguage());
-        noInjectingXInclude();
-        LOG.debug("new XIncProcXIncludeFilter context={}", context);
+        injectingXIncludeLevel = 0;
+        xIncludeLevel = 0;
+        fallbackLevel = 0;
     }
 
     public XIncludeContext getContext()
@@ -103,7 +106,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     @Override
     public void startDocument() throws SAXException
     {
-        level = 0;
+        elementLevel = 0;
         if (!injectingXInclude())
         {
             LOG.trace("startDocument@{}", Integer.toHexString(hashCode()));
@@ -126,14 +129,13 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             throws SAXException
     {
         LOG.trace("startElement@{}: {}, {}, {}", Integer.toHexString(hashCode()), uri, localName, qName);
-        level ++;
         final AttributesImpl attributesImpl = new AttributesImpl(attributes);
         context.updateContextWithElementAttributes(attributesImpl);
         final int langAttIdx = attributesImpl.getIndex(NamespaceSupport.XMLNS,
                 XIncProcConfiguration.XMLLANG_QNAME.getLocalPart());
         final QName elementQName = new QName(uri, localName);
 
-         if (level==1)
+        if (isTopElement())
         {
             if (context.isBaseFixup() && context.getHrefURI() != null && context.getCurrentBaseURI() == null)
             {
@@ -150,6 +152,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
                 attributesImpl.removeAttribute(langAttIdx);
             }
         }
+        startElement();
         if (XIncProcUtils.isXInclude(elementQName))
         {
             XIncludeAttributes xIncludeAttributes = new XIncludeAttributes(attributes);
@@ -185,27 +188,27 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             }
             catch(final XIncludeResourceException e)
             {
-                needFallback = true;
+                startNeedFallback();
                 context.setCurrentException(e);
             }
         }
         else if (XIncProcUtils.isFallback(elementQName))
         {
-            if (!inXIncludeElement())
+            startFalbackElement();
+            if (!inXIncludeElement() || (isNeedFallback() && fallbackLevel > xIncludeLevel))
             {
                 throw new XIncludeFatalException("Fallback not in xinclude element container");
             }
-            if (context.isProceedFallback())
+            if (alreadyProceedFallback)
             {
                 throw new XIncludeFatalException("Only one fallback element allowed in xinclude");
             }
-            if (needFallback)
+            /*if (isNeedFallback())
             {
                 endXIncludeElement();
-            }
-            startFalbackElement();
+            }*/
         }
-        else if (!inFallbackElement() && needFallback)
+        else if (!inFallbackElement() && isNeedFallback())
         {
             throw new XIncludeFatalException("No Fallback element");
         }
@@ -344,6 +347,72 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     }
 
     @Override
+    public void endElement(String uri, String localName, String qName)
+            throws SAXException
+    {
+        LOG.trace("endElement@{}:{},{},{}", Integer.toHexString(hashCode()), uri, localName, qName);
+        context.updateContextWhenEndElement();
+        final QName elementQName = new QName(uri, localName);
+        if (XIncProcUtils.isFallback(elementQName))
+        {
+            if (isNeedFallback())
+            {
+                endNeedFallback();
+            }
+            endFallbackElement();
+        }
+        else if (XIncProcUtils.isXInclude(elementQName))
+        {
+            if (!context.isNeedTreatIncludeWithoutHref())
+            {
+                if (isNeedFallback())
+                {
+                    endNeedFallback();
+                    throw new XIncludeFatalException(context.getCurrentException());
+                }
+                context.removeFromInclusionChain();
+            }
+            if (needEndXinclude)
+            {
+                super.endElement(uri, localName, qName);
+            }
+            endXIncludeElement();
+            needEndXinclude = false;
+        }
+        else if (isUsable())
+        {
+            if (!currentLangStack.empty())
+            {
+                currentLangStack.pop();
+            }
+            super.endElement(uri, localName, qName);
+        }
+        endElement();
+    }
+
+    @Override
+    public void characters(char[] ch, int start, int length)
+            throws SAXException
+    {
+        if (isUsable())
+        {
+            LOG.trace("characters@{}: {}", Integer.toHexString(hashCode()), new String(ch).substring(start,start+length).trim());
+            super.characters(ch, start, length);
+        }
+    }
+
+    @Override
+    public void comment(final char[] ch, final int start, final int length)
+            throws SAXException
+    {
+        LOG.trace("comment: {}", new String(ch).substring(start, start + length));
+        if (lexicalHandler != null && !inDTD && !(inXIncludeElement() && !injectingXInclude()))
+        {
+            lexicalHandler.comment(ch, start, length);
+        }
+    }
+
+    @Override
     public InputSource resolveEntity(final String publicId, final String systemId)
             throws SAXException, IOException
     {
@@ -376,60 +445,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     {
         LOG.trace("unparsedEntityDecl:{},{},{},{}",name,publicId, systemId, notationName);
         super.unparsedEntityDecl(name, publicId, systemId, notationName);
-    }
-
-    @Override
-    public void endElement(String uri, String localName, String qName)
-            throws SAXException
-    {
-        LOG.trace("endElement@{}:{},{},{}", Integer.toHexString(hashCode()), uri, localName, qName);
-        -- level;
-        context.updateContextWhenEndElement();
-        final QName elementQName = new QName(uri, localName);
-        if (XIncProcUtils.isFallback(elementQName))
-        {
-            needFallback = false;
-            context.setProceedFallback(true);
-            endFallbackElement();
-        }
-        else if (XIncProcUtils.isXInclude(elementQName))
-        {
-            if (!context.isNeedTreatIncludeWithoutHref())
-            {
-                if (needFallback)
-                {
-                    throw new XIncludeFatalException(context.getCurrentException());
-                }
-                needFallback = false;
-                context.setProceedFallback(false);
-                context.removeFromInclusionChain();
-            }
-            if (needEndXinclude)
-            {
-                super.endElement(uri, localName, qName);
-            }
-            endXIncludeElement();
-            needEndXinclude = false;
-        }
-        else if (isUsable())
-        {
-            if (!currentLangStack.empty())
-            {
-                currentLangStack.pop();
-            }
-            super.endElement(uri, localName, qName);
-        }
-    }
-
-    @Override
-    public void characters(char[] ch, int start, int length)
-            throws SAXException
-    {
-        if (isUsable())
-        {
-            LOG.trace("characters@{}: {}", Integer.toHexString(hashCode()), new String(ch).substring(start,start+length).trim());
-            super.characters(ch, start, length);
-        }
     }
 
     @Override
@@ -546,17 +561,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     }
 
     @Override
-    public void comment(final char[] ch, final int start, final int length)
-            throws SAXException
-    {
-        LOG.trace("comment: {}", new String(ch).substring(start, start + length));
-        if (lexicalHandler != null && !inDTD && !(inXIncludeElement() && !injectingXInclude()))
-        {
-            lexicalHandler.comment(ch, start, length);
-        }
-    }
-
-    @Override
     public void notationDecl(final String name, final String publicId, final String systemId)
             throws SAXException
     {
@@ -566,57 +570,84 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
 
     public boolean inFallbackElement()
     {
-        return inFallbackCount > 0;
+        return fallbackLevel > 0;
+    }
+
+    public void startElement()
+    {
+        elementLevel++;
+    }
+
+    public void endElement()
+    {
+        elementLevel--;
+    }
+
+    public boolean isTopElement()
+    {
+        return elementLevel == 0;
     }
 
     public void startFalbackElement()
     {
-        inFallbackCount ++;
+        fallbackLevel++;
     }
 
     public void endFallbackElement()
     {
-        inFallbackCount --;
+        fallbackLevel--;
+        alreadyProceedFallback = true;
     }
 
      public boolean inXIncludeElement()
     {
-        return inXIncludeCount > 0;
+        return xIncludeLevel > 0;
     }
 
     public void startXIncludeElement()
     {
-        inXIncludeCount ++;
+        xIncludeLevel++;
     }
 
     public void endXIncludeElement()
     {
-        inXIncludeCount --;
+        xIncludeLevel--;
+        alreadyProceedFallback = false;
     }
 
     public boolean injectingXInclude()
     {
-        return injectingXIncludeCount > 0;
+        return injectingXIncludeLevel > 0;
     }
 
     public void startInjectingXInclude()
     {
-        injectingXIncludeCount ++;
+        injectingXIncludeLevel++;
     }
 
     public void stopInjectingXInclude()
     {
-        injectingXIncludeCount --;
+        injectingXIncludeLevel--;
     }
 
-    public void noInjectingXInclude()
+    public void startNeedFallback()
     {
-        injectingXIncludeCount = 0;
+        needFallbackLevel++;
+    }
+
+    public void endNeedFallback()
+    {
+        needFallbackLevel--;
+    }
+
+    public boolean isNeedFallback()
+    {
+        return xIncludeLevel > 0 && needFallbackLevel == xIncludeLevel;
     }
 
     boolean isUsable()
     {
-        return (needFallback && inFallbackElement()) ||
+        return (isNeedFallback() && inFallbackElement()) ||
                (!inFallbackElement() && !inXIncludeElement()) ||
                (inXIncludeElement() && injectingXInclude());
     }

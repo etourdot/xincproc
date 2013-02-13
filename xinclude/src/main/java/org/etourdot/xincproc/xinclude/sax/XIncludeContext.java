@@ -37,8 +37,6 @@ public class XIncludeContext implements Cloneable {
     private URI hrefURI;
     private final Deque<String> xincludeDeque = new ArrayDeque<String>();
 
-    private boolean  proceedFallback;
-
     private Exception currentException;
     private XdmNode sourceNode;
 
@@ -62,6 +60,8 @@ public class XIncludeContext implements Cloneable {
         newContext.language = contextToCopy.language;
         newContext.langDeque.addAll(contextToCopy.langDeque);
         newContext.xincludeDeque.addAll(contextToCopy.xincludeDeque);
+        newContext.currentTreatment = contextToCopy.currentTreatment;
+        newContext.sourceNode = contextToCopy.sourceNode;
         return newContext;
     }
 
@@ -215,16 +215,6 @@ public class XIncludeContext implements Cloneable {
     public void setLanguage(final String language)
     {
         this.language = language;
-    }
-
-    public boolean isProceedFallback()
-    {
-        return proceedFallback;
-    }
-
-    public void setProceedFallback(final boolean proceedFallback)
-    {
-        this.proceedFallback = proceedFallback;
     }
 
     public boolean isNeedTreatIncludeWithoutHref()
