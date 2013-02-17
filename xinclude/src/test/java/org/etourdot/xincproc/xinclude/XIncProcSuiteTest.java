@@ -109,7 +109,7 @@ public abstract class XIncProcSuiteTest {
         final FileInputStream source = new FileInputStream(urlTest.getPath());
         try
         {
-            engine.parse(source, urlTest.toExternalForm(), output);
+            engine.parse(source, urlTest.toURI().getPath(), output);
             LOG.debug("Result:{}", new String(output.toByteArray(), "UTF-8"));
         }
         catch (Exception e)

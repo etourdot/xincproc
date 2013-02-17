@@ -21,7 +21,6 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.StringWriter;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -214,8 +213,7 @@ public class XPointerEngine {
         }
         catch (final Exception e)
         {
-            log.error("parser exception", e);
-            throw new XPointerException(e);
+            throw new XPointerException("Unknown pointer expression", e);
         }
         final CommonTree ast = (CommonTree) result.getTree();
         Pointer pointer = null;
@@ -233,7 +231,6 @@ public class XPointerEngine {
             }
             catch (final Exception e)
             {
-                log.error("tree exception", e);
                 throw new XPointerException(e);
             }
         }
@@ -281,9 +278,10 @@ public class XPointerEngine {
      * @param pointerStr xpointer expression
      * @param source xml source
      * @param destination Saxon destination of result stream
+     * @return number of elements in result infoset excluding comments et processing instructions
      * @throws XPointerException
      */
-    public void executeToDestination(final String pointerStr, final Source source, final Destination destination)
+    public int executeToDestination(final String pointerStr, final Source source, final Destination destination)
             throws XPointerException
     {
         final Pointer pointer = getPointer(pointerStr);
@@ -292,11 +290,11 @@ public class XPointerEngine {
         {
             if (pointer.isShortHand())
             {
-                executeShorthandPointer(pointer.getShortHand(), node, destination);
+                return executeShorthandPointer(pointer.getShortHand(), node, destination);
             }
             else if (pointer.isSchemeBased())
             {
-                executeSchemaPointer(pointer, node, destination);
+                return executeSchemaPointer(pointer, node, destination);
             }
             else
             {
@@ -309,16 +307,29 @@ public class XPointerEngine {
         }
     }
 
-    private void executeShorthandPointer(final ShortHand shortHand, final XdmNode node, final Destination destination)
+    private int executeShorthandPointer(final ShortHand shortHand, final XdmNode node, final Destination destination)
             throws XPointerException
     {
         final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(shortHand, node.asSource());
         try
         {
-            for (final Iterator<XdmItem> itResults = xQueryEvaluator.iterator(); itResults.hasNext(); ) {
-                final XdmItem nextItem =  itResults.next();
-                processor.writeXdmValue(nextItem, destination);
+            final XdmValue value = xQueryEvaluator.evaluate();
+            final XdmSequenceIterator itemsIterator = value.iterator();
+            int elementCount = 0;
+            if (value.size() == 0)
+            {
+                throw new XPointerResourceException("No identified subresource");
             }
+            while (itemsIterator.hasNext())
+            {
+                final XdmItem item = itemsIterator.next();
+                if (((XdmNode) item).getNodeKind().equals(XdmNodeKind.ELEMENT))
+                {
+                    elementCount++;
+                }
+                processor.writeXdmValue(item, destination);
+            }
+            return elementCount;
         }
         catch (final SaxonApiException e)
         {
@@ -326,7 +337,7 @@ public class XPointerEngine {
         }
     }
 
-    private void executeSchemaPointer(final Pointer pointer, final XdmNode node, final Destination destination)
+    private int executeSchemaPointer(final Pointer pointer, final XdmNode node, final Destination destination)
             throws XPointerException
     {
         Source sourceTransform = node.asSource();
@@ -351,8 +362,26 @@ public class XPointerEngine {
                     if (i == (nbPointerPart-1))
                     {
                         teeDestination = new TeeDestination(destination, new SAXDestination(new SampleTestHandler()));
-                        xQueryEvaluator.run(teeDestination);
-                        return;
+                        final XdmValue value = xQueryEvaluator.evaluate();
+                        if (value.size() == 0)
+                        {
+                            throw new XPointerResourceException("No identified subresource");
+                        }
+                        else
+                        {
+                            final XdmSequenceIterator itemsIterator = value.iterator();
+                            int elementCount = 0;
+                            while (itemsIterator.hasNext())
+                            {
+                                final XdmItem item = itemsIterator.next();
+                                if (!item.isAtomicValue() && ((XdmNode) item).getNodeKind().equals(XdmNodeKind.ELEMENT))
+                                {
+                                    elementCount++;
+                                }
+                                processor.writeXdmValue(item, teeDestination);
+                            }
+                            return elementCount;
+                        }
                     }
                     else
                     {
@@ -381,7 +410,26 @@ public class XPointerEngine {
         try
         {
             TeeDestination teeDestination = new TeeDestination(destination, new SAXDestination(new SampleTestHandler()));
-            xQueryEvaluator.run(teeDestination);
+            final XdmValue value = xQueryEvaluator.evaluate();
+            if (value.size() == 0)
+            {
+                throw new XPointerResourceException("No identified subresource");
+            }
+            else
+            {
+                final XdmSequenceIterator itemsIterator = value.iterator();
+                int elementCount = 0;
+                while (itemsIterator.hasNext())
+                {
+                    final XdmItem item = itemsIterator.next();
+                    if (((XdmNode) item).getNodeKind().equals(XdmNodeKind.ELEMENT))
+                    {
+                        elementCount++;
+                    }
+                    processor.writeXdmValue(item, teeDestination);
+                }
+                return elementCount;
+            }
         }
         catch (final SaxonApiException e)
         {

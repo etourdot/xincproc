@@ -88,6 +88,7 @@
         <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
         <dashboard-maven-plugin.version>1.0.0-beta-1</dashboard-maven-plugin.version>
         <commons-io.version>2.4</commons-io.version>
+        <commons-lang3.version>3.1</commons-lang3.version>
     </properties>
 
     <licenses>
@@ -151,6 +152,11 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.concordion</groupId>

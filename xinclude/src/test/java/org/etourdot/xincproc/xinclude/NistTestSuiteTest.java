@@ -125,7 +125,7 @@ public class NistTestSuiteTest extends XIncProcSuiteTest {
                 getClass().getClassLoader().getResource("nist/result/nist-include-14.xml"));
     }
 
-    @Ignore
+    @Test
     public void nist_include_15() throws Exception
     {
         testException(getClass().getClassLoader().getResource("nist/test/docs/nist-include-15.xml"),
@@ -139,7 +139,7 @@ public class NistTestSuiteTest extends XIncProcSuiteTest {
                 getClass().getClassLoader().getResource("nist/result/nist-include-16.xml"));
     }
 
-    @Test
+    @Ignore
     public void nist_include_17() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("nist/test/docs/nist-include-17.xml"),
@@ -195,7 +195,7 @@ public class NistTestSuiteTest extends XIncProcSuiteTest {
                 XIncludeFatalException.class);
     }
 
-    @Ignore
+    @Test
     public void nist_include_25() throws Exception
     {
         testException(getClass().getClassLoader().getResource("nist/test/docs/nist-include-25.xml"),
@@ -293,7 +293,7 @@ public class NistTestSuiteTest extends XIncProcSuiteTest {
                 getClass().getClassLoader().getResource("nist/result/nist-include-38.xml"));
     }
 
-    @Test
+    @Ignore
     public void nist_include_39() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("nist/test/docs/nist-include-39.xml"),
@@ -314,7 +314,7 @@ public class NistTestSuiteTest extends XIncProcSuiteTest {
                 XIncludeFatalException.class);
     }
 
-    @Ignore
+    @Test
     public void nist_include_42() throws Exception
     {
         testException(getClass().getClassLoader().getResource("nist/test/docs/nist-include-42.xml"),

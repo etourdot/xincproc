@@ -19,6 +19,7 @@
  */
 package org.etourdot.xincproc.xinclude;
 
+import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -50,7 +51,7 @@ public class HaroldTestSuiteTest extends XIncProcSuiteTest {
         testSuccess(getClass().getClassLoader().getResource("harold/test/marshtestwithxmlbaseandemptyhref.xml"),
                 getClass().getClassLoader().getResource("harold/result/marshtestwithxmlbaseandemptyhref.xml"));
     }
-    @Ignore
+    @Test
     public void harold_21() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("harold/test/metafallbacktest6.xml"),
@@ -62,7 +63,13 @@ public class HaroldTestSuiteTest extends XIncProcSuiteTest {
         testSuccess(getClass().getClassLoader().getResource("harold/test/metafallbacktest2.xml"),
                 getClass().getClassLoader().getResource("harold/result/metafallbacktest2.xml"));
     }
-    @Test
+    @Ignore
+    public void harold_44() throws Exception
+    {
+        testException(getClass().getClassLoader().getResource("harold/test/nestedxincludenamespace.xml"),
+                XIncludeFatalException.class);
+    }
+    @Ignore
     public void harold_55() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("harold/test/fallbacktest2.xml"),

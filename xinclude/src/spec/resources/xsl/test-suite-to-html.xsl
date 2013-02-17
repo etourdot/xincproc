@@ -19,6 +19,7 @@
                         <th width="300px">Description</th>
                         <th width="100px">Result</th>
                         <th>Error message</th>
+                        <th width="200px">Output</th>
                     </tr>
                     <xsl:for-each select="testcase">
                         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -33,6 +34,7 @@
                             </td>
                             <td concordion:assertEquals="#result.result"><xsl:value-of select="@type"/></td>
                             <td><span ext:embed="#result.exception"/></td>
+                            <td><pre><span ext:embed="#result.output"/></pre></td>
                         </tr>
                     </xsl:for-each>
                 </table>

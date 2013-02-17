@@ -25,6 +25,7 @@ import com.google.common.io.Files;
 import com.google.common.io.Resources;
 import net.sf.saxon.lib.Validation;
 import net.sf.saxon.s9api.Processor;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
@@ -32,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.lang.String;
 import java.net.URL;
 import java.nio.charset.Charset;
 
@@ -141,11 +143,19 @@ public abstract class AbstractSuiteTest {
                 final URL urlTest = getClass().getClassLoader().getResource("XIncl20060927/" + outputHref);
                 final Diff diff = XMLUnit.compareXML(Resources.toString(urlTest, Charsets.UTF_8),
                         output.toString("UTF-8"));
+                result.output = StringEscapeUtils.escapeHtml4(new String(output.toByteArray()));
                 result.result = diff.similar()?"success":"error";
             }
             catch (Exception e)
             {
-                result.exception = e.getMessage();
+                if (e.getCause() != null)
+                {
+                    result.exception = e.getCause().getMessage();
+                }
+                else
+                {
+                    result.exception = e.getMessage();
+                }
                 result.result = "error";
             }
         }
@@ -153,12 +163,20 @@ public abstract class AbstractSuiteTest {
         {
             try
             {
-                engine.parse(source, inputHref, output);
+                engine.parse(source, urlInput.toExternalForm(), output);
+                result.output = new String(output.toByteArray());
                 result.result = "success";
             }
             catch (Exception e)
             {
-                result.exception = e.getMessage();
+                if (e.getCause() != null)
+                {
+                    result.exception = e.getCause().getMessage();
+                }
+                else
+                {
+                    result.exception = e.getMessage();
+                }
                 result.result = "error";
             }
         }
@@ -175,5 +193,6 @@ public abstract class AbstractSuiteTest {
         public String result;
         public String error;
         public String exception;
+        public String output;
     }
 }

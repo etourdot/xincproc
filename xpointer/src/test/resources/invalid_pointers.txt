@@ -1,9 +1,9 @@
+element(^^^)
 xpointer(id("chap1")/range-to(id("chap2")))
 unknown(somedata)
 element(///)
 element(***)
 element(rose red/1/1)
-element(^^^)
 /1/1
 element(p:l/2/3)
 element(p^l/2/3)

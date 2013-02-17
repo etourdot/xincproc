@@ -17,7 +17,7 @@ import javax.xml.transform.sax.SAXSource;
 import java.io.File;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
 
 /**

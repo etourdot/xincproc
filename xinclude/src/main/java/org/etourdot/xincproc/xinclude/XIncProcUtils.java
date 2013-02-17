@@ -76,6 +76,16 @@ public final class XIncProcUtils {
         final String acceptLanguage = atts.getValue("", XIncProcConfiguration.ATT_ACCEPT_LANGUAGE.getLocalPart());
     }
 
+    /**
+     * Return if element is in XInclude namespace
+     * @param qname
+     * @return
+     */
+    public static boolean isXIncludeNamespace(final QName qname)
+    {
+        return qname.getNamespaceURI().equals(XIncProcConfiguration.XINCLUDE_NAMESPACE_URI);
+    }
+
      /**
      * Return if element is Xinclude or not
      * @param qname

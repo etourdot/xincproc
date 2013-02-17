@@ -3,6 +3,7 @@ package org.etourdot.xincproc.xpointer;
 import org.antlr.runtime.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.etourdot.xincproc.xpointer.exceptions.XPointerException;
 
 /**
  * Created with IntelliJ IDEA.

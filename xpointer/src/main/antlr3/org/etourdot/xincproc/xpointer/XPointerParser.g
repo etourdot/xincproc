@@ -34,6 +34,7 @@ tokens {
 
 // Parser rules
 pointer
+    throws XPointerException
     :  	NCNAME   -> ^(POINTER NCNAME)?
 	|	pointerpart  (S? pointerpart)* -> ^(POINTER pointerpart*)?
 	;
@@ -43,6 +44,7 @@ pointer
     }
 
 pointerpart
+    throws XPointerException
 	:	pointerpart_element
 	|   pointerpart_xpath
 	|   pointerpart_xpointer
@@ -55,11 +57,13 @@ pointerpart
     }
 
 pointerpart_element
+    throws XPointerException
     :   ELEMENT LBRACE elementschemedata RBRACE     -> ^(ELEMENTSCHEME elementschemedata?)?
     ;
     catch[RecognitionException e] {
         emitErrorMessage("Error: invalid element expression '" + input + "'");
         consumeUntil(input, RBRACE);
+        throw new XPointerException(e);
     }
 
 pointerpart_xpath
