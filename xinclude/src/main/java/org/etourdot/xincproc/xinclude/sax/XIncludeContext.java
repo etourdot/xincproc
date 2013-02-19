@@ -17,12 +17,8 @@ import java.util.*;
  * Date: 18/12/12
  * Time: 09:16
  */
-public class XIncludeContext implements Cloneable {
+public class XIncludeContext {
     private final XIncProcConfiguration configuration;
-
-    private enum Treatment {TREAT_ALL_INCLUDES, TREAT_INCLUDES_WITHOUT_HREF};
-    private Treatment currentTreatment;
-    private boolean needTreatIncludeWithoutHref;
 
     private URI initialBaseURI;
     private URI currentBaseURI;
@@ -43,7 +39,6 @@ public class XIncludeContext implements Cloneable {
     public XIncludeContext(final XIncProcConfiguration configuration)
     {
         this.configuration = configuration;
-        this.currentTreatment = Treatment.TREAT_ALL_INCLUDES;
     }
 
     public XIncProcConfiguration getConfiguration()
@@ -60,7 +55,6 @@ public class XIncludeContext implements Cloneable {
         newContext.language = contextToCopy.language;
         newContext.langDeque.addAll(contextToCopy.langDeque);
         newContext.xincludeDeque.addAll(contextToCopy.xincludeDeque);
-        newContext.currentTreatment = contextToCopy.currentTreatment;
         newContext.sourceNode = contextToCopy.sourceNode;
         return newContext;
     }
@@ -217,16 +211,6 @@ public class XIncludeContext implements Cloneable {
         this.language = language;
     }
 
-    public boolean isNeedTreatIncludeWithoutHref()
-    {
-        return needTreatIncludeWithoutHref;
-    }
-
-    public void setNeedTreatIncludeWithoutHref(final boolean needTreatIncludeWithoutHref)
-    {
-        this.needTreatIncludeWithoutHref = needTreatIncludeWithoutHref;
-    }
-
     public XdmNode getSourceNode()
     {
         return sourceNode;
@@ -235,29 +219,6 @@ public class XIncludeContext implements Cloneable {
     public void setSourceNode(final XdmNode sourceNode)
     {
         this.sourceNode = sourceNode;
-    }
-
-    public boolean isTreatAllIncludes()
-    {
-        return currentTreatment.equals(Treatment.TREAT_ALL_INCLUDES);
-    }
-
-    public boolean isTreatIncludeWithoutHref()
-    {
-        return currentTreatment.equals(Treatment.TREAT_INCLUDES_WITHOUT_HREF);
-    }
-
-    public void treatIncludesWithoutHref()
-    {
-        this.currentTreatment = Treatment.TREAT_INCLUDES_WITHOUT_HREF;
-        this.needTreatIncludeWithoutHref = false;
-    }
-
-    @Override
-    protected XIncludeContext clone()
-            throws CloneNotSupportedException
-    {
-        return (XIncludeContext) super.clone();
     }
 
     @Override

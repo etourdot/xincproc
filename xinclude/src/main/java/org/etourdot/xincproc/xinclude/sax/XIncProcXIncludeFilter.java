@@ -119,7 +119,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     {
         if (!injectingXInclude())
         {
-            LOG.trace("endDocument@{}:{}", Integer.toHexString(hashCode()), context.isNeedTreatIncludeWithoutHref());
+            LOG.trace("endDocument@{}", Integer.toHexString(hashCode()));
             super.endDocument();
         }
     }
@@ -166,18 +166,14 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             {
                 sourceURI = sourceURI.resolve(xIncludeAttributes.getHref());
             }
+            /*else
+            {
+                sourceURI = sourceURI.resolve(context.getInitialBaseURI());
+            }*/
             context.setSourceURI(sourceURI);
-            if (xIncludeAttributes.isHrefPresent() || context.isTreatIncludeWithoutHref())
+            if (xIncludeAttributes.isHrefPresent())
             {
                 context.addInInclusionChain(context.getSourceURI(), xIncludeAttributes.getXPointer());
-            }
-            else if (context.isTreatAllIncludes())
-            {
-                context.setNeedTreatIncludeWithoutHref(true);
-                super.startPrefixMapping(qName.substring(0,qName.indexOf(":")), elementQName.getNamespaceURI());
-                super.startElement(uri, localName, qName, attributesImpl);
-                needEndXinclude = true;
-                return;
             }
             try
             {
@@ -207,10 +203,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             {
                 throw new XIncludeFatalException("Only one fallback element allowed in xinclude");
             }
-            /*if (isNeedFallback())
-            {
-                endXIncludeElement();
-            }*/
         }
         else if (!inFallbackElement() && isNeedFallback())
         {
@@ -269,29 +261,30 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             {
                 context.setLanguage(currentLangStack.peek());
             }
-            final URI sourceURI = context.getSourceURI();
-            final XIncludeContext newContext = XIncludeContext.newContext(context);
-            newContext.setHrefURI(xIncludeAttributes.getHref());
-            newContext.setInitialBaseURI(sourceURI);
-            XdmNode node;
-            if (newContext.isTreatIncludeWithoutHref())
+            final SAXSource source;
+            if (xIncludeAttributes.isHrefPresent())
             {
-                node = newContext.getSourceNode();
-            }
-            else
-            {
+                final URI sourceURI = context.getSourceURI();
+                final XIncludeContext newContext = XIncludeContext.newContext(context);
+                newContext.setHrefURI(xIncludeAttributes.getHref());
+                newContext.setInitialBaseURI(sourceURI);
                 final XMLFilter filter = XIncProcEngine.newXIncludeFilter(newContext);
                 final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
                 xmlReader.setProperty(LEXICALID, filter);
                 filter.setParent(xmlReader);
-                final SAXSource source = new SAXSource(filter, new InputSource(new FileReader(sourceURI.getPath())));
+                source = new SAXSource(filter, new InputSource(new FileReader(sourceURI.getPath())));
                 if (!xIncludeAttributes.isXPointerPresent())
                 {
                     source.setSystemId(sourceURI.toASCIIString());
                 }
-                DocumentInfo docInfo  = context.getConfiguration().getProcessor().getUnderlyingConfiguration().buildDocument(source);
-                node = new XdmNode(docInfo);
             }
+            else
+            {
+                source = new SAXSource(new InputSource(new FileReader(context.getInitialBaseURI().getPath())));
+            }
+            final DocumentInfo docInfo  = context.getConfiguration().getProcessor().getUnderlyingConfiguration().buildDocument(source);
+            final XdmNode node = new XdmNode(docInfo);
+
             final XMLReader parser = XMLReaderFactory.createXMLReader();
             parser.setContentHandler(this);
             parser.setProperty(LEXICALID, this);
@@ -299,10 +292,10 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             if (xIncludeAttributes.isXPointerPresent())
             {
                 XPointerEngine xPointerEngine = new XPointerEngine(context.getConfiguration().getProcessor());
-                xPointerEngine.setLanguage(newContext.getLanguage());
-                if (context.getConfiguration().isBaseUrisFixup() && newContext.getHrefURI() != null)
+                xPointerEngine.setLanguage(context.getLanguage());
+                if (context.getConfiguration().isBaseUrisFixup() && context.getHrefURI() != null)
                 {
-                    xPointerEngine.setBaseURI(newContext.getHrefURI().toASCIIString());
+                    xPointerEngine.setBaseURI(context.getHrefURI().toASCIIString());
                 }
                 SAXDestination saxDestination = new SAXDestination(this);
                 LOG.trace("includeXmlContent start injecting xpointer");
@@ -375,15 +368,12 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
         }
         else if (XIncProcUtils.isXInclude(elementQName))
         {
-            if (!context.isNeedTreatIncludeWithoutHref())
+            if (isNeedFallback())
             {
-                if (isNeedFallback())
-                {
-                    endNeedFallback();
-                    throw new XIncludeFatalException(context.getCurrentException());
-                }
-                context.removeFromInclusionChain();
+                endNeedFallback();
+                throw new XIncludeFatalException(context.getCurrentException());
             }
+            context.removeFromInclusionChain();
             if (needEndXinclude)
             {
                 super.endElement(uri, localName, qName);

@@ -141,19 +141,6 @@ public class XIncProcEngine {
             final SAXSource saxSource = new SAXSource(filter, inputSource);
             XdmNode node = processor.newDocumentBuilder().build(saxSource);
             LOG.trace("parse result:{}", node.toString());
-            if (filter.getContext().isNeedTreatIncludeWithoutHref())
-            {
-                LOG.trace("parse into second pass");
-                final XIncProcXIncludeFilter filter2 = (XIncProcXIncludeFilter) newXIncludeFilter(uri);
-                final XMLReader xmlReader2 = XMLReaderFactory.createXMLReader();
-                filter2.getContext().treatIncludesWithoutHref();
-                filter2.getContext().setSourceNode(node);
-                xmlReader2.setProperty("http://xml.org/sax/properties/lexical-handler", filter2);
-                filter2.setParent(xmlReader2);
-                final SAXSource source2 = new SAXSource(filter2, new InputSource(new StringReader(node.toString())));
-                node = processor.newDocumentBuilder().build(source2);
-                LOG.trace("parse result second pass:{}", node.toString());
-            }
             Serializer serializer = processor.newSerializer(output);
             serializer.setOutputProperty(Serializer.Property.ENCODING, charset.displayName());
             processor.writeXdmValue(node, serializer);

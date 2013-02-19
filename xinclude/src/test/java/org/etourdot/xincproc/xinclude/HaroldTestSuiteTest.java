@@ -51,7 +51,7 @@ public class HaroldTestSuiteTest extends XIncProcSuiteTest {
         testSuccess(getClass().getClassLoader().getResource("harold/test/marshtestwithxmlbaseandemptyhref.xml"),
                 getClass().getClassLoader().getResource("harold/result/marshtestwithxmlbaseandemptyhref.xml"));
     }
-    @Test
+    @Ignore
     public void harold_21() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("harold/test/metafallbacktest6.xml"),
