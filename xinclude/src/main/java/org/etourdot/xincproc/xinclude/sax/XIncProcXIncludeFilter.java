@@ -49,7 +49,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     private final Stack<String> currentLangStack;
     private boolean needEndXinclude;
     private boolean inDTD;
-    LexicalHandler	lexicalHandler;
+    private LexicalHandler	lexicalHandler;
     private static final String LEXICALID = "http://xml.org/sax/properties/lexical-handler";
 
     private boolean alreadyProceedFallback;
@@ -69,11 +69,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
         injectingXIncludeLevel = 0;
         xIncludeLevel = 0;
         fallbackLevel = 0;
-    }
-
-    public XIncludeContext getContext()
-    {
-        return context;
     }
 
     @Override
@@ -131,27 +126,8 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
         LOG.trace("startElement@{}: {}, {}, {}", Integer.toHexString(hashCode()), uri, localName, qName);
         final AttributesImpl attributesImpl = new AttributesImpl(attributes);
         context.updateContextWithElementAttributes(attributesImpl);
-        final int langAttIdx = attributesImpl.getIndex(NamespaceSupport.XMLNS,
-                XIncProcConfiguration.XMLLANG_QNAME.getLocalPart());
         final QName elementQName = new QName(uri, localName);
 
-        if (isTopElement())
-        {
-            if (context.isBaseFixup() && context.getHrefURI() != null && context.getCurrentBaseURI() == null)
-            {
-                URI newBaseURI = context.getHrefURI();
-                if (context.getStackedBaseURI() != null)
-                {
-                    newBaseURI = context.getStackedBaseURI().resolve(newBaseURI);
-                }
-                attributesImpl.addAttribute(NamespaceSupport.XMLNS, XIncProcConfiguration.XMLBASE_QNAME.getLocalPart(),
-                        "xml:base", "CDATA", newBaseURI.toASCIIString());
-            }
-            if (!context.isLanguageFixup() && langAttIdx >= 0)
-            {
-                attributesImpl.removeAttribute(langAttIdx);
-            }
-        }
         startElement();
         if (XIncProcUtils.isXInclude(elementQName))
         {
@@ -161,19 +137,28 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             }
             XIncludeAttributes xIncludeAttributes = new XIncludeAttributes(attributes);
             startXIncludeElement();
+            final URI hrefUri = xIncludeAttributes.getHref();
+            if (xIncludeAttributes.isBasePresent())
+            {
+                context.setHrefURI(xIncludeAttributes.getBase().resolve(hrefUri));
+            }
+            else
+            {
+                context.setHrefURI(hrefUri);
+            }
             URI sourceURI = XIncProcUtils.resolveBase(context.getInitialBaseURI(), context.getBaseURIPaths());
             if (xIncludeAttributes.isHrefPresent())
             {
                 sourceURI = sourceURI.resolve(xIncludeAttributes.getHref());
             }
-            /*else
-            {
-                sourceURI = sourceURI.resolve(context.getInitialBaseURI());
-            }*/
             context.setSourceURI(sourceURI);
             if (xIncludeAttributes.isHrefPresent())
             {
                 context.addInInclusionChain(context.getSourceURI(), xIncludeAttributes.getXPointer());
+            }
+            else
+            {
+                context.addInInclusionChain(context.getInitialBaseURI(), xIncludeAttributes.getXPointer());
             }
             try
             {
@@ -210,6 +195,23 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
         }
         else if (isUsable())
         {
+            final int langAttIdx = attributesImpl.getIndex(NamespaceSupport.XMLNS,
+                    XIncProcConfiguration.XMLLANG_QNAME.getLocalPart());
+            final int baseAttIdx = attributesImpl.getIndex(NamespaceSupport.XMLNS,
+                    XIncProcConfiguration.XMLBASE_QNAME.getLocalPart());
+            if (isTopElement() && !inXIncludeElement())
+            {
+                if (context.isBaseFixup() && context.getHrefURI() != null && context.getCurrentBaseURI() == null)
+                {
+                    URI newBaseURI = context.getHrefURI();
+                    attributesImpl.addAttribute(NamespaceSupport.XMLNS, XIncProcConfiguration.XMLBASE_QNAME.getLocalPart(),
+                            "xml:base", "CDATA", newBaseURI.toASCIIString());
+                }
+                if (!context.isLanguageFixup() && langAttIdx >= 0)
+                {
+                    attributesImpl.removeAttribute(langAttIdx);
+                }
+            }
             if (langAttIdx >= 0)
             {
                 currentLangStack.push(attributesImpl.getValue(langAttIdx));
@@ -266,7 +268,15 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             {
                 final URI sourceURI = context.getSourceURI();
                 final XIncludeContext newContext = XIncludeContext.newContext(context);
-                newContext.setHrefURI(xIncludeAttributes.getHref());
+                final URI hrefUri = xIncludeAttributes.getHref();
+                if (xIncludeAttributes.isBasePresent())
+                {
+                    newContext.setHrefURI(xIncludeAttributes.getBase().resolve(hrefUri));
+                }
+                else
+                {
+                    newContext.setHrefURI(hrefUri);
+                }
                 newContext.setInitialBaseURI(sourceURI);
                 final XMLFilter filter = XIncProcEngine.newXIncludeFilter(newContext);
                 final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
@@ -293,7 +303,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             {
                 XPointerEngine xPointerEngine = new XPointerEngine(context.getConfiguration().getProcessor());
                 xPointerEngine.setLanguage(context.getLanguage());
-                if (context.getConfiguration().isBaseUrisFixup() && context.getHrefURI() != null)
+                if (context.getConfiguration().isBaseUrisFixup() && context.getHrefURI() != null && xIncludeAttributes.isHrefPresent())
                 {
                     xPointerEngine.setBaseURI(context.getHrefURI().toASCIIString());
                 }
@@ -570,79 +580,79 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
         super.notationDecl(name, publicId, systemId);
     }
 
-    public boolean inFallbackElement()
+    boolean inFallbackElement()
     {
         return fallbackLevel > 0;
     }
 
-    public void startElement()
+    void startElement()
     {
         elementLevel++;
     }
 
-    public void endElement()
+    void endElement()
     {
         elementLevel--;
     }
 
-    public boolean isTopElement()
+    boolean isTopElement()
     {
-        return elementLevel == 0;
+        return elementLevel == 1;
     }
 
-    public void startFalbackElement()
+    void startFalbackElement()
     {
         fallbackLevel++;
     }
 
-    public void endFallbackElement()
+    void endFallbackElement()
     {
         fallbackLevel--;
         alreadyProceedFallback = true;
     }
 
-     public boolean inXIncludeElement()
+     boolean inXIncludeElement()
     {
         return xIncludeLevel > 0;
     }
 
-    public void startXIncludeElement()
+    void startXIncludeElement()
     {
         xIncludeLevel++;
     }
 
-    public void endXIncludeElement()
+    void endXIncludeElement()
     {
         xIncludeLevel--;
         alreadyProceedFallback = false;
     }
 
-    public boolean injectingXInclude()
+    boolean injectingXInclude()
     {
         return injectingXIncludeLevel > 0;
     }
 
-    public void startInjectingXInclude()
+    void startInjectingXInclude()
     {
         injectingXIncludeLevel++;
     }
 
-    public void stopInjectingXInclude()
+    void stopInjectingXInclude()
     {
         injectingXIncludeLevel--;
     }
 
-    public void startNeedFallback()
+    void startNeedFallback()
     {
         needFallbackLevel++;
     }
 
-    public void endNeedFallback()
+    void endNeedFallback()
     {
         needFallbackLevel--;
     }
 
-    public boolean isNeedFallback()
+    boolean isNeedFallback()
     {
         return xIncludeLevel > 0 && needFallbackLevel == xIncludeLevel;
     }

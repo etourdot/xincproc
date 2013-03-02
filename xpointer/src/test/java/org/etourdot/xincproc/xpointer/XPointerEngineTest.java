@@ -98,7 +98,7 @@ public class XPointerEngineTest {
             throws Exception
     {
         final String result = xPointerEngine.setBaseURI(null).execute("id3", source);
-        assertXMLEqual("<?xml version=\"1.0\" encoding=\"UTF-8\"?><etat xml:base=\"/test/\" xml:id=\"id3\">VIGUEUR</etat>", result);
+        assertXMLEqual("<?xml version=\"1.0\" encoding=\"UTF-8\"?><etat xml:id=\"id3\">VIGUEUR</etat>", result);
     }
 
     @Test
@@ -151,7 +151,7 @@ public class XPointerEngineTest {
     public void testExecuteBadXmlns() throws Exception
     {
         final String result = xPointerEngine.execute("xmlns(bad_expression) xpath(//author[@id='auth1'])", source);
-        assertEquals("<author xml:base=\"/test/\" id=\"auth1\">myself</author>", result);
+        assertEquals("<author id=\"auth1\">myself</author>", result);
     }
 
     @Test

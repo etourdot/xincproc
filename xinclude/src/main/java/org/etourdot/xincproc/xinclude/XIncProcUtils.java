@@ -5,6 +5,7 @@ import com.google.common.io.ByteStreams;
 import com.google.common.io.CharStreams;
 import com.google.common.io.InputSupplier;
 import com.google.common.net.HttpHeaders;
+import org.apache.commons.io.input.BOMInputStream;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException;
 import org.xml.sax.Attributes;
@@ -12,10 +13,7 @@ import org.xml.sax.Attributes;
 import javax.xml.namespace.QName;
 import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -40,8 +38,7 @@ public final class XIncProcUtils {
      * @throws org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException
      * @throws org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException
      */
-    public static void checkXInclude(final StartElement startElement) throws XIncludeFatalException,
-            XIncludeResourceException
+    public static void checkXInclude(final StartElement startElement)
     {
         final Attribute hrefAtt = startElement.getAttributeByName(XIncProcConfiguration.ATT_HREF);
         final String href = (hrefAtt==null)? null : hrefAtt.getValue();
@@ -65,7 +62,7 @@ public final class XIncProcUtils {
      * @throws XIncludeFatalException
      * @throws XIncludeResourceException
      */
-    public static void checkXInclude(final Attributes atts) throws XIncludeFatalException, XIncludeResourceException
+    public static void checkXInclude(final Attributes atts)
     {
         final String href = atts.getValue("", XIncProcConfiguration.ATT_HREF.getLocalPart());
         final String parseAtt = atts.getValue("", XIncProcConfiguration.ATT_PARSE.getLocalPart());
@@ -135,7 +132,6 @@ public final class XIncProcUtils {
     }
 
     public static URI resolveBase(final URI baseURI, final List<URI> uris)
-            throws XIncludeFatalException
     {
         URI resolvedUri = baseURI;
         for (URI uri : uris)
@@ -200,17 +196,27 @@ public final class XIncProcUtils {
             final InputStream urlInputStream = urlConnection.getInputStream();
             final byte[] inputBytes = ByteStreams.toByteArray(urlInputStream);
             urlInputStream.close();
-            InputSupplier<ByteArrayInputStream> supplier = ByteStreams.newInputStreamSupplier(inputBytes);
-            final Charset charset;
-            if (encoding == null)
+            final BOMInputStream bomInputStream = new BOMInputStream(new ByteArrayInputStream(inputBytes));
+            if (bomInputStream.hasBOM())
             {
-                charset = EncodingUtils.getCharset(supplier.getInput());
+                InputStreamReader reader = new InputStreamReader(new BufferedInputStream(bomInputStream));
+                return CharStreams.toString(reader);
             }
             else
             {
-                charset = Charset.forName(encoding);
+                InputSupplier<ByteArrayInputStream> supplier = ByteStreams.newInputStreamSupplier(inputBytes);
+                final Charset charset;
+                if (encoding == null)
+                {
+                    charset = EncodingUtils.getCharset(supplier.getInput());
+                }
+                else
+                {
+                    charset = Charset.forName(encoding);
+                }
+                return CharStreams.toString(CharStreams.newReaderSupplier(supplier, charset));
             }
-            return CharStreams.toString(CharStreams.newReaderSupplier(supplier, charset));
+
         }
         catch (MalformedURLException e)
         {

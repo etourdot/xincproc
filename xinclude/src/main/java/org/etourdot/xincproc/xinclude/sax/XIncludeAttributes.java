@@ -178,7 +178,7 @@ class XIncludeAttributes {
         return href.isPresent();
     }
 
-    public String getParse()
+    String getParse()
     {
         return parse.orNull();
     }
@@ -188,7 +188,7 @@ class XIncludeAttributes {
         return !parse.isPresent() || XIncProcConfiguration.XML.equals(getParse());
     }
 
-    public boolean isTextParse()
+    boolean isTextParse()
     {
         return parse.isPresent() && XIncProcConfiguration.TEXT.equals(getParse());
     }
@@ -213,5 +213,5 @@ class XIncludeAttributes {
         return base.isPresent();
     }
 
-    static final ImmutableList<String> validParse = ImmutableList.of(XIncProcConfiguration.TEXT, XIncProcConfiguration.XML);
+    private static final ImmutableList<String> validParse = ImmutableList.of(XIncProcConfiguration.TEXT, XIncProcConfiguration.XML);
 }

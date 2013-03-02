@@ -73,14 +73,12 @@ public class XIncProcEngine {
         final XIncludeContext context = new XIncludeContext(configuration);
         context.setSourceURI(baseURI);
         context.setInitialBaseURI(baseURI);
-        final XMLFilter filter = new XIncProcXIncludeFilter(context);
-        return filter;
+        return new XIncProcXIncludeFilter(context);
     }
 
     public static XMLFilter newXIncludeFilter(final XIncludeContext context)
     {
-        final XMLFilter filter = new XIncProcXIncludeFilter(context);
-        return filter;
+        return new XIncProcXIncludeFilter(context);
     }
 
     public void parse(final URI baseURI, final OutputStream output)
@@ -115,7 +113,8 @@ public class XIncProcEngine {
     }
 
     public void parse(final InputStream input, final String systemId, final OutputStream output)
-            throws XIncludeFatalException, XPathException, XMLStreamException, IOException {
+            throws XIncludeFatalException, IOException
+    {
         LOG.trace("parse:{}", systemId);
         final Processor processor = configuration.getProcessor();
         final XIncProcXIncludeFilter filter;

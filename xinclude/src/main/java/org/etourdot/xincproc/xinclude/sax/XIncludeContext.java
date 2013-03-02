@@ -171,7 +171,7 @@ public class XIncludeContext {
         return new ArrayList<URI>(basesURIDeque);
     }
 
-    public void removeBaseURIPath(final URI basePath)
+    void removeBaseURIPath(final URI basePath)
     {
         basesURIDeque.removeLastOccurrence(basePath);
     }

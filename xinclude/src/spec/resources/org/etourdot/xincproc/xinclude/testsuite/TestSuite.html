@@ -11,6 +11,7 @@
             <th width="300px">Description</th>
             <th width="100px">Result</th>
             <th>Error message</th>
+            <th width="200px">Expected</th>
             <th width="200px">Output</th>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -24,6 +25,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -37,6 +39,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -50,6 +53,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -63,6 +67,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -76,6 +81,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -89,6 +95,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -102,6 +109,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -115,6 +123,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -128,6 +137,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -141,6 +151,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -155,6 +166,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
       </table>
@@ -169,6 +181,7 @@
             <th width="300px">Description</th>
             <th width="100px">Result</th>
             <th>Error message</th>
+            <th width="200px">Expected</th>
             <th width="200px">Output</th>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -182,6 +195,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -195,6 +209,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -208,6 +223,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -221,6 +237,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -234,6 +251,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -247,6 +265,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -260,6 +279,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
       </table>
@@ -274,6 +294,7 @@
             <th width="300px">Description</th>
             <th width="100px">Result</th>
             <th>Error message</th>
+            <th width="200px">Expected</th>
             <th width="200px">Output</th>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -287,6 +308,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -300,6 +322,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -314,6 +337,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -327,6 +351,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -341,6 +366,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -354,6 +380,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -368,6 +395,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -382,6 +410,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -395,6 +424,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -409,6 +439,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -423,6 +454,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -437,6 +469,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -450,6 +483,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -463,6 +497,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -476,6 +511,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -491,6 +527,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -504,6 +541,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -517,6 +555,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -530,6 +569,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -547,6 +587,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -560,6 +601,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -574,6 +616,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -588,6 +631,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -602,6 +646,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -616,6 +661,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -629,6 +675,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -643,6 +690,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -656,6 +704,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -669,6 +718,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -682,6 +732,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -695,6 +746,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -708,6 +760,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -721,6 +774,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -734,6 +788,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -747,6 +802,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -760,6 +816,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -775,6 +832,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -790,6 +848,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -804,6 +863,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -818,6 +878,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -832,6 +893,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -847,6 +909,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -861,6 +924,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -875,6 +939,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -889,6 +954,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -904,6 +970,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -919,6 +986,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -933,6 +1001,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -947,6 +1016,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -964,6 +1034,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -980,6 +1051,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -996,6 +1068,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1010,6 +1083,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1024,6 +1098,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1038,6 +1113,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1052,6 +1128,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
       </table>
@@ -1066,6 +1143,7 @@
             <th width="300px">Description</th>
             <th width="100px">Result</th>
             <th>Error message</th>
+            <th width="200px">Expected</th>
             <th width="200px">Output</th>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1079,6 +1157,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1093,6 +1172,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1106,6 +1186,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
       </table>
@@ -1120,6 +1201,7 @@
             <th width="300px">Description</th>
             <th width="100px">Result</th>
             <th>Error message</th>
+            <th width="200px">Expected</th>
             <th width="200px">Output</th>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1133,6 +1215,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1147,6 +1230,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1160,6 +1244,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1174,6 +1259,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1188,6 +1274,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1201,6 +1288,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1215,6 +1303,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1229,6 +1318,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1243,6 +1333,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1259,6 +1350,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1272,6 +1364,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1285,6 +1378,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1299,6 +1393,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1312,6 +1407,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1325,6 +1421,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1338,6 +1435,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1351,6 +1449,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1364,6 +1463,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1377,6 +1477,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1390,6 +1491,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1403,6 +1505,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1416,6 +1519,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1430,6 +1534,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1444,6 +1549,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1458,6 +1564,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1472,6 +1579,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1485,6 +1593,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1499,6 +1608,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1513,6 +1623,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1527,6 +1638,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1542,6 +1654,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1555,6 +1668,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1569,6 +1683,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1582,6 +1697,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1595,6 +1711,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1608,6 +1725,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1621,6 +1739,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1635,6 +1754,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1648,6 +1768,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1661,6 +1782,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1674,6 +1796,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1689,6 +1812,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1702,6 +1826,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1715,6 +1840,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1728,6 +1854,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1741,6 +1868,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1756,6 +1884,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1771,6 +1900,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1784,6 +1914,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1797,6 +1928,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1810,6 +1942,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1823,6 +1956,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1836,6 +1970,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1849,6 +1984,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1862,6 +1998,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1875,6 +2012,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1888,6 +2026,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1901,6 +2040,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1915,6 +2055,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1928,6 +2069,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1942,6 +2084,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1956,6 +2099,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1969,6 +2113,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -1985,6 +2130,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2001,6 +2147,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2015,6 +2162,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2029,6 +2177,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2044,6 +2193,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2058,6 +2208,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2071,6 +2222,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2084,6 +2236,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2097,6 +2250,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2110,6 +2264,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2123,6 +2278,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2136,6 +2292,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2149,6 +2306,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2162,6 +2320,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2175,6 +2334,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2188,6 +2348,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2201,6 +2362,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2214,6 +2376,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2227,6 +2390,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2240,6 +2404,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2253,6 +2418,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2266,6 +2432,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2280,6 +2447,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2296,6 +2464,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2312,6 +2481,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2328,6 +2498,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2344,6 +2515,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2357,6 +2529,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2370,6 +2543,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2383,6 +2557,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2396,6 +2571,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2409,6 +2585,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2422,6 +2599,7 @@
             </td>
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
@@ -2436,6 +2614,7 @@
             </td>
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
+            <td><pre><span ext:embed="#result.expected"></span></pre></td>
             <td><pre><span ext:embed="#result.output"></span></pre></td>
          </tr>
       </table>

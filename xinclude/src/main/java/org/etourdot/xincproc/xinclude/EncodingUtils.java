@@ -14,8 +14,8 @@ import java.nio.charset.Charset;
  * Date: 07/02/13
  * Time: 23:11
  */
-public class EncodingUtils {
-    public static final String DEFAULT_ENCODING = "UTF-8";
+class EncodingUtils {
+    private static final String DEFAULT_ENCODING = "UTF-8";
 
     public static Charset getCharset(final InputStream inputStream) throws IOException
     {

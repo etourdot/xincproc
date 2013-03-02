@@ -141,9 +141,10 @@ public abstract class AbstractSuiteTest {
             {
                 engine.parse(source, urlInput.toExternalForm(), output);
                 final URL urlTest = getClass().getClassLoader().getResource("XIncl20060927/" + outputHref);
-                final Diff diff = XMLUnit.compareXML(Resources.toString(urlTest, Charsets.UTF_8),
-                        output.toString("UTF-8"));
+                final String expected = Resources.toString(urlTest, Charsets.UTF_8);
+                final Diff diff = XMLUnit.compareXML(expected, output.toString("UTF-8"));
                 result.output = StringEscapeUtils.escapeHtml4(new String(output.toByteArray()));
+                result.expected = StringEscapeUtils.escapeHtml4(expected);
                 result.result = diff.similar()?"success":"error";
             }
             catch (Exception e)
@@ -194,5 +195,6 @@ public abstract class AbstractSuiteTest {
         public String error;
         public String exception;
         public String output;
+        public String expected;
     }
 }

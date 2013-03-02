@@ -40,7 +40,7 @@ public class XProcTestSuiteTest extends XIncProcSuiteTest {
                 getClass().getClassLoader().getResource("xproc/result/xinclude-001.xml"), false, false);
     }
 
-    @Test
+    @Ignore
     public void xproc_include_02() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("xproc/test/xinclude-002.xml"),

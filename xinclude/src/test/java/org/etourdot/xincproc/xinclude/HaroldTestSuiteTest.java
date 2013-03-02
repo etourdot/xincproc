@@ -34,6 +34,12 @@ public class HaroldTestSuiteTest extends XIncProcSuiteTest {
                 getClass().getClassLoader().getResource("harold/result/xmlbasetest.xml"));
     }
     @Ignore
+    public void harold_03() throws Exception
+    {
+        testSuccess(getClass().getClassLoader().getResource("harold/test/xmlbasetest2.xml"),
+                getClass().getClassLoader().getResource("harold/result/xmlbasetest2.xml"));
+    }
+    @Ignore
     public void harold_06() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("harold/test/includedocumentwithintradocumentreferences.xml"),
@@ -51,6 +57,12 @@ public class HaroldTestSuiteTest extends XIncProcSuiteTest {
         testSuccess(getClass().getClassLoader().getResource("harold/test/marshtestwithxmlbaseandemptyhref.xml"),
                 getClass().getClassLoader().getResource("harold/result/marshtestwithxmlbaseandemptyhref.xml"));
     }
+    @Test
+    public void harold_12() throws Exception
+    {
+        testSuccess(getClass().getClassLoader().getResource("harold/test/includefromsamedocumentwithbase.xml"),
+                getClass().getClassLoader().getResource("harold/result/includefromsamedocumentwithbase.xml"));
+    }
     @Ignore
     public void harold_21() throws Exception
     {
@@ -62,6 +74,12 @@ public class HaroldTestSuiteTest extends XIncProcSuiteTest {
     {
         testSuccess(getClass().getClassLoader().getResource("harold/test/metafallbacktest2.xml"),
                 getClass().getClassLoader().getResource("harold/result/metafallbacktest2.xml"));
+    }
+    @Ignore
+    public void harold_37() throws Exception
+    {
+        testException(getClass().getClassLoader().getResource("harold/test/internalcircular.xml"),
+                XIncludeFatalException.class);
     }
     @Ignore
     public void harold_44() throws Exception
@@ -92,6 +110,12 @@ public class HaroldTestSuiteTest extends XIncProcSuiteTest {
     {
         testSuccess(getClass().getClassLoader().getResource("harold/test/UTF8WithByteOrderMark.xml"),
                 getClass().getClassLoader().getResource("harold/result/UTF8WithByteOrderMark.xml"));
+    }
+    @Ignore
+    public void harold_87() throws Exception
+    {
+        testSuccess(getClass().getClassLoader().getResource("harold/test/acceptfrench.xml"),
+                getClass().getClassLoader().getResource("harold/result/acceptfrench.xml"));
     }
     @Ignore("need xpointer evolution: ressource error if no scheme subresource")
     public void harold_92() throws Exception

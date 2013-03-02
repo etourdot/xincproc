@@ -13,7 +13,7 @@ import javax.xml.transform.TransformerException;
  * Time: 09:42
  */
 public class XIncProcErrorListener implements ErrorListener {
-    static final Logger LOG = LoggerFactory.getLogger(XIncProcErrorListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XIncProcErrorListener.class);
 
     @Override
     public void warning(TransformerException exception)

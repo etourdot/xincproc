@@ -51,11 +51,18 @@ public class XPointerEngine {
         "               if (fn:empty($x/ancestor-or-self::*/@xml:base)) then (              " +
         "                   if (fn:empty($ctxbase)) then ()                                 " +
         "                   else (attribute xml:base {$ctxbase})                            " +
-        "               ) else (attribute xml:base { fn:base-uri($x) })                     " +
+        "               ) else (                                                            " +
+        "                   if (fn:empty($x/@xml:base)) then (                              " +
+        "                      if (fn:empty($ctxbase)) then ()                              " +
+        "                      else (attribute xml:base { fn:base-uri($x) })                " +
+        "                   ) else (                                                        " +
+        "                      attribute xml:base {$x/@xml:base}                            " +
+        "                   )                                                               " +
+        "               )                                                                   " +
         "            ),                                                                     " +
         "            (                                                                      " +
         "               let $elt := $x/@xml:lang                                            " +
-        "               let $prt := ($x/parent::*/@xml:lang)[last()]                      " +
+        "               let $prt := ($x/parent::*/@xml:lang)[last()]                        " +
         "               return if (fn:empty($ctxlang)) then (                               " +
         "                         if (fn:empty($prt) or $prt = '') then (                   " +
         "                            if (fn:empty($elt)) then ()                            " +
