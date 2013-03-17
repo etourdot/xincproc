@@ -28,45 +28,54 @@ public class SampleTestHandler extends DefaultHandler2 implements ContentHandler
 
     private PrintStream printStream = System.out;
 
-    public void setPrintStream(PrintStream stream) {
+    public void setPrintStream(PrintStream stream)
+    {
         printStream = stream;
     }
 
-    public PrintStream getPrintStream() {
+    public PrintStream getPrintStream()
+    {
         return printStream;
     }
 
-    public void setDocumentLocator(Locator locator) {
+    public void setDocumentLocator(Locator locator)
+    {
         printStream.println("setDocumentLocator");
     }
 
-    public void startDocument() throws SAXException {
+    public void startDocument() throws SAXException
+    {
         printStream.println("startDocument");
     }
 
-    public void endDocument() throws SAXException {
+    public void endDocument() throws SAXException
+    {
         printStream.println("endDocument");
     }
 
     public void startPrefixMapping(String prefix, String uri)
-            throws SAXException {
+            throws SAXException
+    {
         printStream.println("startPrefixMapping: " + prefix + ", " + uri);
     }
 
-    public void endPrefixMapping(String prefix) throws SAXException {
+    public void endPrefixMapping(String prefix) throws SAXException
+    {
         printStream.println("endPrefixMapping: " + prefix);
     }
 
     public void startElement(
             String namespaceURI, String localName, String qName, Attributes atts)
-            throws SAXException {
+            throws SAXException
+    {
 
         printStream.print("startElement: " + namespaceURI + ", "
                 + localName + ", " + qName);
 
         int n = atts.getLength();
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++)
+        {
             printStream.print(", " + atts.getQName(i) + "='" + atts.getValue(i) + "'" + atts.getType(i));
         }
 
@@ -75,119 +84,143 @@ public class SampleTestHandler extends DefaultHandler2 implements ContentHandler
 
     public void endElement(
             String namespaceURI, String localName, String qName)
-            throws SAXException {
+            throws SAXException
+    {
         printStream.println("endElement: " + namespaceURI + ", "
                 + localName + ", " + qName);
     }
 
     public void characters(char ch[], int start, int length)
-            throws SAXException {
+            throws SAXException
+    {
 
         String s = new String(ch, start, (length > 30)
                 ? 30
                 : length);
 
-        if (length > 30) {
+        if (length > 30)
+        {
             printStream.println("characters: \"" + s + "\"...");
-        } else {
+        }
+        else
+        {
             printStream.println("characters: \"" + s + "\"");
         }
     }
 
     public void ignorableWhitespace(char ch[], int start, int length)
-            throws SAXException {
+            throws SAXException
+    {
         printStream.println("ignorableWhitespace");
     }
 
     public void processingInstruction(String target, String data)
-            throws SAXException {
+            throws SAXException
+    {
         printStream.println("processingInstruction: " + target + ", "
                 + data);
     }
 
-    public void skippedEntity(String name) throws SAXException {
+    public void skippedEntity(String name) throws SAXException
+    {
         printStream.println("skippedEntity: " + name);
     }
 
     @Override
-    public void startDTD(final String name, final String publicId, final String systemId) throws SAXException {
+    public void startDTD(final String name, final String publicId, final String systemId) throws SAXException
+    {
         printStream.println("startDTD: " + name);
     }
 
     @Override
-    public void endDTD() throws SAXException {
+    public void endDTD() throws SAXException
+    {
         printStream.println("endDTD");
     }
 
     @Override
-    public void startEntity(final String name) throws SAXException {
+    public void startEntity(final String name) throws SAXException
+    {
         printStream.println("startEntity: " + name);
     }
 
     @Override
-    public void endEntity(final String name) throws SAXException {
+    public void endEntity(final String name) throws SAXException
+    {
         printStream.println("startDTD: " + name);
     }
 
     @Override
-    public void startCDATA() throws SAXException {
+    public void startCDATA() throws SAXException
+    {
         printStream.println("startCDATA");
     }
 
     @Override
-    public void endCDATA() throws SAXException {
+    public void endCDATA() throws SAXException
+    {
         printStream.println("endCDATA");
     }
 
     @Override
-    public void comment(final char[] ch, final int start, final int length) throws SAXException {
+    public void comment(final char[] ch, final int start, final int length) throws SAXException
+    {
         printStream.println("comment: " + new String(ch).substring(start, start + length));
     }
 
     @Override
-    public void notationDecl(final String name, final String publicId, final String systemId) throws SAXException {
+    public void notationDecl(final String name, final String publicId, final String systemId) throws SAXException
+    {
         printStream.println("notationDecl:" + name);
     }
 
     @Override
-    public void unparsedEntityDecl(final String name, final String publicId, final String systemId, final String notationName) throws SAXException {
+    public void unparsedEntityDecl(final String name, final String publicId, final String systemId, final String notationName) throws SAXException
+    {
         printStream.println("unparsedEntityDecl:" + name);
     }
 
     @Override
-    public InputSource resolveEntity(final String publicId, final String systemId) throws SAXException, IOException {
+    public InputSource resolveEntity(final String publicId, final String systemId) throws SAXException, IOException
+    {
         printStream.println("resolveEntity:" + publicId);
         return null;
     }
 
     @Override
-    public void elementDecl(final String name, final String model) throws SAXException {
+    public void elementDecl(final String name, final String model) throws SAXException
+    {
         printStream.println("elementDecl:" + name + ":" + model);
     }
 
     @Override
-    public void attributeDecl(final String eName, final String aName, final String type, final String mode, final String value) throws SAXException {
+    public void attributeDecl(final String eName, final String aName, final String type, final String mode, final String value) throws SAXException
+    {
         printStream.println("attributeDecl:" + eName + ":" + aName + ":" + type + ":" + mode + ":" + value);
     }
 
     @Override
-    public void internalEntityDecl(final String name, final String value) throws SAXException {
+    public void internalEntityDecl(final String name, final String value) throws SAXException
+    {
         printStream.println("internalEntityDecl:" + name + ":" + value);
     }
 
     @Override
-    public void externalEntityDecl(final String name, final String publicId, final String systemId) throws SAXException {
+    public void externalEntityDecl(final String name, final String publicId, final String systemId) throws SAXException
+    {
         printStream.println("externalEntityDecl:" + name + ":" + publicId + ":" + systemId);
     }
 
     @Override
-    public InputSource getExternalSubset(final String name, final String baseURI) throws SAXException, IOException {
+    public InputSource getExternalSubset(final String name, final String baseURI) throws SAXException, IOException
+    {
         printStream.println("getExternalSubset:" + name + ":" + baseURI);
         return super.getExternalSubset(name, baseURI);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     @Override
-    public InputSource resolveEntity(final String name, final String publicId, final String baseURI, final String systemId) throws SAXException, IOException {
+    public InputSource resolveEntity(final String name, final String publicId, final String baseURI, final String systemId) throws SAXException, IOException
+    {
         printStream.println("resolveEntity:" + name + ":" + publicId + ":" + baseURI + ":" + systemId);
         return super.resolveEntity(name, publicId, baseURI, systemId);    //To change body of overridden methods use File | Settings | File Templates.
     }

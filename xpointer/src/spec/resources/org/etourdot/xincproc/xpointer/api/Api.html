@@ -1,44 +1,44 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
 <body>
 
-    <h1>API Usage</h1>
+<h1>API Usage</h1>
 
+<p>
+    Here a simple example of XIncProc XPointer Api Usage
+</p>
+
+<p>
+    The expression to find node "genre" with XPointer Framework is very simple: "<span
+        concordion:set="#pointer">bk101</span>"
+    (see <a href="http://www.w3.org/TR/xptr-framework/#shorthand">Shorthand Pointer</a>)
+</p>
+
+<div class="example" concordion:execute="#result = execute(#pointer,#document)">
     <p>
-        Here a simple example of XIncProc XPointer Api Usage
+        Code to find "genre" node with XPointer engine is as simple as this:
     </p>
-
-    <p>
-        The expression to find node "genre" with XPointer Framework is very simple: "<span
-            concordion:set="#pointer">bk101</span>"
-        (see <a href="http://www.w3.org/TR/xptr-framework/#shorthand">Shorthand Pointer</a>)
-    </p>
-
-    <div class="example" concordion:execute="#result = execute(#pointer,#document)">
-        <p>
-            Code to find "genre" node with XPointer engine is as simple as this:
-        </p>
-        <ol>
-            <li>
-                Instanciate a XPointerEngine:
+    <ol>
+        <li>
+            Instanciate a XPointerEngine:
             <pre>
                 XPointerEngine xPointerEngine = new XPointerEngine();
             </pre>
-            </li>
-            <li>
-                Execute parsing on the engine (first arg. is xpointer expression, second arg. is SAXSource):
+        </li>
+        <li>
+            Execute parsing on the engine (first arg. is xpointer expression, second arg. is SAXSource):
             <pre>
                 String result = xPointerEngine.execute("bk101", source);
             </pre>
-            </li>
-        </ol>
-        <p>
-            And result will be <span
-                concordion:assertEquals="#result.result">&lt;genre id="bk101"&gt;Computer&lt;/genre&gt;</span>
-        </p>
-        <hr/>
-        <p>
-            The document used in the sample :
-        </p>
+        </li>
+    </ol>
+    <p>
+        And result will be <span
+            concordion:assertEquals="#result.result">&lt;genre id="bk101"&gt;Computer&lt;/genre&gt;</span>
+    </p>
+    <hr/>
+    <p>
+        The document used in the sample :
+    </p>
         <pre concordion:set="#document">
             &lt;catalog&gt;
                 &lt;book &gt;
@@ -52,13 +52,13 @@
                 &lt;/book&gt;
             &lt;/catalog&gt;
         </pre>
-    </div>
+</div>
 
-    <h2>Further Details</h2>
+<h2>Further Details</h2>
 
-    <ul>
-        <li><a href="BasefixupOption.html">Is there some base fixup for xinclude processing ?</a></li>
-        <li><a href="LangfixupOption.html">Is there some lang fixup for xinclude processing ?</a></li>
-    </ul>
+<ul>
+    <li><a href="BasefixupOption.html">Is there some base fixup for xinclude processing ?</a></li>
+    <li><a href="LangfixupOption.html">Is there some lang fixup for xinclude processing ?</a></li>
+</ul>
 </body>
 </html>

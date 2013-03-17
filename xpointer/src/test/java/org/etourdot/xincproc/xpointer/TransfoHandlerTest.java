@@ -16,7 +16,8 @@ import java.io.ByteArrayOutputStream;
  * Time: 23:20
  */
 public class TransfoHandlerTest {
-    public void newTest() throws Exception {
+    public void newTest() throws Exception
+    {
         InputSource source = new InputSource(getClass().getClassLoader().getResourceAsStream("idtst.xml"));
         String query = "for $x in (/*[1]/*[2] union fn:id('f2') union fn:id('f2')) return $x";
         //String query = "for $x in /*[1]/*[2] return $x";
@@ -33,7 +34,8 @@ public class TransfoHandlerTest {
 
     @Test
 
-    public void monTest() throws Exception {
+    public void monTest() throws Exception
+    {
         // Create a reader, and set it's content handler to be the TransformerHandler.
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setNamespaceAware(true);

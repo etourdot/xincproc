@@ -33,7 +33,8 @@ import static org.junit.Assert.assertNotNull;
 public class XIncludeAttributesTest {
 
     @Test
-    public void testXIncludeAttributesOk() throws Exception {
+    public void testXIncludeAttributesOk() throws Exception
+    {
         AttributesImpl attributes = new AttributesImpl();
         attributes.addAttribute(XIncProcConfiguration.ATT_HREF.getNamespaceURI(), XIncProcConfiguration.ATT_HREF.getLocalPart(),
                 XIncProcConfiguration.ATT_HREF.getLocalPart(), "CDATA", "http://www.google.com");
@@ -51,7 +52,8 @@ public class XIncludeAttributesTest {
     }
 
     @Test(expected = XIncludeResourceException.class)
-    public void testResourceException() throws Exception {
+    public void testResourceException() throws Exception
+    {
         AttributesImpl attributes = new AttributesImpl();
         attributes.addAttribute(XIncProcConfiguration.ATT_ENCODING.getNamespaceURI(), XIncProcConfiguration.ATT_ENCODING.getLocalPart(),
                 XIncProcConfiguration.ATT_ENCODING.getLocalPart(), "CDATA", "utf-9");

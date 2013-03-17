@@ -33,7 +33,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class XIncProcEngineTest {
     @Test
-    public void testResolveBase() throws Exception {
+    public void testResolveBase() throws Exception
+    {
         Stack<URI> stack = new Stack<URI>();
         stack.add(new URI("xinclude2.xml"));
         stack.add(new URI("xinclude3.xml"));
@@ -41,9 +42,12 @@ public class XIncProcEngineTest {
         assertEquals(new URI("xinclude3.xml"), resultUri);
         resultUri = XIncProcUtils.resolveBase(new URI("xinclude2.xml"), stack);
         assertEquals(new URI("xinclude3.xml"), resultUri);
-        try {
+        try
+        {
             resultUri = XIncProcUtils.resolveBase(new URI("xinclude3.xml"), stack);
-        } catch (XIncludeFatalException e) {
+        }
+        catch (XIncludeFatalException e)
+        {
             assertEquals("Inclusion loop error", e.getMessage());
         }
         stack.add(new URI("docs/xinclude4.xml"));

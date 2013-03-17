@@ -9,20 +9,24 @@ package org.etourdot.xincproc.xpointer;
 public class PrintableXPointerErrorHandler implements XPointerErrorHandler {
     private final StringBuilder stringBuilder;
 
-    public PrintableXPointerErrorHandler() {
+    public PrintableXPointerErrorHandler()
+    {
         stringBuilder = new StringBuilder();
     }
 
     @Override
-    public void reportError(String error) {
-        if (stringBuilder.length() > 0) {
+    public void reportError(String error)
+    {
+        if (stringBuilder.length() > 0)
+        {
             stringBuilder.append("\n");
         }
         stringBuilder.append(error);
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return stringBuilder.toString();
     }
 }

@@ -44,7 +44,8 @@ public abstract class XIncProcSuiteTest {
     private Processor processor;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);
         XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
@@ -56,7 +57,8 @@ public abstract class XIncProcSuiteTest {
         processor.getUnderlyingConfiguration().setSchemaValidationMode(Validation.LAX);
     }
 
-    protected Diff control(final ByteArrayOutputStream output, final String fileResult) throws Exception {
+    protected Diff control(final ByteArrayOutputStream output, final String fileResult) throws Exception
+    {
         final String result = new String(output.toByteArray(), "UTF-8");
         //LOG.debug("Test result:{}", result);
         final String control = Files.toString(new File(fileResult), Charset.forName("UTF-8"));
@@ -64,13 +66,15 @@ public abstract class XIncProcSuiteTest {
         return new Diff(new StringReader(control), new StringReader(result));
     }
 
-    protected void testSuccess(final URL urlTest, final URL urlResult) throws Exception {
+    protected void testSuccess(final URL urlTest, final URL urlResult) throws Exception
+    {
         testSuccess(urlTest, urlResult, true, true);
     }
 
     protected void testSuccess(final URL urlTest, final URL urlResult,
                                final boolean fixupBase, final boolean fixupLang)
-            throws Exception {
+            throws Exception
+    {
         final XIncProcEngine engine = new XIncProcEngine();
         engine.getConfiguration().setBaseUrisFixup(fixupBase);
         engine.getConfiguration().setLanguageFixup(fixupLang);
@@ -86,26 +90,33 @@ public abstract class XIncProcSuiteTest {
     }
 
     protected void testException(final URL urlTest, final Class exception)
-            throws Exception {
+            throws Exception
+    {
         testException(urlTest, exception, true, true);
     }
 
     protected void testException(final URL urlTest, final Class exception,
                                  final boolean fixupBase, final boolean fixupLang)
-            throws Exception {
+            throws Exception
+    {
         final XIncProcEngine engine = new XIncProcEngine();
         engine.getConfiguration().setBaseUrisFixup(fixupBase);
         engine.getConfiguration().setLanguageFixup(fixupLang);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final FileInputStream source = new FileInputStream(urlTest.getPath());
-        try {
+        try
+        {
             engine.parse(source, urlTest.toURI().getPath(), output);
             LOG.debug("Result:{}", new String(output.toByteArray(), "UTF-8"));
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             final Class testedClass = (e.getCause() == null) ? e.getClass() : e.getCause().getClass();
             assertTrue(exception.isAssignableFrom(testedClass));
             return;
-        } finally {
+        }
+        finally
+        {
             Closeables.closeQuietly(source);
         }
         fail();

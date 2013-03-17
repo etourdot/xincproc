@@ -29,39 +29,52 @@ import javax.xml.namespace.QName;
  * Time: 15:48
  */
 public class PointerFactory {
-    public ElementScheme createElementScheme(final String name, final String data) {
-        try {
+    public ElementScheme createElementScheme(final String name, final String data)
+    {
+        try
+        {
             return new ElementScheme(name, data);
-        } catch (final ElementSchemeException e) {
+        }
+        catch (final ElementSchemeException e)
+        {
             return null;
         }
     }
 
-    public ShortHand createShortHand(final String name) {
+    public ShortHand createShortHand(final String name)
+    {
         return new ShortHand(name);
     }
 
-    public XmlNsScheme createXmlNsScheme(final String localpart, final String uri) {
-        if (!Strings.isNullOrEmpty(localpart)) {
+    public XmlNsScheme createXmlNsScheme(final String localpart, final String uri)
+    {
+        if (!Strings.isNullOrEmpty(localpart))
+        {
             return createXmlNsScheme(new QName(uri, localpart));
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
 
-    public XmlNsScheme createXmlNsScheme(final QName qName) {
+    public XmlNsScheme createXmlNsScheme(final QName qName)
+    {
         return new XmlNsScheme(qName);
     }
 
-    public XPathScheme createXPathScheme(final String xpath) {
+    public XPathScheme createXPathScheme(final String xpath)
+    {
         return new XPathScheme(xpath);
     }
 
-    public XPointerScheme createXPointerScheme(final String xpath) {
+    public XPointerScheme createXPointerScheme(final String xpath)
+    {
         return new XPointerScheme(xpath);
     }
 
-    public OtherScheme createOtherScheme(final QName qName, final String data) {
+    public OtherScheme createOtherScheme(final QName qName, final String data)
+    {
         return new OtherScheme(qName, data);
     }
 }

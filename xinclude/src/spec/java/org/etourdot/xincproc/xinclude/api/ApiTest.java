@@ -39,7 +39,8 @@ import java.io.StringReader;
 @RunWith(ConcordionRunner.class)
 @ExpectedToFail
 public class ApiTest {
-    public String execute(String source) throws XIncludeFatalException {
+    public String execute(String source) throws XIncludeFatalException
+    {
         XIncProcEngine xIncProcEngine = new XIncProcEngine();
         SAXSource saxSource = new SAXSource(new InputSource(new StringReader(source)));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

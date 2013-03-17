@@ -28,14 +28,17 @@ import org.antlr.runtime.RecognizerSharedState;
  * Time: 15:03
  */
 public abstract class AbstractXPointerLexer extends Lexer {
-    AbstractXPointerLexer() {
+    AbstractXPointerLexer()
+    {
     }
 
-    public AbstractXPointerLexer(final CharStream input) {
+    public AbstractXPointerLexer(final CharStream input)
+    {
         this(input, new RecognizerSharedState());
     }
 
-    AbstractXPointerLexer(final CharStream input, final RecognizerSharedState state) {
+    AbstractXPointerLexer(final CharStream input, final RecognizerSharedState state)
+    {
         super(input, state);
     }
 }

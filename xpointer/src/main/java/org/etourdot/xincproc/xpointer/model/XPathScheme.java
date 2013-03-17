@@ -28,13 +28,15 @@ import javax.xml.namespace.QName;
 public class XPathScheme extends DefaultScheme {
     private static final QName XPATH_NAME = new QName("xpath");
 
-    public XPathScheme(final String expression) {
+    public XPathScheme(final String expression)
+    {
         super(XPATH_NAME);
         this.expression = expression.replaceAll("\\^\\(", "(").replaceAll("\\^\\)", ")").replaceAll("\\^\\^", "^");
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return XPATH_NAME + "(" + expression + ")";
     }
 }

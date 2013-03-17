@@ -28,55 +28,69 @@ import java.util.List;
  * Time: 23:11
  */
 public class Pointer {
-    private ShortHand shortHand;
+    private final ShortHand shortHand;
     private ImmutableList<PointerPart> schemeBased;
 
-    public Pointer() {
+    public Pointer()
+    {
         this.shortHand = null;
         this.schemeBased = new ImmutableList.Builder<PointerPart>().build();
     }
 
-    public Pointer(final ShortHand shortHand) {
+    public Pointer(final ShortHand shortHand)
+    {
         this.shortHand = shortHand;
         this.schemeBased = new ImmutableList.Builder<PointerPart>().build();
     }
 
-    public Pointer(final List<PointerPart> schemeBased) {
+    public Pointer(final List<PointerPart> schemeBased)
+    {
         this.shortHand = null;
         final ImmutableList.Builder<PointerPart> builder = new ImmutableList.Builder<PointerPart>();
-        if (schemeBased != null) {
+        if (schemeBased != null)
+        {
             builder.addAll(schemeBased);
         }
         this.schemeBased = builder.build();
     }
 
-    public void addPointerPart(final PointerPart pointerPart) {
+    public void addPointerPart(final PointerPart pointerPart)
+    {
         this.schemeBased = new ImmutableList.Builder<PointerPart>().addAll(schemeBased).add(pointerPart).build();
     }
 
-    public boolean isShortHand() {
+    public boolean isShortHand()
+    {
         return shortHand != null;
     }
 
-    public ShortHand getShortHand() {
+    public ShortHand getShortHand()
+    {
         return shortHand;
     }
 
-    public boolean isSchemeBased() {
+    public boolean isSchemeBased()
+    {
         return !schemeBased.isEmpty();
     }
 
-    public ImmutableList<PointerPart> getSchemeBased() {
+    public ImmutableList<PointerPart> getSchemeBased()
+    {
         return schemeBased;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         final StringBuilder builder = new StringBuilder();
-        if (isShortHand()) {
+        if (isShortHand())
+        {
             builder.append(getShortHand().toString());
-        } else {
-            for (final PointerPart part : getSchemeBased()) {
+        }
+        else
+        {
+            for (final PointerPart part : getSchemeBased())
+            {
                 builder.append(part.toString());
             }
         }

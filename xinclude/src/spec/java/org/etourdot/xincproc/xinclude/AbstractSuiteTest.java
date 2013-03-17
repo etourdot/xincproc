@@ -43,7 +43,8 @@ public abstract class AbstractSuiteTest {
     private Processor processor;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);
         XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
@@ -55,7 +56,8 @@ public abstract class AbstractSuiteTest {
         processor.getUnderlyingConfiguration().setSchemaValidationMode(Validation.LAX);
     }
 
-    protected Diff control(final ByteArrayOutputStream output, final String fileResult) throws Exception {
+    protected Diff control(final ByteArrayOutputStream output, final String fileResult) throws Exception
+    {
         final String result = new String(output.toByteArray(), "UTF-8");
         //LOG.debug("Test result:{}", result);
         final String control = Files.toString(new File(fileResult), Charset.forName("UTF-8"));
@@ -63,13 +65,15 @@ public abstract class AbstractSuiteTest {
         return new Diff(new StringReader(control), new StringReader(result));
     }
 
-    protected void testSuccess(final URL urlTest, final URL urlResult) throws Exception {
+    protected void testSuccess(final URL urlTest, final URL urlResult) throws Exception
+    {
         testSuccess(urlTest, urlResult, true, true);
     }
 
     protected void testSuccess(final URL urlTest, final URL urlResult,
                                final boolean fixupBase, final boolean fixupLang)
-            throws Exception {
+            throws Exception
+    {
         final XIncProcEngine engine = new XIncProcEngine();
         engine.getConfiguration().setBaseUrisFixup(fixupBase);
         engine.getConfiguration().setLanguageFixup(fixupLang);
@@ -85,33 +89,41 @@ public abstract class AbstractSuiteTest {
     }
 
     protected void testException(final URL urlTest, final Class exception)
-            throws Exception {
+            throws Exception
+    {
         testException(urlTest, exception, true, true);
     }
 
     protected void testException(final URL urlTest, final Class exception,
                                  final boolean fixupBase, final boolean fixupLang)
-            throws Exception {
+            throws Exception
+    {
         final XIncProcEngine engine = new XIncProcEngine();
         engine.getConfiguration().setBaseUrisFixup(fixupBase);
         engine.getConfiguration().setLanguageFixup(fixupLang);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final FileInputStream source = new FileInputStream(urlTest.getPath());
-        try {
+        try
+        {
             engine.parse(source, urlTest.toExternalForm(), output);
             LOG.debug("Result:{}", new String(output.toByteArray(), "UTF-8"));
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             final Class testedClass = (e.getCause() == null) ? e.getClass() : e.getCause().getClass();
             assertTrue(exception.isAssignableFrom(testedClass));
             return;
-        } finally {
+        }
+        finally
+        {
             Closeables.closeQuietly(source);
         }
         fail();
     }
 
     public Result execute(final String type, final String inputHref, final String outputHref)
-            throws IOException {
+            throws IOException
+    {
         final Result result = new Result();
         final XIncProcEngine engine = new XIncProcEngine();
         engine.getConfiguration().setBaseUrisFixup(true);
@@ -119,8 +131,10 @@ public abstract class AbstractSuiteTest {
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final URL urlInput = getClass().getClassLoader().getResource("XIncl20060927/" + inputHref);
         final FileInputStream source = new FileInputStream(urlInput.getPath());
-        if ("success".equals(type)) {
-            try {
+        if ("success".equals(type))
+        {
+            try
+            {
                 engine.parse(source, urlInput.toExternalForm(), output);
                 final URL urlTest = getClass().getClassLoader().getResource("XIncl20060927/" + outputHref);
                 final String expected = Resources.toString(urlTest, Charsets.UTF_8);
@@ -128,23 +142,36 @@ public abstract class AbstractSuiteTest {
                 result.output = StringEscapeUtils.escapeHtml4(new String(output.toByteArray()));
                 result.expected = StringEscapeUtils.escapeHtml4(expected);
                 result.result = diff.similar() ? "success" : "error";
-            } catch (Exception e) {
-                if (e.getCause() != null) {
+            }
+            catch (Exception e)
+            {
+                if (e.getCause() != null)
+                {
                     result.exception = e.getCause().getMessage();
-                } else {
+                }
+                else
+                {
                     result.exception = e.getMessage();
                 }
                 result.result = "error";
             }
-        } else {
-            try {
+        }
+        else
+        {
+            try
+            {
                 engine.parse(source, urlInput.toExternalForm(), output);
                 result.output = new String(output.toByteArray());
                 result.result = "success";
-            } catch (Exception e) {
-                if (e.getCause() != null) {
+            }
+            catch (Exception e)
+            {
+                if (e.getCause() != null)
+                {
                     result.exception = e.getCause().getMessage();
-                } else {
+                }
+                else
+                {
                     result.exception = e.getMessage();
                 }
                 result.result = "error";
@@ -155,7 +182,8 @@ public abstract class AbstractSuiteTest {
     }
 
     class Result {
-        Result() {
+        Result()
+        {
             exception = "";
         }
 

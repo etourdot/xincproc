@@ -25,67 +25,78 @@ import org.xml.sax.SAXException;
  */
 public class ImaqTestSuiteTest extends XIncProcSuiteTest {
     @Test
-    public void imaq_include_xml_01() throws Exception {
+    public void imaq_include_xml_01() throws Exception
+    {
         testSuccess(getClass().getClassLoader().getResource("imaq/test/XInclude/docs/include.xml"),
                 getClass().getClassLoader().getResource("imaq/result/XInclude/include.xml"));
     }
 
     @Ignore
-    public void imaq_include_xml_02() throws Exception {
+    public void imaq_include_xml_02() throws Exception
+    {
         testSuccess(getClass().getClassLoader().getResource("imaq/test/XInclude/docs/recursive.xml"),
                 getClass().getClassLoader().getResource("imaq/result/XInclude/recursive.xml"));
     }
 
     @Ignore
-    public void imaq_include_xml_03() throws Exception {
+    public void imaq_include_xml_03() throws Exception
+    {
         testSuccess(getClass().getClassLoader().getResource("imaq/test/XInclude/docs/nodes.xml"),
                 getClass().getClassLoader().getResource("imaq/result/XInclude/nodes.xml"));
     }
 
     @Test
-    public void imaq_include_xml_04() throws Exception {
+    public void imaq_include_xml_04() throws Exception
+    {
         testSuccess(getClass().getClassLoader().getResource("imaq/test/XInclude/docs/docids.xml"),
                 getClass().getClassLoader().getResource("imaq/result/XInclude/docids.xml"));
     }
 
     @Ignore
-    public void imaq_include_xml_05() throws Exception {
+    public void imaq_include_xml_05() throws Exception
+    {
         testSuccess(getClass().getClassLoader().getResource("imaq/test/XInclude/docs/txtinclude.xml"),
                 getClass().getClassLoader().getResource("imaq/result/XInclude/txtinclude.xml"));
     }
 
     @Ignore
-    public void imaq_include_xml_06() throws Exception {
+    public void imaq_include_xml_06() throws Exception
+    {
         testSuccess(getClass().getClassLoader().getResource("imaq/test/XInclude/docs/fallback.xml"),
                 getClass().getClassLoader().getResource("imaq/result/XInclude/fallback.xml"));
     }
 
     @Ignore
-    public void imaq_pex1_01() throws Exception {
+    public void imaq_pex1_01() throws Exception
+    {
         testSuccess(getClass().getClassLoader().getResource("imaq/test/XInclude/docs/pex1.xml"),
                 getClass().getClassLoader().getResource("imaq/result/XInclude/include.xml"));
     }
 
     @Ignore
-    public void imaq_pex1_02() throws Exception {
+    public void imaq_pex1_02() throws Exception
+    {
         testException(getClass().getClassLoader().getResource("imaq/test/XInclude/docs/pex1a.xml"),
                 SAXException.class);
     }
 
     @Ignore
-    public void imaq_pex6_03() throws Exception {
+    public void imaq_pex6_03() throws Exception
+    {
         testSuccess(getClass().getClassLoader().getResource("imaq/test/XInclude/docs/pex6a.xml"),
                 getClass().getClassLoader().getResource("imaq/result/XInclude/pex6a.xml"));
     }
 
     @Ignore
-    public void imaq_pex6_04() throws Exception {
+    public void imaq_pex6_04() throws Exception
+    {
         testSuccess(getClass().getClassLoader().getResource("imaq/test/XInclude/docs/pex6b.xml"),
                 getClass().getClassLoader().getResource("imaq/result/XInclude/pex6b.xml"));
     }
 
     @Ignore
-    public void imaq_pex11_05() throws Exception {
+    public void imaq_pex11_05() throws Exception
+    {
         testException(getClass().getClassLoader().getResource("imaq/test/XInclude/docs/pex11.xml"),
                 SAXException.class);
     }

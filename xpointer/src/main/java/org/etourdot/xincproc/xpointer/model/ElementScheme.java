@@ -37,7 +37,8 @@ public class ElementScheme extends DefaultScheme {
 
     private static class ChildSequenceFunction implements Function<String, String> {
         @Override
-        public String apply(String s) {
+        public String apply(String s)
+        {
             return "/*[" + s + "]";
         }
     }
@@ -46,9 +47,11 @@ public class ElementScheme extends DefaultScheme {
     private String name;
     private String childSequence;
 
-    public ElementScheme(final String name, final String childSequence) throws ElementSchemeException {
+    public ElementScheme(final String name, final String childSequence) throws ElementSchemeException
+    {
         super(ELEMENT_NAME);
-        if (Strings.isNullOrEmpty(name) && Strings.isNullOrEmpty(childSequence)) {
+        if (Strings.isNullOrEmpty(name) && Strings.isNullOrEmpty(childSequence))
+        {
             throw new ElementSchemeException();
         }
         this.name = name;
@@ -56,20 +59,25 @@ public class ElementScheme extends DefaultScheme {
         this.expression = initExpression(name, childSequence);
     }
 
-    public String getChildSequence() {
+    public String getChildSequence()
+    {
         return childSequence;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    private String initExpression(String name, String childSequence) {
+    private String initExpression(String name, String childSequence)
+    {
         final StringBuilder findExpr = new StringBuilder();
-        if (!Strings.isNullOrEmpty(name)) {
+        if (!Strings.isNullOrEmpty(name))
+        {
             findExpr.append(ID_SEARCH_EXPR.replaceAll("#ID#", name));
         }
-        if (!Strings.isNullOrEmpty(childSequence)) {
+        if (!Strings.isNullOrEmpty(childSequence))
+        {
             findExpr.append(Joiner.on("").join(Iterables.transform(Splitter.on('/').omitEmptyStrings()
                     .split(childSequence), CHILDSEQ_FUNCTION)));
         }
@@ -77,7 +85,8 @@ public class ElementScheme extends DefaultScheme {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return ELEMENT_NAME + "(" + name + ',' + childSequence + ")";
     }
 }

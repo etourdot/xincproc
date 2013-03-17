@@ -116,8 +116,8 @@
                                 <phase>generate-test-sources</phase>
                                 <configuration>
                                     <target>
-                                        <!--echo message="Unzip xinclude test archive" />
-                                        <unzip src="${spec.docDirectory}/XIncl20060927.zip" dest="${spec.docDirectory}" /-->
+                                        <echo message="Unzip xinclude test archive" />
+                                        <unzip src="${spec.docDirectory}/XIncl20060927.zip" dest="${spec.docDirectory}" />
                                         <!--echo message="Generate integration tests classes" />
                                         <java fork="true" jar="${net.sf.saxon:Saxon-HE:jar}" failonerror="true">
                                             <arg value="-s:${spec.docDirectory}/XIncl20060927/testdescr.xml" />

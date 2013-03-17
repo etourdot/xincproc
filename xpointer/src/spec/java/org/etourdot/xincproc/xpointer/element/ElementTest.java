@@ -19,7 +19,8 @@ import java.io.StringReader;
  */
 @RunWith(ConcordionRunner.class)
 public class ElementTest extends AbstractXPointerTest {
-    public Boolean isElementSameShorthand(String ncname, String element, String source) throws SaxonApiException, XPointerException {
+    public Boolean isElementSameShorthand(String ncname, String element, String source) throws SaxonApiException, XPointerException
+    {
         XPointerEngine xPointerEngine = new XPointerEngine();
         SAXSource saxSource = new SAXSource(new InputSource(new StringReader(source)));
         String shortHandResult = xPointerEngine.execute(ncname, saxSource);

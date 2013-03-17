@@ -37,24 +37,30 @@ public class AbstractXPointerTree extends TreeParser {
     private XPointerErrorHandler xPointerErrorHandler;
     PointerFactory factory;
 
-    public AbstractXPointerTree(final TreeNodeStream input) {
+    public AbstractXPointerTree(final TreeNodeStream input)
+    {
         super(input);
     }
 
-    AbstractXPointerTree(final TreeNodeStream input, final RecognizerSharedState state) {
+    AbstractXPointerTree(final TreeNodeStream input, final RecognizerSharedState state)
+    {
         super(input, state);
     }
 
-    public void setPointerFactory(final PointerFactory pointerFactory) {
+    public void setPointerFactory(final PointerFactory pointerFactory)
+    {
         this.factory = pointerFactory;
     }
 
-    public void setErrorHandler(final XPointerErrorHandler xPointerErrorHandler) {
+    public void setErrorHandler(final XPointerErrorHandler xPointerErrorHandler)
+    {
         this.xPointerErrorHandler = xPointerErrorHandler;
     }
 
-    private boolean updateRecoveryState() {
-        if (state.errorRecovery) {
+    private boolean updateRecoveryState()
+    {
+        if (state.errorRecovery)
+        {
             return true;
         }
         state.syntaxErrors++;
@@ -62,53 +68,74 @@ public class AbstractXPointerTree extends TreeParser {
         return false;
     }
 
-    public void reportPointerError(final RecognitionException e) {
-        if (updateRecoveryState()) return;
+    public void reportPointerError(final RecognitionException e)
+    {
+        if (updateRecoveryState())
+        {
+            return;
+        }
         displayPointerError(this.getTokenNames(), e);
     }
 
-    public void reportPointerPartError(final RecognitionException e) {
-        if (updateRecoveryState()) return;
+    public void reportPointerPartError(final RecognitionException e)
+    {
+        if (updateRecoveryState())
+        {
+            return;
+        }
         displayPointerPartError(this.getTokenNames(), e);
     }
 
-    public void reportElementSchemeDataError(final RecognitionException e) {
-        if (updateRecoveryState()) return;
+    public void reportElementSchemeDataError(final RecognitionException e)
+    {
+        if (updateRecoveryState())
+        {
+            return;
+        }
         displayElementSchemeDataError(this.getTokenNames(), e);
     }
 
-    private void displayPointerPartError(final String[] tokenNames, final RecognitionException e) {
+    private void displayPointerPartError(final String[] tokenNames, final RecognitionException e)
+    {
         String msg = "Warning: bad pointerpart form '" + ((CommonErrorNode) e.node).getText() + "'";
         emitErrorMessage(msg);
     }
 
-    private void displayPointerError(final String[] tokenNames, final RecognitionException e) {
+    private void displayPointerError(final String[] tokenNames, final RecognitionException e)
+    {
         String msg = "Warning: bad pointer form '" + ((CommonErrorNode) e.node).getText() + "'";
         emitErrorMessage(msg);
     }
 
-    private void displayElementSchemeDataError(final String[] tokenNames, final RecognitionException e) {
+    private void displayElementSchemeDataError(final String[] tokenNames, final RecognitionException e)
+    {
         String msg = "Warning: bad element scheme data '" + ((CommonErrorNode) e.node).getText() + "'";
         emitErrorMessage(msg);
     }
 
     @Override
-    public void displayRecognitionError(final String[] tokenNames, final RecognitionException e) {
+    public void displayRecognitionError(final String[] tokenNames, final RecognitionException e)
+    {
         String msg = getErrorMessage(e, tokenNames);
         emitErrorMessage(msg);
     }
 
     @Override
-    public void emitErrorMessage(final String msg) {
+    public void emitErrorMessage(final String msg)
+    {
         log.debug("emitErrorMessage '{}'", msg);
-        if (xPointerErrorHandler == null) {
+        if (xPointerErrorHandler == null)
+        {
             super.emitErrorMessage(msg);
-        } else {
+        }
+        else
+        {
             xPointerErrorHandler.reportError(msg);
         }
     }
 
-    public String unescape(final String toEscape) {
+    public String unescape(final String toEscape)
+    {
         return toEscape.replaceAll("\\^\\)", ")").replaceAll("\\^\\(", "(").replaceAll("\\^\\^", "^");
     }
 }

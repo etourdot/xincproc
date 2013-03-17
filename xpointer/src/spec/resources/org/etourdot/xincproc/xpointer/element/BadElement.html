@@ -1,22 +1,22 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
 <body>
 
-    <h1>Bad Element Scheme expression</h1>
+<h1>Bad Element Scheme expression</h1>
 
-    <p>
-        What's up when element expression is not well formed ?
-    </p>
+<p>
+    What's up when element expression is not well formed ?
+</p>
 
-    <cite>
-        If either the NCName or the child sequence does not locate an element, no element is identified by the pointer
-        part as a whole.
-    </cite>
+<cite>
+    If either the NCName or the child sequence does not locate an element, no element is identified by the pointer
+    part as a whole.
+</cite>
 
-    <div class="example">
+<div class="example">
 
-        <h3>Example</h3>
+    <h3>Example</h3>
 
-        <p>Given a simple xml  :</p>
+    <p>Given a simple xml :</p>
 
         <pre concordion:set="#document">
             &lt;catalog&gt;
@@ -32,45 +32,45 @@
             &lt;/catalog&gt;
         </pre>
 
-        <p>Expressions matching nodes:</p>
+    <p>Expressions matching nodes:</p>
 
-        <table concordion:execute="#result = execute(#pointer,#document)">
-            <tr>
-                <th concordion:set="#pointer">Pointer content</th>
-                <th concordion:assertEquals="#result.result">Result</th>
-                <th concordion:assertEquals="#result.error">ErrorHandler</th>
-            </tr>
-            <tr>
-                <td>element(///)</td>
-                <td></td>
-                <td>Error: bad element scheme data '///' Unknown pointer expression</td>
-            </tr>
-        </table>
+    <table concordion:execute="#result = execute(#pointer,#document)">
+        <tr>
+            <th concordion:set="#pointer">Pointer content</th>
+            <th concordion:assertEquals="#result.result">Result</th>
+            <th concordion:assertEquals="#result.error">ErrorHandler</th>
+        </tr>
+        <tr>
+            <td>element(///)</td>
+            <td></td>
+            <td>Error: bad element scheme data '///' Unknown pointer expression</td>
+        </tr>
+    </table>
 
-    </div>
+</div>
 
-    <cite>
-        The element() scheme does not use the namespace binding context because it does not support qualified names.
-    </cite>
+<cite>
+    The element() scheme does not use the namespace binding context because it does not support qualified names.
+</cite>
 
-    <div class="example">
+<div class="example">
 
-        <h3>Example</h3>
+    <h3>Example</h3>
 
-        <p>Given the same xml document than previous example.</p>
+    <p>Given the same xml document than previous example.</p>
 
-        <table concordion:execute="#result = execute(#pointer,#document)">
-            <tr>
-                <th concordion:set="#pointer">Pointer content</th>
-                <th concordion:assertEquals="#result.result">Result</th>
-                <th concordion:assertEquals="#result.error">ErrorHandler</th>
-            </tr>
-            <tr>
-                <td>element(no:book1)</td>
-                <td></td>
-                <td>Error: invalid element expression 'element(no:book1)' Unknown pointer expression</td>
-            </tr>
-        </table>
-    </div>
+    <table concordion:execute="#result = execute(#pointer,#document)">
+        <tr>
+            <th concordion:set="#pointer">Pointer content</th>
+            <th concordion:assertEquals="#result.result">Result</th>
+            <th concordion:assertEquals="#result.error">ErrorHandler</th>
+        </tr>
+        <tr>
+            <td>element(no:book1)</td>
+            <td></td>
+            <td>Error: invalid element expression 'element(no:book1)' Unknown pointer expression</td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

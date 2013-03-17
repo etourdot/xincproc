@@ -28,13 +28,15 @@ import javax.xml.namespace.QName;
 public class XPointerScheme extends DefaultScheme {
     private static final QName XPOINTER_NAME = new QName("xpointer");
 
-    public XPointerScheme(final String expression) {
+    public XPointerScheme(final String expression)
+    {
         super(XPOINTER_NAME);
         this.expression = expression;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return XPOINTER_NAME + "(" + super.getExpression() + ")";
     }
 }

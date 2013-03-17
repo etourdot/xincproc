@@ -1,21 +1,21 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
 <body>
 
-    <h1>Bad Xmlns Scheme expression</h1>
+<h1>Bad Xmlns Scheme expression</h1>
 
-    <p>
-        What's up when xmlns expression is not well formed ?
-    </p>
-    <cite>
-        if scheme data in a pointer part with the xmlns() scheme does not conform to the syntax defined,
-        the pointer part does not contribute an entry to the namespace binding context.
-    </cite>
+<p>
+    What's up when xmlns expression is not well formed ?
+</p>
+<cite>
+    if scheme data in a pointer part with the xmlns() scheme does not conform to the syntax defined,
+    the pointer part does not contribute an entry to the namespace binding context.
+</cite>
 
-    <div class="example">
+<div class="example">
 
-        <h3>Example</h3>
+    <h3>Example</h3>
 
-        <p>Given a simple xml  :</p>
+    <p>Given a simple xml :</p>
 
         <pre concordion:set="#document">
             &lt;customer xmlns="http://example.org/customer"&gt;
@@ -23,15 +23,15 @@
             &lt;/customer&gt;
         </pre>
 
-        <p>The following expression:</p>
+    <p>The following expression:</p>
 
-        <pre concordion:set="#pointer">xmlns(c=http://example.org/customer) xmlns(bad_expression) xmlns(p=http://example.org/personal-info) xpointer(/c:customer/p:name)</pre>
+    <pre concordion:set="#pointer">xmlns(c=http://example.org/customer) xmlns(bad_expression) xmlns(p=http://example.org/personal-info) xpointer(/c:customer/p:name)</pre>
 
-        <p concordion:execute="#result = execute(#pointer,#document)">
-            Will result (no exception)
-            <span concordion:assertEquals="#result.result">&lt;name xmlns="http://example.org/personal-info"&gt;John Doe&lt;/name&gt;</span>
-        </p>
-    </div>
+    <p concordion:execute="#result = execute(#pointer,#document)">
+        Will result (no exception)
+        <span concordion:assertEquals="#result.result">&lt;name xmlns="http://example.org/personal-info"&gt;John Doe&lt;/name&gt;</span>
+    </p>
+</div>
 
 </body>
 </html>

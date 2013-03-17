@@ -1,18 +1,18 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
 <body>
 
-    <h1>Not supported XPointer Scheme expression</h1>
+<h1>Not supported XPointer Scheme expression</h1>
 
-    <p>
-        What's up when xpointer expression contains not supported terms ?
-    </p>
+<p>
+    What's up when xpointer expression contains not supported terms ?
+</p>
 
 
-    <div class="example">
+<div class="example">
 
-        <h3>Example</h3>
+    <h3>Example</h3>
 
-        <p>Given a simple xml  :</p>
+    <p>Given a simple xml :</p>
 
         <pre concordion:set="#document">
             &lt;catalog&gt;
@@ -28,22 +28,22 @@
             &lt;/catalog&gt;
         </pre>
 
-        <p>Expressions matching nodes:</p>
+    <p>Expressions matching nodes:</p>
 
-        <table concordion:execute="#result = execute(#pointer,#document)">
-            <tr>
-                <th concordion:set="#pointer">Pointer content</th>
-                <th concordion:assertEquals="#result.result">Result</th>
-                <th concordion:assertEquals="#result.error">ErrorHandler</th>
-            </tr>
-            <tr>
-                <td>xpointer(id("chap1")/range-to(id("chap2")))</td>
-                <td></td>
-                <td>Error: xpointer function 'range-to' is not supported Unknown pointer expression</td>
-            </tr>
-        </table>
+    <table concordion:execute="#result = execute(#pointer,#document)">
+        <tr>
+            <th concordion:set="#pointer">Pointer content</th>
+            <th concordion:assertEquals="#result.result">Result</th>
+            <th concordion:assertEquals="#result.error">ErrorHandler</th>
+        </tr>
+        <tr>
+            <td>xpointer(id("chap1")/range-to(id("chap2")))</td>
+            <td></td>
+            <td>Error: xpointer function 'range-to' is not supported Unknown pointer expression</td>
+        </tr>
+    </table>
 
-    </div>
+</div>
 
 </body>
 </html>

@@ -25,15 +25,18 @@ package org.etourdot.xincproc.xpointer.exceptions;
  */
 public class XPointerException extends Exception {
 
-    public XPointerException(final Throwable cause) {
+    public XPointerException(final Throwable cause)
+    {
         super(cause);
     }
 
-    public XPointerException(final String message, final Throwable cause) {
+    public XPointerException(final String message, final Throwable cause)
+    {
         super(message, cause);
     }
 
-    public XPointerException(final String message) {
+    public XPointerException(final String message)
+    {
         super(message);
     }
 }

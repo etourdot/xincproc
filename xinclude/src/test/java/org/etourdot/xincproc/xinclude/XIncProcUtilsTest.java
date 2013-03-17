@@ -66,7 +66,8 @@ public class XIncProcUtilsTest {
     }*/
 
     @Test
-    public void testIsXInclude() throws Exception {
+    public void testIsXInclude() throws Exception
+    {
         QName test1 = XIncProcConfiguration.XINCLUDE_QNAME;
         QName test2 = new QName("", "include");
         QName test3 = new QName("http://toto/", "include");
@@ -78,7 +79,8 @@ public class XIncProcUtilsTest {
     }
 
     @Test
-    public void testIsFallback() throws Exception {
+    public void testIsFallback() throws Exception
+    {
         QName test1 = XIncProcConfiguration.FALLBACK_QNAME;
         QName test2 = new QName("", "fallback");
         QName test3 = new QName("http://toto/", "fallback");
@@ -90,7 +92,8 @@ public class XIncProcUtilsTest {
     }
 
     @Test
-    public void testComputeBase() throws Exception {
+    public void testComputeBase() throws Exception
+    {
         URI base = new URI("xinclude/");
         base = base.resolve(new URI("input-xinclude-recursive-2.xml"));
         assertEquals("xinclude/input-xinclude-recursive-2.xml", base.toASCIIString());
@@ -99,7 +102,8 @@ public class XIncProcUtilsTest {
     }
 
     @Ignore
-    public void testLexicalHandler() throws Exception {
+    public void testLexicalHandler() throws Exception
+    {
         final InputSource inputSource = new InputSource(getClass().getClassLoader().getResourceAsStream("nist/test/ents/prtids.xml"));
         final SAXSource source = new SAXSource(inputSource);
         final XMLReader xmlReader = XMLReaderFactory.createXMLReader();

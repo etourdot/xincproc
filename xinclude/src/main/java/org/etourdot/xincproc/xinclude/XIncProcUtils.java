@@ -48,55 +48,13 @@ import java.util.Stack;
  */
 public final class XIncProcUtils {
     /**
-     * Check xinclude attributes
-     * see http://www.w3.org/TR/2006/REC-xinclude-20061115/#include_element
-     *
-     * @param startElement xinclude element to test attributes
-     * @throws org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException
-     *
-     * @throws org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException
-     *
-     */
-    public static void checkXInclude(final StartElement startElement) {
-        final Attribute hrefAtt = startElement.getAttributeByName(XIncProcConfiguration.ATT_HREF);
-        final String href = (hrefAtt == null) ? null : hrefAtt.getValue();
-        final Attribute parseAtt = startElement.getAttributeByName(XIncProcConfiguration.ATT_PARSE);
-        final String parse = (parseAtt == null) ? XIncProcConfiguration.XML : parseAtt.getValue();
-        final Attribute xpointerAtt = startElement.getAttributeByName(XIncProcConfiguration.ATT_XPOINTER);
-        final String xpointer = (xpointerAtt == null) ? null : xpointerAtt.getValue();
-        final Attribute encodingAtt = startElement.getAttributeByName(XIncProcConfiguration.ATT_XPOINTER);
-        final String encoding = (encodingAtt == null) ? null : encodingAtt.getValue();
-        final Attribute acceptAtt = startElement.getAttributeByName(XIncProcConfiguration.ATT_ACCEPT);
-        final String accept = (acceptAtt == null) ? null : acceptAtt.getValue();
-        final Attribute acceptLanguageAtt = startElement.getAttributeByName(XIncProcConfiguration.ATT_ACCEPT_LANGUAGE);
-        final String acceptLanguage = (acceptLanguageAtt == null) ? null : acceptLanguageAtt.getValue();
-    }
-
-    /**
-     * Check xinclude attributes
-     * see http://www.w3.org/TR/2006/REC-xinclude-20061115/#include_element
-     *
-     * @param atts
-     * @throws XIncludeFatalException
-     * @throws XIncludeResourceException
-     */
-    public static void checkXInclude(final Attributes atts) {
-        final String href = atts.getValue("", XIncProcConfiguration.ATT_HREF.getLocalPart());
-        final String parseAtt = atts.getValue("", XIncProcConfiguration.ATT_PARSE.getLocalPart());
-        final String parse = (parseAtt == null) ? XIncProcConfiguration.XML : parseAtt;
-        final String xpointer = atts.getValue("", XIncProcConfiguration.ATT_XPOINTER.getLocalPart());
-        final String encoding = atts.getValue("", XIncProcConfiguration.ATT_ENCODING.getLocalPart());
-        final String accept = atts.getValue("", XIncProcConfiguration.ATT_ACCEPT.getLocalPart());
-        final String acceptLanguage = atts.getValue("", XIncProcConfiguration.ATT_ACCEPT_LANGUAGE.getLocalPart());
-    }
-
-    /**
      * Return if element is in XInclude namespace
      *
      * @param qname
      * @return
      */
-    public static boolean isXIncludeNamespace(final QName qname) {
+    public static boolean isXIncludeNamespace(final QName qname)
+    {
         return qname.getNamespaceURI().equals(XIncProcConfiguration.XINCLUDE_NAMESPACE_URI);
     }
 
@@ -106,10 +64,13 @@ public final class XIncProcUtils {
      * @param qname
      * @return
      */
-    public static boolean isXInclude(final QName qname) {
-        if (XIncProcConfiguration.XINCLUDE_QNAME.getLocalPart().equals(qname.getLocalPart())) {
+    public static boolean isXInclude(final QName qname)
+    {
+        if (XIncProcConfiguration.XINCLUDE_QNAME.getLocalPart().equals(qname.getLocalPart()))
+        {
             if (Strings.isNullOrEmpty(qname.getNamespaceURI()) ||
-                    XIncProcConfiguration.XINCLUDE_QNAME.getNamespaceURI().equals(qname.getNamespaceURI())) {
+                    XIncProcConfiguration.XINCLUDE_QNAME.getNamespaceURI().equals(qname.getNamespaceURI()))
+            {
                 return true;
             }
         }
@@ -122,53 +83,60 @@ public final class XIncProcUtils {
      * @param qname
      * @return
      */
-    public static boolean isFallback(final QName qname) {
-        if (XIncProcConfiguration.FALLBACK_QNAME.getLocalPart().equals(qname.getLocalPart())) {
+    public static boolean isFallback(final QName qname)
+    {
+        if (XIncProcConfiguration.FALLBACK_QNAME.getLocalPart().equals(qname.getLocalPart()))
+        {
             if (Strings.isNullOrEmpty(qname.getNamespaceURI()) ||
-                    XIncProcConfiguration.FALLBACK_QNAME.getNamespaceURI().equals(qname.getNamespaceURI())) {
+                    XIncProcConfiguration.FALLBACK_QNAME.getNamespaceURI().equals(qname.getNamespaceURI()))
+            {
                 return true;
             }
         }
         return false;
     }
 
-    public static URI computeBase(final List<URI> uris) {
+    public static URI computeBase(final List<URI> uris)
+    {
         final Iterator<URI> it = uris.iterator();
         URI resultURI = it.next();
-        while (it.hasNext()) {
+        while (it.hasNext())
+        {
             final URI uri = it.next();
             resultURI = resultURI.resolve(uri);
         }
         return resultURI;
     }
 
-    public static URI resolveBase(final URI baseURI, final List<URI> uris) {
+    public static URI resolveBase(final URI baseURI, final List<URI> uris)
+    {
         URI resolvedUri = baseURI;
-        for (URI uri : uris) {
+        for (URI uri : uris)
+        {
             resolvedUri = baseURI.resolve(uri);
         }
-        /*if (resolvedUri.compareTo(baseURI)==0)
-        {
-            throw new XIncludeFatalException("Inclusion loop error");
-        }*/
         return resolvedUri;
     }
 
-    private static URI computeBase(final Stack<URI> stack) {
+    private static URI computeBase(final Stack<URI> stack)
+    {
         assert !stack.isEmpty();
         final Iterator<URI> it = stack.iterator();
         URI resultURI = it.next();
-        while (it.hasNext()) {
+        while (it.hasNext())
+        {
             final URI uri = it.next();
             resultURI = resultURI.resolve(uri);
         }
         return resultURI;
     }
 
-    public static URI resolveBase(final URI baseURI, final Stack<URI> stack) throws XIncludeFatalException {
+    public static URI resolveBase(final URI baseURI, final Stack<URI> stack) throws XIncludeFatalException
+    {
         final URI computedUri = computeBase(stack);
         final URI resolvedUri = baseURI.resolve(computedUri);
-        if (resolvedUri.compareTo(baseURI) == 0) {
+        if (resolvedUri.compareTo(baseURI) == 0)
+        {
             throw new XIncludeFatalException("Inclusion loop error");
         }
         return resolvedUri;
@@ -185,39 +153,55 @@ public final class XIncProcUtils {
      */
     public static String readTextURI(final URI source, final String encoding,
                                      final String accept, final String acceptLanguage)
-            throws XIncludeFatalException, XIncludeResourceException {
-        try {
+            throws XIncludeFatalException, XIncludeResourceException
+    {
+        try
+        {
             final URL url = source.toURL();
             final URLConnection urlConnection = url.openConnection();
-            if (accept != null) {
+            if (accept != null)
+            {
                 urlConnection.setRequestProperty(HttpHeaders.ACCEPT, accept);
             }
-            if (acceptLanguage != null) {
+            if (acceptLanguage != null)
+            {
                 urlConnection.setRequestProperty(HttpHeaders.ACCEPT_LANGUAGE, acceptLanguage);
             }
             final InputStream urlInputStream = urlConnection.getInputStream();
             final byte[] inputBytes = ByteStreams.toByteArray(urlInputStream);
             urlInputStream.close();
             final BOMInputStream bomInputStream = new BOMInputStream(new ByteArrayInputStream(inputBytes));
-            if (bomInputStream.hasBOM()) {
+            if (bomInputStream.hasBOM())
+            {
                 InputStreamReader reader = new InputStreamReader(new BufferedInputStream(bomInputStream));
                 return CharStreams.toString(reader);
-            } else {
+            }
+            else
+            {
                 InputSupplier<ByteArrayInputStream> supplier = ByteStreams.newInputStreamSupplier(inputBytes);
                 final Charset charset;
-                if (encoding == null) {
+                if (encoding == null)
+                {
                     charset = EncodingUtils.getCharset(supplier.getInput());
-                } else {
+                }
+                else
+                {
                     charset = Charset.forName(encoding);
                 }
                 return CharStreams.toString(CharStreams.newReaderSupplier(supplier, charset));
             }
 
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException e)
+        {
             throw new XIncludeFatalException(e.getMessage());
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch (UnsupportedEncodingException e)
+        {
             throw new XIncludeFatalException(e.getMessage());
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new XIncludeResourceException(e.getMessage());
         }
     }

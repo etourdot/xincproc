@@ -53,35 +53,42 @@ public class XIncProcEngine {
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcEngine.class);
     private static XIncProcConfiguration configuration;
 
-    public XIncProcEngine() {
+    public XIncProcEngine()
+    {
         configuration = new XIncProcConfiguration();
     }
 
-    public XIncProcEngine(final XIncProcConfiguration configuration) {
-        this.configuration = configuration;
+    public XIncProcEngine(final XIncProcConfiguration configuration)
+    {
+        XIncProcEngine.configuration = configuration;
     }
 
-    public XIncProcEngine(final Processor processor) {
+    public XIncProcEngine(final Processor processor)
+    {
         configuration = new XIncProcConfiguration(processor);
     }
 
-    public static XMLFilter newXIncludeFilter(final URI baseURI) {
+    public static XMLFilter newXIncludeFilter(final URI baseURI)
+    {
         final XIncludeContext context = new XIncludeContext(configuration);
         context.setSourceURI(baseURI);
         context.setInitialBaseURI(baseURI);
         return new XIncProcXIncludeFilter(context);
     }
 
-    public static XMLFilter newXIncludeFilter(final XIncludeContext context) {
+    public static XMLFilter newXIncludeFilter(final XIncludeContext context)
+    {
         return new XIncProcXIncludeFilter(context);
     }
 
     public void parse(final URI baseURI, final OutputStream output)
-            throws XIncludeFatalException {
+            throws XIncludeFatalException
+    {
         final Processor processor = configuration.getProcessor();
         final XMLFilter filter = newXIncludeFilter(baseURI);
         final InputSource inputSource = new InputSource(baseURI.toASCIIString());
-        try {
+        try
+        {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
             xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
             xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
@@ -92,27 +99,36 @@ public class XIncProcEngine {
             final XdmNode node = processor.newDocumentBuilder().wrap(saxSource);
             Serializer serializer = processor.newSerializer(output);
             processor.writeXdmValue(node, serializer);
-        } catch (final SAXException e) {
+        }
+        catch (final SAXException e)
+        {
             throw new XIncludeFatalException(e);
-        } catch (SaxonApiException e) {
+        }
+        catch (SaxonApiException e)
+        {
             throw new XIncludeFatalException(e);
         }
     }
 
-    public void parse(final Source source, final Result result) throws XIncludeFatalException {
+    public void parse(final Source source, final Result result) throws XIncludeFatalException
+    {
         //parse(source, result);
     }
 
     public void parse(final InputStream input, final String systemId, final OutputStream output)
-            throws XIncludeFatalException, IOException {
+            throws XIncludeFatalException, IOException
+    {
         LOG.trace("parse:{}", systemId);
         final Processor processor = configuration.getProcessor();
         final XIncProcXIncludeFilter filter;
         final URI uri;
-        try {
+        try
+        {
             uri = new URI(systemId);
             filter = (XIncProcXIncludeFilter) newXIncludeFilter(uri);
-        } catch (final URISyntaxException e) {
+        }
+        catch (final URISyntaxException e)
+        {
             throw new XIncludeFatalException(e);
         }
         final byte[] inputBytes = ByteStreams.toByteArray(input);
@@ -120,7 +136,8 @@ public class XIncProcEngine {
         Charset charset = EncodingUtils.getCharset(supplier.getInput());
         final InputSource inputSource = new InputSource(supplier.getInput());
         inputSource.setSystemId(systemId);
-        try {
+        try
+        {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
             xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
             xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
@@ -135,7 +152,8 @@ public class XIncProcEngine {
             output.write(charset.displayName().getBytes());
             output.write("\"?>".getBytes());
             final String docType = filter.getDoctype();
-            if (!Strings.isNullOrEmpty(docType)) {
+            if (!Strings.isNullOrEmpty(docType))
+            {
                 output.write(docType.getBytes("UTF-8"));
             }
             Serializer serializer = processor.newSerializer(output);
@@ -143,14 +161,19 @@ public class XIncProcEngine {
             serializer.setOutputProperty(Serializer.Property.ENCODING, charset.displayName());
 
             processor.writeXdmValue(node, serializer);
-        } catch (final SAXException e) {
+        }
+        catch (final SAXException e)
+        {
             throw new XIncludeFatalException(e.getMessage());
-        } catch (SaxonApiException e) {
+        }
+        catch (SaxonApiException e)
+        {
             throw new XIncludeFatalException(e.getMessage());
         }
     }
 
-    public XIncProcConfiguration getConfiguration() {
+    public XIncProcConfiguration getConfiguration()
+    {
         return configuration;
     }
 }

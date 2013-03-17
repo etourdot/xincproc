@@ -23,11 +23,13 @@ import org.xml.sax.SAXException;
  * @author Emmanuel Tourdot
  */
 public class XIncludeResourceException extends SAXException {
-    public XIncludeResourceException(final Exception nestedException) {
+    public XIncludeResourceException(final Exception nestedException)
+    {
         super(nestedException);
     }
 
-    public XIncludeResourceException(final String message) {
+    public XIncludeResourceException(final String message)
+    {
         super(message);
     }
 }

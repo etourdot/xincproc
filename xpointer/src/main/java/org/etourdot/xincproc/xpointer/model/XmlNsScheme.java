@@ -28,19 +28,22 @@ import javax.xml.namespace.QName;
 public class XmlNsScheme extends DefaultScheme {
     private static final QName XMLNS_NAME = new QName("xmlns");
 
-    private QName qName;
+    private final QName qName;
 
-    public XmlNsScheme(final QName qName) {
+    public XmlNsScheme(final QName qName)
+    {
         super(XMLNS_NAME);
         this.qName = qName;
     }
 
-    public QName getQName() {
+    public QName getQName()
+    {
         return qName;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return XMLNS_NAME + "(" + qName + ")";
     }
 }

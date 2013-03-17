@@ -23,11 +23,13 @@ import org.xml.sax.SAXException;
  * @author Emmanuel Tourdot
  */
 public class XIncludeFatalException extends SAXException {
-    public XIncludeFatalException(final Exception nestedException) {
+    public XIncludeFatalException(final Exception nestedException)
+    {
         super(nestedException);
     }
 
-    public XIncludeFatalException(final String message) {
+    public XIncludeFatalException(final String message)
+    {
         super(message);
     }
 }

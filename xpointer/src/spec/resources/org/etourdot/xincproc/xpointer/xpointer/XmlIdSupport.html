@@ -1,18 +1,18 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
 <body>
 
-    <h1>How xml ID is supported ?</h1>
+<h1>How xml ID is supported ?</h1>
 
-    <p>
-        
-    </p>
+<p>
+
+</p>
 
 
-    <div class="example">
+<div class="example">
 
-        <h3>Example</h3>
+    <h3>Example</h3>
 
-        <p>Given a simple xml  :</p>
+    <p>Given a simple xml :</p>
 
         <pre concordion:set="#document">
             &lt;!DOCTYPE doc [
@@ -29,37 +29,37 @@
             &lt;/doc&gt;
         </pre>
 
-        <p>Expressions matching nodes:</p>
+    <p>Expressions matching nodes:</p>
 
-        <table concordion:execute="#result = execute(#pointer,#document)">
-            <tr>
-                <th concordion:set="#pointer">Pointer content</th>
-                <th concordion:assertEquals="#result.result">Result</th>
-                <th concordion:assertEquals="#result.error">ErrorHandler</th>
-            </tr>
-            <tr>
-                <td>xpointer(//*[@id='f2'])</td>
-                <td></td>
-                <td>No identified subresource</td>
-            </tr>
-            <tr>
-                <td>xpointer(//*[@fnumber='f2'])</td>
-                <td>&lt;family fnumber="f2"&gt;Clark&lt;/family&gt;</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>xpointer(id('f2'))</td>
-                <td>&lt;family fnumber="f2"&gt;Clark&lt;/family&gt;</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>element(/1/2)xpointer(id('f2'))</td>
-                <td>&lt;family fnumber="f2"&gt;Clark&lt;/family&gt;</td>
-                <td></td>
-            </tr>
-        </table>
+    <table concordion:execute="#result = execute(#pointer,#document)">
+        <tr>
+            <th concordion:set="#pointer">Pointer content</th>
+            <th concordion:assertEquals="#result.result">Result</th>
+            <th concordion:assertEquals="#result.error">ErrorHandler</th>
+        </tr>
+        <tr>
+            <td>xpointer(//*[@id='f2'])</td>
+            <td></td>
+            <td>No identified subresource</td>
+        </tr>
+        <tr>
+            <td>xpointer(//*[@fnumber='f2'])</td>
+            <td>&lt;family fnumber="f2"&gt;Clark&lt;/family&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>xpointer(id('f2'))</td>
+            <td>&lt;family fnumber="f2"&gt;Clark&lt;/family&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>element(/1/2)xpointer(id('f2'))</td>
+            <td>&lt;family fnumber="f2"&gt;Clark&lt;/family&gt;</td>
+            <td></td>
+        </tr>
+    </table>
 
-    </div>
+</div>
 
 </body>
 </html>

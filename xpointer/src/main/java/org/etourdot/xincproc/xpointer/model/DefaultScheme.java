@@ -29,17 +29,20 @@ abstract class DefaultScheme implements PointerPart {
     final static String ID_SEARCH_EXPR = "(//*[@id='#ID#']|id('#ID#'))";
 
     String expression;
-    private QName schemeName;
+    private final QName schemeName;
 
-    DefaultScheme(final QName schemeName) {
+    DefaultScheme(final QName schemeName)
+    {
         this.schemeName = schemeName;
     }
 
-    public QName getSchemeName() {
+    public QName getSchemeName()
+    {
         return schemeName;
     }
 
-    public String getExpression() {
+    public String getExpression()
+    {
         return expression;
     }
 }

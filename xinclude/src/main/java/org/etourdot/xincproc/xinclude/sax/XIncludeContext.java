@@ -58,15 +58,18 @@ public class XIncludeContext {
 
     private DocType docType = new DocType();
 
-    public XIncludeContext(final XIncProcConfiguration configuration) {
+    public XIncludeContext(final XIncProcConfiguration configuration)
+    {
         this.configuration = configuration;
     }
 
-    public XIncProcConfiguration getConfiguration() {
+    public XIncProcConfiguration getConfiguration()
+    {
         return configuration;
     }
 
-    public static XIncludeContext newContext(final XIncludeContext contextToCopy) {
+    public static XIncludeContext newContext(final XIncludeContext contextToCopy)
+    {
         final XIncludeContext newContext = new XIncludeContext(contextToCopy.getConfiguration());
         newContext.currentBaseURI = contextToCopy.currentBaseURI;
         newContext.stackedBaseURI = contextToCopy.stackedBaseURI;
@@ -80,140 +83,178 @@ public class XIncludeContext {
     }
 
     public void updateContextWithElementAttributes(final AttributesImpl attributes)
-            throws XIncludeFatalException {
+            throws XIncludeFatalException
+    {
         final int baseAttIdx = attributes.getIndex(NamespaceSupport.XMLNS,
                 XIncProcConfiguration.XMLBASE_QNAME.getLocalPart());
-        if (baseAttIdx >= 0) {
-            try {
+        if (baseAttIdx >= 0)
+        {
+            try
+            {
                 this.currentBaseURI = new URI(attributes.getValue(baseAttIdx));
                 addBaseURIPath(currentBaseURI);
-            } catch (final URISyntaxException e) {
+            }
+            catch (final URISyntaxException e)
+            {
                 throw new XIncludeFatalException("Invalid base URI");
             }
-        } else {
+        }
+        else
+        {
             this.currentBaseURI = null;
         }
         final int langAttIdx = attributes.getIndex(NamespaceSupport.XMLNS,
                 XIncProcConfiguration.XMLLANG_QNAME.getLocalPart());
-        if (langAttIdx >= 0) {
+        if (langAttIdx >= 0)
+        {
             this.currentLang = attributes.getValue(langAttIdx);
             this.langDeque.addLast(this.currentLang);
-        } else {
+        }
+        else
+        {
             this.currentLang = null;
         }
     }
 
-    public void updateContextWhenEndElement() {
-        if (currentBaseURI != null) {
+    public void updateContextWhenEndElement()
+    {
+        if (currentBaseURI != null)
+        {
             removeBaseURIPath(currentBaseURI);
             currentBaseURI = null;
         }
     }
 
-    public boolean isLanguageFixup() {
+    public boolean isLanguageFixup()
+    {
         return configuration.isLanguageFixup();
     }
 
-    public boolean isBaseFixup() {
+    public boolean isBaseFixup()
+    {
         return configuration.isBaseUrisFixup();
     }
 
-    public URI getSourceURI() {
+    public URI getSourceURI()
+    {
         return sourceURI;
     }
 
-    public void setSourceURI(final URI sourceURI) {
+    public void setSourceURI(final URI sourceURI)
+    {
         this.sourceURI = sourceURI;
     }
 
-    public Exception getCurrentException() {
+    public Exception getCurrentException()
+    {
         return currentException;
     }
 
-    public void setCurrentException(final Exception currentException) {
+    public void setCurrentException(final Exception currentException)
+    {
         this.currentException = currentException;
     }
 
     public void addInInclusionChain(final URI path, final String pointer)
-            throws XIncludeFatalException {
+            throws XIncludeFatalException
+    {
         final String xincludePath = path.toASCIIString() + ((pointer != null) ? ("#" + pointer) : "");
-        if (xincludeDeque.contains(xincludePath)) {
+        if (xincludeDeque.contains(xincludePath))
+        {
             throw new XIncludeFatalException("Inclusion Loop on path: " + xincludePath);
         }
         xincludeDeque.addLast(xincludePath);
     }
 
-    public void removeFromInclusionChain() {
+    public void removeFromInclusionChain()
+    {
         xincludeDeque.pollLast();
     }
 
-    public URI getInitialBaseURI() {
+    public URI getInitialBaseURI()
+    {
         return initialBaseURI;
     }
 
-    public void setInitialBaseURI(final URI initialBaseURI) {
+    public void setInitialBaseURI(final URI initialBaseURI)
+    {
         this.initialBaseURI = initialBaseURI;
-        if (!this.basesURIDeque.isEmpty()) {
+        if (!this.basesURIDeque.isEmpty())
+        {
             this.stackedBaseURI = XIncProcUtils.computeBase(getBaseURIPaths());
         }
         this.currentBaseURI = null;
         this.basesURIDeque.clear();
     }
 
-    public void addBaseURIPath(final URI basePath) {
+    public void addBaseURIPath(final URI basePath)
+    {
         basesURIDeque.addLast(basePath);
     }
 
-    public List<URI> getBaseURIPaths() {
+    public List<URI> getBaseURIPaths()
+    {
         return new ArrayList<URI>(basesURIDeque);
     }
 
-    void removeBaseURIPath(final URI basePath) {
+    void removeBaseURIPath(final URI basePath)
+    {
         basesURIDeque.removeLastOccurrence(basePath);
     }
 
-    public URI getCurrentBaseURI() {
+    public URI getCurrentBaseURI()
+    {
         return currentBaseURI;
     }
 
-    public URI getStackedBaseURI() {
+    public URI getStackedBaseURI()
+    {
         return stackedBaseURI;
     }
 
-    public URI getHrefURI() {
+    public URI getHrefURI()
+    {
         return hrefURI;
     }
 
-    public void setHrefURI(final URI hrefURI) {
+    public void setHrefURI(final URI hrefURI)
+    {
         this.hrefURI = hrefURI;
     }
 
-    public String getCurrentLang() {
+    public String getCurrentLang()
+    {
         return currentLang;
     }
 
-    public String getLanguage() {
+    public String getLanguage()
+    {
         return language;
     }
 
-    public void setLanguage(final String language) {
+    public void setLanguage(final String language)
+    {
         this.language = language;
     }
 
-    public XdmNode getSourceNode() {
+    public XdmNode getSourceNode()
+    {
         return sourceNode;
     }
 
-    public void setSourceNode(final XdmNode sourceNode) {
+    public void setSourceNode(final XdmNode sourceNode)
+    {
         this.sourceNode = sourceNode;
     }
 
-    public DocType getDocType() {
+    public DocType getDocType()
+    {
         return docType;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "sourceURI:" + sourceURI + "\n,currentBase:" + currentBaseURI + ",hrefURI:" + hrefURI + "\n,stackedBase:" + stackedBaseURI + ",lang:" + getLanguage();
     }
 }

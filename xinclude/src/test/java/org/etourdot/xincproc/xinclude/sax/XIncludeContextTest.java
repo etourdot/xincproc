@@ -34,7 +34,8 @@ public class XIncludeContextTest {
     final XIncludeContext context = new XIncludeContext(new XIncProcConfiguration());
 
     @Test
-    public void testAddBasePath() throws Exception {
+    public void testAddBasePath() throws Exception
+    {
         context.setInitialBaseURI(new URI("http://www.google.com/"));
         context.addBaseURIPath(new URI("toto/"));
         context.addBaseURIPath(new URI("titi/"));

@@ -27,20 +27,23 @@ import javax.xml.namespace.QName;
  */
 public class ShortHand extends DefaultScheme {
     private static final QName SHORTHAND_NAME = new QName("shorthand");
-    private String name;
+    private final String name;
 
-    public ShortHand(final String name) {
+    public ShortHand(final String name)
+    {
         super(SHORTHAND_NAME);
         this.name = name;
         this.expression = ID_SEARCH_EXPR.replaceAll("#ID#", name);
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return SHORTHAND_NAME + "(" + name + ")";
     }
 }

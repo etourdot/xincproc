@@ -53,69 +53,91 @@ public class XIncProcConfiguration {
     private final Processor processor;
     private XPointerEngine xPointerEngine;
 
-    public XIncProcConfiguration() {
+    public XIncProcConfiguration()
+    {
         this.processor = new Processor(false);
     }
 
-    public XIncProcConfiguration(final Processor processor) {
+    public XIncProcConfiguration(final Processor processor)
+    {
         this.processor = processor;
     }
 
-    public XPointerEngine getXPointerEngine() {
-        if (xPointerEngine == null) {
+    public XPointerEngine getXPointerEngine()
+    {
+        if (xPointerEngine == null)
+        {
             xPointerEngine = new XPointerEngine();
         }
         return xPointerEngine;
     }
 
-    public void setConfigurationProperty(final String name, final Object value) {
-        if (XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID.equals(name)) {
-            if (value instanceof Boolean) {
+    public void setConfigurationProperty(final String name, final Object value)
+    {
+        if (XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID.equals(name))
+        {
+            if (value instanceof Boolean)
+            {
                 baseUrisFixup = (Boolean) value;
-            } else if (value instanceof String) {
+            }
+            else if (value instanceof String)
+            {
                 baseUrisFixup = Boolean.getBoolean((String) value);
             }
         }
-        if (XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID.equals(name)) {
-            if (value instanceof Boolean) {
+        if (XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID.equals(name))
+        {
+            if (value instanceof Boolean)
+            {
                 languageFixup = (Boolean) value;
-            } else if (value instanceof String) {
+            }
+            else if (value instanceof String)
+            {
                 languageFixup = Boolean.getBoolean((String) value);
             }
         }
     }
 
-    public Object getConfigurationProperty(final String name) {
-        if (XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID.equals(name)) {
+    public Object getConfigurationProperty(final String name)
+    {
+        if (XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID.equals(name))
+        {
             return baseUrisFixup;
         }
-        if (XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID.equals(name)) {
+        if (XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID.equals(name))
+        {
             return languageFixup;
         }
         return null;
     }
 
-    public void setErrorListener(final ErrorListener errorListener) {
+    public void setErrorListener(final ErrorListener errorListener)
+    {
         getProcessor().getUnderlyingConfiguration().setErrorListener(errorListener);
     }
 
-    public boolean isBaseUrisFixup() {
+    public boolean isBaseUrisFixup()
+    {
         return this.baseUrisFixup;
     }
 
-    public void setBaseUrisFixup(final boolean baseUrisFixup) {
+    public void setBaseUrisFixup(final boolean baseUrisFixup)
+    {
         this.baseUrisFixup = baseUrisFixup;
     }
 
-    public boolean isLanguageFixup() {
+    public boolean isLanguageFixup()
+    {
         return this.languageFixup;
     }
 
-    public void setLanguageFixup(final boolean languageFixup) {
+    public void setLanguageFixup(final boolean languageFixup)
+    {
         this.languageFixup = languageFixup;
     }
 
-    public Processor getProcessor() {
+    public Processor getProcessor()
+    {
         return processor;
     }
 }

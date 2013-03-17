@@ -30,7 +30,8 @@ public class DefaultXPointerErrorHandler implements XPointerErrorHandler {
 
     private static final Logger log = LoggerFactory.getLogger(DefaultXPointerErrorHandler.class);
 
-    public void reportError(final String error) {
+    public void reportError(final String error)
+    {
         log.debug("reportError '{}'", error);
         System.err.println(error);
     }

@@ -32,7 +32,8 @@ public class XIncProcCLI {
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcCLI.class);
     private final Options options;
 
-    private XIncProcCLI() {
+    private XIncProcCLI()
+    {
         options = new Options();
         options.addOption("h", false, "Help");
         final Option output = OptionBuilder.hasArg().withArgName("file").withDescription("use output file").create("o");
@@ -40,30 +41,39 @@ public class XIncProcCLI {
     }
 
     private int execute(final String[] args, final InputStream stdin, final PrintStream stdout,
-                        final PrintStream stderr) {
+                        final PrintStream stderr)
+    {
         final GnuParser parser = new GnuParser();
-        try {
+        try
+        {
             final CommandLine commandLine = parser.parse(options, args);
-        } catch (final ParseException ex) {
+        }
+        catch (final ParseException ex)
+        {
             help(stderr);
             return 1;
         }
         return 0;
     }
 
-    private void help(final PrintStream destination) {
+    private void help(final PrintStream destination)
+    {
         final HelpFormatter helpFormatter = new HelpFormatter();
         final PrintWriter printWriter = new PrintWriter(destination);
-        try {
+        try
+        {
             helpFormatter.printHelp(printWriter, helpFormatter.getWidth(), "java -jar xincproc.jar", null, options,
                     helpFormatter.getLeftPadding(), helpFormatter.getDescPadding(), null, true);
-        } finally {
+        }
+        finally
+        {
             printWriter.flush();
             printWriter.close();
         }
     }
 
-    public static void main(final String[] args) {
+    public static void main(final String[] args)
+    {
         System.exit(new XIncProcCLI().execute(args, System.in, System.out, System.err));
     }
 }
