@@ -124,11 +124,11 @@
                                             <arg value="-xsl:${spec.docDirectory}/xsl/test-suite-to-java.xsl" />
                                             <arg value="-o:${spec.testSourceDirectory}/org/etourdot/xincproc/xinclude/testsuite/dir/" />
                                         </java-->
-                                        <echo message="Generate integration tests pages" />
+                                        <echo message="Generate integration tests pages"/>
                                         <java fork="true" jar="${net.sf.saxon:Saxon-HE:jar}" failonerror="true">
-                                            <arg value="-s:${spec.docDirectory}/XIncl20060927/testdescr.xml" />
-                                            <arg value="-xsl:${spec.docDirectory}/xsl/test-suite-to-html.xsl" />
-                                            <arg value="-o:${spec.docDirectory}/org/etourdot/xincproc/xinclude/testsuite/TestSuite.html" />
+                                            <arg value="-s:${spec.docDirectory}/XIncl20060927/testdescr.xml"/>
+                                            <arg value="-xsl:${spec.docDirectory}/xsl/test-suite-to-html.xsl"/>
+                                            <arg value="-o:${spec.docDirectory}/org/etourdot/xincproc/xinclude/testsuite/TestSuite.html"/>
                                         </java>
                                     </target>
                                 </configuration>

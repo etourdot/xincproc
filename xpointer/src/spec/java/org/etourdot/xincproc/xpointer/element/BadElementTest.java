@@ -10,7 +10,6 @@ import org.xml.sax.InputSource;
 
 import javax.xml.transform.sax.SAXSource;
 import java.io.StringReader;
-import java.lang.String;
 
 /**
  * Created with IntelliJ IDEA.

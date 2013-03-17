@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.etourdot</groupId>
@@ -25,18 +26,18 @@
 
     <distributionManagement>
         <repository>
-          <id>googlecode.xincproc.repository</id>
+            <id>googlecode.xincproc.repository</id>
             <url>dav:https://xincproc.googlecode.com/svn/maven/repository/</url>
             <!--url>scm:svn:https://xincproc.googlecode.com/svn/maven/repository/</url-->
         </repository>
         <snapshotRepository>
-          <id>googlecode.xincproc.snapshot.repository</id>
+            <id>googlecode.xincproc.snapshot.repository</id>
             <url>dav:https://xincproc.googlecode.com/svn/maven/snapshot/</url>
             <!--url>scm:svn:https://xincproc.googlecode.com/svn/maven/snapshot/</url-->
-          <uniqueVersion>false</uniqueVersion>
+            <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
     </distributionManagement>
-    
+
     <scm>
         <connection>scm:svn:https://xincproc.googlecode.com/svn/trunk/</connection>
         <developerConnection>scm:svn:https://xincproc.googlecode.com/svn/trunk/</developerConnection>
@@ -53,7 +54,7 @@
             </roles>
         </developer>
     </developers>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
@@ -94,11 +95,11 @@
     </properties>
 
     <licenses>
-		<license>
+        <license>
             <name>LGPL 3.0 license</name>
             <url>http://www.opensource.org/licenses/lgpl-3.0.html</url>
-		</license>
-	</licenses>
+        </license>
+    </licenses>
 
     <dependencyManagement>
         <dependencies>
@@ -277,7 +278,8 @@
                             </includes>
                             <testClassesDirectory>${itest.testOutputDirectory}</testClassesDirectory>
                             <additionalClasspathElements>
-                                <additionalClasspathElement>${project.build.testOutputDirectory}</additionalClasspathElement>
+                                <additionalClasspathElement>${project.build.testOutputDirectory}
+                                </additionalClasspathElement>
                             </additionalClasspathElements>
                             <systemPropertyVariables>
                                 <concordion.output.dir>${concordion.reportDirectory}</concordion.output.dir>

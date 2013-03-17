@@ -1,21 +1,18 @@
 /*
- * Copyright (C) 2011 Emmanuel Tourdot
+ * This file is part of the XIncProc framework.
+ * Copyright (C) 2010 - 2013 Emmanuel Tourdot
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
+ * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation, Inc.,
- * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- *
- * $Id$
+ * You should have received a copy of the GNU Lesser General Public License along with this software.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
 package org.etourdot.xincproc.xinclude;
 
@@ -47,8 +44,7 @@ public abstract class XIncProcSuiteTest {
     private Processor processor;
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);
         XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
@@ -60,8 +56,7 @@ public abstract class XIncProcSuiteTest {
         processor.getUnderlyingConfiguration().setSchemaValidationMode(Validation.LAX);
     }
 
-    protected Diff control(final ByteArrayOutputStream output, final String fileResult) throws Exception
-    {
+    protected Diff control(final ByteArrayOutputStream output, final String fileResult) throws Exception {
         final String result = new String(output.toByteArray(), "UTF-8");
         //LOG.debug("Test result:{}", result);
         final String control = Files.toString(new File(fileResult), Charset.forName("UTF-8"));
@@ -69,15 +64,13 @@ public abstract class XIncProcSuiteTest {
         return new Diff(new StringReader(control), new StringReader(result));
     }
 
-    protected void testSuccess(final URL urlTest, final URL urlResult) throws Exception
-    {
+    protected void testSuccess(final URL urlTest, final URL urlResult) throws Exception {
         testSuccess(urlTest, urlResult, true, true);
     }
 
     protected void testSuccess(final URL urlTest, final URL urlResult,
                                final boolean fixupBase, final boolean fixupLang)
-            throws Exception
-    {
+            throws Exception {
         final XIncProcEngine engine = new XIncProcEngine();
         engine.getConfiguration().setBaseUrisFixup(fixupBase);
         engine.getConfiguration().setLanguageFixup(fixupLang);
@@ -86,40 +79,33 @@ public abstract class XIncProcSuiteTest {
         engine.parse(source, urlTest.toExternalForm(), output);
         final String resultat = output.toString("UTF-8");
         LOG.debug("resultat:{}", resultat);
-        final Diff diff = XMLUnit.compareXML(XIncProcUtils.readTextURI(urlResult.toURI(),null,null,null), resultat);
+        final Diff diff = XMLUnit.compareXML(XIncProcUtils.readTextURI(urlResult.toURI(), null, null, null), resultat);
         LOG.debug("Diff result:{}", diff.toString());
         Closeables.closeQuietly(source);
         assertTrue("testSuccess:" + urlTest, diff.identical());
     }
 
     protected void testException(final URL urlTest, final Class exception)
-            throws Exception
-    {
+            throws Exception {
         testException(urlTest, exception, true, true);
     }
 
     protected void testException(final URL urlTest, final Class exception,
                                  final boolean fixupBase, final boolean fixupLang)
-            throws Exception
-    {
+            throws Exception {
         final XIncProcEngine engine = new XIncProcEngine();
         engine.getConfiguration().setBaseUrisFixup(fixupBase);
         engine.getConfiguration().setLanguageFixup(fixupLang);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final FileInputStream source = new FileInputStream(urlTest.getPath());
-        try
-        {
+        try {
             engine.parse(source, urlTest.toURI().getPath(), output);
             LOG.debug("Result:{}", new String(output.toByteArray(), "UTF-8"));
-        }
-        catch (Exception e)
-        {
-            final Class testedClass = (e.getCause()==null)?e.getClass() : e.getCause().getClass();
+        } catch (Exception e) {
+            final Class testedClass = (e.getCause() == null) ? e.getClass() : e.getCause().getClass();
             assertTrue(exception.isAssignableFrom(testedClass));
             return;
-        }
-        finally
-        {
+        } finally {
             Closeables.closeQuietly(source);
         }
         fail();

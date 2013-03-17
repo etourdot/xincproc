@@ -15,8 +15,7 @@ public class PrintableXPointerErrorHandler implements XPointerErrorHandler {
 
     @Override
     public void reportError(String error) {
-        if (stringBuilder.length() > 0)
-        {
+        if (stringBuilder.length() > 0) {
             stringBuilder.append("\n");
         }
         stringBuilder.append(error);

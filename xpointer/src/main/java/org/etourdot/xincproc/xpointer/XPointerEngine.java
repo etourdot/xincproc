@@ -1,3 +1,20 @@
+/*
+ * This file is part of the XIncProc framework.
+ * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ *
+ * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
+ * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with this software.
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.etourdot.xincproc.xpointer;
 
 import com.google.common.base.Joiner;
@@ -33,62 +50,62 @@ public class XPointerEngine {
     private static final Logger log = LoggerFactory.getLogger(XPointerEngine.class);
 
     private static final String FIND_QUERY_START =
-        " declare variable $ctxbase external;                                               " +
-        " declare variable $ctxlang external;                                               ";
+            " declare variable $ctxbase external;                                               " +
+                    " declare variable $ctxlang external;                                               ";
     private static final String FIND_QUERY_SHORTHAND =
-        " declare variable $shorthand external;                                             " +
-        " for $x in fn:element-with-id($shorthand)|//*[@id=$shorthand]                      ";
+            " declare variable $shorthand external;                                             " +
+                    " for $x in fn:element-with-id($shorthand)|//*[@id=$shorthand]                      ";
     private static final String FIND_QUERY_SCHEME =
-        " declare variable $val external;                                                   " +
-        " for $x in $val                                                                    ";
+            " declare variable $val external;                                                   " +
+                    " for $x in $val                                                                    ";
     private static final String FIND_QUERY_DYNAMIC =
-        "  for $x in (#VAL#)                                                                ";
+            "  for $x in (#VAL#)                                                                ";
     private static final String FIND_QUERY_END =
-        " return typeswitch($x)                                                             " +
-        "    case element() return                                                          " +
-        "         element {fn:node-name($x)} {                                              " +
-        "            (                                                                      " +
-        "               if (fn:empty($x/ancestor-or-self::*/@xml:base)) then (              " +
-        "                   if (fn:empty($ctxbase)) then ()                                 " +
-        "                   else (attribute xml:base {$ctxbase})                            " +
-        "               ) else (                                                            " +
-        "                   if (fn:empty($x/@xml:base)) then (                              " +
-        "                      if (fn:empty($ctxbase)) then ()                              " +
-        "                      else (attribute xml:base { fn:base-uri($x) })                " +
-        "                   ) else (                                                        " +
-        "                      attribute xml:base {$x/@xml:base}                            " +
-        "                   )                                                               " +
-        "               )                                                                   " +
-        "            ),                                                                     " +
-        "            (                                                                      " +
-        "               let $elt := $x/@xml:lang                                            " +
-        "               let $prt := ($x/parent::*/@xml:lang)[last()]                        " +
-        "               return if (fn:empty($ctxlang)) then (                               " +
-        "                         if (fn:empty($prt) or $prt = '') then (                   " +
-        "                            if (fn:empty($elt)) then ()                            " +
-        "                            else (attribute xml:lang {$elt})                       " +
-        "                         ) else (                                                  " +
-        "                            attribute xml:lang {if (fn:empty($elt)) then ($prt)    " +
-        "                                                else ($elt)}                       " +
-        "                         )                                                         " +
-        "                      ) else (                                                     " +
-        "                         if (fn:empty($prt) or $prt = '') then (                   " +
-        "                            if (fn:empty($elt)) then (attribute xml:lang {''})     " +
-        "                            else (attribute xml:lang {$elt})                       " +
-        "                         ) else (                                                  " +
-        "                            if ($prt = $ctxlang) then (                            " +
-        "                               if (fn:empty($elt)) then ()                         " +
-        "                               else (attribute xml:lang {$elt})                    " +
-        "                            ) else (                                               " +
-        "                               attribute xml:lang {if (fn:empty($elt)) then ($prt) " +
-        "                                           else ($elt)}                            " +
-        "                            )                                                      " +
-        "                         )                                                         " +
-        "                      )                                                            " +
-        "            ),                                                                     " +
-        "            $x/(@*|node()) except ($x/@xml:base,$x/@xml:lang)                      " +
-        "         }                                                                         " +
-        "    default return $x                                                              ";
+            " return typeswitch($x)                                                             " +
+                    "    case element() return                                                          " +
+                    "         element {fn:node-name($x)} {                                              " +
+                    "            (                                                                      " +
+                    "               if (fn:empty($x/ancestor-or-self::*/@xml:base)) then (              " +
+                    "                   if (fn:empty($ctxbase)) then ()                                 " +
+                    "                   else (attribute xml:base {$ctxbase})                            " +
+                    "               ) else (                                                            " +
+                    "                   if (fn:empty($x/@xml:base)) then (                              " +
+                    "                      if (fn:empty($ctxbase)) then ()                              " +
+                    "                      else (attribute xml:base { fn:base-uri($x) })                " +
+                    "                   ) else (                                                        " +
+                    "                      attribute xml:base {$x/@xml:base}                            " +
+                    "                   )                                                               " +
+                    "               )                                                                   " +
+                    "            ),                                                                     " +
+                    "            (                                                                      " +
+                    "               let $elt := $x/@xml:lang                                            " +
+                    "               let $prt := ($x/parent::*/@xml:lang)[last()]                        " +
+                    "               return if (fn:empty($ctxlang)) then (                               " +
+                    "                         if (fn:empty($prt) or $prt = '') then (                   " +
+                    "                            if (fn:empty($elt)) then ()                            " +
+                    "                            else (attribute xml:lang {$elt})                       " +
+                    "                         ) else (                                                  " +
+                    "                            attribute xml:lang {if (fn:empty($elt)) then ($prt)    " +
+                    "                                                else ($elt)}                       " +
+                    "                         )                                                         " +
+                    "                      ) else (                                                     " +
+                    "                         if (fn:empty($prt) or $prt = '') then (                   " +
+                    "                            if (fn:empty($elt)) then (attribute xml:lang {''})     " +
+                    "                            else (attribute xml:lang {$elt})                       " +
+                    "                         ) else (                                                  " +
+                    "                            if ($prt = $ctxlang) then (                            " +
+                    "                               if (fn:empty($elt)) then ()                         " +
+                    "                               else (attribute xml:lang {$elt})                    " +
+                    "                            ) else (                                               " +
+                    "                               attribute xml:lang {if (fn:empty($elt)) then ($prt) " +
+                    "                                           else ($elt)}                            " +
+                    "                            )                                                      " +
+                    "                         )                                                         " +
+                    "                      )                                                            " +
+                    "            ),                                                                     " +
+                    "            $x/(@*|node()) except ($x/@xml:base,$x/@xml:lang)                      " +
+                    "         }                                                                         " +
+                    "    default return $x                                                              ";
 
     private static final DefaultXPointerErrorHandler defaultXPointerErrorHandler = new DefaultXPointerErrorHandler();
 
@@ -96,35 +113,29 @@ public class XPointerEngine {
 
     private XdmValue languageValue;
 
-    public String verifyXPathExpression(final ImmutableList.Builder<XmlNsScheme> xmlnsBuilder, final String xpathExpression)
-    {
+    public String verifyXPathExpression(final ImmutableList.Builder<XmlNsScheme> xmlnsBuilder, final String xpathExpression) {
         log.trace("verifyXPathExpression: {}", xpathExpression);
         final XPathCompiler xPathCompiler = processor.newXPathCompiler();
-        for (final XmlNsScheme xmlNsScheme : xmlnsBuilder.build())
-        {
+        for (final XmlNsScheme xmlNsScheme : xmlnsBuilder.build()) {
             final String localPart = xmlNsScheme.getQName().getLocalPart();
             final String namespaceUri = xmlNsScheme.getQName().getNamespaceURI();
             log.trace("declareNamespace {}:{}", localPart, namespaceUri);
             xPathCompiler.declareNamespace(localPart, namespaceUri);
         }
-        try
-        {
+        try {
             xPathCompiler.compile(xpathExpression);
-        }
-        catch (final SaxonApiException e)
-        {
+        } catch (final SaxonApiException e) {
             return e.getCause().getMessage();
         }
         return "";
     }
 
-    private static class NilXPointerErrorHandler implements XPointerErrorHandler
-    {
+    private static class NilXPointerErrorHandler implements XPointerErrorHandler {
         @Override
-        public void reportError(String error)
-        {
+        public void reportError(String error) {
         }
     }
+
     private static final NilXPointerErrorHandler nilXPointerErrorHandler = new NilXPointerErrorHandler();
 
     private final Processor processor;
@@ -135,76 +146,59 @@ public class XPointerEngine {
 
     private XPointerErrorHandler xPointerErrorHandler;
 
-    public XPointerEngine()
-    {
+    public XPointerEngine() {
         this(new Processor(false));
     }
 
-    public XPointerEngine(final Processor processor)
-    {
+    public XPointerEngine(final Processor processor) {
         this.processor = processor;
         setBaseURI(null);
         setLanguage(null);
         initEngine();
     }
 
-    public XPointerEngine setBaseURI(final String baseURI)
-    {
-        if (baseURI == null)
-        {
+    public XPointerEngine setBaseURI(final String baseURI) {
+        if (baseURI == null) {
             this.baseURIValue = XdmEmptySequence.getInstance();
-        }
-        else
-        {
+        } else {
             this.baseURIValue = new XdmAtomicValue(baseURI);
         }
         return this;
     }
 
-    public XPointerEngine setLanguage(final String language)
-    {
-        if (language == null)
-        {
+    public XPointerEngine setLanguage(final String language) {
+        if (language == null) {
             this.languageValue = XdmEmptySequence.getInstance();
-        }
-        else
-        {
+        } else {
             this.languageValue = new XdmAtomicValue(language);
         }
         return this;
     }
 
-    public XPointerEngine setXPointerErrorHandler(final XPointerErrorHandler xPointerErrorHandler)
-    {
+    public XPointerEngine setXPointerErrorHandler(final XPointerErrorHandler xPointerErrorHandler) {
         this.xPointerErrorHandler = xPointerErrorHandler;
         return this;
     }
 
-    public XPointerErrorHandler getxPointerErrorHandler()
-    {
+    public XPointerErrorHandler getxPointerErrorHandler() {
         return xPointerErrorHandler;
     }
 
-    private void initEngine()
-    {
-        try
-        {
+    private void initEngine() {
+        try {
             xQueryCompiler = processor.newXQueryCompiler();
             xQueryExecutableShorthand = xQueryCompiler.compile(FIND_QUERY_START + FIND_QUERY_SHORTHAND + FIND_QUERY_END);
             xQueryExecutableScheme = xQueryCompiler.compile(FIND_QUERY_START + FIND_QUERY_SCHEME + FIND_QUERY_END);
             xPathCompiler = processor.newXPathCompiler();
             xPathCompiler.setCaching(true);
-        }
-        catch (final SaxonApiException e)
-        {
+        } catch (final SaxonApiException e) {
             log.error("initEngine", e);
         }
     }
 
 
     Pointer getPointer(final String pointerStr)
-            throws XPointerException
-    {
+            throws XPointerException {
         log.trace("start analyse '{}'", pointerStr);
         final CharStream input = new ANTLRStringStream(pointerStr);
         log.trace("-> start lexer analyse");
@@ -213,31 +207,24 @@ public class XPointerEngine {
         final XPointerParser xPointerParser = new XPointerParser(commonTokenStream);
         xPointerParser.setErrorHandler(xPointerErrorHandler);
         XPointerParser.pointer_return result = null;
-        try
-        {
+        try {
             log.trace("-> start parser analyse");
             result = xPointerParser.pointer();
-        }
-        catch (final Exception e)
-        {
+        } catch (final Exception e) {
             throw new XPointerException("Unknown pointer expression", e);
         }
         final CommonTree ast = (CommonTree) result.getTree();
         Pointer pointer = null;
-        if (ast != null)
-        {
+        if (ast != null) {
             final CommonTreeNodeStream nodes = new CommonTreeNodeStream(ast);
             nodes.setTokenStream(commonTokenStream);
             final XPointerTree xPointerTree = new XPointerTree(nodes);
             xPointerTree.setErrorHandler(xPointerErrorHandler);
             xPointerTree.setPointerFactory(new PointerFactory());
-            try
-            {
+            try {
                 log.trace("-> start tree analyse");
                 pointer = xPointerTree.pointer();
-            }
-            catch (final Exception e)
-            {
+            } catch (final Exception e) {
                 throw new XPointerException(e);
             }
         }
@@ -249,29 +236,22 @@ public class XPointerEngine {
      * Execute xpointer expression on xml source returning a xml string
      *
      * @param pointerStr xpointer expression
-     * @param source xml source
+     * @param source     xml source
      * @return serialized xml result or an empty string (not null)
      * @throws XPointerException
      */
     public String execute(final String pointerStr, final Source source)
-        throws XPointerException
-    {
-        try
-        {
+            throws XPointerException {
+        try {
             final StringWriter stringWriter = new StringWriter();
             Serializer serializer = processor.newSerializer(stringWriter);
             serializer.setOutputProperty(Serializer.Property.OMIT_XML_DECLARATION, "yes");
             executeToDestination(pointerStr, source, serializer);
             return stringWriter.toString();
-        }
-        catch (final XPointerException e)
-        {
-            if (xPointerErrorHandler != null)
-            {
+        } catch (final XPointerException e) {
+            if (xPointerErrorHandler != null) {
                 xPointerErrorHandler.reportError(e.getLocalizedMessage());
-            }
-            else
-            {
+            } else {
                 log.error(e.getLocalizedMessage(), e);
             }
         }
@@ -282,209 +262,153 @@ public class XPointerEngine {
      * Execute a xpointer expression on xml source.
      * The result is send to a Saxon Destination {@link http://www.saxonica.com/documentation/javadoc/net/sf/saxon/s9api/Destination.html}
      *
-     * @param pointerStr xpointer expression
-     * @param source xml source
+     * @param pointerStr  xpointer expression
+     * @param source      xml source
      * @param destination Saxon destination of result stream
      * @return number of elements in result infoset excluding comments et processing instructions
      * @throws XPointerException
      */
     public int executeToDestination(final String pointerStr, final Source source, final Destination destination)
-            throws XPointerException
-    {
+            throws XPointerException {
         final Pointer pointer = getPointer(pointerStr);
         final XdmNode node = processor.newDocumentBuilder().wrap(source);
-        if (pointer != null)
-        {
-            if (pointer.isShortHand())
-            {
+        if (pointer != null) {
+            if (pointer.isShortHand()) {
                 return executeShorthandPointer(pointer.getShortHand(), node, destination);
-            }
-            else if (pointer.isSchemeBased())
-            {
+            } else if (pointer.isSchemeBased()) {
                 return executeSchemaPointer(pointer, node, destination);
-            }
-            else
-            {
+            } else {
                 throw new XPointerResourceException("Unknown pointer expression");
             }
-        }
-        else
-        {
+        } else {
             throw new XPointerResourceException("Unknown pointer expression");
         }
     }
 
     private int executeShorthandPointer(final ShortHand shortHand, final XdmNode node, final Destination destination)
-            throws XPointerException
-    {
+            throws XPointerException {
         final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(shortHand, node.asSource());
-        try
-        {
+        try {
             final XdmValue value = xQueryEvaluator.evaluate();
             final XdmSequenceIterator itemsIterator = value.iterator();
             int elementCount = 0;
-            if (value.size() == 0)
-            {
+            if (value.size() == 0) {
                 throw new XPointerResourceException("No identified subresource");
             }
-            while (itemsIterator.hasNext())
-            {
+            while (itemsIterator.hasNext()) {
                 final XdmItem item = itemsIterator.next();
-                if (((XdmNode) item).getNodeKind().equals(XdmNodeKind.ELEMENT))
-                {
+                if (((XdmNode) item).getNodeKind().equals(XdmNodeKind.ELEMENT)) {
                     elementCount++;
                 }
                 processor.writeXdmValue(item, destination);
             }
             return elementCount;
-        }
-        catch (final SaxonApiException e)
-        {
+        } catch (final SaxonApiException e) {
             throw new XPointerException(e.getLocalizedMessage(), e);
         }
     }
 
     private int executeSchemaPointer(final Pointer pointer, final XdmNode node, final Destination destination)
-            throws XPointerException
-    {
+            throws XPointerException {
         Source sourceTransform = node.asSource();
         final int nbPointerPart = pointer.getSchemeBased().size();
         final ImmutableList.Builder<String> builderExpressions = new ImmutableList.Builder<String>();
-        for (int i = 0 ; i < nbPointerPart ; i++)
-        {
+        for (int i = 0; i < nbPointerPart; i++) {
             final PointerPart part = pointer.getSchemeBased().get(i);
-            if (part instanceof XmlNsScheme)
-            {
+            if (part instanceof XmlNsScheme) {
                 final XmlNsScheme xmlNsScheme = (XmlNsScheme) part;
                 final QName qName = xmlNsScheme.getQName();
                 xPathCompiler.declareNamespace(qName.getLocalPart(), qName.getNamespaceURI());
                 xQueryCompiler.declareNamespace(qName.getLocalPart(), qName.getNamespaceURI());
-            }
-            else if (part instanceof XPathScheme)
-            {
+            } else if (part instanceof XPathScheme) {
                 final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(part, sourceTransform);
-                try
-                {
+                try {
                     final TeeDestination teeDestination;
-                    if (i == (nbPointerPart-1))
-                    {
+                    if (i == (nbPointerPart - 1)) {
                         teeDestination = new TeeDestination(destination, new SAXDestination(new SampleTestHandler()));
                         final XdmValue value = xQueryEvaluator.evaluate();
-                        if (value.size() == 0)
-                        {
+                        if (value.size() == 0) {
                             throw new XPointerResourceException("No identified subresource");
-                        }
-                        else
-                        {
+                        } else {
                             final XdmSequenceIterator itemsIterator = value.iterator();
                             int elementCount = 0;
-                            while (itemsIterator.hasNext())
-                            {
+                            while (itemsIterator.hasNext()) {
                                 final XdmItem item = itemsIterator.next();
-                                if (!item.isAtomicValue() && ((XdmNode) item).getNodeKind().equals(XdmNodeKind.ELEMENT))
-                                {
+                                if (!item.isAtomicValue() && ((XdmNode) item).getNodeKind().equals(XdmNodeKind.ELEMENT)) {
                                     elementCount++;
                                 }
                                 processor.writeXdmValue(item, teeDestination);
                             }
                             return elementCount;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         teeDestination = new TeeDestination(new Serializer(baos), new SAXDestination(new SampleTestHandler()));
                         xQueryEvaluator.run(teeDestination);
                         sourceTransform = processor.getUnderlyingConfiguration().buildDocument(
                                 new StreamSource(new ByteArrayInputStream(baos.toByteArray())));
                     }
-                }
-                catch (final SaxonApiException e)
-                {
+                } catch (final SaxonApiException e) {
+                    throw new XPointerException(e.getLocalizedMessage(), e);
+                } catch (final XPathException e) {
                     throw new XPointerException(e.getLocalizedMessage(), e);
                 }
-                catch (final XPathException e)
-                {
-                    throw new XPointerException(e.getLocalizedMessage(), e);
-                }
-            }
-            else
-            {
+            } else {
                 builderExpressions.add(part.getExpression());
             }
         }
         final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(builderExpressions.build(), sourceTransform);
-        try
-        {
+        try {
             TeeDestination teeDestination = new TeeDestination(destination, new SAXDestination(new SampleTestHandler()));
             final XdmValue value = xQueryEvaluator.evaluate();
-            if (value.size() == 0)
-            {
+            if (value.size() == 0) {
                 throw new XPointerResourceException("No identified subresource");
-            }
-            else
-            {
+            } else {
                 final XdmSequenceIterator itemsIterator = value.iterator();
                 int elementCount = 0;
-                while (itemsIterator.hasNext())
-                {
+                while (itemsIterator.hasNext()) {
                     final XdmItem item = itemsIterator.next();
-                    if (((XdmNode) item).getNodeKind().equals(XdmNodeKind.ELEMENT))
-                    {
+                    if (((XdmNode) item).getNodeKind().equals(XdmNodeKind.ELEMENT)) {
                         elementCount++;
                     }
                     processor.writeXdmValue(item, teeDestination);
                 }
                 return elementCount;
             }
-        }
-        catch (final SaxonApiException e)
-        {
+        } catch (final SaxonApiException e) {
             throw new XPointerException(e.getLocalizedMessage(), e);
         }
     }
 
     private XPathSelector getXPathSelector(final PointerPart part)
-            throws XPointerException
-    {
-        try
-        {
+            throws XPointerException {
+        try {
             final XPathExecutable xPathExecutable = xPathCompiler.compile(part.getExpression());
             return xPathExecutable.load();
-        }
-        catch (final SaxonApiException e)
-        {
+        } catch (final SaxonApiException e) {
             throw new XPointerException(e.getLocalizedMessage(), e);
         }
     }
 
     private XdmValue getContextItem(final Source source, PointerPart part)
-            throws XPointerException
-    {
+            throws XPointerException {
         final XPathSelector xPathSelector = getXPathSelector(part);
-        try
-        {
+        try {
             xPathSelector.setContextItem(processor.newDocumentBuilder().build(source));
             return xPathSelector.evaluate();
-        }
-        catch (final SaxonApiException e)
-        {
+        } catch (final SaxonApiException e) {
             throw new XPointerException(e.getLocalizedMessage(), e);
         }
     }
 
     private XQueryEvaluator getXQueryEvaluator(final List<String> expressions, final Source source)
-            throws XPointerException
-    {
+            throws XPointerException {
         final XQueryEvaluator xQueryEvaluator;
         final String newStringquery = FIND_QUERY_DYNAMIC.replaceAll("#VAL#", Joiner.on(" union ").join(expressions));
-        try
-        {
+        try {
             xQueryEvaluator = xQueryCompiler.compile(FIND_QUERY_START + newStringquery + FIND_QUERY_END).load();
             xQueryEvaluator.setSource(source);
-        }
-        catch (final SaxonApiException e)
-        {
+        } catch (final SaxonApiException e) {
             throw new XPointerException(e.getLocalizedMessage(), e);
         }
         xQueryEvaluator.setExternalVariable(new net.sf.saxon.s9api.QName("ctxbase"), baseURIValue);
@@ -493,28 +417,21 @@ public class XPointerEngine {
     }
 
     private XQueryEvaluator getXQueryEvaluator(final PointerPart pointerPart, final Source source)
-            throws XPointerException
-    {
+            throws XPointerException {
         final XQueryEvaluator xQueryEvaluator;
         final XdmValue shorthandValue;
-        if (pointerPart instanceof ShortHand)
-        {
+        if (pointerPart instanceof ShortHand) {
             shorthandValue = new XdmAtomicValue(((ShortHand) pointerPart).getName());
             xQueryEvaluator = xQueryExecutableShorthand.load();
             xQueryEvaluator.setExternalVariable(new net.sf.saxon.s9api.QName("shorthand"), shorthandValue);
-        }
-        else
-        {
+        } else {
             xQueryEvaluator = xQueryExecutableScheme.load();
             final XdmValue contextItem = getContextItem(source, pointerPart);
             xQueryEvaluator.setExternalVariable(new net.sf.saxon.s9api.QName("val"), contextItem);
         }
-        try
-        {
+        try {
             xQueryEvaluator.setSource(source);
-        }
-        catch (final SaxonApiException e)
-        {
+        } catch (final SaxonApiException e) {
             throw new XPointerException(e.getLocalizedMessage(), e);
         }
         xQueryEvaluator.setExternalVariable(new net.sf.saxon.s9api.QName("ctxbase"), baseURIValue);
@@ -527,8 +444,7 @@ public class XPointerEngine {
      *
      * @return an XPointerErrorHandler
      */
-    public static XPointerErrorHandler createNilXPointerErrorHandler()
-    {
+    public static XPointerErrorHandler createNilXPointerErrorHandler() {
         return nilXPointerErrorHandler;
     }
 
@@ -537,8 +453,7 @@ public class XPointerEngine {
      *
      * @return an XPointerErrorHandler
      */
-    public static XPointerErrorHandler createDefaultXPointerErrorHandler()
-    {
+    public static XPointerErrorHandler createDefaultXPointerErrorHandler() {
         return defaultXPointerErrorHandler;
     }
 }

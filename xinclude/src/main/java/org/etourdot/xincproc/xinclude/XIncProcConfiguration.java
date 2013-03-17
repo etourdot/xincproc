@@ -1,22 +1,20 @@
 /*
- * Copyright (C) 2011 Emmanuel Tourdot
+ * This file is part of the XIncProc framework.
+ * Copyright (C) 2010 - 2013 Emmanuel Tourdot
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- * 
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation, Inc.,
- * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA 
+ * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
+ * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * $Id$
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with this software.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.etourdot.xincproc.xinclude;
 
 import net.sf.saxon.s9api.Processor;
@@ -29,8 +27,7 @@ import javax.xml.transform.ErrorListener;
 /**
  * @author Emmanuel Tourdot
  */
-public class XIncProcConfiguration
-{
+public class XIncProcConfiguration {
     public static final String XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID
             = "http://etourdot.org/xml/features/xinclude/fixup-base-uris";
     public static final String XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID
@@ -49,73 +46,56 @@ public class XIncProcConfiguration
     public static final QName ATT_ACCEPT_LANGUAGE = new QName("accept-language");
     public static final String TEXT = "text";
     public static final String XML = "xml";
-    
+
     private boolean baseUrisFixup = true;
     private boolean languageFixup = true;
     private String xincfactory;
     private final Processor processor;
     private XPointerEngine xPointerEngine;
 
-    public XIncProcConfiguration()
-    {
+    public XIncProcConfiguration() {
         this.processor = new Processor(false);
     }
 
-    public XIncProcConfiguration(final Processor processor)
-    {
+    public XIncProcConfiguration(final Processor processor) {
         this.processor = processor;
     }
 
-    public XPointerEngine getXPointerEngine()
-    {
-        if (xPointerEngine == null)
-        {
+    public XPointerEngine getXPointerEngine() {
+        if (xPointerEngine == null) {
             xPointerEngine = new XPointerEngine();
         }
         return xPointerEngine;
     }
 
-    public void setConfigurationProperty(final String name, final Object value)
-    {
-        if (XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID.equals(name))
-        {
-            if (value instanceof Boolean)
-            {
+    public void setConfigurationProperty(final String name, final Object value) {
+        if (XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID.equals(name)) {
+            if (value instanceof Boolean) {
                 baseUrisFixup = (Boolean) value;
-            }
-            else if (value instanceof String)
-            {
+            } else if (value instanceof String) {
                 baseUrisFixup = Boolean.getBoolean((String) value);
             }
         }
-        if (XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID.equals(name))
-        {
-            if (value instanceof Boolean)
-            {
+        if (XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID.equals(name)) {
+            if (value instanceof Boolean) {
                 languageFixup = (Boolean) value;
-            }
-            else if (value instanceof String)
-            {
+            } else if (value instanceof String) {
                 languageFixup = Boolean.getBoolean((String) value);
             }
         }
     }
 
-    public Object getConfigurationProperty(final String name)
-    {
-        if (XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID.equals(name))
-        {
+    public Object getConfigurationProperty(final String name) {
+        if (XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID.equals(name)) {
             return baseUrisFixup;
         }
-        if (XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID.equals(name))
-        {
+        if (XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID.equals(name)) {
             return languageFixup;
         }
         return null;
     }
 
-    public void setErrorListener(final ErrorListener errorListener)
-    {
+    public void setErrorListener(final ErrorListener errorListener) {
         getProcessor().getUnderlyingConfiguration().setErrorListener(errorListener);
     }
 
@@ -123,8 +103,7 @@ public class XIncProcConfiguration
         return this.baseUrisFixup;
     }
 
-    public void setBaseUrisFixup(final boolean baseUrisFixup)
-    {
+    public void setBaseUrisFixup(final boolean baseUrisFixup) {
         this.baseUrisFixup = baseUrisFixup;
     }
 
@@ -132,13 +111,11 @@ public class XIncProcConfiguration
         return this.languageFixup;
     }
 
-    public void setLanguageFixup(final boolean languageFixup)
-    {
+    public void setLanguageFixup(final boolean languageFixup) {
         this.languageFixup = languageFixup;
     }
 
-    public Processor getProcessor()
-    {
+    public Processor getProcessor() {
         return processor;
     }
 }

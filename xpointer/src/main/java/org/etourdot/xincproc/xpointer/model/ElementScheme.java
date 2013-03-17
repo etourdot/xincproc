@@ -1,3 +1,20 @@
+/*
+ * This file is part of the XIncProc framework.
+ * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ *
+ * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
+ * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with this software.
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.etourdot.xincproc.xpointer.model;
 
 import com.google.common.base.Function;
@@ -17,23 +34,21 @@ import javax.xml.namespace.QName;
  */
 public class ElementScheme extends DefaultScheme {
     private static final QName ELEMENT_NAME = new QName("element");
-    private static class ChildSequenceFunction implements Function<String, String>
-    {
+
+    private static class ChildSequenceFunction implements Function<String, String> {
         @Override
-        public String apply(String s)
-        {
+        public String apply(String s) {
             return "/*[" + s + "]";
         }
     }
+
     private static final Function<String, String> CHILDSEQ_FUNCTION = new ChildSequenceFunction();
     private String name;
     private String childSequence;
 
-    public ElementScheme(final String name, final String childSequence) throws ElementSchemeException
-    {
+    public ElementScheme(final String name, final String childSequence) throws ElementSchemeException {
         super(ELEMENT_NAME);
-        if (Strings.isNullOrEmpty(name) && Strings.isNullOrEmpty(childSequence))
-        {
+        if (Strings.isNullOrEmpty(name) && Strings.isNullOrEmpty(childSequence)) {
             throw new ElementSchemeException();
         }
         this.name = name;
@@ -41,24 +56,20 @@ public class ElementScheme extends DefaultScheme {
         this.expression = initExpression(name, childSequence);
     }
 
-    public String getChildSequence()
-    {
+    public String getChildSequence() {
         return childSequence;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
     private String initExpression(String name, String childSequence) {
         final StringBuilder findExpr = new StringBuilder();
-        if (!Strings.isNullOrEmpty(name))
-        {
+        if (!Strings.isNullOrEmpty(name)) {
             findExpr.append(ID_SEARCH_EXPR.replaceAll("#ID#", name));
         }
-        if (!Strings.isNullOrEmpty(childSequence))
-        {
+        if (!Strings.isNullOrEmpty(childSequence)) {
             findExpr.append(Joiner.on("").join(Iterables.transform(Splitter.on('/').omitEmptyStrings()
                     .split(childSequence), CHILDSEQ_FUNCTION)));
         }
@@ -66,8 +77,7 @@ public class ElementScheme extends DefaultScheme {
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ELEMENT_NAME + "(" + name + ',' + childSequence + ")";
     }
 }

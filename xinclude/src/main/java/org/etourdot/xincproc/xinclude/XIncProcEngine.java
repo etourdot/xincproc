@@ -1,34 +1,29 @@
 /*
- * Copyright (C) 2011 Emmanuel Tourdot
+ * This file is part of the XIncProc framework.
+ * Copyright (C) 2010 - 2013 Emmanuel Tourdot
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- * 
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation, Inc.,
- * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA 
+ * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
+ * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * $Id$
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with this software.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.etourdot.xincproc.xinclude;
 
 import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.InputSupplier;
-import net.sf.saxon.lib.FeatureKeys;
 import net.sf.saxon.s9api.Processor;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.Serializer;
 import net.sf.saxon.s9api.XdmNode;
-import net.sf.saxon.serialize.XMLEmitter;
-import net.sf.saxon.trans.XPathException;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.etourdot.xincproc.xinclude.sax.XIncProcXIncludeFilter;
 import org.etourdot.xincproc.xinclude.sax.XIncludeContext;
@@ -40,11 +35,13 @@ import org.xml.sax.XMLFilter;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
@@ -56,42 +53,35 @@ public class XIncProcEngine {
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcEngine.class);
     private static XIncProcConfiguration configuration;
 
-    public XIncProcEngine()
-    {
+    public XIncProcEngine() {
         configuration = new XIncProcConfiguration();
     }
 
-    public XIncProcEngine(final XIncProcConfiguration configuration)
-    {
+    public XIncProcEngine(final XIncProcConfiguration configuration) {
         this.configuration = configuration;
     }
 
-    public XIncProcEngine(final Processor processor)
-    {
+    public XIncProcEngine(final Processor processor) {
         configuration = new XIncProcConfiguration(processor);
     }
 
-    public static XMLFilter newXIncludeFilter(final URI baseURI)
-    {
+    public static XMLFilter newXIncludeFilter(final URI baseURI) {
         final XIncludeContext context = new XIncludeContext(configuration);
         context.setSourceURI(baseURI);
         context.setInitialBaseURI(baseURI);
         return new XIncProcXIncludeFilter(context);
     }
 
-    public static XMLFilter newXIncludeFilter(final XIncludeContext context)
-    {
+    public static XMLFilter newXIncludeFilter(final XIncludeContext context) {
         return new XIncProcXIncludeFilter(context);
     }
 
     public void parse(final URI baseURI, final OutputStream output)
-            throws XIncludeFatalException
-    {
+            throws XIncludeFatalException {
         final Processor processor = configuration.getProcessor();
         final XMLFilter filter = newXIncludeFilter(baseURI);
         final InputSource inputSource = new InputSource(baseURI.toASCIIString());
-        try
-        {
+        try {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
             xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
             xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
@@ -102,35 +92,27 @@ public class XIncProcEngine {
             final XdmNode node = processor.newDocumentBuilder().wrap(saxSource);
             Serializer serializer = processor.newSerializer(output);
             processor.writeXdmValue(node, serializer);
-        }
-        catch (final SAXException e)
-        {
+        } catch (final SAXException e) {
             throw new XIncludeFatalException(e);
-        }
-        catch (SaxonApiException e)
-        {
+        } catch (SaxonApiException e) {
             throw new XIncludeFatalException(e);
         }
     }
 
-    public void parse(final Source source, final Result result) throws XIncludeFatalException
-    {
+    public void parse(final Source source, final Result result) throws XIncludeFatalException {
         //parse(source, result);
     }
 
     public void parse(final InputStream input, final String systemId, final OutputStream output)
-            throws XIncludeFatalException, IOException
-    {
+            throws XIncludeFatalException, IOException {
         LOG.trace("parse:{}", systemId);
         final Processor processor = configuration.getProcessor();
         final XIncProcXIncludeFilter filter;
         final URI uri;
-        try
-        {
+        try {
             uri = new URI(systemId);
             filter = (XIncProcXIncludeFilter) newXIncludeFilter(uri);
-        } catch (final URISyntaxException e)
-        {
+        } catch (final URISyntaxException e) {
             throw new XIncludeFatalException(e);
         }
         final byte[] inputBytes = ByteStreams.toByteArray(input);
@@ -138,8 +120,7 @@ public class XIncProcEngine {
         Charset charset = EncodingUtils.getCharset(supplier.getInput());
         final InputSource inputSource = new InputSource(supplier.getInput());
         inputSource.setSystemId(systemId);
-        try
-        {
+        try {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
             xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
             xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
@@ -154,8 +135,7 @@ public class XIncProcEngine {
             output.write(charset.displayName().getBytes());
             output.write("\"?>".getBytes());
             final String docType = filter.getDoctype();
-            if (!Strings.isNullOrEmpty(docType))
-            {
+            if (!Strings.isNullOrEmpty(docType)) {
                 output.write(docType.getBytes("UTF-8"));
             }
             Serializer serializer = processor.newSerializer(output);
@@ -163,19 +143,14 @@ public class XIncProcEngine {
             serializer.setOutputProperty(Serializer.Property.ENCODING, charset.displayName());
 
             processor.writeXdmValue(node, serializer);
-        }
-        catch (final SAXException e)
-        {
+        } catch (final SAXException e) {
             throw new XIncludeFatalException(e.getMessage());
-        }
-        catch (SaxonApiException e)
-        {
+        } catch (SaxonApiException e) {
             throw new XIncludeFatalException(e.getMessage());
         }
     }
 
-    public XIncProcConfiguration getConfiguration()
-    {
+    public XIncProcConfiguration getConfiguration() {
         return configuration;
     }
 }

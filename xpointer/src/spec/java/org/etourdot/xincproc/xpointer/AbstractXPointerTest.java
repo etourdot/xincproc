@@ -15,31 +15,25 @@ import java.io.StringReader;
 public abstract class AbstractXPointerTest {
 
     public Result executeWithBaseFixup(final String pointer, final String source, final String baseURI)
-            throws XPointerException
-    {
+            throws XPointerException {
         final XPointerEngine xPointerEngine = new XPointerEngine();
-        xPointerEngine.setBaseURI((baseURI.equals("null"))?null:baseURI);
+        xPointerEngine.setBaseURI((baseURI.equals("null")) ? null : baseURI);
         return getResult(pointer, source, xPointerEngine);
     }
 
     public Result executeWithLang(final String pointer, final String lang, final String source)
-            throws XPointerException
-    {
+            throws XPointerException {
         final XPointerEngine xPointerEngine = new XPointerEngine();
-        if ("(null)".equals(lang))
-        {
+        if ("(null)".equals(lang)) {
             xPointerEngine.setLanguage(null);
-        }
-        else
-        {
+        } else {
             xPointerEngine.setLanguage(lang);
         }
         return getResult(pointer, source, xPointerEngine);
     }
 
     private Result getResult(String pointer, String source, XPointerEngine xPointerEngine)
-            throws XPointerException
-    {
+            throws XPointerException {
         final Result result = new Result();
         final PrintableXPointerErrorHandler printableXPointerErrorHandler = new PrintableXPointerErrorHandler();
         xPointerEngine.setXPointerErrorHandler(printableXPointerErrorHandler);
@@ -49,14 +43,12 @@ public abstract class AbstractXPointerTest {
     }
 
     public Result execute(final String pointer, final String source)
-        throws XPointerException
-    {
+            throws XPointerException {
         final XPointerEngine xPointerEngine = new XPointerEngine();
         return getResult(pointer, source, xPointerEngine);
     }
 
-    class Result
-    {
+    class Result {
         public String result;
         public String error;
     }

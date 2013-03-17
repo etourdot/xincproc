@@ -1,3 +1,20 @@
+/*
+ * This file is part of the XIncProc framework.
+ * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ *
+ * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
+ * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with this software.
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.etourdot.xincproc.xinclude;
 
 import net.sf.saxon.om.DocumentInfo;
@@ -86,12 +103,13 @@ public class XIncProcUtilsTest {
         final InputSource inputSource = new InputSource(getClass().getClassLoader().getResourceAsStream("nist/test/ents/prtids.xml"));
         final SAXSource source = new SAXSource(inputSource);
         final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
-        SampleTestHandler handler = new SampleTestHandler();;
+        SampleTestHandler handler = new SampleTestHandler();
+        ;
         xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", handler);
         xmlReader.setContentHandler(handler);
         source.setXMLReader(xmlReader);
         final Processor processor = new Processor(false);
-        DocumentInfo docInfo  = processor.getUnderlyingConfiguration().buildDocument(source);
+        DocumentInfo docInfo = processor.getUnderlyingConfiguration().buildDocument(source);
         //xmlReader.parse(inputSource);
         fail();
     }

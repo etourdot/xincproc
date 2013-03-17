@@ -1,3 +1,20 @@
+/*
+ * This file is part of the XIncProc framework.
+ * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ *
+ * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
+ * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with this software.
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.etourdot.xincproc.xpointer;
 
 import org.xml.sax.*;
@@ -42,10 +59,10 @@ public class SampleTestHandler extends DefaultHandler2 implements ContentHandler
 
     public void startElement(
             String namespaceURI, String localName, String qName, Attributes atts)
-                throws SAXException {
+            throws SAXException {
 
         printStream.print("startElement: " + namespaceURI + ", "
-                         + localName + ", " + qName);
+                + localName + ", " + qName);
 
         int n = atts.getLength();
 
@@ -58,17 +75,17 @@ public class SampleTestHandler extends DefaultHandler2 implements ContentHandler
 
     public void endElement(
             String namespaceURI, String localName, String qName)
-                throws SAXException {
+            throws SAXException {
         printStream.println("endElement: " + namespaceURI + ", "
-                           + localName + ", " + qName);
+                + localName + ", " + qName);
     }
 
     public void characters(char ch[], int start, int length)
             throws SAXException {
 
         String s = new String(ch, start, (length > 30)
-                                         ? 30
-                                         : length);
+                ? 30
+                : length);
 
         if (length > 30) {
             printStream.println("characters: \"" + s + "\"...");
@@ -85,7 +102,7 @@ public class SampleTestHandler extends DefaultHandler2 implements ContentHandler
     public void processingInstruction(String target, String data)
             throws SAXException {
         printStream.println("processingInstruction: " + target + ", "
-                           + data);
+                + data);
     }
 
     public void skippedEntity(String name) throws SAXException {
@@ -124,54 +141,54 @@ public class SampleTestHandler extends DefaultHandler2 implements ContentHandler
 
     @Override
     public void comment(final char[] ch, final int start, final int length) throws SAXException {
-        printStream.println("comment: " + new String(ch).substring(start, start+length));
+        printStream.println("comment: " + new String(ch).substring(start, start + length));
     }
 
     @Override
     public void notationDecl(final String name, final String publicId, final String systemId) throws SAXException {
-        printStream.println("notationDecl:"+name);
+        printStream.println("notationDecl:" + name);
     }
 
     @Override
     public void unparsedEntityDecl(final String name, final String publicId, final String systemId, final String notationName) throws SAXException {
-        printStream.println("unparsedEntityDecl:"+name);
+        printStream.println("unparsedEntityDecl:" + name);
     }
 
     @Override
     public InputSource resolveEntity(final String publicId, final String systemId) throws SAXException, IOException {
-        printStream.println("resolveEntity:"+publicId);
+        printStream.println("resolveEntity:" + publicId);
         return null;
     }
 
     @Override
     public void elementDecl(final String name, final String model) throws SAXException {
-        printStream.println("elementDecl:"+name+":"+model);
+        printStream.println("elementDecl:" + name + ":" + model);
     }
 
     @Override
     public void attributeDecl(final String eName, final String aName, final String type, final String mode, final String value) throws SAXException {
-        printStream.println("attributeDecl:"+eName+":"+aName+":"+type+":"+mode+":"+value);
+        printStream.println("attributeDecl:" + eName + ":" + aName + ":" + type + ":" + mode + ":" + value);
     }
 
     @Override
     public void internalEntityDecl(final String name, final String value) throws SAXException {
-        printStream.println("internalEntityDecl:"+name+":"+value);
+        printStream.println("internalEntityDecl:" + name + ":" + value);
     }
 
     @Override
     public void externalEntityDecl(final String name, final String publicId, final String systemId) throws SAXException {
-        printStream.println("externalEntityDecl:"+name+":"+publicId+":"+systemId);
+        printStream.println("externalEntityDecl:" + name + ":" + publicId + ":" + systemId);
     }
 
     @Override
     public InputSource getExternalSubset(final String name, final String baseURI) throws SAXException, IOException {
-        printStream.println("getExternalSubset:"+name+":"+baseURI);
+        printStream.println("getExternalSubset:" + name + ":" + baseURI);
         return super.getExternalSubset(name, baseURI);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     @Override
     public InputSource resolveEntity(final String name, final String publicId, final String baseURI, final String systemId) throws SAXException, IOException {
-        printStream.println("resolveEntity:"+name+":"+publicId+":"+baseURI+":"+systemId);
+        printStream.println("resolveEntity:" + name + ":" + publicId + ":" + baseURI + ":" + systemId);
         return super.resolveEntity(name, publicId, baseURI, systemId);    //To change body of overridden methods use File | Settings | File Templates.
     }
 }

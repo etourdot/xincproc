@@ -1,3 +1,20 @@
+/*
+ * This file is part of the XIncProc framework.
+ * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ *
+ * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
+ * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
+ * General Public License as published by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with this software.
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.etourdot.xincproc.xinclude.sax;
 
 import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
@@ -16,8 +33,7 @@ import static org.junit.Assert.assertNotNull;
 public class XIncludeAttributesTest {
 
     @Test
-    public void testXIncludeAttributesOk() throws Exception
-    {
+    public void testXIncludeAttributesOk() throws Exception {
         AttributesImpl attributes = new AttributesImpl();
         attributes.addAttribute(XIncProcConfiguration.ATT_HREF.getNamespaceURI(), XIncProcConfiguration.ATT_HREF.getLocalPart(),
                 XIncProcConfiguration.ATT_HREF.getLocalPart(), "CDATA", "http://www.google.com");
@@ -35,8 +51,7 @@ public class XIncludeAttributesTest {
     }
 
     @Test(expected = XIncludeResourceException.class)
-    public void testResourceException() throws Exception
-    {
+    public void testResourceException() throws Exception {
         AttributesImpl attributes = new AttributesImpl();
         attributes.addAttribute(XIncProcConfiguration.ATT_ENCODING.getNamespaceURI(), XIncProcConfiguration.ATT_ENCODING.getLocalPart(),
                 XIncProcConfiguration.ATT_ENCODING.getLocalPart(), "CDATA", "utf-9");
