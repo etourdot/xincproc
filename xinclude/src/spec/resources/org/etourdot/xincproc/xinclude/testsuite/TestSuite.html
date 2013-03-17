@@ -1,6 +1,14 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:ext="urn:concordion-extensions:2010">
    <body>
-      <h1>Redhat</h1>
+      <h1>Conformance Test suite</h1>
+      <p>XIncProc conformance is tested against the official<a href="http://www.w3.org/XML/Test/XInclude/">
+            Xinclude Test Suite</a>.
+         
+      </p>
+      <p>All tests Xinclude Conformance Test Suite, 2006-09-27, were passed and results are
+         availables here:
+         
+      </p>
       <table>
          <tr>
             <th width="150px">
@@ -11,6 +19,11 @@
             <th width="300px">Description</th>
             <th width="100px">Result</th>
             <th>Error message</th>
+         </tr>
+         <tr>
+            <td colspan="4">
+               <h1>Redhat</h1>
+            </td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
             <td>
@@ -145,18 +158,10 @@
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
          </tr>
-      </table>
-      <h1>FourThought</h1>
-      <table>
          <tr>
-            <th width="150px">
-               <p>Id</p>
-               <p>Contributor</p>
-               <p>Date</p>
-            </th>
-            <th width="300px">Description</th>
-            <th width="100px">Result</th>
-            <th>Error message</th>
+            <td colspan="4">
+               <h1>FourThought</h1>
+            </td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
             <td>
@@ -242,18 +247,10 @@
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
          </tr>
-      </table>
-      <h1>NIST</h1>
-      <table>
          <tr>
-            <th width="150px">
-               <p>Id</p>
-               <p>Contributor</p>
-               <p>Date</p>
-            </th>
-            <th width="300px">Description</th>
-            <th width="100px">Result</th>
-            <th>Error message</th>
+            <td colspan="4">
+               <h1>NIST</h1>
+            </td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
             <td>
@@ -977,18 +974,10 @@
             <td concordion:assertEquals="#result.result">error</td>
             <td><span ext:embed="#result.exception"></span></td>
          </tr>
-      </table>
-      <h1>LTG, Edinburgh Univ</h1>
-      <table>
          <tr>
-            <th width="150px">
-               <p>Id</p>
-               <p>Contributor</p>
-               <p>Date</p>
-            </th>
-            <th width="300px">Description</th>
-            <th width="100px">Result</th>
-            <th>Error message</th>
+            <td colspan="4">
+               <h1>LTG, Edinburgh Univ</h1>
+            </td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
             <td>
@@ -1027,18 +1016,10 @@
             <td concordion:assertEquals="#result.result">success</td>
             <td><span ext:embed="#result.exception"></span></td>
          </tr>
-      </table>
-      <h1>Elliotte Rusty Harold</h1>
-      <table>
          <tr>
-            <th width="150px">
-               <p>Id</p>
-               <p>Contributor</p>
-               <p>Date</p>
-            </th>
-            <th width="300px">Description</th>
-            <th width="100px">Result</th>
-            <th>Error message</th>
+            <td colspan="4">
+               <h1>Elliotte Rusty Harold</h1>
+            </td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
             <td>
