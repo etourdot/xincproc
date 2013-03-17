@@ -2,6 +2,7 @@ package org.etourdot.xincproc.xinclude.sax;
 
 import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.s9api.SAXDestination;
+import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.trans.XPathException;
 import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
@@ -15,6 +16,7 @@ import org.etourdot.xincproc.xpointer.exceptions.XPointerResourceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.*;
+import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.ext.Locator2Impl;
 import org.xml.sax.helpers.AttributesImpl;
@@ -27,7 +29,6 @@ import javax.xml.transform.sax.SAXSource;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -40,7 +41,7 @@ import java.util.Stack;
  * Date: 18/12/12
  * Time: 23:13
  */
-public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHandler {
+public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHandler, DeclHandler {
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcXIncludeFilter.class);
     public static final String FIXUP_XML_LANG = "fixup-xml-lang";
     public static final String FIXUP_XML_BASE = "fixup-xml-base";
@@ -49,8 +50,10 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     private final Stack<String> currentLangStack;
     private boolean needEndXinclude;
     private boolean inDTD;
+    private boolean hasUnparserEntity;
     private LexicalHandler	lexicalHandler;
     private static final String LEXICALID = "http://xml.org/sax/properties/lexical-handler";
+    private static final String DECLID = "http://xml.org/sax/properties/declaration-handler";
 
     private boolean alreadyProceedFallback;
 
@@ -59,7 +62,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     private int xIncludeLevel;
     private int needFallbackLevel;
     private int injectingXIncludeLevel;
-
 
     public XIncProcXIncludeFilter(XIncludeContext context)
     {
@@ -94,6 +96,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
         if (parent != null)
         {
             parent.setProperty(LEXICALID, this);
+            parent.setProperty(DECLID, this);
         }
         super.parse (in);
     }
@@ -281,6 +284,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
                 final XMLFilter filter = XIncProcEngine.newXIncludeFilter(newContext);
                 final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
                 xmlReader.setProperty(LEXICALID, filter);
+                xmlReader.setProperty(DECLID, filter);
+                xmlReader.setFeature("http://xml.org/sax/features/resolve-dtd-uris", false);
+                xmlReader.setFeature("http://xml.org/sax/features/external-general-entities", false);
                 filter.setParent(xmlReader);
                 source = new SAXSource(filter, new InputSource(new FileReader(sourceURI.getPath())));
                 if (!xIncludeAttributes.isXPointerPresent())
@@ -295,22 +301,30 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             final DocumentInfo docInfo  = context.getConfiguration().getProcessor().getUnderlyingConfiguration().buildDocument(source);
             final XdmNode node = new XdmNode(docInfo);
 
-            final XMLReader parser = XMLReaderFactory.createXMLReader();
-            parser.setContentHandler(this);
-            parser.setProperty(LEXICALID, this);
             startInjectingXInclude();
+            final SAXDestination saxDestination = new SAXDestination(this);
             if (xIncludeAttributes.isXPointerPresent())
             {
+                if (source.getXMLReader() instanceof XIncProcXIncludeFilter)
+                {
+                    final XIncProcXIncludeFilter filter = (XIncProcXIncludeFilter) source.getXMLReader();
+                    if (filter.hasUnparserEntity)
+                    {
+                        throw new XIncludeFatalException("Resolve an xpointer scheme on a document that contains unexpanded " +
+                                "entity reference information items");
+                    }
+                }
                 XPointerEngine xPointerEngine = new XPointerEngine(context.getConfiguration().getProcessor());
                 xPointerEngine.setLanguage(context.getLanguage());
-                if (context.getConfiguration().isBaseUrisFixup() && context.getHrefURI() != null && xIncludeAttributes.isHrefPresent())
+                if (context.getConfiguration().isBaseUrisFixup() && context.getHrefURI() != null
+                        && xIncludeAttributes.isHrefPresent())
                 {
                     xPointerEngine.setBaseURI(context.getHrefURI().toASCIIString());
                 }
-                SAXDestination saxDestination = new SAXDestination(this);
                 LOG.trace("includeXmlContent start injecting xpointer");
                 final int includeLevel = elementLevel;
-                final int nbElements = xPointerEngine.executeToDestination(xIncludeAttributes.getXPointer(), node.asSource(), saxDestination);
+                final int nbElements = xPointerEngine.executeToDestination(xIncludeAttributes.getXPointer(), node.asSource(),
+                        saxDestination);
                 if (includeLevel == 1 && nbElements != 1)
                 {
                     throw new XIncludeFatalException("Attempt to replace top level include with something other than one element.");
@@ -320,7 +334,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             else
             {
                 LOG.trace("includeXmlContent start injecting");
-                parser.parse(new InputSource(new StringReader(node.toString())));
+                context.getConfiguration().getProcessor().writeXdmValue(node, saxDestination);
                 LOG.trace("includeXmlContent end injecting");
             }
         }
@@ -349,6 +363,17 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
             throw new XIncludeFatalException(e.getMessage());
         }
         catch (final XPathException e)
+        {
+            if (e.getCause() instanceof  XIncludeFatalException)
+            {
+                throw (XIncludeFatalException) e.getCause();
+            }
+            else
+            {
+                throw new XIncludeFatalException(e.getMessage());
+            }
+        }
+        catch (final SaxonApiException e)
         {
             throw new XIncludeFatalException(e.getMessage());
         }
@@ -447,16 +472,19 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     public void skippedEntity(final String name)
             throws SAXException
     {
-        LOG.trace("skippedEntity:{}",name);
-        super.skippedEntity(name);
+        LOG.trace("skippedEntity:{}", name);
+        hasUnparserEntity = true;
+        super.characters(("&" + name + ";").toCharArray(), 0, name.length() + 2);
     }
 
     @Override
-    public void unparsedEntityDecl(final String name, final String publicId, final String systemId, final String notationName)
+    public void unparsedEntityDecl(final String name, final String publicId, final String systemId,
+                                   final String notationName)
             throws SAXException
     {
         LOG.trace("unparsedEntityDecl:{},{},{},{}",name,publicId, systemId, notationName);
-        super.unparsedEntityDecl(name, publicId, systemId, notationName);
+        context.getDocType().addUnparsedEntity(name, publicId, systemId, notationName);
+        //super.unparsedEntityDecl(name, publicId, systemId, notationName);
     }
 
     @Override
@@ -516,6 +544,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
         {
             lexicalHandler.startDTD(name, publicId, systemId);
         }
+        context.getDocType().setDoctype(name).setPublicId(publicId).setSystemId(systemId);
     }
 
     @Override
@@ -662,5 +691,42 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
         return (isNeedFallback() && inFallbackElement()) ||
                (!inFallbackElement() && !inXIncludeElement()) ||
                (inXIncludeElement() && injectingXInclude());
+    }
+
+    @Override
+    public void elementDecl(final String name, final String model)
+            throws SAXException
+    {
+        LOG.trace("elementDecl:{},{}", name, model);
+        context.getDocType().addElement(name, model);
+    }
+
+    @Override
+    public void attributeDecl(final String eName, final String aName, final String type, final String mode, final String value)
+            throws SAXException
+    {
+        LOG.trace("attributeDecl:{},{},{},{},{}", eName, aName, type, mode, value);
+        context.getDocType().addAttribute(eName, aName, type, mode, value);
+    }
+
+    @Override
+    public void internalEntityDecl(final String name, final String value)
+            throws SAXException
+    {
+        LOG.trace("internalEntityDecl:{},{}", name, value);
+        context.getDocType().addInternalEntity(name, value);
+    }
+
+    @Override
+    public void externalEntityDecl(final String name, final String publicId, final String systemId)
+            throws SAXException
+    {
+        LOG.trace("externalEntityDecl:{},{},{}", name, publicId, systemId);
+        context.getDocType().addExternalEntity(name, publicId, systemId);
+    }
+
+    public String getDoctype()
+    {
+        return context.getDocType().getDocTypeValue();
     }
 }

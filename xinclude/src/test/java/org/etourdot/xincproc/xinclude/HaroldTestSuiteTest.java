@@ -75,11 +75,23 @@ public class HaroldTestSuiteTest extends XIncProcSuiteTest {
         testSuccess(getClass().getClassLoader().getResource("harold/test/metafallbacktest2.xml"),
                 getClass().getClassLoader().getResource("harold/result/metafallbacktest2.xml"));
     }
+    @Test
+    public void harold_24() throws Exception
+    {
+        testException(getClass().getClassLoader().getResource("harold/test/metafallbacktest4.xml"),
+                XIncludeFatalException.class);
+    }
     @Ignore
     public void harold_37() throws Exception
     {
         testException(getClass().getClassLoader().getResource("harold/test/internalcircular.xml"),
                 XIncludeFatalException.class);
+    }
+    @Ignore
+    public void harold_39() throws Exception
+    {
+        testSuccess(getClass().getClassLoader().getResource("harold/test/latin1.xml"),
+                getClass().getClassLoader().getResource("harold/result/latin1.xml"));
     }
     @Ignore
     public void harold_44() throws Exception

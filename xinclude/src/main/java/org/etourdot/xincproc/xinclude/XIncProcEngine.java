@@ -19,12 +19,15 @@
  */
 package org.etourdot.xincproc.xinclude;
 
+import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.InputSupplier;
+import net.sf.saxon.lib.FeatureKeys;
 import net.sf.saxon.s9api.Processor;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.Serializer;
 import net.sf.saxon.s9api.XdmNode;
+import net.sf.saxon.serialize.XMLEmitter;
 import net.sf.saxon.trans.XPathException;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.etourdot.xincproc.xinclude.sax.XIncProcXIncludeFilter;
@@ -91,6 +94,9 @@ public class XIncProcEngine {
         {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
             xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
+            xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
+            xmlReader.setFeature("http://xml.org/sax/features/resolve-dtd-uris", false);
+            //xmlReader.setFeature("http://xml.org/sax/features/external-general-entities", false);
             filter.setParent(xmlReader);
             final SAXSource saxSource = new SAXSource(filter, inputSource);
             final XdmNode node = processor.newDocumentBuilder().wrap(saxSource);
@@ -136,12 +142,26 @@ public class XIncProcEngine {
         {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
             xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
+            xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
+            xmlReader.setFeature("http://xml.org/sax/features/resolve-dtd-uris", false);
+            //xmlReader.setFeature("http://xml.org/sax/features/external-general-entities", false);
+
             filter.setParent(xmlReader);
             final SAXSource saxSource = new SAXSource(filter, inputSource);
             XdmNode node = processor.newDocumentBuilder().build(saxSource);
             LOG.trace("parse result:{}", node.toString());
+            output.write("<?xml version=\"1.0\" encoding=\"".getBytes());
+            output.write(charset.displayName().getBytes());
+            output.write("\"?>".getBytes());
+            final String docType = filter.getDoctype();
+            if (!Strings.isNullOrEmpty(docType))
+            {
+                output.write(docType.getBytes("UTF-8"));
+            }
             Serializer serializer = processor.newSerializer(output);
+            serializer.setOutputProperty(Serializer.Property.OMIT_XML_DECLARATION, "yes");
             serializer.setOutputProperty(Serializer.Property.ENCODING, charset.displayName());
+
             processor.writeXdmValue(node, serializer);
         }
         catch (final SAXException e)

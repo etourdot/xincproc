@@ -48,7 +48,7 @@ public class ImaqTestSuiteTest extends XIncProcSuiteTest {
                 getClass().getClassLoader().getResource("imaq/result/XInclude/nodes.xml"));
     }
 
-    @Ignore
+    @Test
     public void imaq_include_xml_04() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("imaq/test/XInclude/docs/docids.xml"),

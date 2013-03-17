@@ -167,7 +167,7 @@ public class NistTestSuiteTest extends XIncProcSuiteTest {
                 getClass().getClassLoader().getResource("nist/result/nist-include-20.xml"));
     }
 
-    @Ignore
+    @Test
     public void nist_include_21() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("nist/test/docs/nist-include-21.xml"),
@@ -412,7 +412,7 @@ public class NistTestSuiteTest extends XIncProcSuiteTest {
                 getClass().getClassLoader().getResource("nist/result/nist-include-55.xml"));
     }
 
-    @Ignore
+    @Test
     public void nist_include_56() throws Exception
     {
         testException(getClass().getClassLoader().getResource("nist/test/docs/nist-include-56.xml"),

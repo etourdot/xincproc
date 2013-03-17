@@ -36,6 +36,8 @@ public class XIncludeContext {
     private Exception currentException;
     private XdmNode sourceNode;
 
+    private DocType docType = new DocType();
+
     public XIncludeContext(final XIncProcConfiguration configuration)
     {
         this.configuration = configuration;
@@ -56,6 +58,7 @@ public class XIncludeContext {
         newContext.langDeque.addAll(contextToCopy.langDeque);
         newContext.xincludeDeque.addAll(contextToCopy.xincludeDeque);
         newContext.sourceNode = contextToCopy.sourceNode;
+        newContext.docType = DocType.copy(contextToCopy.docType);
         return newContext;
     }
 
@@ -219,6 +222,11 @@ public class XIncludeContext {
     public void setSourceNode(final XdmNode sourceNode)
     {
         this.sourceNode = sourceNode;
+    }
+
+    public DocType getDocType()
+    {
+        return docType;
     }
 
     @Override
