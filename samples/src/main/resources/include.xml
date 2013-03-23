@@ -1,0 +1,6 @@
+<x xmlns:xinclude="http://www.w3.org/2001/XInclude">
+   <!-- Simple testsax of including another XML document -->
+   <h1>A title</h1>
+   <xinclude:include href="something.xml"/>
+   <p>A para to get in filter</p>
+</x>

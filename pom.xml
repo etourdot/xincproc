@@ -10,16 +10,17 @@
     <modules>
         <module>xinclude</module>
         <module>xpointer</module>
+        <module>samples</module>
     </modules>
 
     <packaging>pom</packaging>
     <description>XInclude implementation</description>
 
-    <url>http://code.google.com/p/xincproc/</url>
+    <url>https://github.com/etourdot/xincproc/</url>
 
     <issueManagement>
-        <system>code.google.com</system>
-        <url>http://code.google.com/p/xincproc/issues/list</url>
+        <system>github</system>
+        <url>https://github.com/etourdot/xincproc/issues</url>
     </issueManagement>
 
     <inceptionYear>2011</inceptionYear>
@@ -39,9 +40,9 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:svn:https://xincproc.googlecode.com/svn/trunk/</connection>
-        <developerConnection>scm:svn:https://xincproc.googlecode.com/svn/trunk/</developerConnection>
-        <url>http://code.google.com/p/xincproc/source/browse/</url>
+        <connection>scm:git:git://github.com/etourdot/xincproc</connection>
+        <developerConnection>scm:git:ssh://git@github.com/etourdot/xincproc</developerConnection>
+        <url>https://github.com/etourdot/xincproc</url>
     </scm>
 
     <developers>
@@ -54,6 +55,13 @@
             </roles>
         </developer>
     </developers>
+
+    <licenses>
+        <license>
+            <name>LGPL 3.0 license</name>
+            <url>http://www.opensource.org/licenses/lgpl-3.0.html</url>
+        </license>
+    </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -93,13 +101,6 @@
         <xercesImpl.version>2.11.0</xercesImpl.version>
         <xml-apis.version>1.4.01</xml-apis.version>
     </properties>
-
-    <licenses>
-        <license>
-            <name>LGPL 3.0 license</name>
-            <url>http://www.opensource.org/licenses/lgpl-3.0.html</url>
-        </license>
-    </licenses>
 
     <dependencyManagement>
         <dependencies>

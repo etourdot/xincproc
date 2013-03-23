@@ -17,11 +17,13 @@
 
 package org.etourdot.xincproc.xinclude.sax;
 
+import com.google.common.base.Strings;
 import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.s9api.SAXDestination;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.trans.XPathException;
+import org.apache.commons.lang3.StringUtils;
 import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
 import org.etourdot.xincproc.xinclude.XIncProcEngine;
 import org.etourdot.xincproc.xinclude.XIncProcUtils;
@@ -146,7 +148,15 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
         LOG.trace("startElement@{}: {}, {}, {}", Integer.toHexString(hashCode()), uri, localName, qName);
         final AttributesImpl attributesImpl = new AttributesImpl(attributes);
         context.updateContextWithElementAttributes(attributesImpl);
-        final QName elementQName = new QName(uri, localName);
+        final QName elementQName;
+        if (Strings.isNullOrEmpty(uri) && Strings.isNullOrEmpty(localName) && !Strings.isNullOrEmpty(qName))
+        {
+            elementQName = QName.valueOf(StringUtils.substringAfter(qName,":"));
+        }
+        else
+        {
+            elementQName = new QName(uri, localName);
+        }
 
         startElement();
         if (XIncProcUtils.isXInclude(elementQName))
@@ -468,14 +478,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     public InputSource resolveEntity(final String publicId, final String systemId)
             throws SAXException, IOException
     {
-        try
-        {
-            LOG.trace("resolveEntity:{},{},{}", publicId, systemId, XIncProcUtils.resolveBase(new URI(systemId), context.getBaseURIPaths()));
-        }
-        catch (URISyntaxException e)
-        {
-            e.printStackTrace();
-        }
+        LOG.trace("resolveEntity:{},{},{}", publicId, systemId);
         return super.resolveEntity(publicId, systemId);
     }
 
@@ -502,7 +505,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements LexicalHand
     {
         LOG.trace("unparsedEntityDecl:{},{},{},{}", name, publicId, systemId, notationName);
         context.getDocType().addUnparsedEntity(name, publicId, systemId, notationName);
-        //super.unparsedEntityDecl(name, publicId, systemId, notationName);
     }
 
     @Override

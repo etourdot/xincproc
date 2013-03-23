@@ -38,6 +38,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,11 +52,10 @@ import java.nio.charset.Charset;
  */
 public class XIncProcEngine {
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcEngine.class);
-    private static XIncProcConfiguration configuration;
+    private static XIncProcConfiguration configuration = new XIncProcConfiguration();
 
     public XIncProcEngine()
     {
-        configuration = new XIncProcConfiguration();
     }
 
     public XIncProcEngine(final XIncProcConfiguration configuration)
@@ -90,10 +90,6 @@ public class XIncProcEngine {
         try
         {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
-            xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
-            xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
-            xmlReader.setFeature("http://xml.org/sax/features/resolve-dtd-uris", false);
-            //xmlReader.setFeature("http://xml.org/sax/features/external-general-entities", false);
             filter.setParent(xmlReader);
             final SAXSource saxSource = new SAXSource(filter, inputSource);
             final XdmNode node = processor.newDocumentBuilder().wrap(saxSource);
@@ -108,11 +104,6 @@ public class XIncProcEngine {
         {
             throw new XIncludeFatalException(e);
         }
-    }
-
-    public void parse(final Source source, final Result result) throws XIncludeFatalException
-    {
-        //parse(source, result);
     }
 
     public void parse(final InputStream input, final String systemId, final OutputStream output)
@@ -139,10 +130,7 @@ public class XIncProcEngine {
         try
         {
             final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
-            xmlReader.setProperty("http://xml.org/sax/properties/lexical-handler", filter);
-            xmlReader.setProperty("http://xml.org/sax/properties/declaration-handler", filter);
             xmlReader.setFeature("http://xml.org/sax/features/resolve-dtd-uris", false);
-            //xmlReader.setFeature("http://xml.org/sax/features/external-general-entities", false);
 
             filter.setParent(xmlReader);
             final SAXSource saxSource = new SAXSource(filter, inputSource);
