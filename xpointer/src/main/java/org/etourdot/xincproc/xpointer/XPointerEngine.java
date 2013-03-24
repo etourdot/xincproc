@@ -29,6 +29,7 @@ import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.etourdot.xincproc.xpointer.exceptions.XPointerException;
 import org.etourdot.xincproc.xpointer.exceptions.XPointerResourceException;
 import org.etourdot.xincproc.xpointer.model.*;
+import org.etourdot.xincproc.xpointer.grammar.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,122 +42,22 @@ import java.io.StringWriter;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 27/10/12
- * Time: 11:18
+ * The XPointer engine.
  */
 public class XPointerEngine {
-    private static final Logger log = LoggerFactory.getLogger(XPointerEngine.class);
-
-    private static final String FIND_QUERY_START =
-            " declare variable $ctxbase external;                                               " +
-                    " declare variable $ctxlang external;                                               ";
-    private static final String FIND_QUERY_SHORTHAND =
-            " declare variable $shorthand external;                                             " +
-                    " for $x in fn:element-with-id($shorthand)|//*[@id=$shorthand]                      ";
-    private static final String FIND_QUERY_SCHEME =
-            " declare variable $val external;                                                   " +
-                    " for $x in $val                                                                    ";
-    private static final String FIND_QUERY_DYNAMIC =
-            "  for $x in (#VAL#)                                                                ";
-    private static final String FIND_QUERY_END =
-            " return typeswitch($x)                                                             " +
-                    "    case element() return                                                          " +
-                    "         element {fn:node-name($x)} {                                              " +
-                    "            (                                                                      " +
-                    "               if (fn:empty($x/ancestor-or-self::*/@xml:base)) then (              " +
-                    "                   if (fn:empty($ctxbase)) then ()                                 " +
-                    "                   else (attribute xml:base {$ctxbase})                            " +
-                    "               ) else (                                                            " +
-                    "                   if (fn:empty($x/@xml:base)) then (                              " +
-                    "                      if (fn:empty($ctxbase)) then ()                              " +
-                    "                      else (attribute xml:base { fn:base-uri($x) })                " +
-                    "                   ) else (                                                        " +
-                    "                      attribute xml:base {$x/@xml:base}                            " +
-                    "                   )                                                               " +
-                    "               )                                                                   " +
-                    "            ),                                                                     " +
-                    "            (                                                                      " +
-                    "               let $elt := $x/@xml:lang                                            " +
-                    "               let $prt := ($x/parent::*/@xml:lang)[last()]                        " +
-                    "               return if (fn:empty($ctxlang)) then (                               " +
-                    "                         if (fn:empty($prt) or $prt = '') then (                   " +
-                    "                            if (fn:empty($elt)) then ()                            " +
-                    "                            else (attribute xml:lang {$elt})                       " +
-                    "                         ) else (                                                  " +
-                    "                            attribute xml:lang {if (fn:empty($elt)) then ($prt)    " +
-                    "                                                else ($elt)}                       " +
-                    "                         )                                                         " +
-                    "                      ) else (                                                     " +
-                    "                         if (fn:empty($prt) or $prt = '') then (                   " +
-                    "                            if (fn:empty($elt)) then (attribute xml:lang {''})     " +
-                    "                            else (attribute xml:lang {$elt})                       " +
-                    "                         ) else (                                                  " +
-                    "                            if ($prt = $ctxlang) then (                            " +
-                    "                               if (fn:empty($elt)) then ()                         " +
-                    "                               else (attribute xml:lang {$elt})                    " +
-                    "                            ) else (                                               " +
-                    "                               attribute xml:lang {if (fn:empty($elt)) then ($prt) " +
-                    "                                           else ($elt)}                            " +
-                    "                            )                                                      " +
-                    "                         )                                                         " +
-                    "                      )                                                            " +
-                    "            ),                                                                     " +
-                    "            $x/(@*|node()) except ($x/@xml:base,$x/@xml:lang)                      " +
-                    "         }                                                                         " +
-                    "    default return $x                                                              ";
-
-    private static final DefaultXPointerErrorHandler defaultXPointerErrorHandler = new DefaultXPointerErrorHandler();
-
-    private XdmValue baseURIValue;
-
-    private XdmValue languageValue;
-
-    public String verifyXPathExpression(final ImmutableList.Builder<XmlNsScheme> xmlnsBuilder, final String xpathExpression)
-    {
-        log.trace("verifyXPathExpression: {}", xpathExpression);
-        final XPathCompiler xPathCompiler = processor.newXPathCompiler();
-        for (final XmlNsScheme xmlNsScheme : xmlnsBuilder.build())
-        {
-            final String localPart = xmlNsScheme.getQName().getLocalPart();
-            final String namespaceUri = xmlNsScheme.getQName().getNamespaceURI();
-            log.trace("declareNamespace {}:{}", localPart, namespaceUri);
-            xPathCompiler.declareNamespace(localPart, namespaceUri);
-        }
-        try
-        {
-            xPathCompiler.compile(xpathExpression);
-        }
-        catch (final SaxonApiException e)
-        {
-            return e.getCause().getMessage();
-        }
-        return "";
-    }
-
-    private static class NilXPointerErrorHandler implements XPointerErrorHandler {
-        @Override
-        public void reportError(String error)
-        {
-        }
-    }
-
-    private static final NilXPointerErrorHandler nilXPointerErrorHandler = new NilXPointerErrorHandler();
-
-    private final Processor processor;
-    private XQueryExecutable xQueryExecutableShorthand;
-    private XQueryExecutable xQueryExecutableScheme;
-    private XPathCompiler xPathCompiler;
-    private XQueryCompiler xQueryCompiler;
-
-    private XPointerErrorHandler xPointerErrorHandler;
-
+    /**
+     * Instantiates a new XPointerEngine.
+     */
     public XPointerEngine()
     {
         this(new Processor(false));
     }
 
+    /**
+     * Instantiates a new XPointerEngine
+     *
+     * @param processor the saxon processor to use
+     */
     public XPointerEngine(final Processor processor)
     {
         this.processor = processor;
@@ -165,6 +66,33 @@ public class XPointerEngine {
         initEngine();
     }
 
+    /**
+     * Return an error handler which forget error messages
+     *
+     * @return an XPointerErrorHandler
+     */
+    public static XPointerErrorHandler newNilXPointerErrorHandler()
+    {
+        return nilXPointerErrorHandler;
+    }
+
+    /**
+     * Return a default error handler
+     *
+     * @return an XPointerErrorHandler
+     */
+    public static XPointerErrorHandler newDefaultXPointerErrorHandler()
+    {
+        return defaultXPointerErrorHandler;
+    }
+
+    /**
+     * Setting the base uri for the pointer resolution
+     * The base uri is used for xml:base calculations
+     *
+     * @param baseURI of the parent xml
+     * @return the XPointerEngine for fluent api usage
+     */
     public XPointerEngine setBaseURI(final String baseURI)
     {
         if (baseURI == null)
@@ -178,6 +106,13 @@ public class XPointerEngine {
         return this;
     }
 
+    /**
+     * Setting the language for the pointer resolution
+     * The language is used for xml:lang calculation
+     *
+     * @param language of the parent xml
+     * @return the XPointerEngine for fluent api usage
+     */
     public XPointerEngine setLanguage(final String language)
     {
         if (language == null)
@@ -191,84 +126,35 @@ public class XPointerEngine {
         return this;
     }
 
+    /**
+     * Setting an error handler to capture parsing errors or warnings
+     *
+     * @param xPointerErrorHandler a XPointerErrorHandler
+     * @return the XPointerEngine for fluent api usage
+     */
     public XPointerEngine setXPointerErrorHandler(final XPointerErrorHandler xPointerErrorHandler)
     {
         this.xPointerErrorHandler = xPointerErrorHandler;
         return this;
     }
 
-    public XPointerErrorHandler getxPointerErrorHandler()
+    /**
+     * Getting the error handler
+     *
+     * @return the current error handler or null if absent
+     */
+    public XPointerErrorHandler getXPointerErrorHandler()
     {
         return xPointerErrorHandler;
-    }
-
-    private void initEngine()
-    {
-        try
-        {
-            xQueryCompiler = processor.newXQueryCompiler();
-            xQueryExecutableShorthand = xQueryCompiler.compile(FIND_QUERY_START + FIND_QUERY_SHORTHAND + FIND_QUERY_END);
-            xQueryExecutableScheme = xQueryCompiler.compile(FIND_QUERY_START + FIND_QUERY_SCHEME + FIND_QUERY_END);
-            xPathCompiler = processor.newXPathCompiler();
-            xPathCompiler.setCaching(true);
-        }
-        catch (final SaxonApiException e)
-        {
-            log.error("initEngine", e);
-        }
-    }
-
-
-    Pointer getPointer(final String pointerStr)
-            throws XPointerException
-    {
-        log.trace("start analyse '{}'", pointerStr);
-        final CharStream input = new ANTLRStringStream(pointerStr);
-        log.trace("-> start lexer analyse");
-        final XPointerLexer xPointerLexer = new XPointerLexer(input);
-        final CommonTokenStream commonTokenStream = new CommonTokenStream(xPointerLexer);
-        final XPointerParser xPointerParser = new XPointerParser(commonTokenStream);
-        xPointerParser.setErrorHandler(xPointerErrorHandler);
-        XPointerParser.pointer_return result = null;
-        try
-        {
-            log.trace("-> start parser analyse");
-            result = xPointerParser.pointer();
-        }
-        catch (final Exception e)
-        {
-            throw new XPointerException("Unknown pointer expression", e);
-        }
-        final CommonTree ast = (CommonTree) result.getTree();
-        Pointer pointer = null;
-        if (ast != null)
-        {
-            final CommonTreeNodeStream nodes = new CommonTreeNodeStream(ast);
-            nodes.setTokenStream(commonTokenStream);
-            final XPointerTree xPointerTree = new XPointerTree(nodes);
-            xPointerTree.setErrorHandler(xPointerErrorHandler);
-            xPointerTree.setPointerFactory(new PointerFactory());
-            try
-            {
-                log.trace("-> start tree analyse");
-                pointer = xPointerTree.pointer();
-            }
-            catch (final Exception e)
-            {
-                throw new XPointerException(e);
-            }
-        }
-        log.trace("end analyse '{}'", pointerStr);
-        return pointer;
     }
 
     /**
      * Execute xpointer expression on xml source returning a xml string
      *
      * @param pointerStr xpointer expression
-     * @param source     xml source
+     * @param source xml source
      * @return serialized xml result or an empty string (not null)
-     * @throws XPointerException
+     * @throws XPointerException the x pointer exception
      */
     public String execute(final String pointerStr, final Source source)
             throws XPointerException
@@ -289,7 +175,7 @@ public class XPointerEngine {
             }
             else
             {
-                log.error(e.getLocalizedMessage(), e);
+                LOG.error(e.getLocalizedMessage(), e);
             }
         }
         return "";
@@ -299,11 +185,11 @@ public class XPointerEngine {
      * Execute a xpointer expression on xml source.
      * The result is send to a Saxon Destination {@link http://www.saxonica.com/documentation/javadoc/net/sf/saxon/s9api/Destination.html}
      *
-     * @param pointerStr  xpointer expression
-     * @param source      xml source
+     * @param pointerStr xpointer expression
+     * @param source xml source
      * @param destination Saxon destination of result stream
      * @return number of elements in result infoset excluding comments et processing instructions
-     * @throws XPointerException
+     * @throws XPointerException the x pointer exception
      */
     public int executeToDestination(final String pointerStr, final Source source, final Destination destination)
             throws XPointerException
@@ -312,7 +198,7 @@ public class XPointerEngine {
         final XdmNode node = processor.newDocumentBuilder().wrap(source);
         if (pointer != null)
         {
-            if (pointer.isShortHand())
+            if (pointer.isShortHandPresent())
             {
                 return executeShorthandPointer(pointer.getShortHand(), node, destination);
             }
@@ -331,7 +217,52 @@ public class XPointerEngine {
         }
     }
 
-    private int executeShorthandPointer(final ShortHand shortHand, final XdmNode node, final Destination destination)
+    /**
+     * Utility method for verifying xpath expression
+     *
+     * @param xmlNsSchemes namespaces list
+     * @param xpathExpression xpath expression to test
+     * @return empty string if expression is right, error otherwise
+     */
+    public String verifyXPathExpression(final Iterable<XmlNsScheme> xmlNsSchemes, final String xpathExpression)
+    {
+        LOG.trace("verifyXPathExpression: {}", xpathExpression);
+        final XPathCompiler xPathCompiler = processor.newXPathCompiler();
+        for (final XmlNsScheme xmlNsScheme : xmlNsSchemes)
+        {
+            final String localPart = xmlNsScheme.getQName().getLocalPart();
+            final String namespaceUri = xmlNsScheme.getQName().getNamespaceURI();
+            LOG.trace("declareNamespace {}:{}", localPart, namespaceUri);
+            xPathCompiler.declareNamespace(localPart, namespaceUri);
+        }
+        try
+        {
+            xPathCompiler.compile(xpathExpression);
+        }
+        catch (final SaxonApiException e)
+        {
+            return e.getCause().getMessage();
+        }
+        return "";
+    }
+
+    private void initEngine()
+    {
+        try
+        {
+            xQueryCompiler = processor.newXQueryCompiler();
+            xQueryExecutableScheme = xQueryCompiler.compile(FIND_QUERY_START + FIND_QUERY_SCHEME + FIND_QUERY_END);
+            xQueryExecutableShorthand = xQueryCompiler.compile(FIND_QUERY_START + FIND_QUERY_SHORTHAND + FIND_QUERY_END);
+            xPathCompiler = processor.newXPathCompiler();
+            xPathCompiler.setCaching(true);
+        }
+        catch (final SaxonApiException e)
+        {
+            LOG.error("initEngine", e);
+        }
+    }
+
+    private int executeShorthandPointer(final PointerPart shortHand, final XdmNode node, final Destination destination)
             throws XPointerException
     {
         final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(shortHand, node.asSource());
@@ -385,7 +316,7 @@ public class XPointerEngine {
                     final TeeDestination teeDestination;
                     if (i == (nbPointerPart - 1))
                     {
-                        teeDestination = new TeeDestination(destination, new SAXDestination(new SampleTestHandler()));
+                        teeDestination = new TeeDestination(destination, new SAXDestination(new DebugHandler()));
                         final XdmValue value = xQueryEvaluator.evaluate();
                         if (value.size() == 0)
                         {
@@ -410,7 +341,7 @@ public class XPointerEngine {
                     else
                     {
                         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        teeDestination = new TeeDestination(new Serializer(baos), new SAXDestination(new SampleTestHandler()));
+                        teeDestination = new TeeDestination(new Serializer(baos), new SAXDestination(new DebugHandler()));
                         xQueryEvaluator.run(teeDestination);
                         sourceTransform = processor.getUnderlyingConfiguration().buildDocument(
                                 new StreamSource(new ByteArrayInputStream(baos.toByteArray())));
@@ -433,7 +364,7 @@ public class XPointerEngine {
         final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(builderExpressions.build(), sourceTransform);
         try
         {
-            TeeDestination teeDestination = new TeeDestination(destination, new SAXDestination(new SampleTestHandler()));
+            TeeDestination teeDestination = new TeeDestination(destination, new SAXDestination(new DebugHandler()));
             final XdmValue value = xQueryEvaluator.evaluate();
             if (value.size() == 0)
             {
@@ -475,7 +406,7 @@ public class XPointerEngine {
         }
     }
 
-    private XdmValue getContextItem(final Source source, PointerPart part)
+    private XdmValue getContextItem(final Source source, final PointerPart part)
             throws XPointerException
     {
         final XPathSelector xPathSelector = getXPathSelector(part);
@@ -539,23 +470,120 @@ public class XPointerEngine {
         return xQueryEvaluator;
     }
 
-    /**
-     * Return an error handler which forget error messages
-     *
-     * @return an XPointerErrorHandler
-     */
-    public static XPointerErrorHandler createNilXPointerErrorHandler()
+    Pointer getPointer(final String pointerStr)
+            throws XPointerException
     {
-        return nilXPointerErrorHandler;
+        LOG.trace("start analyse '{}'", pointerStr);
+        final CharStream input = new ANTLRStringStream(pointerStr);
+        LOG.trace("-> start lexer analyse");
+        final XPointerLexer xPointerLexer = new XPointerLexer(input);
+        final CommonTokenStream commonTokenStream = new CommonTokenStream(xPointerLexer);
+        final XPointerParser xPointerParser = new XPointerParser(commonTokenStream);
+        xPointerParser.setErrorHandler(xPointerErrorHandler);
+        XPointerParser.pointer_return result = null;
+        try
+        {
+            LOG.trace("-> start parser analyse");
+            result = xPointerParser.pointer();
+        }
+        catch (final Exception e)
+        {
+            throw new XPointerException("Unknown pointer expression", e);
+        }
+        final CommonTree ast = (CommonTree) result.getTree();
+        Pointer pointer = null;
+        if (ast != null)
+        {
+            final CommonTreeNodeStream nodes = new CommonTreeNodeStream(ast);
+            nodes.setTokenStream(commonTokenStream);
+            final XPointerTree xPointerTree = new XPointerTree(nodes);
+            xPointerTree.setErrorHandler(xPointerErrorHandler);
+            try
+            {
+                LOG.trace("-> start tree analyse");
+                pointer = xPointerTree.pointer();
+            }
+            catch (final Exception e)
+            {
+                throw new XPointerException(e);
+            }
+        }
+        LOG.trace("end analyse '{}'", pointerStr);
+        return pointer;
     }
 
-    /**
-     * Return a default error handler
-     *
-     * @return an XPointerErrorHandler
-     */
-    public static XPointerErrorHandler createDefaultXPointerErrorHandler()
-    {
-        return defaultXPointerErrorHandler;
+    private static class NilXPointerErrorHandler implements XPointerErrorHandler {
+        @Override
+        public void reportError(final String error)
+        {
+        }
     }
+    private static final Logger LOG = LoggerFactory.getLogger(XPointerEngine.class);
+    private static final String FIND_QUERY_START =
+            " declare variable $ctxbase external;                                               " +
+            " declare variable $ctxlang external;                                               ";
+    private static final String FIND_QUERY_SHORTHAND =
+            " declare variable $shorthand external;                                             " +
+            " for $x in fn:element-with-id($shorthand)|//*[@id=$shorthand]                      ";
+    private static final String FIND_QUERY_SCHEME =
+            " declare variable $val external;                                                   " +
+            " for $x in $val                                                                    ";
+    private static final String FIND_QUERY_DYNAMIC =
+            "  for $x in (#VAL#)                                                                ";
+    private static final String FIND_QUERY_END =
+            " return typeswitch($x)                                                             " +
+            "    case element() return                                                          " +
+            "         element {fn:node-name($x)} {                                              " +
+            "            (                                                                      " +
+            "               if (fn:empty($x/ancestor-or-self::*/@xml:base)) then (              " +
+            "                   if (fn:empty($ctxbase)) then ()                                 " +
+            "                   else (attribute xml:base {$ctxbase})                            " +
+            "               ) else (                                                            " +
+            "                   if (fn:empty($x/@xml:base)) then (                              " +
+            "                      if (fn:empty($ctxbase)) then ()                              " +
+            "                      else (attribute xml:base { fn:base-uri($x) })                " +
+            "                   ) else (                                                        " +
+            "                      attribute xml:base {$x/@xml:base}                            " +
+            "                   )                                                               " +
+            "               )                                                                   " +
+            "            ),                                                                     " +
+            "            (                                                                      " +
+            "               let $elt := $x/@xml:lang                                            " +
+            "               let $prt := ($x/parent::*/@xml:lang)[last()]                        " +
+            "               return if (fn:empty($ctxlang)) then (                               " +
+            "                         if (fn:empty($prt) or $prt = '') then (                   " +
+            "                            if (fn:empty($elt)) then ()                            " +
+            "                            else (attribute xml:lang {$elt})                       " +
+            "                         ) else (                                                  " +
+            "                            attribute xml:lang {if (fn:empty($elt)) then ($prt)    " +
+            "                                                else ($elt)}                       " +
+            "                         )                                                         " +
+            "                      ) else (                                                     " +
+            "                         if (fn:empty($prt) or $prt = '') then (                   " +
+            "                            if (fn:empty($elt)) then (attribute xml:lang {''})     " +
+            "                            else (attribute xml:lang {$elt})                       " +
+            "                         ) else (                                                  " +
+            "                            if ($prt = $ctxlang) then (                            " +
+            "                               if (fn:empty($elt)) then ()                         " +
+            "                               else (attribute xml:lang {$elt})                    " +
+            "                            ) else (                                               " +
+            "                               attribute xml:lang {if (fn:empty($elt)) then ($prt) " +
+            "                                           else ($elt)}                            " +
+            "                            )                                                      " +
+            "                         )                                                         " +
+            "                      )                                                            " +
+            "            ),                                                                     " +
+            "            $x/(@*|node()) except ($x/@xml:base,$x/@xml:lang)                      " +
+            "         }                                                                         " +
+            "    default return $x                                                              ";
+    private static final DefaultXPointerErrorHandler defaultXPointerErrorHandler = new DefaultXPointerErrorHandler();
+    private static final NilXPointerErrorHandler nilXPointerErrorHandler = new NilXPointerErrorHandler();
+    private final Processor processor;
+    private XdmValue baseURIValue;
+    private XdmValue languageValue;
+    private XQueryExecutable xQueryExecutableShorthand;
+    private XQueryExecutable xQueryExecutableScheme;
+    private XPathCompiler xPathCompiler;
+    private XQueryCompiler xQueryCompiler;
+    private XPointerErrorHandler xPointerErrorHandler;
 }

@@ -22,58 +22,47 @@ import org.etourdot.xincproc.xpointer.exceptions.ElementSchemeException;
 
 import javax.xml.namespace.QName;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 22/09/12
- * Time: 15:48
- */
-public class PointerFactory {
-    public ElementScheme createElementScheme(final String name, final String data)
+public final class PointerFactory {
+    public static ElementScheme createElementScheme(final String name, final String data)
     {
+        ElementScheme newElementScheme = null;
         try
         {
-            return new ElementScheme(name, data);
+            newElementScheme = new ElementScheme(name, data);
         }
-        catch (final ElementSchemeException e)
+        catch (final ElementSchemeException ignored)
         {
-            return null;
+            // Do Nothing
         }
+        return newElementScheme;
     }
 
-    public ShortHand createShortHand(final String name)
+    public static ShortHand createShortHand(final String name)
     {
         return new ShortHand(name);
     }
 
-    public XmlNsScheme createXmlNsScheme(final String localpart, final String uri)
+    public static XmlNsScheme createXmlNsScheme(final String localpart, final String uri)
     {
-        if (!Strings.isNullOrEmpty(localpart))
-        {
-            return createXmlNsScheme(new QName(uri, localpart));
-        }
-        else
-        {
-            return null;
-        }
+        return Strings.isNullOrEmpty(localpart) ? null : createXmlNsScheme(new QName(uri, localpart));
     }
 
-    public XmlNsScheme createXmlNsScheme(final QName qName)
+    public static XmlNsScheme createXmlNsScheme(final QName qName)
     {
         return new XmlNsScheme(qName);
     }
 
-    public XPathScheme createXPathScheme(final String xpath)
+    public static XPathScheme createXPathScheme(final String xpath)
     {
         return new XPathScheme(xpath);
     }
 
-    public XPointerScheme createXPointerScheme(final String xpath)
+    public static XPointerScheme createXPointerScheme(final String xpath)
     {
         return new XPointerScheme(xpath);
     }
 
-    public OtherScheme createOtherScheme(final QName qName, final String data)
+    public static OtherScheme createOtherScheme(final QName qName, final String data)
     {
         return new OtherScheme(qName, data);
     }

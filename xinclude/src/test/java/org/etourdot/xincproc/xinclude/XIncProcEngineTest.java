@@ -25,12 +25,6 @@ import java.util.Stack;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by IntelliJ IDEA.
- * User: etourdot
- * Date: 26/10/2011
- * Time: 23:03:36
- */
 public class XIncProcEngineTest {
     @Test
     public void testResolveBase() throws Exception

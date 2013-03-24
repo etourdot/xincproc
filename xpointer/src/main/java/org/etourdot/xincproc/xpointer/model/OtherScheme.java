@@ -19,12 +19,6 @@ package org.etourdot.xincproc.xpointer.model;
 
 import javax.xml.namespace.QName;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 21/09/12
- * Time: 23:37
- */
 public class OtherScheme extends DefaultScheme {
     private final String schemeData;
 
@@ -36,6 +30,6 @@ public class OtherScheme extends DefaultScheme {
 
     public String getSchemeData()
     {
-        return schemeData;
+        return this.schemeData;
     }
 }

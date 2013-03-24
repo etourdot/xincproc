@@ -26,30 +26,25 @@ import org.etourdot.xincproc.xpointer.exceptions.ElementSchemeException;
 
 import javax.xml.namespace.QName;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 21/09/12
- * Time: 22:54
- */
 public class ElementScheme extends DefaultScheme {
     private static final QName ELEMENT_NAME = new QName("element");
 
     private static class ChildSequenceFunction implements Function<String, String> {
         @Override
-        public String apply(String s)
+        public String apply(final String input)
         {
-            return "/*[" + s + "]";
+            return "/*[" + input + "]";
         }
     }
 
-    private static final Function<String, String> CHILDSEQ_FUNCTION = new ChildSequenceFunction();
-    private String name;
-    private String childSequence;
+    private static final Function<String, String> CHILDSEQ_FUNCTION = new ElementScheme.ChildSequenceFunction();
+    private final String name;
+    private final String childSequence;
 
-    public ElementScheme(final String name, final String childSequence) throws ElementSchemeException
+    public ElementScheme(final String name, final String childSequence)
+            throws ElementSchemeException
     {
-        super(ELEMENT_NAME);
+        super(ElementScheme.ELEMENT_NAME);
         if (Strings.isNullOrEmpty(name) && Strings.isNullOrEmpty(childSequence))
         {
             throw new ElementSchemeException();
@@ -61,25 +56,25 @@ public class ElementScheme extends DefaultScheme {
 
     public String getChildSequence()
     {
-        return childSequence;
+        return this.childSequence;
     }
 
     public String getName()
     {
-        return name;
+        return this.name;
     }
 
-    private String initExpression(String name, String childSequence)
+    private static String initExpression(final String name, final String childSequence)
     {
         final StringBuilder findExpr = new StringBuilder();
         if (!Strings.isNullOrEmpty(name))
         {
-            findExpr.append(ID_SEARCH_EXPR.replaceAll("#ID#", name));
+            findExpr.append(DefaultScheme.ID_SEARCH_EXPR.replaceAll("#ID#", name));
         }
         if (!Strings.isNullOrEmpty(childSequence))
         {
             findExpr.append(Joiner.on("").join(Iterables.transform(Splitter.on('/').omitEmptyStrings()
-                    .split(childSequence), CHILDSEQ_FUNCTION)));
+                    .split(childSequence), ElementScheme.CHILDSEQ_FUNCTION)));
         }
         return findExpr.toString();
     }
@@ -87,6 +82,6 @@ public class ElementScheme extends DefaultScheme {
     @Override
     public String toString()
     {
-        return ELEMENT_NAME + "(" + name + ',' + childSequence + ")";
+        return ElementScheme.ELEMENT_NAME + "(" + this.name + ',' + this.childSequence + ')';
     }
 }

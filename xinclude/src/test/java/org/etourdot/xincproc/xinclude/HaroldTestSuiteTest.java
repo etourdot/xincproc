@@ -20,9 +20,6 @@ import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/**
- * @author Emmanuel Tourdot
- */
 public class HaroldTestSuiteTest extends XIncProcSuiteTest {
     @Ignore
     public void harold_01() throws Exception
@@ -38,7 +35,7 @@ public class HaroldTestSuiteTest extends XIncProcSuiteTest {
                 getClass().getClassLoader().getResource("harold/result/xmlbasetest2.xml"));
     }
 
-    @Ignore
+    @Test
     public void harold_06() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("harold/test/includedocumentwithintradocumentreferences.xml"),

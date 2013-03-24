@@ -25,11 +25,8 @@ import com.google.common.net.HttpHeaders;
 import org.apache.commons.io.input.BOMInputStream;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException;
-import org.xml.sax.Attributes;
 
 import javax.xml.namespace.QName;
-import javax.xml.stream.events.Attribute;
-import javax.xml.stream.events.StartElement;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -37,7 +34,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Stack;
 
 /**
@@ -47,6 +43,10 @@ import java.util.Stack;
  * Time: 12:51
  */
 public final class XIncProcUtils {
+    private XIncProcUtils()
+    {
+    }
+
     /**
      * Return if element is in XInclude namespace
      *
@@ -66,15 +66,9 @@ public final class XIncProcUtils {
      */
     public static boolean isXInclude(final QName qname)
     {
-        if (XIncProcConfiguration.XINCLUDE_QNAME.getLocalPart().equals(qname.getLocalPart()))
-        {
-            if (Strings.isNullOrEmpty(qname.getNamespaceURI()) ||
-                    XIncProcConfiguration.XINCLUDE_QNAME.getNamespaceURI().equals(qname.getNamespaceURI()))
-            {
-                return true;
-            }
-        }
-        return false;
+        return XIncProcConfiguration.XINCLUDE_QNAME.getLocalPart().equals(qname.getLocalPart()) &&
+               (Strings.isNullOrEmpty(qname.getNamespaceURI()) ||
+               XIncProcConfiguration.XINCLUDE_QNAME.getNamespaceURI().equals(qname.getNamespaceURI()));
     }
 
     /**
@@ -85,33 +79,15 @@ public final class XIncProcUtils {
      */
     public static boolean isFallback(final QName qname)
     {
-        if (XIncProcConfiguration.FALLBACK_QNAME.getLocalPart().equals(qname.getLocalPart()))
-        {
-            if (Strings.isNullOrEmpty(qname.getNamespaceURI()) ||
-                    XIncProcConfiguration.FALLBACK_QNAME.getNamespaceURI().equals(qname.getNamespaceURI()))
-            {
-                return true;
-            }
-        }
-        return false;
+        return XIncProcConfiguration.FALLBACK_QNAME.getLocalPart().equals(qname.getLocalPart()) &&
+               (Strings.isNullOrEmpty(qname.getNamespaceURI()) ||
+               XIncProcConfiguration.FALLBACK_QNAME.getNamespaceURI().equals(qname.getNamespaceURI()));
     }
 
-    public static URI computeBase(final List<URI> uris)
-    {
-        final Iterator<URI> it = uris.iterator();
-        URI resultURI = it.next();
-        while (it.hasNext())
-        {
-            final URI uri = it.next();
-            resultURI = resultURI.resolve(uri);
-        }
-        return resultURI;
-    }
-
-    public static URI resolveBase(final URI baseURI, final List<URI> uris)
+    public static URI resolveBase(final URI baseURI, final Iterable<URI> uris)
     {
         URI resolvedUri = baseURI;
-        for (URI uri : uris)
+        for (final URI uri : uris)
         {
             resolvedUri = baseURI.resolve(uri);
         }
@@ -133,9 +109,9 @@ public final class XIncProcUtils {
 
     public static URI resolveBase(final URI baseURI, final Stack<URI> stack) throws XIncludeFatalException
     {
-        final URI computedUri = computeBase(stack);
+        final URI computedUri = XIncProcUtils.computeBase(stack);
         final URI resolvedUri = baseURI.resolve(computedUri);
-        if (resolvedUri.compareTo(baseURI) == 0)
+        if (0 == resolvedUri.compareTo(baseURI))
         {
             throw new XIncludeFatalException("Inclusion loop error");
         }
@@ -159,11 +135,11 @@ public final class XIncProcUtils {
         {
             final URL url = source.toURL();
             final URLConnection urlConnection = url.openConnection();
-            if (accept != null)
+            if (null != accept)
             {
                 urlConnection.setRequestProperty(HttpHeaders.ACCEPT, accept);
             }
-            if (acceptLanguage != null)
+            if (null != acceptLanguage)
             {
                 urlConnection.setRequestProperty(HttpHeaders.ACCEPT_LANGUAGE, acceptLanguage);
             }
@@ -173,21 +149,13 @@ public final class XIncProcUtils {
             final BOMInputStream bomInputStream = new BOMInputStream(new ByteArrayInputStream(inputBytes));
             if (bomInputStream.hasBOM())
             {
-                InputStreamReader reader = new InputStreamReader(new BufferedInputStream(bomInputStream));
+                final Readable reader = new InputStreamReader(new BufferedInputStream(bomInputStream));
                 return CharStreams.toString(reader);
             }
             else
             {
-                InputSupplier<ByteArrayInputStream> supplier = ByteStreams.newInputStreamSupplier(inputBytes);
-                final Charset charset;
-                if (encoding == null)
-                {
-                    charset = EncodingUtils.getCharset(supplier.getInput());
-                }
-                else
-                {
-                    charset = Charset.forName(encoding);
-                }
+                final InputSupplier<ByteArrayInputStream> supplier = ByteStreams.newInputStreamSupplier(inputBytes);
+                final Charset charset = (null == encoding) ? EncodingUtils.getCharset(supplier.getInput()) : Charset.forName(encoding);
                 return CharStreams.toString(CharStreams.newReaderSupplier(supplier, charset));
             }
 

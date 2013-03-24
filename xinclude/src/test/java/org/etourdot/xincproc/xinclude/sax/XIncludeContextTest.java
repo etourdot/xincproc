@@ -31,7 +31,7 @@ import static org.junit.Assert.assertEquals;
  * Time: 14:50
  */
 public class XIncludeContextTest {
-    final XIncludeContext context = new XIncludeContext(new XIncProcConfiguration());
+    final XIncludeContext context = new XIncludeContext(XIncProcConfiguration.newXIncProcConfiguration());
 
     @Test
     public void testAddBasePath() throws Exception

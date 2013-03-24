@@ -15,29 +15,22 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.etourdot.xincproc.xpointer;
+package org.etourdot.xincproc.xpointer.grammar;
 
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.RecognizerSharedState;
-import org.antlr.runtime.tree.CommonErrorNode;
+import org.antlr.runtime.tree.Tree;
 import org.antlr.runtime.tree.TreeNodeStream;
 import org.antlr.runtime.tree.TreeParser;
-import org.etourdot.xincproc.xpointer.model.PointerFactory;
+import org.etourdot.xincproc.xpointer.XPointerErrorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 22/09/12
- * Time: 15:54
- */
-public class AbstractXPointerTree extends TreeParser {
-    private static final Logger log = LoggerFactory.getLogger(AbstractXPointerTree.class);
+class AbstractXPointerTree extends TreeParser implements ErrorHandling {
+    static final Logger LOG = LoggerFactory.getLogger(AbstractXPointerTree.class);
     private XPointerErrorHandler xPointerErrorHandler;
-    PointerFactory factory;
 
-    public AbstractXPointerTree(final TreeNodeStream input)
+    AbstractXPointerTree(final TreeNodeStream input)
     {
         super(input);
     }
@@ -47,95 +40,88 @@ public class AbstractXPointerTree extends TreeParser {
         super(input, state);
     }
 
-    public void setPointerFactory(final PointerFactory pointerFactory)
-    {
-        this.factory = pointerFactory;
-    }
-
+    @Override
     public void setErrorHandler(final XPointerErrorHandler xPointerErrorHandler)
     {
         this.xPointerErrorHandler = xPointerErrorHandler;
     }
 
-    private boolean updateRecoveryState()
+    private boolean isUpdatingRecoveryState()
     {
-        if (state.errorRecovery)
+        final boolean updatingRecoveryState;
+        if (this.state.errorRecovery)
         {
-            return true;
+            updatingRecoveryState = true;
         }
-        state.syntaxErrors++;
-        state.errorRecovery = true;
-        return false;
+        else
+        {
+            this.state.syntaxErrors++;
+            this.state.errorRecovery = true;
+            updatingRecoveryState = false;
+        }
+        return updatingRecoveryState;
     }
 
-    public void reportPointerError(final RecognitionException e)
+    void reportPointerError(final RecognitionException e)
     {
-        if (updateRecoveryState())
+        if (!isUpdatingRecoveryState())
         {
-            return;
+            displayPointerError(this.getTokenNames(), e);
         }
-        displayPointerError(this.getTokenNames(), e);
     }
 
-    public void reportPointerPartError(final RecognitionException e)
+    void reportPointerPartError(final RecognitionException e)
     {
-        if (updateRecoveryState())
+        if (!isUpdatingRecoveryState())
         {
-            return;
+            displayPointerPartError(this.getTokenNames(), e);
         }
-        displayPointerPartError(this.getTokenNames(), e);
     }
 
-    public void reportElementSchemeDataError(final RecognitionException e)
+    void reportElementSchemeDataError(final RecognitionException e)
     {
-        if (updateRecoveryState())
+        if (!isUpdatingRecoveryState())
         {
-            return;
+            displayElementSchemeDataError(this.getTokenNames(), e);
         }
-        displayElementSchemeDataError(this.getTokenNames(), e);
     }
 
     private void displayPointerPartError(final String[] tokenNames, final RecognitionException e)
     {
-        String msg = "Warning: bad pointerpart form '" + ((CommonErrorNode) e.node).getText() + "'";
+        final String msg = "Warning: bad pointerpart form '" + ((Tree) e.node).getText() + '\'';
         emitErrorMessage(msg);
     }
 
     private void displayPointerError(final String[] tokenNames, final RecognitionException e)
     {
-        String msg = "Warning: bad pointer form '" + ((CommonErrorNode) e.node).getText() + "'";
+        final String msg = "Warning: bad pointer form '" + ((Tree) e.node).getText() + '\'';
         emitErrorMessage(msg);
     }
 
     private void displayElementSchemeDataError(final String[] tokenNames, final RecognitionException e)
     {
-        String msg = "Warning: bad element scheme data '" + ((CommonErrorNode) e.node).getText() + "'";
+        final String msg = "Warning: bad element scheme data '" + ((Tree) e.node).getText() + '\'';
         emitErrorMessage(msg);
     }
 
     @Override
     public void displayRecognitionError(final String[] tokenNames, final RecognitionException e)
     {
-        String msg = getErrorMessage(e, tokenNames);
+        final String msg = getErrorMessage(e, tokenNames);
         emitErrorMessage(msg);
     }
 
     @Override
     public void emitErrorMessage(final String msg)
     {
-        log.debug("emitErrorMessage '{}'", msg);
-        if (xPointerErrorHandler == null)
+        LOG.debug("emitErrorMessage '{}'", msg);
+        if (null == this.xPointerErrorHandler)
         {
             super.emitErrorMessage(msg);
         }
         else
         {
-            xPointerErrorHandler.reportError(msg);
+            this.xPointerErrorHandler.reportError(msg);
         }
-    }
-
-    public String unescape(final String toEscape)
-    {
-        return toEscape.replaceAll("\\^\\)", ")").replaceAll("\\^\\(", "(").replaceAll("\\^\\^", "^");
     }
 }

@@ -17,11 +17,10 @@
 
 package org.etourdot.xincproc.xinclude.sax;
 
-import net.sf.saxon.s9api.XdmNode;
+import com.google.common.base.Optional;
 import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
-import org.etourdot.xincproc.xinclude.XIncProcUtils;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
-import org.xml.sax.helpers.AttributesImpl;
+import org.xml.sax.Attributes;
 import org.xml.sax.helpers.NamespaceSupport;
 
 import java.net.URI;
@@ -41,21 +40,13 @@ public class XIncludeContext {
     private final XIncProcConfiguration configuration;
 
     private URI initialBaseURI;
-    private URI currentBaseURI;
-    private URI stackedBaseURI;
+    private Optional<URI> currentBaseURI;
     private final Deque<URI> basesURIDeque = new ArrayDeque<URI>();
-
     private String language;
-    private String currentLang;
-    private final Deque<String> langDeque = new ArrayDeque<String>();
-
     private URI sourceURI;
     private URI hrefURI;
     private final Deque<String> xincludeDeque = new ArrayDeque<String>();
-
     private Exception currentException;
-    private XdmNode sourceNode;
-
     private DocType docType = new DocType();
 
     public XIncludeContext(final XIncProcConfiguration configuration)
@@ -65,79 +56,76 @@ public class XIncludeContext {
 
     public XIncProcConfiguration getConfiguration()
     {
-        return configuration;
+        return this.configuration;
     }
 
     public static XIncludeContext newContext(final XIncludeContext contextToCopy)
     {
-        final XIncludeContext newContext = new XIncludeContext(contextToCopy.getConfiguration());
+        final XIncludeContext newContext = new XIncludeContext(contextToCopy.configuration);
         newContext.currentBaseURI = contextToCopy.currentBaseURI;
-        newContext.stackedBaseURI = contextToCopy.stackedBaseURI;
         newContext.basesURIDeque.addAll(contextToCopy.basesURIDeque);
         newContext.language = contextToCopy.language;
-        newContext.langDeque.addAll(contextToCopy.langDeque);
         newContext.xincludeDeque.addAll(contextToCopy.xincludeDeque);
-        newContext.sourceNode = contextToCopy.sourceNode;
         newContext.docType = DocType.copy(contextToCopy.docType);
         return newContext;
     }
 
-    public void updateContextWithElementAttributes(final AttributesImpl attributes)
+    public void updateContextWithElementAttributes(final Attributes attributes)
+            throws XIncludeFatalException
+    {
+        extractCurrentBaseURI(attributes);
+        if (this.currentBaseURI.isPresent())
+        {
+            addBaseURIPath(this.currentBaseURI.get());
+        }
+    }
+
+    private void extractCurrentBaseURI(final Attributes attributes)
             throws XIncludeFatalException
     {
         final int baseAttIdx = attributes.getIndex(NamespaceSupport.XMLNS,
                 XIncProcConfiguration.XMLBASE_QNAME.getLocalPart());
-        if (baseAttIdx >= 0)
+        final URI foundURI;
+        if (0 <= baseAttIdx)
         {
             try
             {
-                this.currentBaseURI = new URI(attributes.getValue(baseAttIdx));
-                addBaseURIPath(currentBaseURI);
+                foundURI = new URI(attributes.getValue(baseAttIdx));
             }
-            catch (final URISyntaxException e)
+            catch (final URISyntaxException ignored)
             {
                 throw new XIncludeFatalException("Invalid base URI");
             }
         }
         else
         {
-            this.currentBaseURI = null;
+            foundURI = null;
         }
-        final int langAttIdx = attributes.getIndex(NamespaceSupport.XMLNS,
-                XIncProcConfiguration.XMLLANG_QNAME.getLocalPart());
-        if (langAttIdx >= 0)
-        {
-            this.currentLang = attributes.getValue(langAttIdx);
-            this.langDeque.addLast(this.currentLang);
-        }
-        else
-        {
-            this.currentLang = null;
-        }
+        this.currentBaseURI = Optional.fromNullable(foundURI);
     }
 
     public void updateContextWhenEndElement()
     {
-        if (currentBaseURI != null)
+        if (this.currentBaseURI.isPresent())
         {
-            removeBaseURIPath(currentBaseURI);
-            currentBaseURI = null;
+            removeBaseURIPath(this.currentBaseURI.get());
+            this.currentBaseURI = Optional.absent();
         }
     }
 
     public boolean isLanguageFixup()
     {
-        return configuration.isLanguageFixup();
+        return this.configuration.isLanguageFixup();
     }
 
     public boolean isBaseFixup()
     {
-        return configuration.isBaseUrisFixup();
+        return this.configuration.isBaseUrisFixup();
     }
 
     public URI getSourceURI()
     {
-        return sourceURI;
+        return this.sourceURI;
     }
 
     public void setSourceURI(final URI sourceURI)
@@ -147,7 +135,7 @@ public class XIncludeContext {
 
     public Exception getCurrentException()
     {
-        return currentException;
+        return this.currentException;
     }
 
     public void setCurrentException(final Exception currentException)
@@ -158,63 +146,54 @@ public class XIncludeContext {
     public void addInInclusionChain(final URI path, final String pointer)
             throws XIncludeFatalException
     {
-        final String xincludePath = path.toASCIIString() + ((pointer != null) ? ("#" + pointer) : "");
-        if (xincludeDeque.contains(xincludePath))
+        final String xincludePath = path.toASCIIString() + ((null != pointer) ? ('#' + pointer) : "");
+        if (this.xincludeDeque.contains(xincludePath))
         {
             throw new XIncludeFatalException("Inclusion Loop on path: " + xincludePath);
         }
-        xincludeDeque.addLast(xincludePath);
+        this.xincludeDeque.addLast(xincludePath);
     }
 
     public void removeFromInclusionChain()
     {
-        xincludeDeque.pollLast();
+        this.xincludeDeque.pollLast();
     }
 
     public URI getInitialBaseURI()
     {
-        return initialBaseURI;
+        return this.initialBaseURI;
     }
 
     public void setInitialBaseURI(final URI initialBaseURI)
     {
         this.initialBaseURI = initialBaseURI;
-        if (!this.basesURIDeque.isEmpty())
-        {
-            this.stackedBaseURI = XIncProcUtils.computeBase(getBaseURIPaths());
-        }
-        this.currentBaseURI = null;
+        this.currentBaseURI = Optional.absent();
         this.basesURIDeque.clear();
     }
 
     public void addBaseURIPath(final URI basePath)
     {
-        basesURIDeque.addLast(basePath);
+        this.basesURIDeque.addLast(basePath);
     }
 
     public List<URI> getBaseURIPaths()
     {
-        return new ArrayList<URI>(basesURIDeque);
+        return new ArrayList<URI>(this.basesURIDeque);
     }
 
     void removeBaseURIPath(final URI basePath)
     {
-        basesURIDeque.removeLastOccurrence(basePath);
+        this.basesURIDeque.removeLastOccurrence(basePath);
     }
 
     public URI getCurrentBaseURI()
     {
-        return currentBaseURI;
-    }
-
-    public URI getStackedBaseURI()
-    {
-        return stackedBaseURI;
+        return this.currentBaseURI.orNull();
     }
 
     public URI getHrefURI()
     {
-        return hrefURI;
+        return this.hrefURI;
     }
 
     public void setHrefURI(final URI hrefURI)
@@ -222,14 +201,9 @@ public class XIncludeContext {
         this.hrefURI = hrefURI;
     }
 
-    public String getCurrentLang()
-    {
-        return currentLang;
-    }
-
     public String getLanguage()
     {
-        return language;
+        return this.language;
     }
 
     public void setLanguage(final String language)
@@ -237,24 +211,48 @@ public class XIncludeContext {
         this.language = language;
     }
 
-    public XdmNode getSourceNode()
+    String getDocType()
     {
-        return sourceNode;
+        return this.docType.getDocTypeValue();
     }
 
-    public void setSourceNode(final XdmNode sourceNode)
+    void setDocType(final String name, final String publicId, final String systemId)
     {
-        this.sourceNode = sourceNode;
+        this.docType.setDoctype(name).setPublicId(publicId).setSystemId(systemId);
     }
 
-    public DocType getDocType()
+    void addAttributeDoctype(final String eName, final String aName, final String type, final String mode,
+                 final String value)
     {
-        return docType;
+        this.docType.addAttribute(eName, aName, type, mode, value);
+    }
+
+    void addElementDoctype(final String name, final String model)
+    {
+        this.docType.addElement(name, model);
+    }
+
+    void addExternalEntityDoctype(final String name, final String publicId, final String systemId)
+    {
+        this.docType.addExternalEntity(name, publicId, systemId);
+    }
+
+    void addInternalEntityDoctype(final String name, final String value)
+    {
+        this.docType.addInternalEntity(name, value);
+    }
+
+    void  addUnparsedEntityDoctype(final String name, final String publicId, final String systemId,
+                            final String notationName)
+            throws XIncludeFatalException
+    {
+        this.docType.addUnparsedEntity(name, publicId, systemId, notationName);
     }
 
     @Override
     public String toString()
     {
-        return "sourceURI:" + sourceURI + "\n,currentBase:" + currentBaseURI + ",hrefURI:" + hrefURI + "\n,stackedBase:" + stackedBaseURI + ",lang:" + getLanguage();
+        return "sourceURI:" + this.sourceURI + "\n,currentBase:" + this.currentBaseURI.get() + ",hrefURI:" + this.hrefURI
+                + "\n,lang:" + this.language;
     }
 }

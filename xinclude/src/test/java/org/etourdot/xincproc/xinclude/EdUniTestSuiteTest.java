@@ -19,9 +19,6 @@ package org.etourdot.xincproc.xinclude;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/**
- * @author Emmanuel Tourdot
- */
 public class EdUniTestSuiteTest extends XIncProcSuiteTest {
     @Ignore
     public void eduni_include_01() throws Exception

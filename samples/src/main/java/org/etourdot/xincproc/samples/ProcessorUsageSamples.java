@@ -68,9 +68,9 @@ public class ProcessorUsageSamples {
 
     private void xincProcSample() throws Exception
     {
-        final XIncProcEngine xIncProcEngine = new XIncProcEngine();
+        //final XIncProcEngine xIncProcEngine = XIncProcEngine.newXIncProcEngine();
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        xIncProcEngine.parse(getClass().getClassLoader().getResource("include.xml").toURI(), baos);
+        XIncProcEngine.parse(getClass().getClassLoader().getResource("include.xml").toURI(), baos);
         System.out.print(new String(baos.toByteArray()));
     }
 

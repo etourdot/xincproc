@@ -23,33 +23,19 @@ import org.etourdot.xincproc.xinclude.XIncProcEngine;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.xml.sax.InputSource;
 
-import javax.xml.transform.Result;
-import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.StringReader;
-import java.net.URI;
-import java.net.URISyntaxException;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 03/11/12
- * Time: 12:08
- */
 @RunWith(ConcordionRunner.class)
 @ExpectedToFail
 public class ApiTest {
     public String execute(String source) throws XIncludeFatalException, IOException
     {
-        final XIncProcEngine xIncProcEngine = new XIncProcEngine();
         final ByteArrayInputStream bais = new ByteArrayInputStream(source.getBytes());
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        xIncProcEngine.parse(bais, null, baos);
+        XIncProcEngine.parse(bais, null, baos);
         return new String(baos.toByteArray());
     }
 }

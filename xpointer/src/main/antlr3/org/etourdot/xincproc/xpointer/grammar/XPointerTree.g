@@ -9,7 +9,7 @@ options {
 }
 
 @header {
-    package org.etourdot.xincproc.xpointer;
+    package org.etourdot.xincproc.xpointer.grammar;
 
     import org.etourdot.xincproc.xpointer.model.*;
     import org.etourdot.xincproc.xpointer.exceptions.*;
@@ -30,7 +30,7 @@ pointer returns [Pointer xpointer]
 shorthand returns [ShortHand shortHand]
 	:	n=NCNAME
 	    {
-	        $shortHand = factory.createShortHand($n.text);
+	        $shortHand = PointerFactory.createShortHand($n.text);
 	    }
 	;
 
@@ -58,7 +58,7 @@ pointerpart
 pointerpart_element
     :   ^(ELEMENTSCHEME d1=elementschemedata?)
         {
-            ElementScheme elementScheme = factory.createElementScheme($d1.name, $d1.data);
+            ElementScheme elementScheme = PointerFactory.createElementScheme($d1.name, $d1.data);
             if (elementScheme != null) {
                 $schemebased::pointerParts.add(elementScheme);
              }
@@ -68,21 +68,21 @@ pointerpart_element
 pointerpart_xpath
     :   ^(XPATHSCHEME d2=xpathschemedata)
         {
-            $schemebased::pointerParts.add(factory.createXPathScheme($d2.xpathdatas));
+            $schemebased::pointerParts.add(PointerFactory.createXPathScheme($d2.xpathdatas));
         }
     ;
 
 pointerpart_xpointer
     :   ^(XPOINTERSCHEME d3=xpathschemedata)
         {
-            $schemebased::pointerParts.add(factory.createXPointerScheme($d3.xpathdatas));
+            $schemebased::pointerParts.add(PointerFactory.createXPointerScheme($d3.xpathdatas));
         }
     ;
 
 pointerpart_xmlns
     :   ^(XMLNSSCHEME d4=xmlnsschemedata)
         {
-            XmlNsScheme xmlnsScheme = factory.createXmlNsScheme($d4.prefix, $d4.namespace);
+            XmlNsScheme xmlnsScheme = PointerFactory.createXmlNsScheme($d4.prefix, $d4.namespace);
             if (xmlnsScheme != null)
             {
                 $schemebased::pointerParts.add(xmlnsScheme);

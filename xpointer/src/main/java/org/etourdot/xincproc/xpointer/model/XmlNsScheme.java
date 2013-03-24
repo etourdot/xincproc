@@ -19,12 +19,6 @@ package org.etourdot.xincproc.xpointer.model;
 
 import javax.xml.namespace.QName;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 21/09/12
- * Time: 23:05
- */
 public class XmlNsScheme extends DefaultScheme {
     private static final QName XMLNS_NAME = new QName("xmlns");
 
@@ -32,19 +26,19 @@ public class XmlNsScheme extends DefaultScheme {
 
     public XmlNsScheme(final QName qName)
     {
-        super(XMLNS_NAME);
+        super(XmlNsScheme.XMLNS_NAME);
         this.qName = qName;
     }
 
     public QName getQName()
     {
-        return qName;
+        return this.qName;
     }
 
     @Override
     public String toString()
     {
-        return XMLNS_NAME + "(" + qName + ")";
+        return XmlNsScheme.XMLNS_NAME + "(" + this.qName + ")";
     }
 }
 

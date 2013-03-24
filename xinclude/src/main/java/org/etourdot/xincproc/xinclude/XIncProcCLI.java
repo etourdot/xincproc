@@ -34,10 +34,10 @@ public class XIncProcCLI {
 
     private XIncProcCLI()
     {
-        options = new Options();
-        options.addOption("h", false, "Help");
+        this.options = new Options();
+        this.options.addOption("h", false, "Help");
         final Option output = OptionBuilder.hasArg().withArgName("file").withDescription("use output file").create("o");
-        options.addOption(output);
+        this.options.addOption(output);
     }
 
     private int execute(final String[] args, final InputStream stdin, final PrintStream stdout,
@@ -46,9 +46,9 @@ public class XIncProcCLI {
         final GnuParser parser = new GnuParser();
         try
         {
-            final CommandLine commandLine = parser.parse(options, args);
+            final CommandLine commandLine = parser.parse(this.options, args);
         }
-        catch (final ParseException ex)
+        catch (final ParseException ignored)
         {
             help(stderr);
             return 1;
@@ -62,7 +62,7 @@ public class XIncProcCLI {
         final PrintWriter printWriter = new PrintWriter(destination);
         try
         {
-            helpFormatter.printHelp(printWriter, helpFormatter.getWidth(), "java -jar xincproc.jar", null, options,
+            helpFormatter.printHelp(printWriter, helpFormatter.getWidth(), "java -jar xincproc.jar", null, this.options,
                     helpFormatter.getLeftPadding(), helpFormatter.getDescPadding(), null, true);
         }
         finally
@@ -72,7 +72,7 @@ public class XIncProcCLI {
         }
     }
 
-    public static void main(final String[] args)
+    public static void main(final String... args)
     {
         System.exit(new XIncProcCLI().execute(args, System.in, System.out, System.err));
     }

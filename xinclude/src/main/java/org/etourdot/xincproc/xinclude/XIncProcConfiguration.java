@@ -28,92 +28,64 @@ import javax.xml.transform.ErrorListener;
  * @author Emmanuel Tourdot
  */
 public class XIncProcConfiguration {
-    public static final String XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID
+    public static final String ALLOW_FIXUP_BASE_URIS
             = "http://etourdot.org/xml/features/xinclude/fixup-base-uris";
-    public static final String XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID
+    public static final String ALLOW_FIXUP_LANGUAGE
             = "http://etourdot.org/xml/features/xinclude/fixup-language";
     public static final String XINCLUDE_NAMESPACE_URI = "http://www.w3.org/2001/XInclude";
-    public static final String XSL_NAMESPACE_URI = "http://www.w3.org/1999/XSL/Transform";
-    public static final QName XINCLUDE_QNAME = new QName(XINCLUDE_NAMESPACE_URI, "include", "xi");
-    public static final QName FALLBACK_QNAME = new QName(XINCLUDE_NAMESPACE_URI, "fallback", "xi");
+    public static final QName XINCLUDE_QNAME = new QName(XIncProcConfiguration.XINCLUDE_NAMESPACE_URI, "include", "xi");
+    public static final QName FALLBACK_QNAME = new QName(XIncProcConfiguration.XINCLUDE_NAMESPACE_URI, "fallback", "xi");
     public static final QName XMLBASE_QNAME = new QName(NamespaceSupport.XMLNS, "base", "xml");
     public static final QName XMLLANG_QNAME = new QName(NamespaceSupport.XMLNS, "lang", "xml");
-    public static final QName ATT_PARSE = new QName("parse");
-    public static final QName ATT_XPOINTER = new QName("xpointer");
-    public static final QName ATT_ENCODING = new QName("encoding");
-    public static final QName ATT_HREF = new QName("href");
-    public static final QName ATT_ACCEPT = new QName("accept");
-    public static final QName ATT_ACCEPT_LANGUAGE = new QName("accept-language");
-    public static final String TEXT = "text";
-    public static final String XML = "xml";
 
     private boolean baseUrisFixup = true;
     private boolean languageFixup = true;
-    private String xincfactory;
     private final Processor processor;
-    private XPointerEngine xPointerEngine;
 
-    public XIncProcConfiguration()
+    private XIncProcConfiguration()
     {
         this.processor = new Processor(false);
     }
 
-    public XIncProcConfiguration(final Processor processor)
+    public static XIncProcConfiguration newXIncProcConfiguration()
     {
-        this.processor = processor;
+        return new XIncProcConfiguration();
     }
 
-    public XPointerEngine getXPointerEngine()
+    public XPointerEngine newXPointerEngine()
     {
-        if (xPointerEngine == null)
-        {
-            xPointerEngine = new XPointerEngine();
-        }
-        return xPointerEngine;
+        return new XPointerEngine(this.processor);
     }
 
     public void setConfigurationProperty(final String name, final Object value)
     {
-        if (XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID.equals(name))
+        if (XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS.equals(name))
         {
             if (value instanceof Boolean)
             {
-                baseUrisFixup = (Boolean) value;
+                this.baseUrisFixup = (Boolean) value;
             }
             else if (value instanceof String)
             {
-                baseUrisFixup = Boolean.getBoolean((String) value);
+                this.baseUrisFixup = Boolean.valueOf((String) value);
             }
         }
-        if (XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID.equals(name))
+        if (XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE.equals(name))
         {
             if (value instanceof Boolean)
             {
-                languageFixup = (Boolean) value;
+                this.languageFixup = (Boolean) value;
             }
             else if (value instanceof String)
             {
-                languageFixup = Boolean.getBoolean((String) value);
+                this.languageFixup = Boolean.valueOf((String) value);
             }
         }
-    }
-
-    public Object getConfigurationProperty(final String name)
-    {
-        if (XINCLUDE_FIXUP_BASE_URIS_FEATURE_ID.equals(name))
-        {
-            return baseUrisFixup;
-        }
-        if (XINCLUDE_FIXUP_LANGUAGE_FEATURE_ID.equals(name))
-        {
-            return languageFixup;
-        }
-        return null;
     }
 
     public void setErrorListener(final ErrorListener errorListener)
     {
-        getProcessor().getUnderlyingConfiguration().setErrorListener(errorListener);
+        this.processor.getUnderlyingConfiguration().setErrorListener(errorListener);
     }
 
     public boolean isBaseUrisFixup()
@@ -121,23 +93,13 @@ public class XIncProcConfiguration {
         return this.baseUrisFixup;
     }
 
-    public void setBaseUrisFixup(final boolean baseUrisFixup)
-    {
-        this.baseUrisFixup = baseUrisFixup;
-    }
-
     public boolean isLanguageFixup()
     {
         return this.languageFixup;
     }
 
-    public void setLanguageFixup(final boolean languageFixup)
-    {
-        this.languageFixup = languageFixup;
-    }
-
     public Processor getProcessor()
     {
-        return processor;
+        return this.processor;
     }
 }

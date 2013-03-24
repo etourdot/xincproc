@@ -20,9 +20,6 @@ import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/**
- * @author Emmanuel Tourdot
- */
 public class NistTestSuiteTest extends XIncProcSuiteTest {
     @Ignore
     public void nist_include_01() throws Exception

@@ -25,6 +25,7 @@ import net.sf.saxon.s9api.Processor;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
+import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,9 +36,6 @@ import java.nio.charset.Charset;
 
 import static org.junit.Assert.*;
 
-/**
- * @author Emmanuel Tourdot
- */
 public abstract class AbstractSuiteTest {
     static final Logger LOG = LoggerFactory.getLogger(AbstractSuiteTest.class);
     private Processor processor;
@@ -74,12 +72,11 @@ public abstract class AbstractSuiteTest {
                                final boolean fixupBase, final boolean fixupLang)
             throws Exception
     {
-        final XIncProcEngine engine = new XIncProcEngine();
-        engine.getConfiguration().setBaseUrisFixup(fixupBase);
-        engine.getConfiguration().setLanguageFixup(fixupLang);
+        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
+        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final FileInputStream source = new FileInputStream(urlTest.getPath());
-        engine.parse(source, urlTest.toExternalForm(), output);
+        XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
         final String resultat = output.toString("UTF-8");
         //final Diff diff = new Diff(Resources.toString(urlResult, Charsets.UTF_8),resultat);
         final Diff diff = XMLUnit.compareXML(Resources.toString(urlResult, Charsets.UTF_8), resultat);
@@ -98,19 +95,18 @@ public abstract class AbstractSuiteTest {
                                  final boolean fixupBase, final boolean fixupLang)
             throws Exception
     {
-        final XIncProcEngine engine = new XIncProcEngine();
-        engine.getConfiguration().setBaseUrisFixup(fixupBase);
-        engine.getConfiguration().setLanguageFixup(fixupLang);
+        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
+        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final FileInputStream source = new FileInputStream(urlTest.getPath());
         try
         {
-            engine.parse(source, urlTest.toExternalForm(), output);
+            XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
             LOG.debug("Result:{}", new String(output.toByteArray(), "UTF-8"));
         }
         catch (Exception e)
         {
-            final Class testedClass = (e.getCause() == null) ? e.getClass() : e.getCause().getClass();
+            final Class testedClass = (null == e.getCause()) ? e.getClass() : e.getCause().getClass();
             assertTrue(exception.isAssignableFrom(testedClass));
             return;
         }
@@ -125,9 +121,8 @@ public abstract class AbstractSuiteTest {
             throws IOException
     {
         final Result result = new Result();
-        final XIncProcEngine engine = new XIncProcEngine();
-        engine.getConfiguration().setBaseUrisFixup(true);
-        engine.getConfiguration().setLanguageFixup(true);
+        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, true);
+        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, true);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final URL urlInput = getClass().getClassLoader().getResource("XIncl20060927/" + inputHref);
         final FileInputStream source = new FileInputStream(urlInput.getPath());
@@ -135,7 +130,7 @@ public abstract class AbstractSuiteTest {
         {
             try
             {
-                engine.parse(source, urlInput.toExternalForm(), output);
+                XIncProcEngine.parse(source, urlInput.toExternalForm(), output);
                 final URL urlTest = getClass().getClassLoader().getResource("XIncl20060927/" + outputHref);
                 final String expected = Resources.toString(urlTest, Charsets.UTF_8);
                 final Diff diff = XMLUnit.compareXML(expected, output.toString("UTF-8"));
@@ -145,7 +140,7 @@ public abstract class AbstractSuiteTest {
             }
             catch (Exception e)
             {
-                if (e.getCause() != null)
+                if (null != e.getCause())
                 {
                     result.exception = e.getCause().getMessage();
                 }
@@ -160,13 +155,13 @@ public abstract class AbstractSuiteTest {
         {
             try
             {
-                engine.parse(source, urlInput.toExternalForm(), output);
+                XIncProcEngine.parse(source, urlInput.toExternalForm(), output);
                 result.output = new String(output.toByteArray());
                 result.result = "success";
             }
             catch (Exception e)
             {
-                if (e.getCause() != null)
+                if (null != e.getCause())
                 {
                     result.exception = e.getCause().getMessage();
                 }

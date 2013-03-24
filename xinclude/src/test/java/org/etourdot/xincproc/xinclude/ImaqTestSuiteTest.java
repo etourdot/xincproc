@@ -20,9 +20,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-/**
- * @author Emmanuel Tourdot
- */
 public class ImaqTestSuiteTest extends XIncProcSuiteTest {
     @Test
     public void imaq_include_xml_01() throws Exception

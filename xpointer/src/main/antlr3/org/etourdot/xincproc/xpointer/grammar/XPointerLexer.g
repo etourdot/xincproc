@@ -6,7 +6,7 @@ options {
 }
 
 @header {
-    package org.etourdot.xincproc.xpointer;
+    package org.etourdot.xincproc.xpointer.grammar;
 }
 
 ESCCIRC     :   '^^';

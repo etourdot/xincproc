@@ -17,37 +17,32 @@
 
 package org.etourdot.xincproc.xpointer.model;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 21/09/12
- * Time: 23:11
- */
 public class Pointer {
-    private final ShortHand shortHand;
+    private final Optional<ShortHand> shortHand;
     private ImmutableList<PointerPart> schemeBased;
 
     public Pointer()
     {
-        this.shortHand = null;
-        this.schemeBased = new ImmutableList.Builder<PointerPart>().build();
+        this.shortHand = Optional.absent();
+        this.schemeBased = ImmutableList.of();
     }
 
     public Pointer(final ShortHand shortHand)
     {
-        this.shortHand = shortHand;
-        this.schemeBased = new ImmutableList.Builder<PointerPart>().build();
+        this.shortHand = Optional.fromNullable(shortHand);
+        this.schemeBased = ImmutableList.of();
     }
 
-    public Pointer(final List<PointerPart> schemeBased)
+    public Pointer(final Iterable<PointerPart> schemeBased)
     {
-        this.shortHand = null;
+        this.shortHand = Optional.absent();
         final ImmutableList.Builder<PointerPart> builder = new ImmutableList.Builder<PointerPart>();
-        if (schemeBased != null)
+        if (null != schemeBased)
         {
             builder.addAll(schemeBased);
         }
@@ -56,40 +51,40 @@ public class Pointer {
 
     public void addPointerPart(final PointerPart pointerPart)
     {
-        this.schemeBased = new ImmutableList.Builder<PointerPart>().addAll(schemeBased).add(pointerPart).build();
+        this.schemeBased = new ImmutableList.Builder<PointerPart>().addAll(this.schemeBased).add(pointerPart).build();
     }
 
-    public boolean isShortHand()
+    public boolean isShortHandPresent()
     {
-        return shortHand != null;
+        return this.shortHand.isPresent();
     }
 
-    public ShortHand getShortHand()
+    public PointerPart getShortHand()
     {
-        return shortHand;
+        return this.shortHand.get();
     }
 
     public boolean isSchemeBased()
     {
-        return !schemeBased.isEmpty();
+        return !this.schemeBased.isEmpty();
     }
 
     public ImmutableList<PointerPart> getSchemeBased()
     {
-        return schemeBased;
+        return new ImmutableList.Builder().addAll(this.schemeBased).build();
     }
 
     @Override
     public String toString()
     {
         final StringBuilder builder = new StringBuilder();
-        if (isShortHand())
+        if (isShortHandPresent())
         {
-            builder.append(getShortHand().toString());
+            builder.append(this.shortHand.get().toString());
         }
         else
         {
-            for (final PointerPart part : getSchemeBased())
+            for (final PointerPart part : this.schemeBased)
             {
                 builder.append(part.toString());
             }

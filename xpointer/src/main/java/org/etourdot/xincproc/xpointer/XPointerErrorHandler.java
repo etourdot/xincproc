@@ -18,11 +18,15 @@
 package org.etourdot.xincproc.xpointer;
 
 /**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 14/11/12
- * Time: 21:25
+ * The interface XPointer error handler.
+ * This interface could be used to build handler that will
+ * trap errors from XPointer resolution.
  */
 public interface XPointerErrorHandler {
+    /**
+     * Reporting an error.
+     *
+     * @param error the error to report
+     */
     void reportError(final String error);
 }

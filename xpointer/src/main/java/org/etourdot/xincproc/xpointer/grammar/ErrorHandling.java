@@ -15,30 +15,10 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.etourdot.xincproc.xpointer;
+package org.etourdot.xincproc.xpointer.grammar;
 
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.Lexer;
-import org.antlr.runtime.RecognizerSharedState;
+import org.etourdot.xincproc.xpointer.XPointerErrorHandler;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 22/09/12
- * Time: 15:03
- */
-public abstract class AbstractXPointerLexer extends Lexer {
-    AbstractXPointerLexer()
-    {
-    }
-
-    public AbstractXPointerLexer(final CharStream input)
-    {
-        this(input, new RecognizerSharedState());
-    }
-
-    AbstractXPointerLexer(final CharStream input, final RecognizerSharedState state)
-    {
-        super(input, state);
-    }
+public interface ErrorHandling {
+    void setErrorHandler(XPointerErrorHandler xPointerErrorHandler);
 }

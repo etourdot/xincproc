@@ -15,50 +15,46 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.etourdot.xincproc.xpointer;
+package org.etourdot.xincproc.xpointer.grammar;
 
 import org.antlr.runtime.*;
+import org.etourdot.xincproc.xpointer.XPointerErrorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 22/09/12
- * Time: 15:02
- */
-public abstract class AbstractXPointerParser extends Parser {
+abstract class AbstractXPointerParser extends Parser implements ErrorHandling {
     protected static final Logger log = LoggerFactory.getLogger(AbstractXPointerParser.class);
     private XPointerErrorHandler xPointerErrorHandler;
 
-    public AbstractXPointerParser(final TokenStream input)
+    AbstractXPointerParser(final TokenStream input)
     {
         super(input);
     }
 
-    public AbstractXPointerParser(final TokenStream input, final RecognizerSharedState state)
+    AbstractXPointerParser(final TokenStream input, final RecognizerSharedState state)
     {
         super(input, state);
     }
 
+    @Override
     public void setErrorHandler(final XPointerErrorHandler xPointerErrorHandler)
     {
         this.xPointerErrorHandler = xPointerErrorHandler;
     }
 
-    protected void reportOtherSchemeError(final RecognitionException re)
+    void reportOtherSchemeError(final RecognitionException re)
     {
         if (re instanceof MismatchedTokenException)
         {
-            emitErrorMessage("Warning: unknown scheme '" + ((MismatchedTokenException) re).token.getText() + "'");
+            emitErrorMessage("Warning: unknown scheme '" + ((MismatchedTokenException) re).token.getText() + '\'');
         }
     }
 
-    protected void reportElementSchemeError(final RecognitionException re)
+    void reportElementSchemeError(final RecognitionException re)
     {
         if (re instanceof NoViableAltException)
         {
-            emitErrorMessage("Warning: unknown element scheme data '" + ((NoViableAltException) re).token.getText() + "'");
+            emitErrorMessage("Warning: unknown element scheme data '" + ((NoViableAltException) re).token.getText() + '\'');
         }
     }
 
@@ -66,13 +62,13 @@ public abstract class AbstractXPointerParser extends Parser {
     public void emitErrorMessage(final String msg)
     {
         log.debug("emitErrorMessage '{}'", msg);
-        if (xPointerErrorHandler == null)
+        if (null == this.xPointerErrorHandler)
         {
             super.emitErrorMessage(msg);
         }
         else
         {
-            xPointerErrorHandler.reportError(msg);
+            this.xPointerErrorHandler.reportError(msg);
         }
     }
 

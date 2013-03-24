@@ -44,52 +44,52 @@ class XIncludeAttributes {
     private Optional<String> acceptLanguage;
     private Optional<URI> base;
 
-    public XIncludeAttributes(Attributes attributes)
+    XIncludeAttributes(final Attributes attributes)
             throws XIncludeFatalException, XIncludeResourceException
     {
         fillAttributes(attributes);
-        checkAttributes();
+        checkingAttributes();
     }
 
-    private void checkAttributes() throws XIncludeFatalException, XIncludeResourceException
+    private void checkingAttributes() throws XIncludeFatalException, XIncludeResourceException
     {
-        if (!href.isPresent())
-        {
-            if (parse.isPresent() && isXmlParse() && Strings.isNullOrEmpty(getXPointer()))
-            {
-                throw new XIncludeFatalException("If the href attribute is absent when parse=\"xml\", the xpointer attribute must be present.");
-            }
-        }
-        else
+        if (this.href.isPresent())
         {
             if (getHref().toASCIIString().contains("#"))
             {
                 throw new XIncludeFatalException("Fragment identifiers must not be used.");
             }
         }
+        else
+        {
+            if (this.parse.isPresent() && isXmlParse() && Strings.isNullOrEmpty(getXPointer()))
+            {
+                throw new XIncludeFatalException("If the href attribute is absent when parse=\"xml\", the xpointer attribute must be present.");
+            }
+        }
         if (isTextParse())
         {
-            if (xpointer.isPresent())
+            if (this.xpointer.isPresent())
             {
                 throw new XIncludeFatalException("The xpointer attribute must not be present when parse=\"text\"");
             }
             try
             {
-                if (encoding.isPresent())
+                if (this.encoding.isPresent())
                 {
                     Charset.forName(getEncoding());
                 }
             }
-            catch (final Exception e)
+            catch (final Exception ignored)
             {
                 throw new XIncludeResourceException("Encoding attribute should be a valid encoding name");
             }
         }
-        if (accept.isPresent() && checkVal(getAccept()))
+        if (this.accept.isPresent() && XIncludeAttributes.checkVal(getAccept()))
         {
             throw new XIncludeFatalException("Attribute \"Accept\" containing characters outside the range #x20 through #x7E");
         }
-        if (acceptLanguage.isPresent() && checkVal(getAcceptLanguage()))
+        if (this.acceptLanguage.isPresent() && XIncludeAttributes.checkVal(getAcceptLanguage()))
         {
             throw new XIncludeFatalException("Attribute \"AcceptLanguage\" containing characters outside the range #x20 through #x7E");
         }
@@ -99,9 +99,9 @@ class XIncludeAttributes {
     private static boolean checkVal(final String val)
     {
         final byte[] bytes = val.getBytes();
-        for (byte aByte : bytes)
+        for (final byte aByte : bytes)
         {
-            if (aByte < 32 || aByte > 126)
+            if ((32 > aByte) || (126 < aByte))
             {
                 return true;
             }
@@ -109,47 +109,47 @@ class XIncludeAttributes {
         return false;
     }
 
-    private void fillAttributes(Attributes attributes) throws XIncludeFatalException
+    private void fillAttributes(final Attributes attributes) throws XIncludeFatalException
     {
-        final Optional<String> hrefAtt = Optional.fromNullable(attributes.getValue(XIncProcConfiguration.ATT_HREF.getLocalPart()));
+        final Optional<String> hrefAtt = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_HREF.getLocalPart()));
         try
         {
             if (hrefAtt.isPresent() && !Strings.isNullOrEmpty(hrefAtt.get()))
             {
-                href = Optional.of(new URI(hrefAtt.get()));
+                this.href = Optional.of(new URI(hrefAtt.get()));
             }
             else
             {
-                href = Optional.absent();
+                this.href = Optional.absent();
             }
         }
-        catch (URISyntaxException e)
+        catch (URISyntaxException ignored)
         {
             throw new XIncludeFatalException("Href must be a valid URI");
         }
-        parse = Optional.fromNullable(attributes.getValue(XIncProcConfiguration.ATT_PARSE.getLocalPart()));
-        if (parse.isPresent() && !validParse.contains(parse.get()))
+        this.parse = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_PARSE.getLocalPart()));
+        if (this.parse.isPresent() && !XIncludeAttributes.VALID_PARSE.contains(this.parse.get()))
         {
             throw new XIncludeFatalException("Parse value must be \"xml\" or \"text\".");
         }
-        xpointer = Optional.fromNullable(attributes.getValue(XIncProcConfiguration.ATT_XPOINTER.getLocalPart()));
-        encoding = Optional.fromNullable(attributes.getValue(XIncProcConfiguration.ATT_ENCODING.getLocalPart()));
-        accept = Optional.fromNullable(attributes.getValue(XIncProcConfiguration.ATT_ACCEPT.getLocalPart()));
-        acceptLanguage = Optional.fromNullable(attributes.getValue(XIncProcConfiguration.ATT_ACCEPT_LANGUAGE.getLocalPart()));
+        this.xpointer = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_XPOINTER.getLocalPart()));
+        this.encoding = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_ENCODING.getLocalPart()));
+        this.accept = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_ACCEPT.getLocalPart()));
+        this.acceptLanguage = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_ACCEPT_LANGUAGE.getLocalPart()));
         final Optional<String> baseAtt = Optional.fromNullable(attributes.getValue(XIncProcConfiguration.XMLBASE_QNAME.getNamespaceURI()
                 , XIncProcConfiguration.XMLBASE_QNAME.getLocalPart()));
         try
         {
             if (baseAtt.isPresent())
             {
-                base = Optional.of(new URI(baseAtt.get()));
+                this.base = Optional.of(new URI(baseAtt.get()));
             }
             else
             {
-                base = Optional.absent();
+                this.base = Optional.absent();
             }
         }
-        catch (URISyntaxException e)
+        catch (URISyntaxException ignored)
         {
             throw new XIncludeFatalException("Base must be a valid URI");
         }
@@ -157,78 +157,78 @@ class XIncludeAttributes {
 
     public String getAccept()
     {
-        return accept.orNull();
+        return this.accept.orNull();
     }
 
     public boolean isAcceptPresent()
     {
-        return accept.isPresent();
+        return this.accept.isPresent();
     }
 
     public String getAcceptLanguage()
     {
-        return acceptLanguage.orNull();
+        return this.acceptLanguage.orNull();
     }
 
     public boolean isAcceptLanguagePresent()
     {
-        return acceptLanguage.isPresent();
+        return this.acceptLanguage.isPresent();
     }
 
     public String getEncoding()
     {
-        return encoding.orNull();
+        return this.encoding.orNull();
     }
 
     public boolean isEncodingPresent()
     {
-        return encoding.isPresent();
+        return this.encoding.isPresent();
     }
 
     public URI getHref()
     {
-        return href.orNull();
+        return this.href.orNull();
     }
 
     public boolean isHrefPresent()
     {
-        return href.isPresent();
+        return this.href.isPresent();
     }
 
     String getParse()
     {
-        return parse.orNull();
+        return this.parse.orNull();
     }
 
     public boolean isXmlParse()
     {
-        return !parse.isPresent() || XIncProcConfiguration.XML.equals(getParse());
+        return !this.parse.isPresent() || XIncludeConstants.XML.equals(getParse());
     }
 
     boolean isTextParse()
     {
-        return parse.isPresent() && XIncProcConfiguration.TEXT.equals(getParse());
+        return this.parse.isPresent() && XIncludeConstants.TEXT.equals(getParse());
     }
 
     public String getXPointer()
     {
-        return xpointer.orNull();
+        return this.xpointer.orNull();
     }
 
     public boolean isXPointerPresent()
     {
-        return xpointer.isPresent();
+        return this.xpointer.isPresent();
     }
 
     public URI getBase()
     {
-        return base.orNull();
+        return this.base.orNull();
     }
 
     public boolean isBasePresent()
     {
-        return base.isPresent();
+        return this.base.isPresent();
     }
 
-    private static final ImmutableList<String> validParse = ImmutableList.of(XIncProcConfiguration.TEXT, XIncProcConfiguration.XML);
+    private static final ImmutableList<String> VALID_PARSE = ImmutableList.of(XIncludeConstants.TEXT, XIncludeConstants.XML);
 }

@@ -19,14 +19,8 @@ package org.etourdot.xincproc.xpointer.model;
 
 import javax.xml.namespace.QName;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 22/09/12
- * Time: 11:02
- */
 abstract class DefaultScheme implements PointerPart {
-    final static String ID_SEARCH_EXPR = "(//*[@id='#ID#']|id('#ID#'))";
+    static final String ID_SEARCH_EXPR = "(//*[@id='#ID#']|id('#ID#'))";
 
     String expression;
     private final QName schemeName;
@@ -34,15 +28,17 @@ abstract class DefaultScheme implements PointerPart {
     DefaultScheme(final QName schemeName)
     {
         this.schemeName = schemeName;
+        this.expression = "";
     }
 
     public QName getSchemeName()
     {
-        return schemeName;
+        return this.schemeName;
     }
 
+    @Override
     public String getExpression()
     {
-        return expression;
+        return this.expression;
     }
 }

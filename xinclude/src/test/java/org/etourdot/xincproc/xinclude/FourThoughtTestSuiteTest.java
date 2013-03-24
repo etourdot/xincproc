@@ -16,9 +16,6 @@
  */
 package org.etourdot.xincproc.xinclude;
 
-/**
- * @author Emmanuel Tourdot
- */
 public class FourThoughtTestSuiteTest extends XIncProcSuiteTest {
     /*
     @Test

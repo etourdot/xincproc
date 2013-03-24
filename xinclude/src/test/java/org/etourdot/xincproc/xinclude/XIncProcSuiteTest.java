@@ -36,9 +36,6 @@ import java.nio.charset.Charset;
 import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertTrue;
 
-/**
- * @author Emmanuel Tourdot
- */
 public abstract class XIncProcSuiteTest {
     static final Logger LOG = LoggerFactory.getLogger(XIncProcSuiteTest.class);
     private Processor processor;
@@ -75,12 +72,11 @@ public abstract class XIncProcSuiteTest {
                                final boolean fixupBase, final boolean fixupLang)
             throws Exception
     {
-        final XIncProcEngine engine = new XIncProcEngine();
-        engine.getConfiguration().setBaseUrisFixup(fixupBase);
-        engine.getConfiguration().setLanguageFixup(fixupLang);
+        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
+        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final FileInputStream source = new FileInputStream(urlTest.getPath());
-        engine.parse(source, urlTest.toExternalForm(), output);
+        XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
         final String resultat = output.toString("UTF-8");
         LOG.debug("resultat:{}", resultat);
         final Diff diff = XMLUnit.compareXML(XIncProcUtils.readTextURI(urlResult.toURI(), null, null, null), resultat);
@@ -99,19 +95,18 @@ public abstract class XIncProcSuiteTest {
                                  final boolean fixupBase, final boolean fixupLang)
             throws Exception
     {
-        final XIncProcEngine engine = new XIncProcEngine();
-        engine.getConfiguration().setBaseUrisFixup(fixupBase);
-        engine.getConfiguration().setLanguageFixup(fixupLang);
+        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
+        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final FileInputStream source = new FileInputStream(urlTest.getPath());
         try
         {
-            engine.parse(source, urlTest.toURI().getPath(), output);
+            XIncProcEngine.parse(source, urlTest.toURI().getPath(), output);
             LOG.debug("Result:{}", new String(output.toByteArray(), "UTF-8"));
         }
         catch (Exception e)
         {
-            final Class testedClass = (e.getCause() == null) ? e.getClass() : e.getCause().getClass();
+            final Class testedClass = (null == e.getCause()) ? e.getClass() : e.getCause().getClass();
             assertTrue(exception.isAssignableFrom(testedClass));
             return;
         }

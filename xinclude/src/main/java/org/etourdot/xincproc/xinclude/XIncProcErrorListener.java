@@ -15,7 +15,7 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.etourdot.xincproc.xinclude.sax;
+package org.etourdot.xincproc.xinclude;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,21 +33,21 @@ public class XIncProcErrorListener implements ErrorListener {
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcErrorListener.class);
 
     @Override
-    public void warning(TransformerException exception)
+    public void warning(final TransformerException exception)
             throws TransformerException
     {
         LOG.debug("warning");
     }
 
     @Override
-    public void error(TransformerException exception)
+    public void error(final TransformerException exception)
             throws TransformerException
     {
         LOG.debug("error");
     }
 
     @Override
-    public void fatalError(TransformerException exception)
+    public void fatalError(final TransformerException exception)
             throws TransformerException
     {
         LOG.debug("fatalError");

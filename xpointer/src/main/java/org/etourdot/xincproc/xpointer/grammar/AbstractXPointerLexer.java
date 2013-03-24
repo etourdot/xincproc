@@ -15,9 +15,24 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.etourdot.xincproc.xpointer.exceptions;
+package org.etourdot.xincproc.xpointer.grammar;
 
-import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.Lexer;
+import org.antlr.runtime.RecognizerSharedState;
 
-public class XPathSchemeException extends RecognitionException {
+abstract class AbstractXPointerLexer extends Lexer {
+    AbstractXPointerLexer()
+    {
+    }
+
+    AbstractXPointerLexer(final CharStream input)
+    {
+        this(input, new RecognizerSharedState());
+    }
+
+    AbstractXPointerLexer(final CharStream input, final RecognizerSharedState state)
+    {
+        super(input, state);
+    }
 }

@@ -17,7 +17,6 @@
 
 package org.etourdot.xincproc.xinclude.sax;
 
-import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException;
 import org.junit.Test;
 import org.xml.sax.helpers.AttributesImpl;
@@ -36,17 +35,17 @@ public class XIncludeAttributesTest {
     public void testXIncludeAttributesOk() throws Exception
     {
         AttributesImpl attributes = new AttributesImpl();
-        attributes.addAttribute(XIncProcConfiguration.ATT_HREF.getNamespaceURI(), XIncProcConfiguration.ATT_HREF.getLocalPart(),
-                XIncProcConfiguration.ATT_HREF.getLocalPart(), "CDATA", "http://www.google.com");
-        attributes.addAttribute(XIncProcConfiguration.ATT_PARSE.getNamespaceURI(), XIncProcConfiguration.ATT_PARSE.getLocalPart(),
-                XIncProcConfiguration.ATT_PARSE.getLocalPart(), "CDATA", "text");
+        attributes.addAttribute(XIncludeConstants.ATT_HREF.getNamespaceURI(), XIncludeConstants.ATT_HREF.getLocalPart(),
+                XIncludeConstants.ATT_HREF.getLocalPart(), "CDATA", "http://www.google.com");
+        attributes.addAttribute(XIncludeConstants.ATT_PARSE.getNamespaceURI(), XIncludeConstants.ATT_PARSE.getLocalPart(),
+                XIncludeConstants.ATT_PARSE.getLocalPart(), "CDATA", "text");
         XIncludeAttributes xIncludeAttributes = new XIncludeAttributes(attributes);
         assertNotNull(xIncludeAttributes);
         attributes = new AttributesImpl();
-        attributes.addAttribute(XIncProcConfiguration.ATT_HREF.getNamespaceURI(), XIncProcConfiguration.ATT_HREF.getLocalPart(),
-                XIncProcConfiguration.ATT_HREF.getLocalPart(), "CDATA", "http://www.google.com");
-        attributes.addAttribute(XIncProcConfiguration.ATT_PARSE.getNamespaceURI(), XIncProcConfiguration.ATT_PARSE.getLocalPart(),
-                XIncProcConfiguration.ATT_PARSE.getLocalPart(), "CDATA", "xml");
+        attributes.addAttribute(XIncludeConstants.ATT_HREF.getNamespaceURI(), XIncludeConstants.ATT_HREF.getLocalPart(),
+                XIncludeConstants.ATT_HREF.getLocalPart(), "CDATA", "http://www.google.com");
+        attributes.addAttribute(XIncludeConstants.ATT_PARSE.getNamespaceURI(), XIncludeConstants.ATT_PARSE.getLocalPart(),
+                XIncludeConstants.ATT_PARSE.getLocalPart(), "CDATA", "xml");
         xIncludeAttributes = new XIncludeAttributes(attributes);
         assertNotNull(xIncludeAttributes);
     }
@@ -55,10 +54,10 @@ public class XIncludeAttributesTest {
     public void testResourceException() throws Exception
     {
         AttributesImpl attributes = new AttributesImpl();
-        attributes.addAttribute(XIncProcConfiguration.ATT_ENCODING.getNamespaceURI(), XIncProcConfiguration.ATT_ENCODING.getLocalPart(),
-                XIncProcConfiguration.ATT_ENCODING.getLocalPart(), "CDATA", "utf-9");
-        attributes.addAttribute(XIncProcConfiguration.ATT_PARSE.getNamespaceURI(), XIncProcConfiguration.ATT_PARSE.getLocalPart(),
-                XIncProcConfiguration.ATT_PARSE.getLocalPart(), "CDATA", "text");
+        attributes.addAttribute(XIncludeConstants.ATT_ENCODING.getNamespaceURI(), XIncludeConstants.ATT_ENCODING.getLocalPart(),
+                XIncludeConstants.ATT_ENCODING.getLocalPart(), "CDATA", "utf-9");
+        attributes.addAttribute(XIncludeConstants.ATT_PARSE.getNamespaceURI(), XIncludeConstants.ATT_PARSE.getLocalPart(),
+                XIncludeConstants.ATT_PARSE.getLocalPart(), "CDATA", "text");
         XIncludeAttributes xIncludeAttributes = new XIncludeAttributes(attributes);
     }
 }

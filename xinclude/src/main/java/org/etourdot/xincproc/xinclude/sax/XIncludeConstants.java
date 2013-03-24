@@ -15,9 +15,27 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.etourdot.xincproc.xpointer.exceptions;
+package org.etourdot.xincproc.xinclude.sax;
 
-import org.antlr.runtime.RecognitionException;
+import javax.xml.namespace.QName;
 
-public class XPathSchemeException extends RecognitionException {
+/**
+ * Created with IntelliJ IDEA.
+ * User: etourdot
+ * Date: 24/03/13
+ * Time: 17:41
+ */
+final class XIncludeConstants {
+    static final QName ATT_PARSE = new QName("parse");
+    static final QName ATT_XPOINTER = new QName("xpointer");
+    static final QName ATT_ENCODING = new QName("encoding");
+    static final QName ATT_HREF = new QName("href");
+    static final QName ATT_ACCEPT = new QName("accept");
+    static final QName ATT_ACCEPT_LANGUAGE = new QName("accept-language");
+    static final String TEXT = "text";
+    static final String XML = "xml";
+
+    private XIncludeConstants()
+    {
+    }
 }
