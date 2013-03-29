@@ -52,7 +52,6 @@ public class XPointerEngine {
     {
         this(new Processor(false));
     }
-
     /**
      * Instantiates a new XPointerEngine
      *
@@ -127,6 +126,16 @@ public class XPointerEngine {
     }
 
     /**
+     * Getting the error handler
+     *
+     * @return the current error handler or null if absent
+     */
+    public XPointerErrorHandler getXPointerErrorHandler()
+    {
+        return xPointerErrorHandler;
+    }
+
+    /**
      * Setting an error handler to capture parsing errors or warnings
      *
      * @param xPointerErrorHandler a XPointerErrorHandler
@@ -139,25 +148,13 @@ public class XPointerEngine {
     }
 
     /**
-     * Getting the error handler
-     *
-     * @return the current error handler or null if absent
-     */
-    public XPointerErrorHandler getXPointerErrorHandler()
-    {
-        return xPointerErrorHandler;
-    }
-
-    /**
      * Execute xpointer expression on xml source returning a xml string
      *
      * @param pointerStr xpointer expression
      * @param source xml source
      * @return serialized xml result or an empty string (not null)
-     * @throws XPointerException the x pointer exception
      */
     public String execute(final String pointerStr, final Source source)
-            throws XPointerException
     {
         try
         {
@@ -169,13 +166,14 @@ public class XPointerEngine {
         }
         catch (final XPointerException e)
         {
+            final String message = e.getLocalizedMessage();
             if (xPointerErrorHandler != null)
             {
-                xPointerErrorHandler.reportError(e.getLocalizedMessage());
+                xPointerErrorHandler.reportError(message);
             }
             else
             {
-                LOG.error(e.getLocalizedMessage(), e);
+                LOG.error(message, e);
             }
         }
         return "";
@@ -183,7 +181,7 @@ public class XPointerEngine {
 
     /**
      * Execute a xpointer expression on xml source.
-     * The result is send to a Saxon Destination {@link http://www.saxonica.com/documentation/javadoc/net/sf/saxon/s9api/Destination.html}
+     * The result is send to a Saxon Destination {@see <a href="http://www.saxonica.com/documentation/javadoc/net/sf/saxon/s9api/Destination.html">Destination</a>}
      *
      * @param pointerStr xpointer expression
      * @param source xml source
@@ -480,7 +478,7 @@ public class XPointerEngine {
         final CommonTokenStream commonTokenStream = new CommonTokenStream(xPointerLexer);
         final XPointerParser xPointerParser = new XPointerParser(commonTokenStream);
         xPointerParser.setErrorHandler(xPointerErrorHandler);
-        XPointerParser.pointer_return result = null;
+        final XPointerParser.pointer_return result;
         try
         {
             LOG.trace("-> start parser analyse");
@@ -518,6 +516,7 @@ public class XPointerEngine {
         {
         }
     }
+
     private static final Logger LOG = LoggerFactory.getLogger(XPointerEngine.class);
     private static final String FIND_QUERY_START =
             " declare variable $ctxbase external;                                               " +

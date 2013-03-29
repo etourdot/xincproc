@@ -26,6 +26,11 @@ import org.etourdot.xincproc.xpointer.XPointerErrorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Abstract parent class for grammar tree parser
+ * This internal is useful to intercept actions in main tree parser class
+ * generated via Antlr
+ */
 class AbstractXPointerTree extends TreeParser implements ErrorHandling {
     static final Logger LOG = LoggerFactory.getLogger(AbstractXPointerTree.class);
     private XPointerErrorHandler xPointerErrorHandler;

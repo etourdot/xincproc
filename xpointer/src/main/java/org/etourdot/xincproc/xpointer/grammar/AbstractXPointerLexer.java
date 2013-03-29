@@ -21,6 +21,11 @@ import org.antlr.runtime.CharStream;
 import org.antlr.runtime.Lexer;
 import org.antlr.runtime.RecognizerSharedState;
 
+/**
+ * Abstract parent class for grammar lexer
+ * This internal is useful to intercept actions in main lexer class
+ * generated via Antlr
+ */
 abstract class AbstractXPointerLexer extends Lexer {
     AbstractXPointerLexer()
     {

@@ -22,6 +22,11 @@ import org.etourdot.xincproc.xpointer.XPointerErrorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Abstract parent class for grammar parser
+ * This internal is useful to intercept actions in main parser class
+ * generated via Antlr
+ */
 abstract class AbstractXPointerParser extends Parser implements ErrorHandling {
     protected static final Logger log = LoggerFactory.getLogger(AbstractXPointerParser.class);
     private XPointerErrorHandler xPointerErrorHandler;

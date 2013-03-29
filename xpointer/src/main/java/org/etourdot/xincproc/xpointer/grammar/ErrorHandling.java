@@ -19,6 +19,14 @@ package org.etourdot.xincproc.xpointer.grammar;
 
 import org.etourdot.xincproc.xpointer.XPointerErrorHandler;
 
+/**
+ * The interface ErrorHandling.
+ */
 public interface ErrorHandling {
+    /**
+     * Sets error handler.
+     *
+     * @param xPointerErrorHandler the handler
+     */
     void setErrorHandler(XPointerErrorHandler xPointerErrorHandler);
 }
