@@ -1,6 +1,6 @@
 /*
  * This file is part of the XIncProc framework.
- * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ * Copyright (C) 2011 - 2013 Emmanuel Tourdot
  *
  * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
  * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -24,10 +24,7 @@ import javax.xml.transform.ErrorListener;
 import javax.xml.transform.TransformerException;
 
 /**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 17/01/13
- * Time: 09:42
+ * XIncProcErrorListener.
  */
 public class XIncProcErrorListener implements ErrorListener {
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcErrorListener.class);

@@ -1,6 +1,6 @@
 /*
  * This file is part of the XIncProc framework.
- * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ * Copyright (C) 2011 - 2013 Emmanuel Tourdot
  *
  * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
  * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -17,15 +17,17 @@
 
 package org.etourdot.xincproc.xinclude.sax;
 
+import org.xml.sax.helpers.NamespaceSupport;
+
 import javax.xml.namespace.QName;
 
 /**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 24/03/13
- * Time: 17:41
+ * XIncludeConstants provides constants used by XIncProcXIncludeFilter.
+ * This constants are only for internal purpose.
  */
 final class XIncludeConstants {
+    public static final QName XMLBASE_QNAME = new QName(NamespaceSupport.XMLNS, "base", "xml");
+    public static final QName XMLLANG_QNAME = new QName(NamespaceSupport.XMLNS, "lang", "xml");
     static final QName ATT_PARSE = new QName("parse");
     static final QName ATT_XPOINTER = new QName("xpointer");
     static final QName ATT_ENCODING = new QName("encoding");

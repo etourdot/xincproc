@@ -1,6 +1,6 @@
 /*
  * This file is part of the XIncProc framework.
- * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ * Copyright (C) 2011 - 2013 Emmanuel Tourdot
  *
  * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
  * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -19,44 +19,60 @@ package org.etourdot.xincproc.xinclude;
 
 import net.sf.saxon.s9api.Processor;
 import org.etourdot.xincproc.xpointer.XPointerEngine;
-import org.xml.sax.helpers.NamespaceSupport;
-
-import javax.xml.namespace.QName;
 import javax.xml.transform.ErrorListener;
 
 /**
- * @author Emmanuel Tourdot
+ * XIncProcConfiguration.
  */
 public class XIncProcConfiguration {
+    /**
+     * The constant ALLOW_FIXUP_BASE_URIS.
+     */
     public static final String ALLOW_FIXUP_BASE_URIS
             = "http://etourdot.org/xml/features/xinclude/fixup-base-uris";
+    /**
+     * The constant ALLOW_FIXUP_LANGUAGE.
+     */
     public static final String ALLOW_FIXUP_LANGUAGE
             = "http://etourdot.org/xml/features/xinclude/fixup-language";
-    public static final String XINCLUDE_NAMESPACE_URI = "http://www.w3.org/2001/XInclude";
-    public static final QName XINCLUDE_QNAME = new QName(XIncProcConfiguration.XINCLUDE_NAMESPACE_URI, "include", "xi");
-    public static final QName FALLBACK_QNAME = new QName(XIncProcConfiguration.XINCLUDE_NAMESPACE_URI, "fallback", "xi");
-    public static final QName XMLBASE_QNAME = new QName(NamespaceSupport.XMLNS, "base", "xml");
-    public static final QName XMLLANG_QNAME = new QName(NamespaceSupport.XMLNS, "lang", "xml");
 
-    private boolean baseUrisFixup = true;
-    private boolean languageFixup = true;
-    private final Processor processor;
+    /**
+     * The XInclude version supported by the XIncProcEngine
+     */
+    public static final String SUPPORTED_XINCLUDE_VERSION = "1.0";
+
 
     private XIncProcConfiguration()
     {
         this.processor = new Processor(false);
     }
 
+    /**
+     * New XIncProcConfiguration.
+     *
+     * @return a new XIncProcConfiguration
+     */
     public static XIncProcConfiguration newXIncProcConfiguration()
     {
         return new XIncProcConfiguration();
     }
 
+    /**
+     * New XPointerEngine
+     *
+     * @return the x pointer engine
+     */
     public XPointerEngine newXPointerEngine()
     {
         return new XPointerEngine(this.processor);
     }
 
+    /**
+     * Sets configuration property.
+     *
+     * @param name the name
+     * @param value the value
+     */
     public void setConfigurationProperty(final String name, final Object value)
     {
         if (XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS.equals(name))
@@ -83,23 +99,57 @@ public class XIncProcConfiguration {
         }
     }
 
+    /**
+     * Sets an error listener.
+     *
+     * @param errorListener the error listener
+     */
     public void setErrorListener(final ErrorListener errorListener)
     {
         this.processor.getUnderlyingConfiguration().setErrorListener(errorListener);
     }
 
+    /**
+     * Is base uris fixup.
+     *
+     * @return the boolean
+     */
     public boolean isBaseUrisFixup()
     {
         return this.baseUrisFixup;
     }
 
+    /**
+     * Is language fixup.
+     *
+     * @return the boolean
+     */
     public boolean isLanguageFixup()
     {
         return this.languageFixup;
     }
 
+    /**
+     * Gets processor.
+     *
+     * @return the processor
+     */
     public Processor getProcessor()
     {
         return this.processor;
     }
+
+    /**
+     * Gets supported version by the engine
+     *
+     * @return version supported (currently only 1.0)
+     */
+    public String getSupportedVersion()
+    {
+        return SUPPORTED_XINCLUDE_VERSION;
+    }
+
+    private boolean baseUrisFixup = true;
+    private boolean languageFixup = true;
+    private final Processor processor;
 }

@@ -1,6 +1,6 @@
 /*
  * This file is part of the XIncProc framework.
- * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ * Copyright (C) 2011 - 2013 Emmanuel Tourdot
  *
  * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
  * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -26,7 +26,7 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 
 /**
- * @author Emmanuel Tourdot
+ * TODO: implements this
  */
 public class XIncProcCLI {
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcCLI.class);

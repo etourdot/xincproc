@@ -1,6 +1,6 @@
 /*
  * This file is part of the XIncProc framework.
- * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ * Copyright (C) 2011 - 2013 Emmanuel Tourdot
  *
  * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
  * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -45,9 +45,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 
-/**
- * @author Emmanuel Tourdot
- */
 public final class XIncProcEngine {
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcEngine.class);
     private static final XIncProcConfiguration configuration = XIncProcConfiguration.newXIncProcConfiguration();

@@ -1,6 +1,6 @@
 /*
  * This file is part of the XIncProc framework.
- * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ * Copyright (C) 2011 - 2013 Emmanuel Tourdot
  *
  * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
  * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -27,12 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 07/02/13
- * Time: 23:11
- */
 final class EncodingUtils {
     private static final String DEFAULT_ENCODING = "UTF-8";
 
@@ -40,6 +34,13 @@ final class EncodingUtils {
     {
     }
 
+    /**
+     * Gets charset of an inputstream.
+     *
+     * @param inputStream the input stream to analyse
+     * @return the charset identify
+     * @throws IOException if inputstream is unreadable
+     */
     public static Charset getCharset(final InputStream inputStream) throws IOException
     {
         final Charset resultCharset;

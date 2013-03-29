@@ -1,20 +1,20 @@
 <document>
-  <document>
-  <doc>
-  <title>input.xml</title>
-  <p>This is input.xml.</p>
-</doc>
-</document>
+    <document>
+        <doc>
+            <title>input.xml</title>
+            <p>This is input.xml.</p>
+        </doc>
+    </document>
 
-  
-      <p>Fallback.</p>
-    
 
-  <pre>
-    &lt;doc&gt;
-  &lt;title&gt;input.xml&lt;/title&gt;
-  &lt;p&gt;This is input.xml.&lt;/p&gt;
-&lt;/doc&gt;
+    <p>Fallback.</p>
 
-  </pre>
+
+    <pre>
+        &lt;doc&gt;
+        &lt;title&gt;input.xml&lt;/title&gt;
+        &lt;p&gt;This is input.xml.&lt;/p&gt;
+        &lt;/doc&gt;
+
+    </pre>
 </document>

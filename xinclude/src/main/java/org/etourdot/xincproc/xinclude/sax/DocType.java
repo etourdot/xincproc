@@ -1,6 +1,6 @@
 /*
  * This file is part of the XIncProc framework.
- * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ * Copyright (C) 2011 - 2013 Emmanuel Tourdot
  *
  * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
  * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -24,21 +24,9 @@ import com.google.common.collect.ImmutableMap;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 
 /**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 06/03/13
- * Time: 22:42
+ * Internal class used to store doctype representation
  */
 class DocType {
-    private Optional<String> doctype = Optional.absent();
-    private Optional<String> publicId = Optional.absent();
-    private Optional<String> systemId = Optional.absent();
-    private ImmutableList<DocType.Element> elements = ImmutableList.of();
-    private ImmutableMap<String, ImmutableList<DocType.Attribute>> attributes = ImmutableMap.of();
-    private ImmutableList<DocType.ExternalEntity> externalEntities = ImmutableList.of();
-    private ImmutableList<DocType.InternalEntity> internalEntities = ImmutableList.of();
-    private ImmutableMap<String, DocType.UnparsedEntity> unparsedEntities = ImmutableMap.of();
-
     static DocType copy(final DocType docTypeToCopy)
     {
         final DocType newDocType = new DocType();
@@ -51,6 +39,51 @@ class DocType {
         newDocType.internalEntities = ImmutableList.copyOf(docTypeToCopy.internalEntities);
         newDocType.unparsedEntities = ImmutableMap.copyOf(docTypeToCopy.unparsedEntities);
         return newDocType;
+    }
+
+    private void outputElements(final StringBuilder docTypeBuffer)
+    {
+        for (final DocType.Element element : this.elements)
+        {
+            docTypeBuffer.append("<!ELEMENT ").append(element.getName()).append(' ')
+                    .append(element.getValue()).append('>');
+            outputAttributes(docTypeBuffer, element);
+        }
+    }
+
+    private void outputAttributes(final StringBuilder docTypeBuffer, final DocType.Element element)
+    {
+        final ImmutableList<DocType.Attribute> attributesList = this.attributes.get(element.getName());
+        if ((null != attributesList) && !attributesList.isEmpty())
+        {
+            docTypeBuffer.append("<!ATTLIST ").append(element.getName()).append(' ');
+            for (final DocType.Attribute attribute : attributesList)
+            {
+                docTypeBuffer.append(attribute.getaName())
+                        .append(' ').append(attribute.getType()).append(' ').append(attribute.getMode())
+                        .append(' ').append(Strings.nullToEmpty(attribute.getValue()));
+            }
+            docTypeBuffer.append('>');
+        }
+    }
+
+    private void outputExternalEntities(final StringBuilder docTypeBuffer)
+    {
+        for (final DocType.ExternalEntity externalEntity : this.externalEntities)
+        {
+            docTypeBuffer.append("<!NOTATION ").append(externalEntity.getName()).append(' ')
+                    .append(externalEntity.getPublicId()).append(' ').append(externalEntity.getSystemId())
+                    .append('>');
+        }
+    }
+
+    private void outputInternalEntities(final StringBuilder docTypeBuffer)
+    {
+        for (final DocType.InternalEntity internalEntity : this.internalEntities)
+        {
+            docTypeBuffer.append("<!ENTITY ").append(internalEntity.getName()).append(' ')
+                    .append(internalEntity.getValue()).append('>');
+        }
     }
 
     DocType setDoctype(final String doctype)
@@ -154,55 +187,7 @@ class DocType {
         return docTypeBuffer.toString();
     }
 
-    private void outputElements(final StringBuilder docTypeBuffer)
-    {
-        for (final DocType.Element element : this.elements)
-        {
-            docTypeBuffer.append("<!ELEMENT ").append(element.getName()).append(' ')
-                    .append(element.getValue()).append('>');
-            outputAttributes(docTypeBuffer, element);
-        }
-    }
-
-    private void outputAttributes(final StringBuilder docTypeBuffer, final DocType.Element element)
-    {
-        final ImmutableList<DocType.Attribute> attributesList = this.attributes.get(element.getName());
-        if ((null != attributesList) && !attributesList.isEmpty())
-        {
-            docTypeBuffer.append("<!ATTLIST ").append(element.getName()).append(' ');
-            for (final DocType.Attribute attribute : attributesList)
-            {
-                docTypeBuffer.append(attribute.getaName())
-                        .append(' ').append(attribute.getType()).append(' ').append(attribute.getMode())
-                        .append(' ').append(Strings.nullToEmpty(attribute.getValue()));
-            }
-            docTypeBuffer.append('>');
-        }
-    }
-
-    private void outputExternalEntities(final StringBuilder docTypeBuffer)
-    {
-        for (final DocType.ExternalEntity externalEntity : this.externalEntities)
-        {
-            docTypeBuffer.append("<!NOTATION ").append(externalEntity.getName()).append(' ')
-                    .append(externalEntity.getPublicId()).append(' ').append(externalEntity.getSystemId())
-                    .append('>');
-        }
-    }
-
-    private void outputInternalEntities(final StringBuilder docTypeBuffer)
-    {
-        for (final DocType.InternalEntity internalEntity : this.internalEntities)
-        {
-            docTypeBuffer.append("<!ENTITY ").append(internalEntity.getName()).append(' ')
-                    .append(internalEntity.getValue()).append('>');
-        }
-    }
-
     private static class Element {
-        private final String name;
-        private final String value;
-
         private Element(final String name, final String value)
         {
             this.name = name;
@@ -218,13 +203,11 @@ class DocType {
         {
             return this.value;
         }
+        private final String name;
+        private final String value;
     }
 
     private static class ExternalEntity {
-        private final String name;
-        private final String publicId;
-        private final String systemId;
-
         private ExternalEntity(final String name, final String publicId, final String systemId)
         {
             this.name = name;
@@ -246,12 +229,12 @@ class DocType {
         {
             return this.systemId;
         }
+        private final String name;
+        private final String publicId;
+        private final String systemId;
     }
 
     private static class InternalEntity {
-        private final String name;
-        private final String value;
-
         private InternalEntity(final String name, final String value)
         {
             this.name = name;
@@ -267,14 +250,11 @@ class DocType {
         {
             return this.value;
         }
+        private final String name;
+        private final String value;
     }
 
     private static class Attribute {
-        private final String aName;
-        private final String type;
-        private final String mode;
-        private final String value;
-
         private Attribute(final String aName, final String type, final String mode, final String value)
         {
             this.aName = aName;
@@ -302,13 +282,13 @@ class DocType {
         {
             return this.value;
         }
+        private final String aName;
+        private final String type;
+        private final String mode;
+        private final String value;
     }
 
     private static class UnparsedEntity {
-        private final String publicId;
-        private final String systemId;
-        private final String notationName;
-
         private UnparsedEntity(final String notationName, final String publicId, final String systemId)
         {
             this.notationName = notationName;
@@ -320,5 +300,17 @@ class DocType {
         {
             return this.systemId;
         }
+        private final String publicId;
+        private final String systemId;
+        private final String notationName;
     }
+
+    private Optional<String> doctype = Optional.absent();
+    private Optional<String> publicId = Optional.absent();
+    private Optional<String> systemId = Optional.absent();
+    private ImmutableList<DocType.Element> elements = ImmutableList.of();
+    private ImmutableMap<String, ImmutableList<DocType.Attribute>> attributes = ImmutableMap.of();
+    private ImmutableList<DocType.ExternalEntity> externalEntities = ImmutableList.of();
+    private ImmutableList<DocType.InternalEntity> internalEntities = ImmutableList.of();
+    private ImmutableMap<String, DocType.UnparsedEntity> unparsedEntities = ImmutableMap.of();
 }

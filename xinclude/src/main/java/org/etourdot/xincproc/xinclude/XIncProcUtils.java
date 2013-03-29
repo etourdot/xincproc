@@ -1,6 +1,6 @@
 /*
  * This file is part of the XIncProc framework.
- * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ * Copyright (C) 2011 - 2013 Emmanuel Tourdot
  *
  * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
  * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -37,12 +37,22 @@ import java.util.Iterator;
 import java.util.Stack;
 
 /**
- * Created by IntelliJ IDEA.
- * User: etourdot
- * Date: 29/10/11
- * Time: 12:51
+ * XIncProcUtils.
  */
 public final class XIncProcUtils {
+    /**
+     * The constant XINCLUDE_NAMESPACE_URI.
+     */
+    public static final String XINCLUDE_NAMESPACE_URI = "http://www.w3.org/2001/XInclude";
+    /**
+     * The constant FALLBACK_QNAME.
+     */
+    public static final QName FALLBACK_QNAME = new QName(XINCLUDE_NAMESPACE_URI, "fallback", "xi");
+    /**
+     * The constant XINCLUDE_QNAME.
+     */
+    public static final QName XINCLUDE_QNAME = new QName(XINCLUDE_NAMESPACE_URI, "include", "xi");
+
     private XIncProcUtils()
     {
     }
@@ -50,40 +60,48 @@ public final class XIncProcUtils {
     /**
      * Return if element is in XInclude namespace
      *
-     * @param qname
-     * @return
+     * @param qname of the element to test
+     * @return true if element is in xinclude ns, false otherwise
      */
     public static boolean isXIncludeNamespace(final QName qname)
     {
-        return qname.getNamespaceURI().equals(XIncProcConfiguration.XINCLUDE_NAMESPACE_URI);
+        return qname.getNamespaceURI().equals(XINCLUDE_NAMESPACE_URI);
     }
 
     /**
      * Return if element is Xinclude or not
      *
-     * @param qname
-     * @return
+     * @param qname of the element to test
+     * @return the boolean
+     * @return true if element is a xinclude element, false otherwise
      */
     public static boolean isXInclude(final QName qname)
     {
-        return XIncProcConfiguration.XINCLUDE_QNAME.getLocalPart().equals(qname.getLocalPart()) &&
+        return XINCLUDE_QNAME.getLocalPart().equals(qname.getLocalPart()) &&
                (Strings.isNullOrEmpty(qname.getNamespaceURI()) ||
-               XIncProcConfiguration.XINCLUDE_QNAME.getNamespaceURI().equals(qname.getNamespaceURI()));
+               XINCLUDE_QNAME.getNamespaceURI().equals(qname.getNamespaceURI()));
     }
 
     /**
      * Return if element is Fallback or not
      *
-     * @param qname
-     * @return
+     * @param qname of the element to test
+     * @return if element is a fallback element, false otherwise
      */
     public static boolean isFallback(final QName qname)
     {
-        return XIncProcConfiguration.FALLBACK_QNAME.getLocalPart().equals(qname.getLocalPart()) &&
+        return FALLBACK_QNAME.getLocalPart().equals(qname.getLocalPart()) &&
                (Strings.isNullOrEmpty(qname.getNamespaceURI()) ||
-               XIncProcConfiguration.FALLBACK_QNAME.getNamespaceURI().equals(qname.getNamespaceURI()));
+               FALLBACK_QNAME.getNamespaceURI().equals(qname.getNamespaceURI()));
     }
 
+    /**
+     * Resolve base.
+     *
+     * @param baseURI the base uRI
+     * @param uris the uris
+     * @return the uRI
+     */
     public static URI resolveBase(final URI baseURI, final Iterable<URI> uris)
     {
         URI resolvedUri = baseURI;
@@ -94,19 +112,14 @@ public final class XIncProcUtils {
         return resolvedUri;
     }
 
-    private static URI computeBase(final Stack<URI> stack)
-    {
-        assert !stack.isEmpty();
-        final Iterator<URI> it = stack.iterator();
-        URI resultURI = it.next();
-        while (it.hasNext())
-        {
-            final URI uri = it.next();
-            resultURI = resultURI.resolve(uri);
-        }
-        return resultURI;
-    }
-
+    /**
+     * Resolve base.
+     *
+     * @param baseURI the base uRI
+     * @param stack the stack
+     * @return the uRI
+     * @throws XIncludeFatalException the x include fatal exception
+     */
     public static URI resolveBase(final URI baseURI, final Stack<URI> stack) throws XIncludeFatalException
     {
         final URI computedUri = XIncProcUtils.computeBase(stack);
@@ -121,11 +134,14 @@ public final class XIncProcUtils {
     /**
      * Read a text source from the URI
      *
-     * @param source
-     * @param encoding
-     * @return
-     * @throws XIncludeFatalException
-     * @throws XIncludeResourceException
+     * @param source the source
+     * @param encoding the encoding, if encoding is null an analyse of the source will be done to
+     *                 find correct encoding
+     * @param accept the accept
+     * @param acceptLanguage the accept language
+     * @return string
+     * @throws XIncludeFatalException in case of fatal error
+     * @throws XIncludeResourceException if source is unreadable
      */
     public static String readTextURI(final URI source, final String encoding,
                                      final String accept, final String acceptLanguage)
@@ -172,5 +188,18 @@ public final class XIncProcUtils {
         {
             throw new XIncludeResourceException(e.getMessage());
         }
+    }
+
+    private static URI computeBase(final Stack<URI> stack)
+    {
+        assert !stack.isEmpty();
+        final Iterator<URI> it = stack.iterator();
+        URI resultURI = it.next();
+        while (it.hasNext())
+        {
+            final URI uri = it.next();
+            resultURI = resultURI.resolve(uri);
+        }
+        return resultURI;
     }
 }

@@ -1,6 +1,6 @@
 /*
  * This file is part of the XIncProc framework.
- * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ * Copyright (C) 2011 - 2013 Emmanuel Tourdot
  *
  * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
  * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -20,7 +20,6 @@ package org.etourdot.xincproc.xinclude.sax;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
-import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException;
 import org.xml.sax.Attributes;
@@ -30,25 +29,29 @@ import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 
 /**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 27/12/12
- * Time: 23:19
+ * Internal class storing and checking attributes of a xinclude element
  */
 class XIncludeAttributes {
-    private Optional<URI> href;
-    private Optional<String> parse;
-    private Optional<String> xpointer;
-    private Optional<String> encoding;
-    private Optional<String> accept;
-    private Optional<String> acceptLanguage;
-    private Optional<URI> base;
+    private static final ImmutableList<String> VALID_PARSE = ImmutableList.of(XIncludeConstants.TEXT, XIncludeConstants.XML);
 
     XIncludeAttributes(final Attributes attributes)
             throws XIncludeFatalException, XIncludeResourceException
     {
         fillAttributes(attributes);
         checkingAttributes();
+    }
+
+    private static boolean checkVal(final String val)
+    {
+        final byte[] bytes = val.getBytes();
+        for (final byte aByte : bytes)
+        {
+            if ((32 > aByte) || (126 < aByte))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void checkingAttributes() throws XIncludeFatalException, XIncludeResourceException
@@ -96,19 +99,6 @@ class XIncludeAttributes {
 
     }
 
-    private static boolean checkVal(final String val)
-    {
-        final byte[] bytes = val.getBytes();
-        for (final byte aByte : bytes)
-        {
-            if ((32 > aByte) || (126 < aByte))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private void fillAttributes(final Attributes attributes) throws XIncludeFatalException
     {
         final Optional<String> hrefAtt = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_HREF.getLocalPart()));
@@ -136,8 +126,8 @@ class XIncludeAttributes {
         this.encoding = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_ENCODING.getLocalPart()));
         this.accept = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_ACCEPT.getLocalPart()));
         this.acceptLanguage = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_ACCEPT_LANGUAGE.getLocalPart()));
-        final Optional<String> baseAtt = Optional.fromNullable(attributes.getValue(XIncProcConfiguration.XMLBASE_QNAME.getNamespaceURI()
-                , XIncProcConfiguration.XMLBASE_QNAME.getLocalPart()));
+        final Optional<String> baseAtt = Optional.fromNullable(attributes.getValue(XIncludeConstants.XMLBASE_QNAME.getNamespaceURI()
+                , XIncludeConstants.XMLBASE_QNAME.getLocalPart()));
         try
         {
             if (baseAtt.isPresent())
@@ -155,44 +145,69 @@ class XIncludeAttributes {
         }
     }
 
-    public String getAccept()
+    String getAccept()
     {
         return this.accept.orNull();
     }
 
-    public boolean isAcceptPresent()
+    boolean isAcceptPresent()
     {
         return this.accept.isPresent();
     }
 
-    public String getAcceptLanguage()
+    String getAcceptLanguage()
     {
         return this.acceptLanguage.orNull();
     }
 
-    public boolean isAcceptLanguagePresent()
+    boolean isAcceptLanguagePresent()
     {
         return this.acceptLanguage.isPresent();
     }
 
-    public String getEncoding()
+    String getEncoding()
     {
         return this.encoding.orNull();
     }
 
-    public boolean isEncodingPresent()
+    boolean isEncodingPresent()
     {
         return this.encoding.isPresent();
     }
 
-    public URI getHref()
+    URI getHref()
     {
         return this.href.orNull();
     }
 
-    public boolean isHrefPresent()
+    boolean isHrefPresent()
     {
         return this.href.isPresent();
+    }
+
+    boolean isXmlParse()
+    {
+        return !this.parse.isPresent() || XIncludeConstants.XML.equals(getParse());
+    }
+
+    String getXPointer()
+    {
+        return this.xpointer.orNull();
+    }
+
+    boolean isXPointerPresent()
+    {
+        return this.xpointer.isPresent();
+    }
+
+    URI getBase()
+    {
+        return this.base.orNull();
+    }
+
+    boolean isBasePresent()
+    {
+        return this.base.isPresent();
     }
 
     String getParse()
@@ -200,35 +215,16 @@ class XIncludeAttributes {
         return this.parse.orNull();
     }
 
-    public boolean isXmlParse()
-    {
-        return !this.parse.isPresent() || XIncludeConstants.XML.equals(getParse());
-    }
-
     boolean isTextParse()
     {
         return this.parse.isPresent() && XIncludeConstants.TEXT.equals(getParse());
     }
 
-    public String getXPointer()
-    {
-        return this.xpointer.orNull();
-    }
-
-    public boolean isXPointerPresent()
-    {
-        return this.xpointer.isPresent();
-    }
-
-    public URI getBase()
-    {
-        return this.base.orNull();
-    }
-
-    public boolean isBasePresent()
-    {
-        return this.base.isPresent();
-    }
-
-    private static final ImmutableList<String> VALID_PARSE = ImmutableList.of(XIncludeConstants.TEXT, XIncludeConstants.XML);
+    private Optional<URI> href = Optional.absent();
+    private Optional<String> parse = Optional.absent();
+    private Optional<String> xpointer = Optional.absent();
+    private Optional<String> encoding = Optional.absent();
+    private Optional<String> accept = Optional.absent();
+    private Optional<String> acceptLanguage = Optional.absent();
+    private Optional<URI> base = Optional.absent();
 }

@@ -1,6 +1,6 @@
 /*
  * This file is part of the XIncProc framework.
- * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ * Copyright (C) 2011 - 2013 Emmanuel Tourdot
  *
  * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
  * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -46,6 +46,7 @@ public abstract class XIncProcSuiteTest {
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);
         XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
+        XMLUnit.setNormalizeWhitespace(true);
         XMLUnit.setControlParser("org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
         XMLUnit.setTestParser("org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
         XMLUnit.setSAXParserFactory("org.apache.xerces.jaxp.SAXParserFactoryImpl");

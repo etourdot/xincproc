@@ -1,6 +1,6 @@
 /*
  * This file is part of the XIncProc framework.
- * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ * Copyright (C) 2011 - 2013 Emmanuel Tourdot
  *
  * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
  * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -28,7 +28,7 @@ public class XIncProcUtilsTest {
     @Test
     public void testIsXInclude() throws Exception
     {
-        QName test1 = XIncProcConfiguration.XINCLUDE_QNAME;
+        QName test1 = XIncProcUtils.XINCLUDE_QNAME;
         QName test2 = new QName("", "include");
         QName test3 = new QName("http://toto/", "include");
         QName test4 = new QName("http://www.w3.org/2001/XInclude", "xinclude");
@@ -41,7 +41,7 @@ public class XIncProcUtilsTest {
     @Test
     public void testIsFallback() throws Exception
     {
-        QName test1 = XIncProcConfiguration.FALLBACK_QNAME;
+        QName test1 = XIncProcUtils.FALLBACK_QNAME;
         QName test2 = new QName("", "fallback");
         QName test3 = new QName("http://toto/", "fallback");
         QName test4 = new QName("http://www.w3.org/2001/XInclude", "falback");
