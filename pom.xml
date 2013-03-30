@@ -100,6 +100,7 @@
         <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
         <dashboard-maven-plugin.version>1.0.0-beta-1</dashboard-maven-plugin.version>
         <maven-release-plugin.version>2.3.2</maven-release-plugin.version>
+        <maven-javadoc-plugin.version>2.9</maven-javadoc-plugin.version>
         <!-- Integration test path configuration -->
         <spec.directory>src/spec</spec.directory>
         <spec.testSourceDirectory>${spec.directory}/java</spec.testSourceDirectory>
@@ -359,6 +360,15 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                    <configuration>
+                        <detectLinks>true</detectLinks>
+                        <links>
+                            <link>http://java.sun.com/javase/6/docs/api/</link>
+                        </links>
+                        <source>1.6</source>
+                        <failOnError>false</failOnError>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
