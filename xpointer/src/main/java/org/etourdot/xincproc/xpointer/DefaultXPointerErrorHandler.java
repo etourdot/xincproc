@@ -23,7 +23,8 @@ import org.slf4j.LoggerFactory;
 /**
  * This error handler log xpointer parsing error to current system log.
  */
-public class DefaultXPointerErrorHandler implements XPointerErrorHandler {
+public class DefaultXPointerErrorHandler implements XPointerErrorHandler
+{
     private static final Logger LOG = LoggerFactory.getLogger(DefaultXPointerErrorHandler.class);
 
     @Override

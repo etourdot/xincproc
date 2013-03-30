@@ -34,13 +34,12 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 18/03/13
- * Time: 23:39
- */
-public class ProcessorUsageSamples {
+public class ProcessorUsageSamples
+{
+    private ProcessorUsageSamples()
+    {
+    }
+
     private void domSample() throws Exception
     {
         final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();

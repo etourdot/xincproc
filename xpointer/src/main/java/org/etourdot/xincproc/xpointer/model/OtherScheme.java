@@ -19,7 +19,8 @@ package org.etourdot.xincproc.xpointer.model;
 
 import javax.xml.namespace.QName;
 
-public class OtherScheme extends DefaultScheme {
+public class OtherScheme extends AbstractDefaultScheme
+{
     private final String schemeData;
 
     public OtherScheme(final QName nameScheme, final String schemeData)

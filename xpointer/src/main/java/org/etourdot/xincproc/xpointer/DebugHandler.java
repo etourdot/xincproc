@@ -28,7 +28,8 @@ import java.io.IOException;
  * This handler extended org.xml.sax.ext.DefaultHandler2 is designed to debug
  * the nodes extract by xpointer engine and send to the Destination.
  */
-class DebugHandler extends DefaultHandler2 {
+class DebugHandler extends DefaultHandler2
+{
     private static final Logger LOG = LoggerFactory.getLogger(DebugHandler.class);
 
     @Override

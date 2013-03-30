@@ -19,7 +19,8 @@ package org.etourdot.xincproc.xpointer.model;
 
 import javax.xml.namespace.QName;
 
-public class XPointerScheme extends DefaultScheme {
+public class XPointerScheme extends AbstractDefaultScheme
+{
     private static final QName XPOINTER_NAME = new QName("xpointer");
 
     public XPointerScheme(final String expression)

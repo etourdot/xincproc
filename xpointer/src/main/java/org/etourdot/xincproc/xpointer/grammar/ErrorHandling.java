@@ -22,7 +22,8 @@ import org.etourdot.xincproc.xpointer.XPointerErrorHandler;
 /**
  * The interface ErrorHandling.
  */
-public interface ErrorHandling {
+public interface ErrorHandling
+{
     /**
      * Sets error handler.
      *

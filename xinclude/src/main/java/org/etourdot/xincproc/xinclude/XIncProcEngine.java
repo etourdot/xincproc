@@ -45,9 +45,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 
-public final class XIncProcEngine {
+public final class XIncProcEngine
+{
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcEngine.class);
-    private static final XIncProcConfiguration configuration = XIncProcConfiguration.newXIncProcConfiguration();
+    private static final XIncProcConfiguration CONFIGURATION = XIncProcConfiguration.newXIncProcConfiguration();
 
     private XIncProcEngine()
     {
@@ -55,7 +56,7 @@ public final class XIncProcEngine {
 
     public static XMLFilter newXIncludeFilter(final URI baseURI)
     {
-        final XIncludeContext context = new XIncludeContext(XIncProcEngine.configuration);
+        final XIncludeContext context = new XIncludeContext(XIncProcEngine.CONFIGURATION);
         context.setSourceURI(baseURI);
         context.setInitialBaseURI(baseURI);
         return newXIncludeFilter(context);
@@ -69,7 +70,7 @@ public final class XIncProcEngine {
     public static void parse(final URI baseURI, final OutputStream output)
             throws XIncludeFatalException
     {
-        final Processor processor = XIncProcEngine.configuration.getProcessor();
+        final Processor processor = XIncProcEngine.CONFIGURATION.getProcessor();
         final XMLFilter filter = XIncProcEngine.newXIncludeFilter(baseURI);
         final InputSource inputSource = new InputSource(baseURI.toASCIIString());
         try
@@ -95,7 +96,7 @@ public final class XIncProcEngine {
             throws XIncludeFatalException, IOException
     {
         LOG.trace("parse:{}", systemId);
-        final Processor processor = XIncProcEngine.configuration.getProcessor();
+        final Processor processor = XIncProcEngine.CONFIGURATION.getProcessor();
         final XIncProcXIncludeFilter filter;
         try
         {
@@ -152,6 +153,6 @@ public final class XIncProcEngine {
 
     public static XIncProcConfiguration getConfiguration()
     {
-        return XIncProcEngine.configuration;
+        return XIncProcEngine.CONFIGURATION;
     }
 }

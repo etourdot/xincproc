@@ -26,7 +26,8 @@ import org.antlr.runtime.RecognizerSharedState;
  * This internal is useful to intercept actions in main lexer class
  * generated via Antlr
  */
-abstract class AbstractXPointerLexer extends Lexer {
+abstract class AbstractXPointerLexer extends Lexer
+{
     AbstractXPointerLexer()
     {
     }

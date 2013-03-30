@@ -27,8 +27,9 @@ import org.slf4j.LoggerFactory;
  * This internal is useful to intercept actions in main parser class
  * generated via Antlr
  */
-abstract class AbstractXPointerParser extends Parser implements ErrorHandling {
-    protected static final Logger log = LoggerFactory.getLogger(AbstractXPointerParser.class);
+abstract class AbstractXPointerParser extends Parser implements ErrorHandling
+{
+    protected static final Logger LOG = LoggerFactory.getLogger(AbstractXPointerParser.class);
     private XPointerErrorHandler xPointerErrorHandler;
 
     AbstractXPointerParser(final TokenStream input)
@@ -66,7 +67,7 @@ abstract class AbstractXPointerParser extends Parser implements ErrorHandling {
     @Override
     public void emitErrorMessage(final String msg)
     {
-        log.debug("emitErrorMessage '{}'", msg);
+        LOG.debug("emitErrorMessage '{}'", msg);
         if (null == this.xPointerErrorHandler)
         {
             super.emitErrorMessage(msg);

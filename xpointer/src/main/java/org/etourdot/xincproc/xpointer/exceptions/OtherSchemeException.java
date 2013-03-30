@@ -20,7 +20,8 @@ package org.etourdot.xincproc.xpointer.exceptions;
 import org.antlr.runtime.IntStream;
 import org.antlr.runtime.RecognitionException;
 
-public class OtherSchemeException extends RecognitionException {
+public class OtherSchemeException extends RecognitionException
+{
     public OtherSchemeException(final IntStream input)
     {
         super(input);

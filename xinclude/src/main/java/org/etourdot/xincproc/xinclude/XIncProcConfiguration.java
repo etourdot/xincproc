@@ -24,7 +24,8 @@ import javax.xml.transform.ErrorListener;
 /**
  * XIncProcConfiguration.
  */
-public class XIncProcConfiguration {
+public final class XIncProcConfiguration
+{
     /**
      * The constant ALLOW_FIXUP_BASE_URIS.
      */

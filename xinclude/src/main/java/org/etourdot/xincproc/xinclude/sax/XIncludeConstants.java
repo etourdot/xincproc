@@ -25,7 +25,8 @@ import javax.xml.namespace.QName;
  * XIncludeConstants provides constants used by XIncProcXIncludeFilter.
  * This constants are only for internal purpose.
  */
-final class XIncludeConstants {
+final class XIncludeConstants
+{
     public static final QName XMLBASE_QNAME = new QName(NamespaceSupport.XMLNS, "base", "xml");
     public static final QName XMLLANG_QNAME = new QName(NamespaceSupport.XMLNS, "lang", "xml");
     static final QName ATT_PARSE = new QName("parse");

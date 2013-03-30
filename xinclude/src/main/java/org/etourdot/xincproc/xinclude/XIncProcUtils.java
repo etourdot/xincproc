@@ -39,7 +39,8 @@ import java.util.Stack;
 /**
  * XIncProcUtils.
  */
-public final class XIncProcUtils {
+public final class XIncProcUtils
+{
     /**
      * The constant XINCLUDE_NAMESPACE_URI.
      */

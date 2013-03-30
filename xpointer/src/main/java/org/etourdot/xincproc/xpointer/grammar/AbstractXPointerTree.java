@@ -31,7 +31,8 @@ import org.slf4j.LoggerFactory;
  * This internal is useful to intercept actions in main tree parser class
  * generated via Antlr
  */
-class AbstractXPointerTree extends TreeParser implements ErrorHandling {
+abstract class AbstractXPointerTree extends TreeParser implements ErrorHandling
+{
     static final Logger LOG = LoggerFactory.getLogger(AbstractXPointerTree.class);
     private XPointerErrorHandler xPointerErrorHandler;
 

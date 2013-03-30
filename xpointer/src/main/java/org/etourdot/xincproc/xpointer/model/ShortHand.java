@@ -19,7 +19,8 @@ package org.etourdot.xincproc.xpointer.model;
 
 import javax.xml.namespace.QName;
 
-public class ShortHand extends DefaultScheme {
+public class ShortHand extends AbstractDefaultScheme
+{
     private static final QName SHORTHAND_NAME = new QName("shorthand");
     private final String name;
 
@@ -27,7 +28,7 @@ public class ShortHand extends DefaultScheme {
     {
         super(ShortHand.SHORTHAND_NAME);
         this.name = name;
-        this.expression = DefaultScheme.ID_SEARCH_EXPR.replaceAll("#ID#", name);
+        this.expression = AbstractDefaultScheme.ID_SEARCH_EXPR.replaceAll("#ID#", name);
     }
 
     public String getName()

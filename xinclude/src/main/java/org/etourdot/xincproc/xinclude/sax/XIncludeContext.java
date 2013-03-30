@@ -36,7 +36,8 @@ import java.util.List;
  * It stores some informations abouts base uri, language, stack of xinclude or fallback
  * elements ...
  */
-public class XIncludeContext {
+public class XIncludeContext
+{
     /**
      * Instantiates a new XIncludeContext.
      *

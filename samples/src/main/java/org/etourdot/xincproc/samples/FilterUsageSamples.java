@@ -1,6 +1,6 @@
-package org.etourdot.xincproc.samples;/*
+/*
  * This file is part of the XIncProc framework.
- * Copyright (C) 2010 - 2013 Emmanuel Tourdot
+ * Copyright (C) 2011 - 2013 Emmanuel Tourdot
  *
  * See the NOTICE file distributed with this work for additional information regarding copyright ownership.
  * This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser
@@ -15,37 +15,20 @@ package org.etourdot.xincproc.samples;/*
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
+package org.etourdot.xincproc.samples;
+
 import org.etourdot.xincproc.xinclude.XIncProcEngine;
-import org.etourdot.xincproc.xinclude.sax.XIncProcXIncludeFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 import org.xml.sax.*;
-import org.xml.sax.ext.DefaultHandler2;
 import org.xml.sax.helpers.XMLFilterImpl;
 import org.xml.sax.helpers.XMLReaderFactory;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.net.URI;
 
-/**
- * Created with IntelliJ IDEA.
- * User: etourdot
- * Date: 17/03/13
- * Time: 23:28
- */
-public class FilterUsageSamples {
+public class FilterUsageSamples
+{
     static final Logger LOG = LoggerFactory.getLogger(FilterUsageSamples.class);
 
     public void filterSample() throws Exception
@@ -85,7 +68,8 @@ public class FilterUsageSamples {
         filterUsageSamples.filterSample2();
     }
 
-    class PElementFilter extends XMLFilterImpl {
+    class PElementFilter extends XMLFilterImpl
+    {
         final StringBuilder stringBuilder = new StringBuilder();
         boolean treatChar;
 

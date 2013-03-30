@@ -28,7 +28,8 @@ import java.io.PrintWriter;
 /**
  * TODO: implements this
  */
-public class XIncProcCLI {
+public final class XIncProcCLI
+{
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcCLI.class);
     private final Options options;
 

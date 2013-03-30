@@ -26,7 +26,8 @@ import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 /**
  * Internal class used to store doctype representation
  */
-class DocType {
+class DocType
+{
     static DocType copy(final DocType docTypeToCopy)
     {
         final DocType newDocType = new DocType();
@@ -187,7 +188,8 @@ class DocType {
         return docTypeBuffer.toString();
     }
 
-    private static class Element {
+    private static final class Element
+    {
         private Element(final String name, final String value)
         {
             this.name = name;
@@ -207,7 +209,8 @@ class DocType {
         private final String value;
     }
 
-    private static class ExternalEntity {
+    private static final class ExternalEntity
+    {
         private ExternalEntity(final String name, final String publicId, final String systemId)
         {
             this.name = name;
@@ -234,7 +237,8 @@ class DocType {
         private final String systemId;
     }
 
-    private static class InternalEntity {
+    private static final class InternalEntity
+    {
         private InternalEntity(final String name, final String value)
         {
             this.name = name;
@@ -254,7 +258,8 @@ class DocType {
         private final String value;
     }
 
-    private static class Attribute {
+    private static final class Attribute
+    {
         private Attribute(final String aName, final String type, final String mode, final String value)
         {
             this.aName = aName;
@@ -288,7 +293,8 @@ class DocType {
         private final String value;
     }
 
-    private static class UnparsedEntity {
+    private static final class UnparsedEntity
+    {
         private UnparsedEntity(final String notationName, final String publicId, final String systemId)
         {
             this.notationName = notationName;

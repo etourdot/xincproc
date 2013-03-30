@@ -23,7 +23,8 @@ import org.xml.sax.SAXException;
  * Exception thrown when XInclude engine encounter a fatal error
  * See http://www.w3.org/TR/xinclude/#dt-error
  */
-public class XIncludeFatalException extends SAXException {
+public class XIncludeFatalException extends SAXException
+{
     /**
      * Instantiates a new XIncludeFatalException.
      *

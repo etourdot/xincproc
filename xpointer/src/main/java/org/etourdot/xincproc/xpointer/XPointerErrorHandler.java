@@ -22,7 +22,8 @@ package org.etourdot.xincproc.xpointer;
  * This interface could be used to build handler that will
  * trap errors from XPointer resolution.
  */
-public interface XPointerErrorHandler {
+public interface XPointerErrorHandler
+{
     /**
      * Reporting an error.
      *

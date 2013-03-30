@@ -22,7 +22,8 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
-public class Pointer {
+public class Pointer
+{
     private final Optional<ShortHand> shortHand;
     private ImmutableList<PointerPart> schemeBased;
 

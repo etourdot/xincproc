@@ -19,5 +19,6 @@ package org.etourdot.xincproc.xpointer.exceptions;
 
 import org.antlr.runtime.RecognitionException;
 
-public class XmlNsSchemeException extends RecognitionException {
+public class XmlNsSchemeException extends RecognitionException
+{
 }

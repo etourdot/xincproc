@@ -26,10 +26,12 @@ import org.etourdot.xincproc.xpointer.exceptions.ElementSchemeException;
 
 import javax.xml.namespace.QName;
 
-public class ElementScheme extends DefaultScheme {
+public class ElementScheme extends AbstractDefaultScheme
+{
     private static final QName ELEMENT_NAME = new QName("element");
 
-    private static class ChildSequenceFunction implements Function<String, String> {
+    private static class ChildSequenceFunction implements Function<String, String>
+    {
         @Override
         public String apply(final String input)
         {
@@ -69,7 +71,7 @@ public class ElementScheme extends DefaultScheme {
         final StringBuilder findExpr = new StringBuilder();
         if (!Strings.isNullOrEmpty(name))
         {
-            findExpr.append(DefaultScheme.ID_SEARCH_EXPR.replaceAll("#ID#", name));
+            findExpr.append(AbstractDefaultScheme.ID_SEARCH_EXPR.replaceAll("#ID#", name));
         }
         if (!Strings.isNullOrEmpty(childSequence))
         {

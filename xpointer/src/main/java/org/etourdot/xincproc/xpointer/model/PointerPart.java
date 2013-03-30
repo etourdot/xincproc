@@ -17,6 +17,7 @@
 
 package org.etourdot.xincproc.xpointer.model;
 
-public interface PointerPart {
+public interface PointerPart
+{
     String getExpression();
 }

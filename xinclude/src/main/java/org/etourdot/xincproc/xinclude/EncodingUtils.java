@@ -27,7 +27,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
-final class EncodingUtils {
+final class EncodingUtils
+{
     private static final String DEFAULT_ENCODING = "UTF-8";
 
     private EncodingUtils()

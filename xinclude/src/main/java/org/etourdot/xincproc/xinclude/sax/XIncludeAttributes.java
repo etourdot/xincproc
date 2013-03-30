@@ -31,7 +31,8 @@ import java.nio.charset.Charset;
 /**
  * Internal class storing and checking attributes of a xinclude element
  */
-class XIncludeAttributes {
+class XIncludeAttributes
+{
     private static final ImmutableList<String> VALID_PARSE = ImmutableList.of(XIncludeConstants.TEXT, XIncludeConstants.XML);
 
     XIncludeAttributes(final Attributes attributes)

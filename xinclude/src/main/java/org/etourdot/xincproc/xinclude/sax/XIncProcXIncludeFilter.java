@@ -56,7 +56,8 @@ import java.util.Stack;
 /**
  * The type X inc proc x include filter.
  */
-public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler, LexicalHandler {
+public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler, LexicalHandler
+{
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcXIncludeFilter.class);
     private static final String FIXUP_XML_LANG = "fixup-xml-lang";
     private static final String FIXUP_XML_BASE = "fixup-xml-base";
@@ -568,8 +569,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
                 final XIncProcXIncludeFilter filter = (XIncProcXIncludeFilter) source.getXMLReader();
                 if (filter.isHasUnparserEntity())
                 {
-                    throw new XIncludeFatalException("Resolve an xpointer scheme on a document that contains unexpanded " +
-                            "entity reference information items");
+                    throw new XIncludeFatalException("Resolve an xpointer scheme on a document that contains unexpanded entity reference information items");
                 }
             }
             final XPointerEngine xPointerEngine = this.context.getConfiguration().newXPointerEngine();

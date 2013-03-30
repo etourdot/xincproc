@@ -23,7 +23,8 @@ import org.xml.sax.SAXException;
  * Exception thrown when XInclude engine encounter a resource error
  * See http://www.w3.org/TR/xinclude/#dt-error
  */
-public class XIncludeResourceException extends SAXException {
+public class XIncludeResourceException extends SAXException
+{
     /**
      * Instantiates a new XIncludeResourceException.
      *

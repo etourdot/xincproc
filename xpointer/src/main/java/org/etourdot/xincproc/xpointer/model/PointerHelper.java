@@ -22,7 +22,12 @@ import org.etourdot.xincproc.xpointer.exceptions.ElementSchemeException;
 
 import javax.xml.namespace.QName;
 
-public final class PointerFactory {
+public final class PointerHelper
+{
+    private PointerHelper()
+    {
+    }
+
     public static ElementScheme createElementScheme(final String name, final String data)
     {
         ElementScheme newElementScheme = null;

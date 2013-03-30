@@ -19,7 +19,8 @@ package org.etourdot.xincproc.xpointer.model;
 
 import javax.xml.namespace.QName;
 
-public class XPathScheme extends DefaultScheme {
+public class XPathScheme extends AbstractDefaultScheme
+{
     private static final QName XPATH_NAME = new QName("xpath");
 
     public XPathScheme(final String expression)

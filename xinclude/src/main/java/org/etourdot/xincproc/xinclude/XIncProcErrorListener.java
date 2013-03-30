@@ -26,7 +26,8 @@ import javax.xml.transform.TransformerException;
 /**
  * XIncProcErrorListener.
  */
-public class XIncProcErrorListener implements ErrorListener {
+public class XIncProcErrorListener implements ErrorListener
+{
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcErrorListener.class);
 
     @Override

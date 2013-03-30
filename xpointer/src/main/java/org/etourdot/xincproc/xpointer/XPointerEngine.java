@@ -44,7 +44,8 @@ import java.util.List;
 /**
  * The XPointer engine.
  */
-public class XPointerEngine {
+public class XPointerEngine
+{
     /**
      * Instantiates a new XPointerEngine.
      */
@@ -72,7 +73,7 @@ public class XPointerEngine {
      */
     public static XPointerErrorHandler newNilXPointerErrorHandler()
     {
-        return nilXPointerErrorHandler;
+        return NIL_XPOINTER_ERROR_HANDLER;
     }
 
     /**
@@ -82,7 +83,7 @@ public class XPointerEngine {
      */
     public static XPointerErrorHandler newDefaultXPointerErrorHandler()
     {
-        return defaultXPointerErrorHandler;
+        return DEFAULT_XPOINTER_ERROR_HANDLER;
     }
 
     /**
@@ -159,7 +160,7 @@ public class XPointerEngine {
         try
         {
             final StringWriter stringWriter = new StringWriter();
-            Serializer serializer = processor.newSerializer(stringWriter);
+            final Serializer serializer = processor.newSerializer(stringWriter);
             serializer.setOutputProperty(Serializer.Property.OMIT_XML_DECLARATION, "yes");
             executeToDestination(pointerStr, source, serializer);
             return stringWriter.toString();
@@ -362,7 +363,8 @@ public class XPointerEngine {
         final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(builderExpressions.build(), sourceTransform);
         try
         {
-            TeeDestination teeDestination = new TeeDestination(destination, new SAXDestination(new DebugHandler()));
+            final TeeDestination teeDestination = new TeeDestination(destination,
+                    new SAXDestination(new DebugHandler()));
             final XdmValue value = xQueryEvaluator.evaluate();
             if (value.size() == 0)
             {
@@ -510,7 +512,8 @@ public class XPointerEngine {
         return pointer;
     }
 
-    private static class NilXPointerErrorHandler implements XPointerErrorHandler {
+    private static class NilXPointerErrorHandler implements XPointerErrorHandler
+    {
         @Override
         public void reportError(final String error)
         {
@@ -575,8 +578,8 @@ public class XPointerEngine {
             "            $x/(@*|node()) except ($x/@xml:base,$x/@xml:lang)                      " +
             "         }                                                                         " +
             "    default return $x                                                              ";
-    private static final DefaultXPointerErrorHandler defaultXPointerErrorHandler = new DefaultXPointerErrorHandler();
-    private static final NilXPointerErrorHandler nilXPointerErrorHandler = new NilXPointerErrorHandler();
+    private static final DefaultXPointerErrorHandler DEFAULT_XPOINTER_ERROR_HANDLER = new DefaultXPointerErrorHandler();
+    private static final NilXPointerErrorHandler NIL_XPOINTER_ERROR_HANDLER = new NilXPointerErrorHandler();
     private final Processor processor;
     private XdmValue baseURIValue;
     private XdmValue languageValue;

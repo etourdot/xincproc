@@ -19,7 +19,8 @@ package org.etourdot.xincproc.xpointer.model;
 
 import javax.xml.namespace.QName;
 
-public class XmlNsScheme extends DefaultScheme {
+public class XmlNsScheme extends AbstractDefaultScheme
+{
     private static final QName XMLNS_NAME = new QName("xmlns");
 
     private final QName qName;

@@ -17,7 +17,8 @@
 
 package org.etourdot.xincproc.xpointer.exceptions;
 
-public class XPointerResourceException extends XPointerException {
+public class XPointerResourceException extends XPointerException
+{
     public XPointerResourceException(final Throwable cause)
     {
         super(cause);

@@ -19,13 +19,14 @@ package org.etourdot.xincproc.xpointer.model;
 
 import javax.xml.namespace.QName;
 
-abstract class DefaultScheme implements PointerPart {
+abstract class AbstractDefaultScheme implements PointerPart
+{
     static final String ID_SEARCH_EXPR = "(//*[@id='#ID#']|id('#ID#'))";
 
     String expression;
     private final QName schemeName;
 
-    DefaultScheme(final QName schemeName)
+    AbstractDefaultScheme(final QName schemeName)
     {
         this.schemeName = schemeName;
         this.expression = "";
