@@ -131,6 +131,4 @@ final class EncodingUtils
         }
         return Charset.forName(EncodingUtils.DEFAULT_ENCODING);
     }
-
-
 }
