@@ -19,7 +19,6 @@ package org.etourdot.xincproc.xpointer.exceptions;
 
 public class XPointerException extends Exception
 {
-
     public XPointerException(final Throwable cause)
     {
         super(cause);
