@@ -73,7 +73,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--project.build.resourceEncoding>UTF-8</project.build.resourceEncoding-->
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <checkstyle.config.path>${parent.relativePath}/../checkstyle.xml</checkstyle.config.path>
+        <checkstyle.config.path>${project.parent.relativePath}/../checkstyle.xml</checkstyle.config.path>
 
         <!-- Integration test path configuration -->
         <spec.directory>src/spec</spec.directory>
@@ -110,7 +110,7 @@
         <maven-surefire-plugin.version>2.13</maven-surefire-plugin.version>
         <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
         <dashboard-maven-plugin.version>1.0.0-beta-1</dashboard-maven-plugin.version>
-        <maven-release-plugin.version>2.3.2</maven-release-plugin.version>
+        <maven-release-plugin.version>2.4.1</maven-release-plugin.version>
         <maven-javadoc-plugin.version>2.9</maven-javadoc-plugin.version>
         <maven-checkstyle-plugin.version>2.10</maven-checkstyle-plugin.version>
     </properties>
@@ -457,6 +457,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dashboard-maven-plugin</artifactId>
+                <version>${dashboard-maven-plugin.version}</version>
             </plugin>
         </plugins>
     </reporting>
