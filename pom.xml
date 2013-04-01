@@ -35,20 +35,6 @@
 
     <inceptionYear>2011</inceptionYear>
 
-    <distributionManagement>
-        <repository>
-            <id>googlecode.xincproc.repository</id>
-            <url>dav:https://xincproc.googlecode.com/svn/maven/repository/</url>
-            <!--url>scm:svn:https://xincproc.googlecode.com/svn/maven/repository/</url-->
-        </repository>
-        <snapshotRepository>
-            <id>googlecode.xincproc.snapshot.repository</id>
-            <url>dav:https://xincproc.googlecode.com/svn/maven/snapshot/</url>
-            <!--url>scm:svn:https://xincproc.googlecode.com/svn/maven/snapshot/</url-->
-            <uniqueVersion>false</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
-
     <scm>
         <connection>scm:git:git://github.com/etourdot/xincproc</connection>
         <developerConnection>scm:git:ssh://git@github.com/etourdot/xincproc</developerConnection>
