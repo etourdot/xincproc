@@ -57,11 +57,7 @@ final class EncodingUtils
                     (0x00FF0000 & (buffer[1] << 16)) |
                     (0x0000FF00 & (buffer[2] << 8)) |
                     (0x000000FF & buffer[3]);
-            if (0x0000FEFFL == computed)
-            {
-                resultCharset = Charset.forName("UCS-4");
-            }
-            else if (0xFFFE0000L == computed)
+            if (0x0000FEFFL == computed || 0xFFFE0000L == computed)
             {
                 resultCharset = Charset.forName("UCS-4");
             }
@@ -81,11 +77,7 @@ final class EncodingUtils
             {
                 resultCharset = Charset.forName("UTF-16LE");
             }
-            else if (0x3C3F786DL == computed)
-            {
-                resultCharset = EncodingUtils.getXmlCharsetEncoding(buffer);
-            }
-            else if (0x4C6FA794L == computed)
+            else if (0x3C3F786DL == computed || 0x4C6FA794L == computed)
             {
                 resultCharset = EncodingUtils.getXmlCharsetEncoding(buffer);
             }
@@ -96,10 +88,6 @@ final class EncodingUtils
             else if (0xFFFE0000L == (computed & 0xFFFF0000L))
             {
                 resultCharset = Charset.forName("UTF-16");
-            }
-            else if (0xEFBBBF00L == (computed & 0xFFFFFF00L))
-            {
-                resultCharset = Charset.forName(EncodingUtils.DEFAULT_ENCODING);
             }
             else
             {
