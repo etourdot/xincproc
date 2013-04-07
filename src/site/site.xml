@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="XIncProc"
+         xmlns="http://maven.apache.org/DECORATION/1.3.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.3.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd">
+
+    <bannerLeft>
+        <name><![CDATA[
+      <span class="color-highlight">XInclude</span> processor
+      ]]>
+        </name>
+        <href>http://xincproc.etourdot.github.com</href>
+    </bannerLeft>
+
+    <publishDate position="bottom" format="yyyy-MM-dd" />
+    <version position="bottom" />
+
+    <skin>
+        <groupId>lt.velykis.maven.skins</groupId>
+        <artifactId>reflow-maven-skin</artifactId>
+        <version>1.0.0</version>
+    </skin>
+
+    <custom>
+        <reflowSkin>
+            <theme>bootswatch-spacelab</theme>
+            <highlightJs>true</highlightJs>
+            <brand>
+                <name>XInclude processoe</name>
+                <href>http://github.com/etourdot/xincproc</href>
+            </brand>
+            <slogan>Full java XInclude processor.</slogan>
+            <titleTemplate>%2$s | %1$s</titleTemplate>
+            <toc>top</toc>
+            <topNav>Download|reports</topNav>
+            <bottomNav>
+                <column>Main|Download</column>
+                <column>Documentation</column>
+                <column>reports|modules</column>
+            </bottomNav>
+            <bottomDescription>
+                This is a very good project doing interesting and valuable things.
+            </bottomDescription>
+            <pages>
+                <index project="project-id">
+                    <shortTitle>Welcome</shortTitle>
+                    <breadcrumbs>false</breadcrumbs>
+                    <toc>false</toc>
+                    <sections>
+                        <carousel />
+                        <body />
+                        <sidebar />
+                        <thumbs>2</thumbs>
+                        <columns>3</columns>
+                    </sections>
+                </index>
+                <developer-info>
+                    <toc>sidebar</toc>
+                </developer-info>
+            </pages>
+        </reflowSkin>
+    </custom>
+
+    <body>
+        <breadcrumbs>
+            <item name="XIncProc" href="/" />
+        </breadcrumbs>
+
+        <menu name="Main" inherit="top">
+            <item name="Home" href="./" />
+            <item name="GitHub project" href="http://github.com/etourdot/xincproc/" />
+        </menu>
+        <menu name="Maven documentation" ref="reports" inherit="bottom"/>
+    </body>
+</project>

@@ -11,6 +11,8 @@
     </parent>
 
     <artifactId>xinclude</artifactId>
+    <packaging>jar</packaging>
+    <name>XIncproc - XInclude processor</name>
 
     <dependencies>
         <dependency>

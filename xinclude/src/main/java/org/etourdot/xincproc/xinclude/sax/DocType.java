@@ -55,7 +55,7 @@ class DocType
     private void outputAttributes(final StringBuilder docTypeBuffer, final DocType.Element element)
     {
         final ImmutableList<DocType.Attribute> attributesList = this.attributes.get(element.getName());
-        if ((null != attributesList) && !attributesList.isEmpty())
+        if (null != attributesList && !attributesList.isEmpty())
         {
             docTypeBuffer.append("<!ATTLIST ").append(element.getName()).append(' ');
             for (final DocType.Attribute attribute : attributesList)
@@ -145,12 +145,9 @@ class DocType
             throws XIncludeFatalException
     {
         final DocType.UnparsedEntity unparsedEntity = this.unparsedEntities.get(name);
-        if ((null != unparsedEntity) && (null != systemId))
+        if (null != unparsedEntity && null != systemId && !systemId.equals(unparsedEntity.getSystemId()))
         {
-            if (!systemId.equals(unparsedEntity.getSystemId()))
-            {
-                throw new XIncludeFatalException("duplicate unparsed entity");
-            }
+            throw new XIncludeFatalException("duplicate unparsed entity");
         }
         this.unparsedEntities = new ImmutableMap.Builder<String, DocType.UnparsedEntity>().put(name,
                 new DocType.UnparsedEntity(notationName, publicId, systemId)).build();
