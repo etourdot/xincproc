@@ -1,7 +1,13 @@
-## XIncProc Framework
-The XIncProc Frameword provides an almost complete implementation of W3C XInclude recommendation.
+# XIncProc Framework
+The XIncProc Frameword provides an almost complete implementation of W3C [XInclude 1.0 recommendation][xinclude].
 Althougt XInclude is supported into Jaxp implementation since Java 1.5, this support is very incomplete.
-XIncProc brings a most complete support including xpointer, element, xpath and xmlns schemes.
+XIncProc brings a most complete support including [xpointer][xpointer], [element][element], [xpath][xpath] and [xmlns][xmlns] schemes.
+
+[xinclude]: http://www.w3.org/TR/xinclude/
+[xpointer]: http://www.w3.org/TR/xptr-framework/
+[element]: http://www.w3.org/TR/xptr-element/
+[xpath]: http://www.w3.org/2005/04/xpointer-schemes/xpath
+[xmlns]: http://www.w3.org/TR/xptr-xmlns/
 
 ## How to use
 ### Maven integration
@@ -27,3 +33,4 @@ To add XIncProc to your project, just add the following dependency to your `pom.
 ## Issue Tracking
 
 ## License
+The XIncProc frameword is released  under version [3.0 of the LGPL Licence](http://opensource.org/licenses/lgpl-3.0.html)

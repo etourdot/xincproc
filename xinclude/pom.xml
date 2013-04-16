@@ -8,11 +8,15 @@
         <groupId>org.etourdot</groupId>
         <artifactId>xincproc</artifactId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>xinclude</artifactId>
     <packaging>jar</packaging>
+    
     <name>XIncproc - XInclude processor</name>
+    <description>XInclude processor is the main part of XIncProc framework.</description>
+    <url>${site.url}/xinclude</url>
 
     <dependencies>
         <dependency>
@@ -144,4 +148,33 @@
             </build>
         </profile>
     </profiles>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <configuration>
+                    <stylesheetfile>${project.basedir}/src/javadoc/stylesheet.css</stylesheetfile>
+                    <javadocDirectory>${project.basedir}/src/javadoc</javadocDirectory>
+                    <docfilessubdirs>true</docfilessubdirs>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <distributionManagement>
+        <site>
+            <id>${site.deploy.id}</id>
+            <url>${site.deploy.url}/xinclude</url>
+        </site>
+    </distributionManagement>
 </project>

@@ -79,9 +79,7 @@
         <site.url>http://etourdot.github.com/xincproc</site.url>
         <github.global.server>github</github.global.server>
         <site.deploy.id>gh-pages</site.deploy.id>
-        <site.deploy.url />
-        <repositoryName>xincproc</repositoryName>
-        <repositoryOwner>etourdot</repositoryOwner>
+        <site.deploy.url>http://etourdot.github.io/xincproc</site.deploy.url>
 
         <!-- Integration test path configuration -->
         <spec.directory>src/spec</spec.directory>
@@ -100,7 +98,7 @@
         <antlr-runtime.version>3.4</antlr-runtime.version>
         <stringtemplate.version>3.2.1</stringtemplate.version>
         <commons-cli.version>1.2</commons-cli.version>
-        <concordion.version>1.4.2</concordion.version>
+        <concordion.version>1.4.3</concordion.version>
         <ognl.version>3.0.2</ognl.version>
         <xom.version>1.2.5</xom.version>
         <concordion-extensions.version>1.1.0</concordion-extensions.version>
@@ -122,6 +120,10 @@
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
         <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
         <maven-scm-publish-plugin.version>1.0-beta-2</maven-scm-publish-plugin.version>
+        <maven-site-plugin.version>3.2</maven-site-plugin.version>
+        <githubsite-maven-plugin.version>0.7</githubsite-maven-plugin.version>
+        <maven-concordion-reporting-plugin.version>1.0.2</maven-concordion-reporting-plugin.version>
+        <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -222,7 +224,7 @@
     </dependencyManagement>
 
     <profiles>
-        <profile>
+        <!--profile>
             <id>checkstyle-verification</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -248,7 +250,7 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
+        </profile-->
         <profile>
             <id>integration-tests</id>
             <!--activation>
@@ -376,30 +378,6 @@
             </build>
         </profile>
         <profile>
-            <id>stage</id>
-            <properties>
-                <site.deploy.url>http://github.com/etourdot/xincproc/tree/gh-pages/</site.deploy.url>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-site-plugin</artifactId>
-                        <version>3.2</version>
-                        <executions>
-                            <execution>
-                                <id>stage</id>
-                                <goals>
-                                    <goal>stage</goal>
-                                </goals>
-                                <phase>site</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
             <id>release-xincproc</id>
             <activation>
                 <property>
@@ -508,24 +486,9 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>cobertura-maven-plugin</artifactId>
-                    <version>2.5.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.atlassian.maven.plugins</groupId>
-                    <artifactId>maven-clover2-plugin</artifactId>
-                    <version>3.1.10</version>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${maven-checkstyle-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-pmd-plugin</artifactId>
-                    <version>3.0.1</version>
                 </plugin>
                 <plugin>
                     <groupId>com.github.goldin</groupId>
@@ -565,6 +528,29 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>com.github.goldin</groupId>
+                <artifactId>copy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-to-site</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <failIfNotFound>false</failIfNotFound>
+                            <resources>
+                                <resource>
+                                    <targetPath>${project.build.directory}/site/specs</targetPath>
+                                    <directory>${concordion.reportDirectory}</directory>
+                                    <preservePath>true</preservePath>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <dependencies>
@@ -584,6 +570,46 @@
                         <version>1.3</version>
                     </dependency>
                 </dependencies>
+                <configuration>
+                    <generateReports>true</generateReports>
+                    <inputEncoding>UTF-8</inputEncoding>
+                    <outputEncoding>UTF-8</outputEncoding>
+                    <skipDeploy>true</skipDeploy>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>checkstyle</goal>
+                        </goals>
+                        <configuration>
+                            <configLocation>checkstyle.xml</configLocation>
+                            <failsOnError>true</failsOnError>
+                            <linkXRef>false</linkXRef>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${maven-site-plugin.version}</version>
+                <configuration>
+                    <skipDeploy>false</skipDeploy>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>stage</id>
+                        <goals>
+                            <goal>stage</goal>
+                        </goals>
+                        <phase>site</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -593,7 +619,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.6</version>
+                <version>${maven-project-info-reports-plugin.version}</version>
                 <configuration>
                     <anonymousConnection>scm:git:git@github.com:etourdot/xincproc.git</anonymousConnection>
                     <developerConnection>scm:git:git@github.com:etourdot/xincproc.git</developerConnection>
@@ -607,35 +633,20 @@
                             <report>project-team</report>
                             <report>scm</report>
                             <report>issue-tracking</report>
-                            <report>dependencies</report>
+                            <!--report>dependencies</report>
                             <report>dependency-convergence</report>
-                            <report>plugins</report>
+                            <report>plugins</report-->
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changes-plugin</artifactId>
-                <version>2.8</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>changes-report</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>com.github.bassman5</groupId>
                 <artifactId>maven-concordion-reporting-plugin</artifactId>
+                <version>${maven-concordion-reporting-plugin.version}</version>
                 <configuration>
                     <concordionDir>${basedir}/target/concordion-reports</concordionDir>
-                    <concordionIndexFile>acceptanceTests/AcceptanceTests.html</concordionIndexFile>
+                    <concordionIndexFile>specs/AcceptanceTests.html</concordionIndexFile>
                 </configuration>
             </plugin>
         </plugins>

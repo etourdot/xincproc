@@ -8,9 +8,12 @@
         <groupId>org.etourdot</groupId>
         <artifactId>xincproc</artifactId>
         <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <name>XIncproc - XPointer processor</name>
+    <description>XPointer processor is the XPointer implementation for XIncProc Framework.</description>
+    <url>${site.url}/xpointer</url>
 
     <artifactId>xpointer</artifactId>
     <packaging>jar</packaging>
@@ -71,27 +74,32 @@
         </plugins>
     </build>
 
-    <!--reporting>
+    <reporting>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.5.2</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
-                    <xmlOutput>true</xmlOutput>
-                    <effort>Max</effort>
+                    <stylesheetfile>${project.basedir}/src/javadoc/stylesheet.css</stylesheetfile>
+                    <javadocDirectory>${project.basedir}/src/javadoc</javadocDirectory>
+                    <docfilessubdirs>true</docfilessubdirs>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.5.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>dashboard-maven-plugin</artifactId>
-                <version>1.0.0-beta-1</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
         </plugins>
-    </reporting-->
+    </reporting>
+    
+    <distributionManagement>
+        <site>
+            <id>${site.deploy.id}</id>
+            <url>${site.deploy.url}/xpointer</url>
+        </site>
+    </distributionManagement>
 </project>
