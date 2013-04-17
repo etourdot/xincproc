@@ -122,8 +122,11 @@
         <maven-scm-publish-plugin.version>1.0-beta-2</maven-scm-publish-plugin.version>
         <maven-site-plugin.version>3.2</maven-site-plugin.version>
         <githubsite-maven-plugin.version>0.7</githubsite-maven-plugin.version>
-        <maven-concordion-reporting-plugin.version>1.0.2</maven-concordion-reporting-plugin.version>
         <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
+        <reflow-velocity-tools.version>1.0.0</reflow-velocity-tools.version>
+        <velocity.version>1.7</velocity.version>
+        <doxia-module-markdown.version>1.3</doxia-module-markdown.version>
+        <maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -224,38 +227,8 @@
     </dependencyManagement>
 
     <profiles>
-        <!--profile>
-            <id>checkstyle-verification</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-checkstyle-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>checkstyle</goal>
-                                </goals>
-                                <configuration>
-                                    <configLocation>checkstyle.xml</configLocation>
-                                    <failsOnError>true</failsOnError>
-                                    <linkXRef>false</linkXRef>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile-->
         <profile>
             <id>integration-tests</id>
-            <!--activation>
-                <activeByDefault>true</activeByDefault>
-            </activation-->
             <build>
                 <plugins>
                     <plugin>
@@ -326,15 +299,15 @@
                         <executions>
                             <execution>
                                 <id>copy-to-site</id>
-                                <phase>package</phase>
+                                <phase>pre-site</phase>
                                 <goals>
                                     <goal>copy</goal>
                                 </goals>
                                 <configuration>
                                     <resources>
                                         <resource>
-                                            <targetPath>${project.build.outputDirectory}/site/specs</targetPath>
-                                            <directory>${itest.testOutputDirectory}</directory>
+                                            <targetPath>${project.build.directory}/site/specs</targetPath>
+                                            <directory>${concordion.reportDirectory}</directory>
                                             <preservePath>true</preservePath>
                                         </resource>
                                     </resources>
@@ -553,21 +526,22 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
+                <version>${maven-site-plugin.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>lt.velykis.maven.skins</groupId>
                         <artifactId>reflow-velocity-tools</artifactId>
-                        <version>1.0.0</version>
+                        <version>${reflow-velocity-tools.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.apache.velocity</groupId>
                         <artifactId>velocity</artifactId>
-                        <version>1.7</version>
+                        <version>${velocity.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.apache.maven.doxia</groupId>
                         <artifactId>doxia-module-markdown</artifactId>
-                        <version>1.3</version>
+                        <version>${doxia-module-markdown.version}</version>
                     </dependency>
                 </dependencies>
                 <configuration>
@@ -575,7 +549,27 @@
                     <inputEncoding>UTF-8</inputEncoding>
                     <outputEncoding>UTF-8</outputEncoding>
                     <skipDeploy>true</skipDeploy>
+                    <reportPlugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>${maven-project-info-reports-plugin.version}</version>
+                            <configuration>
+                                <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                            </configuration>
+                        </plugin>
+                    </reportPlugins>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>stage</id>
+                        <goals>
+                            <goal>stage</goal>
+                        </goals>
+                        <phase>site</phase>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -594,27 +588,10 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>${maven-site-plugin.version}</version>
-                <configuration>
-                    <skipDeploy>false</skipDeploy>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>stage</id>
-                        <goals>
-                            <goal>stage</goal>
-                        </goals>
-                        <phase>site</phase>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
-    <reporting>
+    <!--reporting>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -633,22 +610,13 @@
                             <report>project-team</report>
                             <report>scm</report>
                             <report>issue-tracking</report>
-                            <!--report>dependencies</report>
+                            <report>dependencies</report>
                             <report>dependency-convergence</report>
-                            <report>plugins</report-->
+                            <report>plugins</report>
                         </reports>
                     </reportSet>
                 </reportSets>
             </plugin>
-            <plugin>
-                <groupId>com.github.bassman5</groupId>
-                <artifactId>maven-concordion-reporting-plugin</artifactId>
-                <version>${maven-concordion-reporting-plugin.version}</version>
-                <configuration>
-                    <concordionDir>${basedir}/target/concordion-reports</concordionDir>
-                    <concordionIndexFile>specs/AcceptanceTests.html</concordionIndexFile>
-                </configuration>
-            </plugin>
         </plugins>
-    </reporting>
+    </reporting-->
 </project>
