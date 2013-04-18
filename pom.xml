@@ -496,7 +496,7 @@
                 <configuration>
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <useReleaseProfile>false</useReleaseProfile>
-                    <arguments>-Pgenerate-docs,release-xincproc</arguments>
+                    <arguments>release-xincproc</arguments>
                     <tagNameFormat>r@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
