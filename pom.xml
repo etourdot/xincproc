@@ -76,10 +76,10 @@
         <checkstyle.config.path>${project.parent.relativePath}/../checkstyle.xml</checkstyle.config.path>
         <gpg.keyname>115F1F28</gpg.keyname>
         <!-- Site generation variables -->
-        <site.url>http://etourdot.github.com/xincproc</site.url>
+        <site.url>http://etourdot.github.io/xincproc</site.url>
         <github.global.server>github</github.global.server>
         <site.deploy.id>gh-pages</site.deploy.id>
-        <site.deploy.url>http://etourdot.github.io/xincproc</site.deploy.url>
+        <site.deploy.url>http://github.com/etourdot/xincproc/tree/gh-pages/</site.deploy.url>
 
         <!-- Integration test path configuration -->
         <spec.directory>src/spec</spec.directory>
@@ -127,6 +127,7 @@
         <velocity.version>1.7</velocity.version>
         <doxia-module-markdown.version>1.3</doxia-module-markdown.version>
         <maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
+        <copy-maven-plugin.version>0.2.5</copy-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -421,15 +422,6 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>${maven-source-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                </plugin>
-                <plugin>
                     <groupId>org.antlr</groupId>
                     <artifactId>antlr3-maven-plugin</artifactId>
                     <version>${antlr3-maven-plugin.version}</version>
@@ -452,40 +444,13 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>${maven-release-plugin.version}</version>
-                    <configuration>
-                        <autoVersionSubmodules>true</autoVersionSubmodules>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${maven-checkstyle-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>com.github.goldin</groupId>
                     <artifactId>copy-maven-plugin</artifactId>
-                    <version>0.2.5</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.github.github</groupId>
-                    <artifactId>site-maven-plugin</artifactId>
-                    <version>0.7</version>
-                    <configuration>
-                        <message>Creating site for ${project.artifactId}, ${project.version}</message>
-                        <path>${project.distributionManagement.site.url}</path>
-                        <merge>true</merge>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>github-site</id>
-                            <goals>
-                                <goal>site</goal>
-                            </goals>
-                            <phase>site-deploy</phase>
-                        </execution>
-                    </executions>
+                    <version>${copy-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -549,17 +514,6 @@
                     <inputEncoding>UTF-8</inputEncoding>
                     <outputEncoding>UTF-8</outputEncoding>
                     <skipDeploy>true</skipDeploy>
-                    <reportPlugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-project-info-reports-plugin</artifactId>
-                            <version>${maven-project-info-reports-plugin.version}</version>
-                            <configuration>
-                                <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-                                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                            </configuration>
-                        </plugin>
-                    </reportPlugins>
                 </configuration>
                 <executions>
                     <execution>
@@ -588,10 +542,28 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>${githubsite-maven-plugin.version}</version>
+                <configuration>
+                    <message>Creating site for ${project.artifactId}, ${project.version}</message>
+                    <path>${project.distributionManagement.site.url}</path>
+                    <merge>true</merge>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>site-deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
-    <!--reporting>
+    <reporting>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -617,6 +589,18 @@
                     </reportSet>
                 </reportSets>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <version>2.8</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>changes-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
         </plugins>
-    </reporting-->
+    </reporting>
 </project>

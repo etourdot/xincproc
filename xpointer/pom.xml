@@ -13,7 +13,6 @@
 
     <name>XIncproc - XPointer processor</name>
     <description>XPointer processor is the XPointer implementation for XIncProc Framework.</description>
-    <url>${site.url}/xpointer</url>
 
     <artifactId>xpointer</artifactId>
     <packaging>jar</packaging>
