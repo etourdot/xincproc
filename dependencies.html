@@ -15,15 +15,15 @@
  
 		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link href="..//css/docs.css" rel="stylesheet" />
-		<link href="..//css/reflow-skin.css" rel="stylesheet" />
+		<link href="http://xincproc.etourdot.org//css/docs.css" rel="stylesheet" />
+		<link href="http://xincproc.etourdot.org//css/reflow-skin.css" rel="stylesheet" />
 		
 		<link href="http://yandex.st/highlightjs/7.3/styles/github.min.css" rel="stylesheet" />
 		
-		<link href="..//css/lightbox.css" rel="stylesheet" />
+		<link href="http://xincproc.etourdot.org//css/lightbox.css" rel="stylesheet" />
 		
-		<link href="..//css/site.css" rel="stylesheet" />
-		<link href="..//css/print.css" rel="stylesheet" media="print" />
+		<link href="http://xincproc.etourdot.org//css/site.css" rel="stylesheet" />
+		<link href="http://xincproc.etourdot.org//css/print.css" rel="stylesheet" media="print" />
 		
 		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
@@ -32,7 +32,7 @@
 
 	</head>
 
-	<body class="page-dependencies project-xpointer" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
+	<body class="page-dependencies project-xinclude" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
 
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
@@ -42,7 +42,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
-					<a class="brand" href=".."><span class="color-highlight">XInc</span>lude  <span class="color-highlight">Proc</span>essor</a>
+					<a class="brand" href="http://xincproc.etourdot.org"><span class="color-highlight">XInc</span>lude  <span class="color-highlight">Proc</span>essor</a>
 					<div class="nav-collapse">
 						<ul class="nav pull-right">
 							<li class="dropdown">
@@ -85,8 +85,8 @@
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Modules <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li><a href="../xinclude/index.html" title="XInclude">XInclude </a></li>
-									<li><a href="index.html" title="XPointer">XPointer </a></li>
+									<li><a href="index.html" title="XInclude">XInclude </a></li>
+									<li><a href="../xpointer/index.html" title="XPointer">XPointer </a></li>
 								</ul>
 							</li>
 						</ul>
@@ -103,7 +103,7 @@
 		<div class="row" id="banner">
 			<div class="span12">
 				<div class="pull-left">
-					<a href="../" id="bannerLeft"><h1><span class="color-highlight">XInclude</span> processor</h1></a>
+					<a href="http://xincproc.etourdot.org" id="bannerLeft"><h1><span class="color-highlight">XInclude</span> processor</h1></a>
 					<p class="lead">Full java XInclude processor framework.</p>
 				</div>
 				<div class="pull-right">
@@ -114,7 +114,7 @@
 			<ul class="breadcrumb">
 				<li><a href="../" title="XIncProc">XIncProc </a></li>
 				<li class="divider">/</li>
-				<li><a href="./" title="XPointer">XPointer </a></li>
+				<li><a href="./" title="XInclude">XInclude </a></li>
 				<li class="divider">/</li>
 				<li>Project Dependencies</li>
 			</ul>
@@ -160,6 +160,20 @@
      <td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td> 
     </tr> 
     <tr class="b"> 
+     <td>commons-cli</td> 
+     <td><a class="externalLink" href="http://commons.apache.org/cli/">commons-cli</a></td> 
+     <td>1.2</td> 
+     <td>jar</td> 
+     <td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td> 
+    </tr> 
+    <tr class="a"> 
+     <td>commons-io</td> 
+     <td><a class="externalLink" href="http://commons.apache.org/io/">commons-io</a></td> 
+     <td>2.4</td> 
+     <td>jar</td> 
+     <td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td> 
+    </tr> 
+    <tr class="b"> 
      <td>net.sf.saxon</td> 
      <td><a class="externalLink" href="http://www.saxonica.com/">Saxon-HE</a></td> 
      <td>9.4.0.7</td> 
@@ -174,18 +188,39 @@
      <td>-</td> 
     </tr> 
     <tr class="b"> 
-     <td>org.antlr</td> 
-     <td><a class="externalLink" href="http://www.stringtemplate.org">stringtemplate</a></td> 
-     <td>3.2.1</td> 
+     <td>org.apache.commons</td> 
+     <td><a class="externalLink" href="http://commons.apache.org/lang/">commons-lang3</a></td> 
+     <td>3.1</td> 
      <td>jar</td> 
-     <td><a class="externalLink" href="http://antlr.org/license.html">BSD licence</a></td> 
+     <td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td> 
     </tr> 
     <tr class="a"> 
+     <td>org.etourdot</td> 
+     <td><a class="externalLink" href="http://xincproc.etourdot.org/xpointer">xpointer</a></td> 
+     <td>1.0.0-SNAPSHOT</td> 
+     <td>jar</td> 
+     <td><a class="externalLink" href="http://www.opensource.org/licenses/lgpl-3.0.html">LGPL 3.0 license</a></td> 
+    </tr> 
+    <tr class="b"> 
      <td>org.slf4j</td> 
      <td><a class="externalLink" href="http://www.slf4j.org">slf4j-api</a></td> 
      <td>1.7.2</td> 
      <td>jar</td> 
      <td><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></td> 
+    </tr> 
+    <tr class="a"> 
+     <td>xerces</td> 
+     <td>xercesImpl</td> 
+     <td>2.11.0</td> 
+     <td>jar</td> 
+     <td>-</td> 
+    </tr> 
+    <tr class="b"> 
+     <td>xml-apis</td> 
+     <td>xml-apis</td> 
+     <td>1.4.01</td> 
+     <td>jar</td> 
+     <td>-</td> 
     </tr> 
    </tbody> 
   </table> 
@@ -227,13 +262,20 @@
      <td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.html">The Apache Software License, Version 2.0</a></td> 
     </tr> 
     <tr class="a"> 
+     <td>org.concordion</td> 
+     <td><a class="externalLink" href="http://concordion-extensions.googlecode.com">concordion-extensions</a></td> 
+     <td>1.1.0</td> 
+     <td>jar</td> 
+     <td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.html">The Apache Software License, Version 2.0</a></td> 
+    </tr> 
+    <tr class="b"> 
      <td>xmlunit</td> 
      <td><a class="externalLink" href="http://xmlunit.sourceforge.net/">xmlunit</a></td> 
      <td>1.4</td> 
      <td>jar</td> 
      <td><a class="externalLink" href="http://xmlunit.svn.sourceforge.net/viewvc/*checkout*/xmlunit/trunk/xmlunit/LICENSE.txt">BSD License</a></td> 
     </tr> 
-    <tr class="b"> 
+    <tr class="a"> 
      <td>xom</td> 
      <td><a class="externalLink" href="http://xom.nu">xom</a></td> 
      <td>1.2.5</td> 
@@ -277,6 +319,13 @@
      <td>jar</td> 
      <td><a class="externalLink" href="http://www.eclipse.org/legal/epl-v10.html">Eclipse Public License - v 1.0</a>-<a class="externalLink" href="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">GNU Lesser General Public License</a></td> 
     </tr> 
+    <tr class="b"> 
+     <td>org.antlr</td> 
+     <td><a class="externalLink" href="http://www.stringtemplate.org">stringtemplate</a></td> 
+     <td>3.2.1</td> 
+     <td>jar</td> 
+     <td><a class="externalLink" href="http://antlr.org/license.html">BSD licence</a></td> 
+    </tr> 
    </tbody> 
   </table> 
  </div> 
@@ -316,20 +365,6 @@
      <td>jar</td> 
      <td>-</td> 
     </tr> 
-    <tr class="a"> 
-     <td>xerces</td> 
-     <td>xercesImpl</td> 
-     <td>2.11.0</td> 
-     <td>jar</td> 
-     <td>-</td> 
-    </tr> 
-    <tr class="b"> 
-     <td>xml-apis</td> 
-     <td>xml-apis</td> 
-     <td>1.4.01</td> 
-     <td>jar</td> 
-     <td>-</td> 
-    </tr> 
    </tbody> 
   </table> 
  </div> 
@@ -358,71 +393,84 @@
  <div class="section"> 
   <h3 id="Dependency_Tree">Dependency Tree</h3> 
   <ul> 
-   <li>org.etourdot:xpointer:jar:1.0.0-SNAPSHOT <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1135776342"><i class="icon-info-sign"></i></button> 
-    <div id="_1135776342" style="" class=" collapse"> 
+   <li>org.etourdot:xinclude:jar:1.0.0-SNAPSHOT <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_547035014"><i class="icon-info-sign"></i></button> 
+    <div id="_547035014" style="" class=" collapse"> 
      <table border="0" class="bodyTable table table-striped table-hover"> 
       <thead> 
        <tr class="a"> 
-        <th>XIncproc - XPointer processor</th> 
+        <th>XIncproc - XInclude processor</th> 
        </tr> 
       </thead> 
       <tbody> 
        <tr class="b"> 
-        <td><p><b>Description: </b>XPointer processor is the XPointer implementation for XIncProc Framework.</p><p><b>URL: </b><a class="externalLink" href="http://xincproc.etourdot.org/xpointer">http://xincproc.etourdot.org/xpointer</a></p><p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/lgpl-3.0.html">LGPL 3.0 license</a></p></td> 
+        <td><p><b>Description: </b>XInclude processor is the main part of XIncProc framework.</p><p><b>URL: </b><a class="externalLink" href="http://etourdot.github.io/xincproc/xinclude">http://etourdot.github.io/xincproc/xinclude</a></p><p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/lgpl-3.0.html">LGPL 3.0 license</a></p></td> 
        </tr> 
       </tbody> 
      </table> 
     </div> 
     <ul> 
-     <li>org.antlr:antlr-runtime:jar:3.4 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_504326189"><i class="icon-info-sign"></i></button> 
-      <div id="_504326189" style="" class=" collapse"> 
+     <li>org.slf4j:slf4j-api:jar:1.7.2 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_109173808"><i class="icon-info-sign"></i></button> 
+      <div id="_109173808" style="" class=" collapse"> 
        <table border="0" class="bodyTable table table-striped table-hover"> 
         <thead> 
          <tr class="a"> 
-          <th>Antlr 3.4 Runtime</th> 
+          <th>SLF4J API Module</th> 
          </tr> 
         </thead> 
         <tbody> 
          <tr class="b"> 
-          <td><p><b>Description: </b>A framework for constructing recognizers, compilers, and translators from grammatical descriptions containing Java, C#, C++, or Python actions.</p><p><b>URL: </b><a class="externalLink" href="http://www.antlr.org">http://www.antlr.org</a></p><p><b>Project License: </b>No license is defined for this project.</p></td> 
-         </tr> 
-        </tbody> 
-       </table> 
-      </div> 
-      <ul> 
-       <li>antlr:antlr:jar:2.7.7 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_964765440"><i class="icon-info-sign"></i></button> 
-        <div id="_964765440" style="" class=" collapse"> 
-         <table border="0" class="bodyTable table table-striped table-hover"> 
-          <thead> 
-           <tr class="a"> 
-            <th>AntLR Parser Generator</th> 
-           </tr> 
-          </thead> 
-          <tbody> 
-           <tr class="b"> 
-            <td><p><b>Description: </b>A framework for constructing recognizers, compilers, and translators from grammatical descriptions containing Java, C#, C++, or Python actions.</p><p><b>URL: </b><a class="externalLink" href="http://www.antlr.org/">http://www.antlr.org/</a></p><p><b>Project License: </b><a class="externalLink" href="http://www.antlr.org/license.html">BSD License</a></p></td> 
-           </tr> 
-          </tbody> 
-         </table> 
-        </div></li> 
-      </ul></li> 
-     <li>org.antlr:stringtemplate:jar:3.2.1 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_346829033"><i class="icon-info-sign"></i></button> 
-      <div id="_346829033" style="" class=" collapse"> 
-       <table border="0" class="bodyTable table table-striped table-hover"> 
-        <thead> 
-         <tr class="a"> 
-          <th>ANTLR StringTemplate</th> 
-         </tr> 
-        </thead> 
-        <tbody> 
-         <tr class="b"> 
-          <td><p><b>Description: </b>StringTemplate is a java template engine for generating source code, web pages, emails, or any other formatted text output. StringTemplate is particularly good at multi-targeted code generators, multiple site skins, and internationalization/localization. It evolved over years of effort developing jGuru.com. StringTemplate also generates the stringtemplate website: http://www.stringtemplate.org and powers the ANTLR v3 code generator. Its distinguishing characteristic is that unlike other engines, it strictly enforces model-view separation. Strict separation makes websites and code generators more flexible and maintainable; it also provides an excellent defense against malicious template authors. There are currently about 600 StringTemplate source downloads a month.</p><p><b>URL: </b><a class="externalLink" href="http://www.stringtemplate.org">http://www.stringtemplate.org</a></p><p><b>Project License: </b><a class="externalLink" href="http://antlr.org/license.html">BSD licence</a></p></td> 
+          <td><p><b>Description: </b>The slf4j API</p><p><b>URL: </b><a class="externalLink" href="http://www.slf4j.org">http://www.slf4j.org</a></p><p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></p></td> 
          </tr> 
         </tbody> 
        </table> 
       </div></li> 
-     <li>com.google.guava:guava:jar:14.0.1 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_361970651"><i class="icon-info-sign"></i></button> 
-      <div id="_361970651" style="" class=" collapse"> 
+     <li>commons-cli:commons-cli:jar:1.2 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_100319827"><i class="icon-info-sign"></i></button> 
+      <div id="_100319827" style="" class=" collapse"> 
+       <table border="0" class="bodyTable table table-striped table-hover"> 
+        <thead> 
+         <tr class="a"> 
+          <th>Commons CLI</th> 
+         </tr> 
+        </thead> 
+        <tbody> 
+         <tr class="b"> 
+          <td><p><b>Description: </b>Commons CLI provides a simple API for presenting, processing and validating a command line interface.</p><p><b>URL: </b><a class="externalLink" href="http://commons.apache.org/cli/">http://commons.apache.org/cli/</a></p><p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td> 
+         </tr> 
+        </tbody> 
+       </table> 
+      </div></li> 
+     <li>commons-io:commons-io:jar:2.4 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1320713441"><i class="icon-info-sign"></i></button> 
+      <div id="_1320713441" style="" class=" collapse"> 
+       <table border="0" class="bodyTable table table-striped table-hover"> 
+        <thead> 
+         <tr class="a"> 
+          <th>Commons IO</th> 
+         </tr> 
+        </thead> 
+        <tbody> 
+         <tr class="b"> 
+          <td><p><b>Description: </b>The Commons IO library contains utility classes, stream implementations, file filters, file comparators, endian transformation classes, and much more.</p><p><b>URL: </b><a class="externalLink" href="http://commons.apache.org/io/">http://commons.apache.org/io/</a></p><p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td> 
+         </tr> 
+        </tbody> 
+       </table> 
+      </div></li> 
+     <li>org.apache.commons:commons-lang3:jar:3.1 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_21536932"><i class="icon-info-sign"></i></button> 
+      <div id="_21536932" style="" class=" collapse"> 
+       <table border="0" class="bodyTable table table-striped table-hover"> 
+        <thead> 
+         <tr class="a"> 
+          <th>Commons Lang</th> 
+         </tr> 
+        </thead> 
+        <tbody> 
+         <tr class="b"> 
+          <td><p><b>Description: </b>Commons Lang, a package of Java utility classes for the classes that are in java.lang's hierarchy, or are considered to be so standard as to justify existence in java.lang.</p><p><b>URL: </b><a class="externalLink" href="http://commons.apache.org/lang/">http://commons.apache.org/lang/</a></p><p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td> 
+         </tr> 
+        </tbody> 
+       </table> 
+      </div></li> 
+     <li>com.google.guava:guava:jar:14.0.1 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1081910234"><i class="icon-info-sign"></i></button> 
+      <div id="_1081910234" style="" class=" collapse"> 
        <table border="0" class="bodyTable table table-striped table-hover"> 
         <thead> 
          <tr class="a"> 
@@ -436,8 +484,8 @@
         </tbody> 
        </table> 
       </div></li> 
-     <li>net.sf.saxon:Saxon-HE:jar:9.4.0.7 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_2063808194"><i class="icon-info-sign"></i></button> 
-      <div id="_2063808194" style="" class=" collapse"> 
+     <li>net.sf.saxon:Saxon-HE:jar:9.4.0.7 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1001731890"><i class="icon-info-sign"></i></button> 
+      <div id="_1001731890" style="" class=" collapse"> 
        <table border="0" class="bodyTable table table-striped table-hover"> 
         <thead> 
          <tr class="a"> 
@@ -451,8 +499,8 @@
         </tbody> 
        </table> 
       </div></li> 
-     <li>junit:junit:jar:4.11 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1991500053"><i class="icon-info-sign"></i></button> 
-      <div id="_1991500053" style="" class=" collapse"> 
+     <li>junit:junit:jar:4.11 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_813481474"><i class="icon-info-sign"></i></button> 
+      <div id="_813481474" style="" class=" collapse"> 
        <table border="0" class="bodyTable table table-striped table-hover"> 
         <thead> 
          <tr class="a"> 
@@ -467,8 +515,8 @@
        </table> 
       </div> 
       <ul> 
-       <li>org.hamcrest:hamcrest-core:jar:1.3 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1174992759"><i class="icon-info-sign"></i></button> 
-        <div id="_1174992759" style="" class=" collapse"> 
+       <li>org.hamcrest:hamcrest-core:jar:1.3 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_635161386"><i class="icon-info-sign"></i></button> 
+        <div id="_635161386" style="" class=" collapse"> 
          <table border="0" class="bodyTable table table-striped table-hover"> 
           <thead> 
            <tr class="a"> 
@@ -483,8 +531,8 @@
          </table> 
         </div></li> 
       </ul></li> 
-     <li>xmlunit:xmlunit:jar:1.4 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_93614525"><i class="icon-info-sign"></i></button> 
-      <div id="_93614525" style="" class=" collapse"> 
+     <li>xmlunit:xmlunit:jar:1.4 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1698045033"><i class="icon-info-sign"></i></button> 
+      <div id="_1698045033" style="" class=" collapse"> 
        <table border="0" class="bodyTable table table-striped table-hover"> 
         <thead> 
          <tr class="a"> 
@@ -498,8 +546,102 @@
         </tbody> 
        </table> 
       </div></li> 
-     <li>org.concordion:concordion:jar:1.4.3 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_2027088716"><i class="icon-info-sign"></i></button> 
-      <div id="_2027088716" style="" class=" collapse"> 
+     <li>xerces:xercesImpl:jar:2.11.0 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1575525300"><i class="icon-info-sign"></i></button> 
+      <div id="_1575525300" style="" class=" collapse"> 
+       <table border="0" class="bodyTable table table-striped table-hover"> 
+        <thead> 
+         <tr class="a"> 
+          <th>xercesImpl</th> 
+         </tr> 
+        </thead> 
+        <tbody> 
+         <tr class="b"> 
+          <td><p><b>Description: </b>Artifactory auto generated POM</p><p><b>Project License: </b>No license is defined for this project.</p></td> 
+         </tr> 
+        </tbody> 
+       </table> 
+      </div></li> 
+     <li>xml-apis:xml-apis:jar:1.4.01 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_341187208"><i class="icon-info-sign"></i></button> 
+      <div id="_341187208" style="" class=" collapse"> 
+       <table border="0" class="bodyTable table table-striped table-hover"> 
+        <thead> 
+         <tr class="a"> 
+          <th>xml-apis</th> 
+         </tr> 
+        </thead> 
+        <tbody> 
+         <tr class="b"> 
+          <td><p><b>Description: </b>Artifactory auto generated POM</p><p><b>Project License: </b>No license is defined for this project.</p></td> 
+         </tr> 
+        </tbody> 
+       </table> 
+      </div></li> 
+     <li>org.etourdot:xpointer:jar:1.0.0-SNAPSHOT (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1474669433"><i class="icon-info-sign"></i></button> 
+      <div id="_1474669433" style="" class=" collapse"> 
+       <table border="0" class="bodyTable table table-striped table-hover"> 
+        <thead> 
+         <tr class="a"> 
+          <th>XIncproc - XPointer processor</th> 
+         </tr> 
+        </thead> 
+        <tbody> 
+         <tr class="b"> 
+          <td><p><b>Description: </b>XPointer processor is the XPointer implementation for XIncProc Framework.</p><p><b>URL: </b><a class="externalLink" href="http://xincproc.etourdot.org/xpointer">http://xincproc.etourdot.org/xpointer</a></p><p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/lgpl-3.0.html">LGPL 3.0 license</a></p></td> 
+         </tr> 
+        </tbody> 
+       </table> 
+      </div> 
+      <ul> 
+       <li>org.antlr:stringtemplate:jar:3.2.1 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1428138680"><i class="icon-info-sign"></i></button> 
+        <div id="_1428138680" style="" class=" collapse"> 
+         <table border="0" class="bodyTable table table-striped table-hover"> 
+          <thead> 
+           <tr class="a"> 
+            <th>ANTLR StringTemplate</th> 
+           </tr> 
+          </thead> 
+          <tbody> 
+           <tr class="b"> 
+            <td><p><b>Description: </b>StringTemplate is a java template engine for generating source code, web pages, emails, or any other formatted text output. StringTemplate is particularly good at multi-targeted code generators, multiple site skins, and internationalization/localization. It evolved over years of effort developing jGuru.com. StringTemplate also generates the stringtemplate website: http://www.stringtemplate.org and powers the ANTLR v3 code generator. Its distinguishing characteristic is that unlike other engines, it strictly enforces model-view separation. Strict separation makes websites and code generators more flexible and maintainable; it also provides an excellent defense against malicious template authors. There are currently about 600 StringTemplate source downloads a month.</p><p><b>URL: </b><a class="externalLink" href="http://www.stringtemplate.org">http://www.stringtemplate.org</a></p><p><b>Project License: </b><a class="externalLink" href="http://antlr.org/license.html">BSD licence</a></p></td> 
+           </tr> 
+          </tbody> 
+         </table> 
+        </div></li> 
+      </ul></li> 
+     <li>org.antlr:antlr-runtime:jar:3.4 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1425396348"><i class="icon-info-sign"></i></button> 
+      <div id="_1425396348" style="" class=" collapse"> 
+       <table border="0" class="bodyTable table table-striped table-hover"> 
+        <thead> 
+         <tr class="a"> 
+          <th>Antlr 3.4 Runtime</th> 
+         </tr> 
+        </thead> 
+        <tbody> 
+         <tr class="b"> 
+          <td><p><b>Description: </b>A framework for constructing recognizers, compilers, and translators from grammatical descriptions containing Java, C#, C++, or Python actions.</p><p><b>URL: </b><a class="externalLink" href="http://www.antlr.org">http://www.antlr.org</a></p><p><b>Project License: </b>No license is defined for this project.</p></td> 
+         </tr> 
+        </tbody> 
+       </table> 
+      </div> 
+      <ul> 
+       <li>antlr:antlr:jar:2.7.7 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_423689342"><i class="icon-info-sign"></i></button> 
+        <div id="_423689342" style="" class=" collapse"> 
+         <table border="0" class="bodyTable table table-striped table-hover"> 
+          <thead> 
+           <tr class="a"> 
+            <th>AntLR Parser Generator</th> 
+           </tr> 
+          </thead> 
+          <tbody> 
+           <tr class="b"> 
+            <td><p><b>Description: </b>A framework for constructing recognizers, compilers, and translators from grammatical descriptions containing Java, C#, C++, or Python actions.</p><p><b>URL: </b><a class="externalLink" href="http://www.antlr.org/">http://www.antlr.org/</a></p><p><b>Project License: </b><a class="externalLink" href="http://www.antlr.org/license.html">BSD License</a></p></td> 
+           </tr> 
+          </tbody> 
+         </table> 
+        </div></li> 
+      </ul></li> 
+     <li>org.concordion:concordion:jar:1.4.3 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1169131673"><i class="icon-info-sign"></i></button> 
+      <div id="_1169131673" style="" class=" collapse"> 
        <table border="0" class="bodyTable table table-striped table-hover"> 
         <thead> 
          <tr class="a"> 
@@ -513,8 +655,23 @@
         </tbody> 
        </table> 
       </div></li> 
-     <li>ognl:ognl:jar:3.0.2 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_582836275"><i class="icon-info-sign"></i></button> 
-      <div id="_582836275" style="" class=" collapse"> 
+     <li>org.concordion:concordion-extensions:jar:1.1.0 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1722540420"><i class="icon-info-sign"></i></button> 
+      <div id="_1722540420" style="" class=" collapse"> 
+       <table border="0" class="bodyTable table table-striped table-hover"> 
+        <thead> 
+         <tr class="a"> 
+          <th>concordion-extensions</th> 
+         </tr> 
+        </thead> 
+        <tbody> 
+         <tr class="b"> 
+          <td><p><b>Description: </b>This project adds features to the Concordion acceptance test framework, such as embedding screenshots or logging information in the output.</p><p><b>URL: </b><a class="externalLink" href="http://concordion-extensions.googlecode.com">http://concordion-extensions.googlecode.com</a></p><p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.html">The Apache Software License, Version 2.0</a></p></td> 
+         </tr> 
+        </tbody> 
+       </table> 
+      </div></li> 
+     <li>ognl:ognl:jar:3.0.2 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_614970906"><i class="icon-info-sign"></i></button> 
+      <div id="_614970906" style="" class=" collapse"> 
        <table border="0" class="bodyTable table table-striped table-hover"> 
         <thead> 
          <tr class="a"> 
@@ -529,8 +686,8 @@
        </table> 
       </div> 
       <ul> 
-       <li>javassist:javassist:jar:3.11.0.GA (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_649472207"><i class="icon-info-sign"></i></button> 
-        <div id="_649472207" style="" class=" collapse"> 
+       <li>javassist:javassist:jar:3.11.0.GA (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_419605613"><i class="icon-info-sign"></i></button> 
+        <div id="_419605613" style="" class=" collapse"> 
          <table border="0" class="bodyTable table table-striped table-hover"> 
           <thead> 
            <tr class="a"> 
@@ -545,8 +702,8 @@
          </table> 
         </div></li> 
       </ul></li> 
-     <li>xom:xom:jar:1.2.5 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_562159717"><i class="icon-info-sign"></i></button> 
-      <div id="_562159717" style="" class=" collapse"> 
+     <li>xom:xom:jar:1.2.5 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1575472148"><i class="icon-info-sign"></i></button> 
+      <div id="_1575472148" style="" class=" collapse"> 
        <table border="0" class="bodyTable table table-striped table-hover"> 
         <thead> 
          <tr class="a"> 
@@ -561,38 +718,8 @@
        </table> 
       </div> 
       <ul> 
-       <li>xml-apis:xml-apis:jar:1.4.01 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_537491651"><i class="icon-info-sign"></i></button> 
-        <div id="_537491651" style="" class=" collapse"> 
-         <table border="0" class="bodyTable table table-striped table-hover"> 
-          <thead> 
-           <tr class="a"> 
-            <th>xml-apis</th> 
-           </tr> 
-          </thead> 
-          <tbody> 
-           <tr class="b"> 
-            <td><p><b>Description: </b>Artifactory auto generated POM</p><p><b>Project License: </b>No license is defined for this project.</p></td> 
-           </tr> 
-          </tbody> 
-         </table> 
-        </div></li> 
-       <li>xerces:xercesImpl:jar:2.11.0 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1802892283"><i class="icon-info-sign"></i></button> 
-        <div id="_1802892283" style="" class=" collapse"> 
-         <table border="0" class="bodyTable table table-striped table-hover"> 
-          <thead> 
-           <tr class="a"> 
-            <th>xercesImpl</th> 
-           </tr> 
-          </thead> 
-          <tbody> 
-           <tr class="b"> 
-            <td><p><b>Description: </b>Artifactory auto generated POM</p><p><b>Project License: </b>No license is defined for this project.</p></td> 
-           </tr> 
-          </tbody> 
-         </table> 
-        </div></li> 
-       <li>xalan:xalan:jar:2.7.0 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_483403812"><i class="icon-info-sign"></i></button> 
-        <div id="_483403812" style="" class=" collapse"> 
+       <li>xalan:xalan:jar:2.7.0 (test) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_341859737"><i class="icon-info-sign"></i></button> 
+        <div id="_341859737" style="" class=" collapse"> 
          <table border="0" class="bodyTable table table-striped table-hover"> 
           <thead> 
            <tr class="a"> 
@@ -607,23 +734,8 @@
          </table> 
         </div></li> 
       </ul></li> 
-     <li>org.slf4j:slf4j-api:jar:1.7.2 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1478834478"><i class="icon-info-sign"></i></button> 
-      <div id="_1478834478" style="" class=" collapse"> 
-       <table border="0" class="bodyTable table table-striped table-hover"> 
-        <thead> 
-         <tr class="a"> 
-          <th>SLF4J API Module</th> 
-         </tr> 
-        </thead> 
-        <tbody> 
-         <tr class="b"> 
-          <td><p><b>Description: </b>The slf4j API</p><p><b>URL: </b><a class="externalLink" href="http://www.slf4j.org">http://www.slf4j.org</a></p><p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></p></td> 
-         </tr> 
-        </tbody> 
-       </table> 
-      </div></li> 
-     <li>ch.qos.logback:logback-classic:jar:1.0.6 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_14732273"><i class="icon-info-sign"></i></button> 
-      <div id="_14732273" style="" class=" collapse"> 
+     <li>ch.qos.logback:logback-classic:jar:1.0.6 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_2080709909"><i class="icon-info-sign"></i></button> 
+      <div id="_2080709909" style="" class=" collapse"> 
        <table border="0" class="bodyTable table table-striped table-hover"> 
         <thead> 
          <tr class="a"> 
@@ -638,8 +750,8 @@
        </table> 
       </div> 
       <ul> 
-       <li>ch.qos.logback:logback-core:jar:1.0.6 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1539276787"><i class="icon-info-sign"></i></button> 
-        <div id="_1539276787" style="" class=" collapse"> 
+       <li>ch.qos.logback:logback-core:jar:1.0.6 (compile) <button title="Information" class="btn btn-link btn-small" type="button" data-toggle="collapse" data-target="#_1962865548"><i class="icon-info-sign"></i></button> 
+        <div id="_1962865548" style="" class=" collapse"> 
          <table border="0" class="bodyTable table table-striped table-hover"> 
           <thead> 
            <tr class="a"> 
@@ -661,7 +773,7 @@
 <a name="Licenses"></a> 
 <div class="section"> 
  <h2 id="Licenses">Licenses</h2> 
- <p><b>LGPL 3.0 license: </b>XIncproc - XPointer processor</p> 
+ <p><b>LGPL 3.0 license: </b>XIncproc - XInclude processor, XIncproc - XPointer processor</p> 
  <p><b>New BSD License: </b>Hamcrest Core</p> 
  <p><b>Unknown: </b>Antlr 3.4 Runtime, Javassist, xalan, xercesImpl, xml-apis</p> 
  <p><b>BSD licence: </b>ANTLR StringTemplate</p> 
@@ -671,15 +783,15 @@
  <p><b>Mozilla Public License Version 1.0: </b>Saxon-HE</p> 
  <p><b>Common Public License Version 1.0: </b>JUnit</p> 
  <p><b>GNU Lesser General Public License: </b>Logback Classic Module, Logback Core Module</p> 
+ <p><b>The Apache Software License, Version 2.0: </b>Commons CLI, Commons IO, Commons Lang, Guava: Google Core Libraries for Java, OGNL - Object Graph Navigation Library, concordion, concordion-extensions</p> 
  <p><b>MIT License: </b>SLF4J API Module</p> 
- <p><b>The Apache Software License, Version 2.0: </b>Guava: Google Core Libraries for Java, OGNL - Object Graph Navigation Library, concordion</p> 
 </div> 
 <a name="Dependency_File_Details"></a> 
 <div class="section"> 
  <h2 id="Dependency_File_Details">Dependency File Details</h2> 
  <table border="0" class="bodyTable table table-striped table-hover"> 
   <thead> 
-   <tr class="b"> 
+   <tr class="a"> 
     <th>Total</th> 
     <th>Size</th> 
     <th>Entries</th> 
@@ -738,6 +850,24 @@
     <td>debug</td> 
    </tr> 
    <tr class="b"> 
+    <td>commons-cli-1.2.jar</td> 
+    <td>40.16 kB</td> 
+    <td>35</td> 
+    <td>22</td> 
+    <td>1</td> 
+    <td>1.4</td> 
+    <td>debug</td> 
+   </tr> 
+   <tr class="a"> 
+    <td>commons-io-2.4.jar</td> 
+    <td>180.80 kB</td> 
+    <td>128</td> 
+    <td>110</td> 
+    <td>6</td> 
+    <td>1.6</td> 
+    <td>debug</td> 
+   </tr> 
+   <tr class="b"> 
     <td>javassist-3.11.0.GA.jar</td> 
     <td>599.81 kB</td> 
     <td>366</td> 
@@ -792,6 +922,15 @@
     <td>debug</td> 
    </tr> 
    <tr class="b"> 
+    <td>commons-lang3-3.1.jar</td> 
+    <td>308.40 kB</td> 
+    <td>179</td> 
+    <td>153</td> 
+    <td>12</td> 
+    <td>1.5</td> 
+    <td>debug</td> 
+   </tr> 
+   <tr class="a"> 
     <td>concordion-1.4.3.jar</td> 
     <td>127.07 kB</td> 
     <td>153</td> 
@@ -800,7 +939,25 @@
     <td>1.5</td> 
     <td>debug</td> 
    </tr> 
+   <tr class="b"> 
+    <td>concordion-extensions-1.1.0.jar</td> 
+    <td>33.31 kB</td> 
+    <td>47</td> 
+    <td>20</td> 
+    <td>8</td> 
+    <td>1.5</td> 
+    <td>debug</td> 
+   </tr> 
    <tr class="a"> 
+    <td>xpointer-1.0.0-SNAPSHOT.jar</td> 
+    <td>85.96 kB</td> 
+    <td>70</td> 
+    <td>56</td> 
+    <td>4</td> 
+    <td>1.6</td> 
+    <td>debug</td> 
+   </tr> 
+   <tr class="b"> 
     <td>hamcrest-core-1.3.jar</td> 
     <td>43.97 kB</td> 
     <td>52</td> 
@@ -809,7 +966,7 @@
     <td>1.5</td> 
     <td>debug</td> 
    </tr> 
-   <tr class="b"> 
+   <tr class="a"> 
     <td>slf4j-api-1.7.2.jar</td> 
     <td>25.47 kB</td> 
     <td>34</td> 
@@ -818,7 +975,7 @@
     <td>1.5</td> 
     <td>debug</td> 
    </tr> 
-   <tr class="a"> 
+   <tr class="b"> 
     <td>xalan-2.7.0.jar</td> 
     <td>2.60 MB</td> 
     <td>1,267</td> 
@@ -827,7 +984,7 @@
     <td>1.1</td> 
     <td>debug</td> 
    </tr> 
-   <tr class="b"> 
+   <tr class="a"> 
     <td>xercesImpl-2.11.0.jar</td> 
     <td>1.30 MB</td> 
     <td>1,035</td> 
@@ -836,7 +993,7 @@
     <td>1.3</td> 
     <td>release</td> 
    </tr> 
-   <tr class="a"> 
+   <tr class="b"> 
     <td>xml-apis-1.4.01.jar</td> 
     <td>215.37 kB</td> 
     <td>391</td> 
@@ -845,7 +1002,7 @@
     <td>1.1</td> 
     <td>release</td> 
    </tr> 
-   <tr class="b"> 
+   <tr class="a"> 
     <td>xmlunit-1.4.jar</td> 
     <td>96.65 kB</td> 
     <td>77</td> 
@@ -854,7 +1011,7 @@
     <td>1.3</td> 
     <td>debug</td> 
    </tr> 
-   <tr class="a"> 
+   <tr class="b"> 
     <td>xom-1.2.5.jar</td> 
     <td>301.62 kB</td> 
     <td>311</td> 
@@ -863,32 +1020,32 @@
     <td>1.2</td> 
     <td>release</td> 
    </tr> 
-   <tr class="a"> 
-    <td>18</td> 
-    <td>18.47 MB</td> 
-    <td>8,478</td> 
-    <td>7,661</td> 
-    <td>321</td> 
+   <tr class="b"> 
+    <td>23</td> 
+    <td>19.11 MB</td> 
+    <td>8,937</td> 
+    <td>8,022</td> 
+    <td>352</td> 
     <td>1.6</td> 
-    <td>15</td> 
+    <td>20</td> 
+   </tr> 
+   <tr class="a"> 
+    <td>compile: 14</td> 
+    <td>compile: 14.87 MB</td> 
+    <td>compile: 6,257</td> 
+    <td>compile: 5,559</td> 
+    <td>compile: 217</td> 
+    <td>-</td> 
+    <td>compile: 12</td> 
    </tr> 
    <tr class="b"> 
-    <td>compile: 8</td> 
-    <td>compile: 12.76 MB</td> 
-    <td>compile: 4,419</td> 
-    <td>compile: 3,920</td> 
-    <td>compile: 125</td> 
+    <td>test: 9</td> 
+    <td>test: 4.23 MB</td> 
+    <td>test: 2,680</td> 
+    <td>test: 2,463</td> 
+    <td>test: 135</td> 
     <td>-</td> 
-    <td>compile: 8</td> 
-   </tr> 
-   <tr class="a"> 
-    <td>test: 10</td> 
-    <td>test: 5.71 MB</td> 
-    <td>test: 4,059</td> 
-    <td>test: 3,741</td> 
-    <td>test: 196</td> 
-    <td>-</td> 
-    <td>test: 7</td> 
+    <td>test: 8</td> 
    </tr> 
   </tbody> 
  </table> 
@@ -907,12 +1064,18 @@
   </thead> 
   <tbody> 
    <tr class="b"> 
+    <td>apache.snapshots</td> 
+    <td><a class="externalLink" href="http://repository.apache.org/snapshots">http://repository.apache.org/snapshots</a></td> 
+    <td>-</td> 
+    <td>Yes</td> 
+   </tr> 
+   <tr class="a"> 
     <td>sonatype-nexus-snapshots</td> 
     <td><a class="externalLink" href="https://oss.sonatype.org/content/repositories/snapshots">https://oss.sonatype.org/content/repositories/snapshots</a></td> 
     <td>-</td> 
     <td>Yes</td> 
    </tr> 
-   <tr class="a"> 
+   <tr class="b"> 
     <td>central</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2">http://repo.maven.apache.org/maven2</a></td> 
     <td>Yes</td> 
@@ -923,8 +1086,9 @@
  <p>Repository locations for each of the Dependencies.</p> 
  <table border="0" class="bodyTable table table-striped table-hover"> 
   <thead> 
-   <tr class="b"> 
+   <tr class="a"> 
     <th>Total</th> 
+    <th>apache.snapshots</th> 
     <th>sonatype-nexus-snapshots</th> 
     <th>central</th> 
    </tr> 
@@ -932,6 +1096,7 @@
   <thead> 
    <tr class="a"> 
     <th>Artifact</th> 
+    <th>apache.snapshots</th> 
     <th>sonatype-nexus-snapshots</th> 
     <th>central</th> 
    </tr> 
@@ -940,97 +1105,146 @@
    <tr class="b"> 
     <td>antlr:antlr:jar:2.7.7</td> 
     <td>-</td> 
+    <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/antlr/antlr/2.7.7/antlr-2.7.7.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
    <tr class="a"> 
     <td>ch.qos.logback:logback-classic:jar:1.0.6</td> 
+    <td>-</td> 
     <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/ch/qos/logback/logback-classic/1.0.6/logback-classic-1.0.6.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
    <tr class="b"> 
     <td>ch.qos.logback:logback-core:jar:1.0.6</td> 
     <td>-</td> 
+    <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/ch/qos/logback/logback-core/1.0.6/logback-core-1.0.6.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
    <tr class="a"> 
     <td>com.google.guava:guava:jar:14.0.1</td> 
     <td>-</td> 
+    <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/com/google/guava/guava/14.0.1/guava-14.0.1.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
    <tr class="b"> 
+    <td>commons-cli:commons-cli:jar:1.2</td> 
+    <td>-</td> 
+    <td>-</td> 
+    <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/commons-cli/commons-cli/1.2/commons-cli-1.2.jar"><i class="icon-ok"></i></a></td> 
+   </tr> 
+   <tr class="a"> 
+    <td>commons-io:commons-io:jar:2.4</td> 
+    <td>-</td> 
+    <td>-</td> 
+    <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/commons-io/commons-io/2.4/commons-io-2.4.jar"><i class="icon-ok"></i></a></td> 
+   </tr> 
+   <tr class="b"> 
     <td>javassist:javassist:jar:3.11.0.GA</td> 
+    <td>-</td> 
     <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/javassist/javassist/3.11.0.GA/javassist-3.11.0.GA.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
    <tr class="a"> 
     <td>junit:junit:jar:4.11</td> 
     <td>-</td> 
+    <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/junit/junit/4.11/junit-4.11.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
    <tr class="b"> 
     <td>net.sf.saxon:Saxon-HE:jar:9.4.0.7</td> 
+    <td>-</td> 
     <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/net/sf/saxon/Saxon-HE/9.4.0.7/Saxon-HE-9.4.0.7.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
    <tr class="a"> 
     <td>ognl:ognl:jar:3.0.2</td> 
     <td>-</td> 
+    <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/ognl/ognl/3.0.2/ognl-3.0.2.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
    <tr class="b"> 
     <td>org.antlr:antlr-runtime:jar:3.4</td> 
+    <td>-</td> 
     <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/org/antlr/antlr-runtime/3.4/antlr-runtime-3.4.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
    <tr class="a"> 
     <td>org.antlr:stringtemplate:jar:3.2.1</td> 
     <td>-</td> 
+    <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
    <tr class="b"> 
+    <td>org.apache.commons:commons-lang3:jar:3.1</td> 
+    <td>-</td> 
+    <td>-</td> 
+    <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar"><i class="icon-ok"></i></a></td> 
+   </tr> 
+   <tr class="a"> 
     <td>org.concordion:concordion:jar:1.4.3</td> 
+    <td>-</td> 
     <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/org/concordion/concordion/1.4.3/concordion-1.4.3.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
+   <tr class="b"> 
+    <td>org.concordion:concordion-extensions:jar:1.1.0</td> 
+    <td>-</td> 
+    <td>-</td> 
+    <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/org/concordion/concordion-extensions/1.1.0/concordion-extensions-1.1.0.jar"><i class="icon-ok"></i></a></td> 
+   </tr> 
    <tr class="a"> 
+    <td>org.etourdot:xpointer:jar:1.0.0-SNAPSHOT</td> 
+    <td>-</td> 
+    <td>-</td> 
+    <td>-</td> 
+   </tr> 
+   <tr class="b"> 
     <td>org.hamcrest:hamcrest-core:jar:1.3</td> 
+    <td>-</td> 
     <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
-   <tr class="b"> 
+   <tr class="a"> 
     <td>org.slf4j:slf4j-api:jar:1.7.2</td> 
+    <td>-</td> 
     <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
-   <tr class="a"> 
+   <tr class="b"> 
     <td>xalan:xalan:jar:2.7.0</td> 
+    <td>-</td> 
     <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/xalan/xalan/2.7.0/xalan-2.7.0.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
-   <tr class="b"> 
+   <tr class="a"> 
     <td>xerces:xercesImpl:jar:2.11.0</td> 
+    <td>-</td> 
     <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/xerces/xercesImpl/2.11.0/xercesImpl-2.11.0.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
-   <tr class="a"> 
+   <tr class="b"> 
     <td>xml-apis:xml-apis:jar:1.4.01</td> 
+    <td>-</td> 
     <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
-   <tr class="b"> 
+   <tr class="a"> 
     <td>xmlunit:xmlunit:jar:1.4</td> 
+    <td>-</td> 
     <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/xmlunit/xmlunit/1.4/xmlunit-1.4.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
-   <tr class="a"> 
+   <tr class="b"> 
     <td>xom:xom:jar:1.2.5</td> 
+    <td>-</td> 
     <td>-</td> 
     <td><a class="externalLink" href="http://repo.maven.apache.org/maven2/xom/xom/1.2.5/xom-1.2.5.jar"><i class="icon-ok"></i></a></td> 
    </tr> 
-   <tr class="a"> 
-    <td>18 (compile: 8, test: 10)</td> 
+   <tr class="b"> 
+    <td>23 (compile: 14, test: 9)</td> 
     <td>0</td> 
-    <td>18</td> 
+    <td>0</td> 
+    <td>22</td> 
    </tr> 
   </tbody> 
  </table> 
@@ -1091,18 +1305,18 @@
 	<script type="text/javascript">
 		if (typeof jQuery == 'undefined')
 		{
-			document.write(unescape("%3Cscript src='..//js/jquery-1.8.3.min.js' type='text/javascript'%3E%3C/script%3E"));
+			document.write(unescape("%3Cscript src='http://xincproc.etourdot.org//js/jquery-1.8.3.min.js' type='text/javascript'%3E%3C/script%3E"));
 		}
 	</script>
 	
 	<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
-	<script src="..//js/lightbox.js"></script>
-	<script src="..//js/jquery.smooth-scroll.min.js"></script>
+	<script src="http://xincproc.etourdot.org//js/lightbox.js"></script>
+	<script src="http://xincproc.etourdot.org//js/jquery.smooth-scroll.min.js"></script>
 	<!-- back button support for smooth scroll -->
-	<script src="..//js/jquery.ba-bbq.min.js"></script>
+	<script src="http://xincproc.etourdot.org//js/jquery.ba-bbq.min.js"></script>
 	<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
 
-	<script src="..//js/reflow-skin.js"></script>
+	<script src="http://xincproc.etourdot.org//js/reflow-skin.js"></script>
 	
 	</body>
 </html>

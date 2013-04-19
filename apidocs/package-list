@@ -1,4 +1,3 @@
-org.etourdot.xincproc.xpointer
-org.etourdot.xincproc.xpointer.exceptions
-org.etourdot.xincproc.xpointer.grammar
-org.etourdot.xincproc.xpointer.model
+org.etourdot.xincproc.xinclude
+org.etourdot.xincproc.xinclude.exceptions
+org.etourdot.xincproc.xinclude.sax
