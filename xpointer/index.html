@@ -8,7 +8,7 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>XIncProc - XIncProc Framework</title>
+		<title>XIncProc - XIncProc XPointer Processor</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="" />
 		<meta http-equiv="content-language" content="en" />
@@ -110,7 +110,7 @@
 				<li class="divider">/</li>
 				<li><a href="./" title="XPointer">XPointer </a></li>
 				<li class="divider">/</li>
-				<li>XIncProc Framework</li>
+				<li>XIncProc XPointer Processor</li>
 			</ul>
 		</div>
 	</header>
@@ -121,37 +121,33 @@
 			<div class="body-content">
 <div class="section"> 
  <div class="page-header">
-  <h2 id="XIncProc_Framework">XIncProc Framework</h2>
+  <h2 id="XIncProc_XPointer_Processor">XIncProc XPointer Processor</h2>
  </div> 
- <p>The XIncProc Frameword provides an almost complete implementation of W3C XInclude recommendation. Althougt XInclude is supported into Jaxp implementation since Java 1.5, this support is very incomplete. XIncProc brings a most complete support including xpointer, element, xpath and xmlns schemes.</p> 
-</div> 
-<div class="section"> 
- <h2 id="How_to_use">How to use</h2> 
+ <p>The XPointer processor of XIncProc Framework implements <a class="externalLink" href="http://www.w3.org/TR/xptr-framework/">XPointer Framework</a></p> 
+ <p>It supports the followings XPointer Schemes:</p> 
+ <ul> 
+  <li><a class="externalLink" href="http://www.w3.org/TR/xptr-element/">element()</a>: full support</li> 
+  <li><a class="externalLink" href="http://www.w3.org/TR/xptr-xmlns/">xmlns()</a>: full support</li> 
+  <li><a class="externalLink" href="http://www.w3.org/TR/xpath/">xpath()</a>: full support</li> 
+  <li><a class="externalLink" href="http://www.w3.org/TR/xptr-xpointer/">xpointer()</a>: partial support (only xpath part)</li> 
+ </ul> 
  <div class="section"> 
-  <h3 id="Maven_integration">Maven integration</h3> 
-  <p>To add XIncProc to your project, just add the following dependency to your <tt>pom.xml</tt>: <tt>xml &lt;dependency&gt; &lt;groupId&gt;org.etourdot&lt;/groupId&gt; &lt;artifactId&gt;xincproc&lt;/artifactId&gt; &lt;version&gt;1.0.0&lt;/version&gt; &lt;/dependency&gt; </tt></p> 
- </div> 
- <div class="section"> 
-  <h3 id="XInclude_as_a_xml_filter">XInclude as a xml filter</h3> 
- </div> 
- <div class="section"> 
-  <h3 id="XIncProc_as_a_XInclude_engine">XIncProc as a XInclude engine</h3> 
- </div> 
-</div> 
-<div class="section"> 
- <h2 id="Specifications_and_conformance">Specifications and conformance</h2> 
- <div class="section"> 
-  <h3 id="XPointer">XPointer</h3> 
+  <h3 id="Api_Samples">Api Samples</h3> 
+  <p>Here are samples of Api usage of the XIncProc XPointer module: <a href="specs/org/etourdot/xincproc/xpointer/api/Api.html">Samples</a></p> 
  </div> 
  <div class="section"> 
-  <h3 id="XInclude">XInclude</h3> 
+  <h3 id="Supported_Schemes_in_details">Supported Schemes in details</h3> 
+  <ul> 
+   <li><a href="specs/org/etourdot/xincproc/xpointer/element/Element.html">Element Scheme</a></li> 
+   <li><a href="specs/org/etourdot/xincproc/xpointer/xmlns/Xmlns.html">Xmlns Scheme</a></li> 
+   <li><a href="specs/org/etourdot/xincproc/xpointer/xpath/XPath.html">XPath Scheme</a></li> 
+   <li><a href="specs/org/etourdot/xincproc/xpointer/xpointer/XPointer.html">XPointer Scheme</a></li> 
+  </ul> 
  </div> 
-</div> 
-<div class="section"> 
- <h2 id="Issue_Tracking">Issue Tracking</h2> 
-</div> 
-<div class="section"> 
- <h2 id="License">License</h2> 
+ <div class="section"> 
+  <h3 id="Further_details">Further details</h3> 
+  <p>How are treated unknown scheme: <a href="specs/org/etourdot/xincproc/xpointer/UnknownScheme.html">UnknownScheme</a></p> 
+ </div> 
 </div>
 			</div>
 		</div>
