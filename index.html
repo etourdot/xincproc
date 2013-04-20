@@ -122,23 +122,22 @@
  <h1>XIncProc Framework</h1>
 </div> 
 <p>The XIncProc Frameword provides an almost complete implementation of W3C <a class="externalLink" href="http://www.w3.org/TR/xinclude/">XML Inclusions (XInclude) Version 1.0 (Second Edition)</a>. Althougt XInclude is supported into Jaxp implementation since Java 1.5, this support is very incomplete. XIncProc brings a most powerfull support including <a class="externalLink" href="http://www.w3.org/TR/xptr-framework/">xpointer</a>, <a class="externalLink" href="http://www.w3.org/TR/xptr-element/">element</a>, <a class="externalLink" href="http://www.w3.org/2005/04/xpointer-schemes/xpath">xpath</a> and <a class="externalLink" href="http://www.w3.org/TR/xptr-xmlns/">xmlns</a> schemes.</p> 
-<p>For a complete documentation see our <a class="externalLink" href="http://xincproc.etourdot.org">project site</a></p> 
 <div class="section"> 
  <h2 id="How_to_use">How to use</h2> 
  <div class="section"> 
   <h3 id="Maven_integration">Maven integration</h3> 
-  <p>To add XIncProc to your project, just add the following dependency to your <tt>pom.xml</tt>: <tt>xml &lt;dependency&gt; &lt;groupId&gt;org.etourdot&lt;/groupId&gt; &lt;artifactId&gt;xincproc&lt;/artifactId&gt; &lt;version&gt;1.0.0&lt;/version&gt; &lt;/dependency&gt; </tt></p> 
+  <p>To add XIncProc to your project, just add the following dependency to your <tt>pom.xml</tt>: <tt> &lt;dependency&gt; &lt;groupId&gt;org.etourdot&lt;/groupId&gt; &lt;artifactId&gt;xincproc&lt;/artifactId&gt; &lt;version&gt;1.0.0&lt;/version&gt; &lt;/dependency&gt; </tt></p> 
  </div> 
  <div class="section"> 
   <h3 id="API_Usage">API Usage</h3> 
   <div class="source"> 
-   <pre>// Open a stream
-final FileInputStream source = new FileInputStream(urlTest.getPath());
-// Parse it
-final ByteArrayOutputStream output = new ByteArrayOutputStream();
-XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
-// That's all !
-final String result = output.toString(&quot;UTF-8&quot;);
+   <pre>    // Open a stream
+    final FileInputStream source = new FileInputStream(urlTest.getPath());
+    // Parse it
+    final ByteArrayOutputStream output = new ByteArrayOutputStream();
+    XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
+    // That's all !
+    final String result = output.toString(&quot;UTF-8&quot;);
 </pre> 
   </div> 
   <p>Just have a look to <a href="apidocs/index.html">Javadocs</a> for more samples</p> 
@@ -146,7 +145,8 @@ final String result = output.toString(&quot;UTF-8&quot;);
 </div> 
 <div class="section"> 
  <h2 id="Specifications_and_conformance">Specifications and conformance</h2> 
- <p>XIncProc conformance is tested against the official <a class="externalLink" href="http://www.w3.org/XML/Test/XInclude/">Xinclude Test Suite</a> See <a href="xinclude/specs/org/etourdot/xincproc/xinclude/testsuite/TestSuite.html">conformance here</a></p> 
+ <p>XIncProc conformance is tested against the official <a class="externalLink" href="http://www.w3.org/XML/Test/XInclude/">Xinclude Test Suite</a></p> 
+ <p>See <a href="xinclude/specs/org/etourdot/xincproc/xinclude/testsuite/TestSuite.html">conformance here</a></p> 
 </div> 
 <div class="section"> 
  <h2 id="Issue_Tracking">Issue Tracking</h2> 
