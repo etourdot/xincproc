@@ -16,7 +16,10 @@
     
     <name>XIncproc - XInclude processor</name>
     <description>XInclude processor is the main part of XIncProc framework.</description>
-    <url>${site.url}/xinclude</url>
+    <url>${site.url}/${project.artifactId}</url>
+    <properties>
+        <path.deploy.site>${project.artifactId}</path.deploy.site>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -156,8 +159,8 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
-                    <stylesheetfile>${project.basedir}/src/javadoc/stylesheet.css</stylesheetfile>
-                    <javadocDirectory>${project.basedir}/src/javadoc</javadocDirectory>
+                    <stylesheetfile>src/main/javadoc/stylesheet.css</stylesheetfile>
+                    <javadocDirectory>src/main/javadoc</javadocDirectory>
                     <docfilessubdirs>true</docfilessubdirs>
                 </configuration>
                 <reportSets>

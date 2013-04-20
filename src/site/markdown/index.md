@@ -9,34 +9,33 @@ XIncProc brings a most powerfull support including [xpointer][xpointer], [elemen
 [xpath]: http://www.w3.org/2005/04/xpointer-schemes/xpath
 [xmlns]: http://www.w3.org/TR/xptr-xmlns/
 
-For a complete documentation see our [project site](http://xincproc.etourdot.org)
-
 ## How to use
 ### Maven integration
 
 To add XIncProc to your project, just add the following dependency to your `pom.xml`:
 ```xml
-<dependency>
-    <groupId>org.etourdot</groupId>
-    <artifactId>xincproc</artifactId>
-    <version>1.0.0</version>
-</dependency>
+    <dependency>
+        <groupId>org.etourdot</groupId>
+        <artifactId>xincproc</artifactId>
+        <version>1.0.0</version>
+    </dependency>
 ```
 
 ### API Usage
 ```java
-// Open a stream
-final FileInputStream source = new FileInputStream(urlTest.getPath());
-// Parse it
-final ByteArrayOutputStream output = new ByteArrayOutputStream();
-XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
-// That's all !
-final String result = output.toString("UTF-8");
+    // Open a stream
+    final FileInputStream source = new FileInputStream(urlTest.getPath());
+    // Parse it
+    final ByteArrayOutputStream output = new ByteArrayOutputStream();
+    XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
+    // That's all !
+    final String result = output.toString("UTF-8");
 ```
-Just have a look to [Javadocs](/javadocs) for more samples
+Just have a look to [Javadocs](apidocs/index.html) for more samples
 
 ## Specifications and conformance
 XIncProc conformance is tested against the official [Xinclude Test Suite](http://www.w3.org/XML/Test/XInclude/)
+
 See [conformance here](xinclude/specs/org/etourdot/xincproc/xinclude/testsuite/TestSuite.html)
 
 ## Issue Tracking

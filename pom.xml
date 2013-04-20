@@ -17,7 +17,6 @@
     <modules>
         <module>xinclude</module>
         <module>xpointer</module>
-        <module>samples</module>
     </modules>
 
     <name>xincproc</name>
@@ -80,6 +79,7 @@
         <github.global.server>github</github.global.server>
         <site.deploy.id>gh-pages</site.deploy.id>
         <site.deploy.url>http://github.com/etourdot/xincproc/tree/gh-pages/</site.deploy.url>
+        <path.deploy.site />
 
         <!-- Integration test path configuration -->
         <spec.directory>src/spec</spec.directory>
@@ -420,6 +420,15 @@
                         <source>1.6</source>
                         <failOnError>false</failOnError>
                     </configuration>
+                    <!--executions>
+                        <execution>
+                            <id>aggregate</id>
+                            <goals>
+                                <goal>aggregate</goal>
+                            </goals>
+                            <phase>site</phase>
+                        </execution>
+                    </executions-->
                 </plugin>
                 <plugin>
                     <groupId>org.antlr</groupId>
@@ -548,7 +557,7 @@
                 <version>${githubsite-maven-plugin.version}</version>
                 <configuration>
                     <message>Creating site for ${project.artifactId}, ${project.version}</message>
-                    <!--path>site</path-->
+                    <path>${path.deploy.site}</path>
                     <merge>true</merge>
                 </configuration>
                 <executions>
@@ -591,12 +600,18 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changes-plugin</artifactId>
-                <version>2.8</version>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <configuration>
+                    <stylesheetfile>src/javadoc/stylesheet.css</stylesheetfile>
+                    <javadocDirectory>src/main/javadoc</javadocDirectory>
+                    <docfilessubdirs>true</docfilessubdirs>
+                    <aggregate>true</aggregate>
+                </configuration>
                 <reportSets>
                     <reportSet>
                         <reports>
-                            <report>changes-report</report>
+                            <report>aggregate</report>
                         </reports>
                     </reportSet>
                 </reportSets>

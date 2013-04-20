@@ -1,29 +1,9 @@
-## XIncProc Framework
-The XIncProc Frameword provides an almost complete implementation of W3C XInclude recommendation.
-Althougt XInclude is supported into Jaxp implementation since Java 1.5, this support is very incomplete.
-XIncProc brings a most complete support including xpointer, element, xpath and xmlns schemes.
+## XIncProc XInclude Processor
+The XInclude processor of XIncProc Framework implements
+[XML Inclusions (XInclude) Version 1.0 (Second Edition)](http://www.w3.org/TR/xinclude/).
 
-## How to use
-### Maven integration
+### Api Samples
+Here are samples of Api usage of the XIncProc XInclude module: [Samples](specs/org/etourdot/xincproc/xinclude/api/Api.html)
 
-To add XIncProc to your project, just add the following dependency to your `pom.xml`:
-```xml
-<dependency>
-    <groupId>org.etourdot</groupId>
-    <artifactId>xincproc</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
-
-### XInclude as a xml filter
-
-
-### XIncProc as a XInclude engine
-
-## Specifications and conformance
-### XPointer
-### XInclude
-
-## Issue Tracking
-
-## License
+### Conformance
+The processor is tested against w3c xinclude test suite: [Conformance test suite](specs/org/etourdot/xincproc/xinclude/testsuite/TestSuite.html).

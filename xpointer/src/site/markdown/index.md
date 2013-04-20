@@ -1,29 +1,21 @@
-## XIncProc Framework
-The XIncProc Frameword provides an almost complete implementation of W3C XInclude recommendation.
-Althougt XInclude is supported into Jaxp implementation since Java 1.5, this support is very incomplete.
-XIncProc brings a most complete support including xpointer, element, xpath and xmlns schemes.
+## XIncProc XPointer Processor
+The XPointer processor of XIncProc Framework implements [XPointer Framework](http://www.w3.org/TR/xptr-framework/)
 
-## How to use
-### Maven integration
+It supports the followings XPointer Schemes:
 
-To add XIncProc to your project, just add the following dependency to your `pom.xml`:
-```xml
-<dependency>
-    <groupId>org.etourdot</groupId>
-    <artifactId>xincproc</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
+* [element()](http://www.w3.org/TR/xptr-element/): full support
+* [xmlns()](http://www.w3.org/TR/xptr-xmlns/): full support
+* [xpath()](http://www.w3.org/TR/xpath/): full support
+* [xpointer()](http://www.w3.org/TR/xptr-xpointer/): partial support (only xpath part)
 
-### XInclude as a xml filter
+### Api Samples
+Here are samples of Api usage of the XIncProc XPointer module: [Samples](specs/org/etourdot/xincproc/xpointer/api/Api.html)
 
+### Supported Schemes in details
+* [Element Scheme](specs/org/etourdot/xincproc/xpointer/element/Element.html)
+* [Xmlns Scheme](specs/org/etourdot/xincproc/xpointer/xmlns/Xmlns.html)
+* [XPath Scheme](specs/org/etourdot/xincproc/xpointer/xpath/XPath.html)
+* [XPointer Scheme](specs/org/etourdot/xincproc/xpointer/xpointer/XPointer.html)
 
-### XIncProc as a XInclude engine
-
-## Specifications and conformance
-### XPointer
-### XInclude
-
-## Issue Tracking
-
-## License
+### Further details
+How are treated unknown scheme: [UnknownScheme](specs/org/etourdot/xincproc/xpointer/UnknownScheme.html)
