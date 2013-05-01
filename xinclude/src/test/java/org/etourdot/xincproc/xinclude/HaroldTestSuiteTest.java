@@ -85,6 +85,13 @@ public class HaroldTestSuiteTest extends XIncProcSuiteTest {
     }
 
     @Ignore
+    public void harold_36() throws Exception
+    {
+        testSuccess(getClass().getClassLoader().getResource("harold/test/namespacetest.xml"),
+                getClass().getClassLoader().getResource("harold/result/namespacetest.xml"));
+    }
+
+    @Ignore
     public void harold_37() throws Exception
     {
         testException(getClass().getClassLoader().getResource("harold/test/internalcircular.xml"),

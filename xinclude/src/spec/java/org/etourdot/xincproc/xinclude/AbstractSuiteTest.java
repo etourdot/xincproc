@@ -17,7 +17,6 @@
 package org.etourdot.xincproc.xinclude;
 
 import com.google.common.base.Charsets;
-import com.google.common.io.Closeables;
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
 import net.sf.saxon.lib.Validation;
@@ -25,7 +24,6 @@ import net.sf.saxon.s9api.Processor;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,16 +70,14 @@ public abstract class AbstractSuiteTest {
                                final boolean fixupBase, final boolean fixupLang)
             throws Exception
     {
-        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
-        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
+        XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
+        XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final FileInputStream source = new FileInputStream(urlTest.getPath());
         XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
         final String resultat = output.toString("UTF-8");
-        //final Diff diff = new Diff(Resources.toString(urlResult, Charsets.UTF_8),resultat);
         final Diff diff = XMLUnit.compareXML(Resources.toString(urlResult, Charsets.UTF_8), resultat);
-        //LOG.debug("Diff result:{}", diff.toString());
-        Closeables.closeQuietly(source);
+        source.close();
         assertTrue("testSuccess:" + urlTest, diff.similar());
     }
 
@@ -95,8 +91,8 @@ public abstract class AbstractSuiteTest {
                                  final boolean fixupBase, final boolean fixupLang)
             throws Exception
     {
-        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
-        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
+        XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
+        XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final FileInputStream source = new FileInputStream(urlTest.getPath());
         try
@@ -112,7 +108,7 @@ public abstract class AbstractSuiteTest {
         }
         finally
         {
-            Closeables.closeQuietly(source);
+            source.close();
         }
         fail();
     }
@@ -121,8 +117,8 @@ public abstract class AbstractSuiteTest {
             throws IOException
     {
         final Result result = new Result();
-        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, true);
-        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, true);
+        XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, true);
+        XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, true);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final URL urlInput = getClass().getClassLoader().getResource("XIncl20060927/" + inputHref);
         final FileInputStream source = new FileInputStream(urlInput.getPath());
@@ -172,7 +168,7 @@ public abstract class AbstractSuiteTest {
                 result.result = "error";
             }
         }
-        Closeables.closeQuietly(source);
+        source.close();
         return result;
     }
 

@@ -26,10 +26,7 @@ import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.StringReader;
+import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
 
@@ -73,14 +70,16 @@ public abstract class XIncProcSuiteTest {
                                final boolean fixupBase, final boolean fixupLang)
             throws Exception
     {
-        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
-        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
+        XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
+        XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final FileInputStream source = new FileInputStream(urlTest.getPath());
         XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
         final String resultat = output.toString("UTF-8");
         LOG.debug("resultat:{}", resultat);
-        final Diff diff = XMLUnit.compareXML(XIncProcUtils.readTextURI(urlResult.toURI(), null, null, null), resultat);
+        FileReader fileReader = new FileReader(new File(urlResult.getFile()));
+        final Diff diff = XMLUnit.compareXML(fileReader, resultat);
+        //final Diff diff = XMLUnit.compareXML(XIncProcUtils.readTextURI(urlResult.toURI(), "UTF-8", null, null), resultat);
         LOG.debug("Diff result:{}", diff.toString());
         Closeables.closeQuietly(source);
         assertTrue("testSuccess:" + urlTest, diff.identical());
@@ -96,8 +95,8 @@ public abstract class XIncProcSuiteTest {
                                  final boolean fixupBase, final boolean fixupLang)
             throws Exception
     {
-        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
-        XIncProcEngine.getConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
+        XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
+        XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final FileInputStream source = new FileInputStream(urlTest.getPath());
         try

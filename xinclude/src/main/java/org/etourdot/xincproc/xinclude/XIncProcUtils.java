@@ -37,20 +37,20 @@ import java.util.Iterator;
 import java.util.Stack;
 
 /**
- * XIncProcUtils.
+ * This class provide utilities constants, variables and methods for the {@link XIncProcEngine}.
  */
 public final class XIncProcUtils
 {
     /**
-     * The constant XINCLUDE_NAMESPACE_URI.
+     * XInclude namespace constant
      */
     public static final String XINCLUDE_NAMESPACE_URI = "http://www.w3.org/2001/XInclude";
     /**
-     * The constant FALLBACK_QNAME.
+     * Fallback element.
      */
     public static final QName FALLBACK_QNAME = new QName(XINCLUDE_NAMESPACE_URI, "fallback", "xi");
     /**
-     * The constant XINCLUDE_QNAME.
+     * XInclude element
      */
     public static final QName XINCLUDE_QNAME = new QName(XINCLUDE_NAMESPACE_URI, "include", "xi");
 
@@ -70,10 +70,9 @@ public final class XIncProcUtils
     }
 
     /**
-     * Return if element is Xinclude or not
+     * Return if element is a Xinclude element or not
      *
      * @param qname of the element to test
-     * @return the boolean
      * @return true if element is a xinclude element, false otherwise
      */
     public static boolean isXInclude(final QName qname)
@@ -84,10 +83,10 @@ public final class XIncProcUtils
     }
 
     /**
-     * Return if element is Fallback or not
+     * Return if element is a Fallback elementor not
      *
      * @param qname of the element to test
-     * @return if element is a fallback element, false otherwise
+     * @return true if element is a fallback element, false otherwise
      */
     public static boolean isFallback(final QName qname)
     {
@@ -97,11 +96,11 @@ public final class XIncProcUtils
     }
 
     /**
-     * Resolve base.
+     * Resolve base {@link java.net.URI} against {@link Iterable} of uris.
      *
-     * @param baseURI the base uRI
+     * @param baseURI the base URI
      * @param uris the uris
-     * @return the uRI
+     * @return the resolved URI
      */
     public static URI resolveBase(final URI baseURI, final Iterable<URI> uris)
     {
@@ -114,12 +113,12 @@ public final class XIncProcUtils
     }
 
     /**
-     * Resolve base.
+     * Resolve base {@link java.net.URI} against a {@link java.util.Stack} of uris.
      *
      * @param baseURI the base uRI
      * @param stack the stack
-     * @return the uRI
-     * @throws XIncludeFatalException the x include fatal exception
+     * @return the resolved URI
+     * @throws XIncludeFatalException in case of inclusion loop
      */
     public static URI resolveBase(final URI baseURI, final Stack<URI> stack) throws XIncludeFatalException
     {
@@ -133,14 +132,14 @@ public final class XIncProcUtils
     }
 
     /**
-     * Read a text source from the URI
+     * Read a text source from the {@link java.net.URI}
      *
      * @param source the source
      * @param encoding the encoding, if encoding is null an analyse of the source will be done to
      *                 find correct encoding
      * @param accept the accept
      * @param acceptLanguage the accept language
-     * @return string
+     * @return string text readed
      * @throws XIncludeFatalException in case of fatal error
      * @throws XIncludeResourceException if source is unreadable
      */

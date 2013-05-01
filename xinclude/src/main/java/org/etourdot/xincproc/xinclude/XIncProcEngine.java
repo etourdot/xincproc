@@ -45,6 +45,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 
+/**
+ * This class contains useful methods to manage a {@link org.xml.sax.XMLFilter} for xinclusions
+ * and to parse content with xinclude tags.
+ * <p/>
+ * <p>Static usage of this class only use Saxon He processor. If you want to use another version
+ * of the Saxon processor you should instanciate <code>XIncProcEngine</code> with {@link XIncProcConfiguration}.</p>
+ */
 public final class XIncProcEngine
 {
     private static final Logger LOG = LoggerFactory.getLogger(XIncProcEngine.class);
@@ -52,6 +59,12 @@ public final class XIncProcEngine
 
     private XIncProcEngine()
     {
+        this.configuration = XIncProcEngine.CONFIGURATION;
+    }
+
+    protected XIncProcEngine(final XIncProcConfiguration configuration)
+    {
+        this.configuration = configuration;
     }
 
     public static XMLFilter newXIncludeFilter(final URI baseURI)
@@ -133,7 +146,8 @@ public final class XIncProcEngine
         }
     }
 
-    private static void serializeNode(final OutputStream output, final Processor processor, final XIncProcXIncludeFilter filter,
+    private static void serializeNode(final OutputStream output, final Processor processor,
+                                      final XIncProcXIncludeFilter filter,
                                       final Charset charset, final XdmNode node)
             throws IOException, SaxonApiException
     {
@@ -151,8 +165,25 @@ public final class XIncProcEngine
         processor.writeXdmValue(node, serializer);
     }
 
-    public static XIncProcConfiguration getConfiguration()
+    /**
+     * Return current configuration of the XIncProcEngine
+     *
+     * @return the {@link XIncProcConfiguration}
+     */
+    public XIncProcConfiguration getConfiguration()
+    {
+        return this.configuration;
+    }
+
+    /**
+     * Get the internal {@link XIncProcConfiguration} for static usage
+     *
+     * @return a static configuration
+     */
+    public static XIncProcConfiguration getUnderlyingConfiguration()
     {
         return XIncProcEngine.CONFIGURATION;
     }
+
+    private XIncProcConfiguration configuration;
 }

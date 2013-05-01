@@ -26,7 +26,7 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 
 /**
- * TODO: implements this
+ * Custom executor for CLI
  */
 public final class XIncProcCLI
 {
@@ -37,8 +37,9 @@ public final class XIncProcCLI
     {
         this.options = new Options();
         this.options.addOption("h", false, "Help");
+        final Option input = OptionBuilder.hasArg().withArgName("file").withDescription("use output file").create("i");
         final Option output = OptionBuilder.hasArg().withArgName("file").withDescription("use output file").create("o");
-        this.options.addOption(output);
+        this.options.addOption(input).addOption(output);
     }
 
     private int execute(final String[] args, final InputStream stdin, final PrintStream stdout,

@@ -93,7 +93,7 @@
         <logback-classic.version>1.0.6</logback-classic.version>
         <xmlunit.version>1.4</xmlunit.version>
         <junit.version>4.11</junit.version>
-        <saxon-he.version>9.4.0.7</saxon-he.version>
+        <saxon-he.version>9.5.0.1</saxon-he.version>
         <guava.version>14.0.1</guava.version>
         <antlr-runtime.version>3.4</antlr-runtime.version>
         <stringtemplate.version>3.2.1</stringtemplate.version>
@@ -400,14 +400,14 @@
                         <showDeprecation>true</showDeprecation>
                     </configuration>
                 </plugin>
-                <plugin>
+                <!--plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>${maven-resources-plugin.version}</version>
                     <configuration>
                         <encoding>UTF-8</encoding>
                     </configuration>
-                </plugin>
+                </plugin-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
@@ -603,7 +603,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
-                    <stylesheetfile>src/javadoc/stylesheet.css</stylesheetfile>
+                    <stylesheetfile>src/main/javadoc/stylesheet.css</stylesheetfile>
                     <javadocDirectory>src/main/javadoc</javadocDirectory>
                     <docfilessubdirs>true</docfilessubdirs>
                     <aggregate>true</aggregate>

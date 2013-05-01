@@ -1,3 +1,4 @@
+
 /*
  * This file is part of the XIncProc framework.
  * Copyright (C) 2011 - 2013 Emmanuel Tourdot
@@ -15,39 +16,9 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.etourdot.xincproc.xinclude;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.xml.transform.ErrorListener;
-import javax.xml.transform.TransformerException;
-
 /**
- * This class is a listener .
+ *
+ * Internal use only
+ *
  */
-public class XIncProcErrorListener implements ErrorListener
-{
-    private static final Logger LOG = LoggerFactory.getLogger(XIncProcErrorListener.class);
-
-    @Override
-    public void warning(final TransformerException exception)
-            throws TransformerException
-    {
-        LOG.debug("warning");
-    }
-
-    @Override
-    public void error(final TransformerException exception)
-            throws TransformerException
-    {
-        LOG.debug("error");
-    }
-
-    @Override
-    public void fatalError(final TransformerException exception)
-            throws TransformerException
-    {
-        LOG.debug("fatalError");
-    }
-}
+package org.etourdot.xincproc.xpointer.model;

@@ -22,7 +22,7 @@ import org.etourdot.xincproc.xpointer.XPointerEngine;
 import javax.xml.transform.ErrorListener;
 
 /**
- * XIncProcConfiguration.
+ * <code>XIncProcConfiguration</code> class holds configuration options for {@link XIncProcEngine}.
  */
 public final class XIncProcConfiguration
 {
@@ -59,13 +59,29 @@ public final class XIncProcConfiguration
     }
 
     /**
-     * New XPointerEngine
+     * New {@link XPointerEngine}.
+     * <p/>
+     * <p>The best way to get a new xpointer engine.
+     * Usage of this method should be prefered to direct instanciation</p>
      *
-     * @return the x pointer engine
+     * @return the new XPointer engine
      */
     public XPointerEngine newXPointerEngine()
     {
         return new XPointerEngine(this.processor);
+    }
+
+    /**
+     * new {@link XIncProcEngine}.
+     * <p/>
+     * <p>This is the only way to get instance of XIncProcEngine to use custom Saxon Processor
+     * via the XIncProcConfiguration</p>
+     *
+     * @return a new XIncProcEngine
+     */
+    public XIncProcEngine newXIncProcEngine()
+    {
+        return new XIncProcEngine(this);
     }
 
     /**
@@ -101,7 +117,10 @@ public final class XIncProcConfiguration
     }
 
     /**
-     * Sets an error listener.
+     * Sets an {@link ErrorListener}.
+     * <p/>
+     * The {@link ErrorListener} set in the configuration will be used
+     * by the {@link XIncProcEngine}
      *
      * @param errorListener the error listener
      */
@@ -111,7 +130,8 @@ public final class XIncProcConfiguration
     }
 
     /**
-     * Is base uris fixup.
+     * Is base uris fixup sets in configuration ?
+     * <p>Defaut value is <b>true</b></p>
      *
      * @return the boolean
      */
@@ -121,7 +141,8 @@ public final class XIncProcConfiguration
     }
 
     /**
-     * Is language fixup.
+     * Is language fixupsets in configuration ?
+     * <p>Defaut value is <b>true</b></p>
      *
      * @return the boolean
      */
@@ -131,9 +152,12 @@ public final class XIncProcConfiguration
     }
 
     /**
-     * Gets processor.
+     * Gets Saxon {@link net.sf.saxon.s9api.Processor}.
+     * <p/>
+     * <p>A simple Saxon HE processor is created by default for the treatment.</p>
+     * <p>Another Saxon processor could be set to replace the default one.</p>
      *
-     * @return the processor
+     * @return the Saxon processor
      */
     public Processor getProcessor()
     {
@@ -141,7 +165,19 @@ public final class XIncProcConfiguration
     }
 
     /**
-     * Gets supported version by the engine
+     * Set Saxon {@link net.sf.saxon.s9api.Processor}.
+     * <p/>
+     * <p>The default Saxon HE processor could be replace here.</p>
+     *
+     * @param processor a Saxon Processor
+     */
+    public void setProcessor(final Processor processor)
+    {
+        this.processor = processor;
+    }
+
+    /**
+     * Gets supported XInclude version by the engine
      *
      * @return version supported (currently only 1.0)
      */
@@ -152,5 +188,5 @@ public final class XIncProcConfiguration
 
     private boolean baseUrisFixup = true;
     private boolean languageFixup = true;
-    private final Processor processor;
+    private Processor processor;
 }

@@ -17,8 +17,11 @@
 
 package org.etourdot.xincproc.xinclude.sax;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
+import net.sf.saxon.event.NamespaceReducer;
+import net.sf.saxon.event.ReceivingContentHandler;
 import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.s9api.Destination;
 import net.sf.saxon.s9api.SAXDestination;
@@ -616,18 +619,35 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     {
         final int langAttIdx = attributesImpl.getIndex(NamespaceSupport.XMLNS,
                 XIncludeConstants.XMLLANG_QNAME.getLocalPart());
-        if (isTopElement() && !isInXIncludeElement())
+        if (isTopElement())
         {
-            if (this.context.isBaseFixup() && (null != this.context.getHrefURI()) && (null == this.context.getCurrentBaseURI()))
+            if (!isInXIncludeElement())
             {
-                final URI newBaseURI = this.context.getHrefURI();
-                attributesImpl.addAttribute(NamespaceSupport.XMLNS, XIncludeConstants.XMLBASE_QNAME.getLocalPart(),
-                        "xml:base", "CDATA", newBaseURI.toASCIIString());
+                if (this.context.isBaseFixup() && (null != this.context.getHrefURI()) && (null == this.context.getCurrentBaseURI()))
+                {
+                    final URI newBaseURI = this.context.getHrefURI();
+                    attributesImpl.addAttribute(NamespaceSupport.XMLNS, XIncludeConstants.XMLBASE_QNAME.getLocalPart(),
+                            "xml:base", "CDATA", newBaseURI.toASCIIString());
+                }
+                if (!this.context.isLanguageFixup() && (0 <= langAttIdx))
+                {
+                    attributesImpl.removeAttribute(langAttIdx);
+                }
             }
-            if (!this.context.isLanguageFixup() && (0 <= langAttIdx))
+            /*else
             {
-                attributesImpl.removeAttribute(langAttIdx);
-            }
+                final int baseAttIdc = attributesImpl.getIndex(NamespaceSupport.XMLNS,
+                        XIncludeConstants.XMLBASE_QNAME.getLocalPart());
+                if (this.context.isBaseFixup() && (0 <= baseAttIdc))
+                {
+                    attributesImpl.removeAttribute(baseAttIdc);
+                }
+                if (this.context.isBaseFixup() && !this.context.getBaseURIPaths().isEmpty())
+                {
+                    attributesImpl.addAttribute(NamespaceSupport.XMLNS, XIncludeConstants.XMLBASE_QNAME.getLocalPart(),
+                            "xml:base", "CDATA", Joiner.on("").join(this.context.getBaseURIPaths()));
+                }
+            }*/
         }
         if (0 <= langAttIdx)
         {

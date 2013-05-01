@@ -149,7 +149,7 @@ public class XPointerEngine
     }
 
     /**
-     * Execute xpointer expression on xml source returning a xml string
+     * Execute xpointer expression on a xml source returning a xml string
      *
      * @param pointerStr xpointer expression
      * @param source xml source
@@ -181,8 +181,8 @@ public class XPointerEngine
     }
 
     /**
-     * Execute a xpointer expression on xml source.
-     * The result is send to a Saxon Destination {@see <a href="http://www.saxonica.com/documentation/javadoc/net/sf/saxon/s9api/Destination.html">Destination</a>}
+     * Execute a xpointer expression on a xml source.
+     * The result is send to a Saxon {@link net.sf.saxon.s9api.Destination}
      *
      * @param pointerStr xpointer expression
      * @param source xml source
@@ -453,8 +453,8 @@ public class XPointerEngine
         }
         else
         {
-            xQueryEvaluator = xQueryExecutableScheme.load();
             final XdmValue contextItem = getContextItem(source, pointerPart);
+            xQueryEvaluator = xQueryExecutableScheme.load();
             xQueryEvaluator.setExternalVariable(new net.sf.saxon.s9api.QName("val"), contextItem);
         }
         try
