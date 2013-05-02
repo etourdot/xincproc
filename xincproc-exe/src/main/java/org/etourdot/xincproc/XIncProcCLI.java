@@ -15,15 +15,16 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.etourdot.xincproc.xinclude;
+package org.etourdot.xincproc;
 
+import com.google.common.io.Closeables;
 import org.apache.commons.cli.*;
+import org.etourdot.xincproc.xinclude.XIncProcEngine;
+import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.io.PrintWriter;
+import java.io.*;
 
 /**
  * Custom executor for CLI
@@ -37,18 +38,43 @@ public final class XIncProcCLI
     {
         this.options = new Options();
         this.options.addOption("h", false, "Help");
-        final Option input = OptionBuilder.hasArg().withArgName("file").withDescription("use output file").create("i");
-        final Option output = OptionBuilder.hasArg().withArgName("file").withDescription("use output file").create("o");
+        final Option input = OptionBuilder.hasArg().withArgName("file").withDescription("input file").create("i");
+        final Option output = OptionBuilder.hasArg().withArgName("file").withDescription("output file").create("o");
         this.options.addOption(input).addOption(output);
     }
 
     private int execute(final String[] args, final InputStream stdin, final PrintStream stdout,
-                        final PrintStream stderr)
+                        final PrintStream stderr) throws IOException
     {
         final GnuParser parser = new GnuParser();
         try
         {
             final CommandLine commandLine = parser.parse(this.options, args);
+            if (!commandLine.hasOption('o') && !commandLine.hasOption('o'))
+            {
+                final HelpFormatter formatter = new HelpFormatter();
+                formatter.printHelp("XIncProc", this.options);
+                return -1;
+            }
+            final File inputFile = new File(commandLine.getOptionValue('i'));
+            final File outputFile = new File(commandLine.getOptionValue('o'));
+            final InputStream fis = new FileInputStream(inputFile);
+            final OutputStream fos = new FileOutputStream(outputFile);
+            try
+            {
+                XIncProcEngine.parse(fis, inputFile.toURI().toASCIIString(), fos);
+            }
+            catch (XIncludeFatalException e)
+            {
+                System.err.println("XInclude Fatal error: " + e.getMessage());
+                return -1;
+            }
+            finally
+            {
+                Closeables.close(fis, true);
+                Closeables.close(fos, true);
+            }
+
         }
         catch (final ParseException ignored)
         {
@@ -74,7 +100,7 @@ public final class XIncProcCLI
         }
     }
 
-    public static void main(final String... args)
+    public static void main(final String... args) throws IOException
     {
         System.exit(new XIncProcCLI().execute(args, System.in, System.out, System.err));
     }
