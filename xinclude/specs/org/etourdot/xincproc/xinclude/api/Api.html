@@ -1,42 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><html xmlns:concordion="http://www.concordion.org/2007/concordion"><head><script type="text/javascript">/* Stack Trace Toggling */
-
-function getElementById(id) {
-  var element;
-
-  if (document.getElementById) { // standard
-    return document.getElementById(id);
-  } else if (document.all) { // old IE versions
-    return document.all[id];
-  } else if (document.layers) { // nn4
-    return document.layers[id];
-  }
-  alert("Sorry, but your web browser is not supported by Concordion.");
-}
-
-function isVisible(element) {
-  return element.style.display;
-}
-
-function makeVisible(element) {
-  element.style.display = "block";
-}
-
-function makeInvisible(element) {
-  element.style.display = "";
-}
-
-function toggleStackTrace(stackTraceNumber) {
-  var stackTrace = getElementById("stackTrace" + stackTraceNumber);
-  var stackTraceButton = getElementById("stackTraceButton" + stackTraceNumber);
-  if (isVisible(stackTrace)) {
-    makeInvisible(stackTrace);
-    stackTraceButton.value = "View Stack";
-  } else {
-    makeVisible(stackTrace);
-    stackTraceButton.value = "Hide Stack";
-  }
-}
-</script><style>* {
+<?xml version="1.0" encoding="UTF-8"?><html xmlns:concordion="http://www.concordion.org/2007/concordion"><head><style>* {
   font-family: Arial;
 }
 body {
@@ -209,12 +171,6 @@ ins {
 <p>Code to find "genre" node with XPointer engine is as simple as this:</p>
 <ol>
     <li>
-        Instanciate a XIncProcEngine:
-        <pre>
-            XIncProcEngine xIncProcEngine = new XIncProcEngine();
-        </pre>
-    </li>
-    <li>
         Set a source into an InputStream (source including xinclude instructions of course) :
         <pre>
             InputStream sourceStream = ;
@@ -224,7 +180,7 @@ ins {
         Call a parse function that resolve xinclude instructions into a new outputstream.
         NB: The source's base URI is needed for xml:base fixup.
         <pre>
-            xIncProcEngine.parse(sourceStream, baseUri, outputStream);
+            XIncProcEngine.parse(sourceStream, baseUri, outputStream);
         </pre>
         Et voila !
     </li>
@@ -239,11 +195,11 @@ ins {
 <p>including this document:</p>
 <pre>&lt;foo/&gt;</pre>
 <p>The parsed result document will be this: </p>
-<pre concordion:assertEquals="execute(#source)"><span class="failure"><del class="expected">
-    &lt;x xmlns:xi="http://www.w3.org/2001/XInclude"&gt;
-    &lt;foo/&gt;
+<pre concordion:assertEquals="execute()" class="success">
+    &lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;x&gt;
+    &lt;foo xml:base="include1.xml"/&gt;
     &lt;/x&gt;
-</del></span><span class="exceptionMessage">NullPointerException</span><input class="stackTraceButton" id="stackTraceButton1" type="button" onclick="javascript:toggleStackTrace('1')" value="View Stack" /><div class="stackTrace" id="stackTrace1"><p>While evaluating expression: <code>execute(#source)</code></p><div class="stackTraceExceptionMessage">org.concordion.internal.InvalidExpressionException: NullPointerException</div><div class="stackTraceEntry">at java.net.URI$Parser.parse (URI.java:3021)</div><div class="stackTraceEntry">at java.net.URI.&lt;init&gt; (URI.java:595)</div><div class="stackTraceEntry">at org.etourdot.xincproc.xinclude.XIncProcEngine.parse (XIncProcEngine.java:116)</div><div class="stackTraceEntry">at org.etourdot.xincproc.xinclude.api.ApiTest.execute (ApiTest.java:38)</div><div class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke0 (NativeMethodAccessorImpl.java:-2)</div><div class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:57)</div><div class="stackTraceEntry">at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)</div><div class="stackTraceEntry">at java.lang.reflect.Method.invoke (Method.java:601)</div><div class="stackTraceEntry">at ognl.OgnlRuntime.invokeMethod (OgnlRuntime.java:850)</div><div class="stackTraceEntry">at ognl.OgnlRuntime.callAppropriateMethod (OgnlRuntime.java:1273)</div><div class="stackTraceEntry">at ognl.ObjectMethodAccessor.callMethod (ObjectMethodAccessor.java:68)</div><div class="stackTraceEntry">at ognl.OgnlRuntime.callMethod (OgnlRuntime.java:1349)</div><div class="stackTraceEntry">at ognl.ASTMethod.getValueBody (ASTMethod.java:90)</div><div class="stackTraceEntry">at ognl.SimpleNode.evaluateGetValueBody (SimpleNode.java:212)</div><div class="stackTraceEntry">at ognl.SimpleNode.getValue (SimpleNode.java:258)</div><div class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:494)</div><div class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:596)</div><div class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:566)</div><div class="stackTraceEntry">at org.concordion.internal.OgnlEvaluator.evaluate (OgnlEvaluator.java:32)</div><div class="stackTraceEntry">at org.concordion.internal.SimpleEvaluator.evaluate (SimpleEvaluator.java:15)</div><div class="stackTraceEntry">at org.concordion.internal.command.AssertEqualsCommand.verify (AssertEqualsCommand.java:45)</div><div class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator$3.run (AbstractCommandDecorator.java:31)</div><div class="stackTraceEntry">at org.concordion.internal.command.LocalTextDecorator.process (LocalTextDecorator.java:26)</div><div class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator.verify (AbstractCommandDecorator.java:29)</div><div class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator$3.run (AbstractCommandDecorator.java:31)</div><div class="stackTraceEntry">at org.concordion.internal.command.ThrowableCatchingDecorator.process (ThrowableCatchingDecorator.java:37)</div><div class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator.verify (AbstractCommandDecorator.java:29)</div><div class="stackTraceEntry">at org.concordion.api.CommandCall.verify (CommandCall.java:33)</div><div class="stackTraceEntry">at org.concordion.api.CommandCallList.processSequentially (CommandCallList.java:31)</div><div class="stackTraceEntry">at org.concordion.internal.command.SpecificationCommand.execute (SpecificationCommand.java:23)</div><div class="stackTraceEntry">at org.concordion.api.CommandCall.execute (CommandCall.java:29)</div><div class="stackTraceEntry">at org.concordion.internal.XMLSpecification.process (XMLSpecification.java:17)</div><div class="stackTraceEntry">at org.concordion.Concordion.process (Concordion.java:32)</div><div class="stackTraceEntry">at org.concordion.Concordion.process (Concordion.java:26)</div><div class="stackTraceEntry">at org.concordion.internal.FixtureRunner.run (FixtureRunner.java:18)</div><div class="stackTraceEntry">at org.concordion.integration.junit4.ConcordionRunner$1.evaluate (ConcordionRunner.java:113)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner.runLeaf (ParentRunner.java:271)</div><div class="stackTraceEntry">at org.junit.runners.BlockJUnit4ClassRunner.runChild (BlockJUnit4ClassRunner.java:70)</div><div class="stackTraceEntry">at org.concordion.integration.junit4.ConcordionRunner.runChild (ConcordionRunner.java:104)</div><div class="stackTraceEntry">at org.concordion.integration.junit4.ConcordionRunner.runChild (ConcordionRunner.java:18)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner$3.run (ParentRunner.java:238)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner$1.schedule (ParentRunner.java:63)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner.runChildren (ParentRunner.java:236)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner.access$000 (ParentRunner.java:53)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner$2.evaluate (ParentRunner.java:229)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner.run (ParentRunner.java:309)</div><div class="stackTraceEntry">at org.apache.maven.surefire.junit4.JUnit4Provider.execute (JUnit4Provider.java:264)</div><div class="stackTraceEntry">at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet (JUnit4Provider.java:153)</div><div class="stackTraceEntry">at org.apache.maven.surefire.junit4.JUnit4Provider.invoke (JUnit4Provider.java:124)</div><div class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke0 (NativeMethodAccessorImpl.java:-2)</div><div class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:57)</div><div class="stackTraceEntry">at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)</div><div class="stackTraceEntry">at java.lang.reflect.Method.invoke (Method.java:601)</div><div class="stackTraceEntry">at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2 (ReflectionUtils.java:208)</div><div class="stackTraceEntry">at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke (ProviderFactory.java:158)</div><div class="stackTraceEntry">at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider (ProviderFactory.java:86)</div><div class="stackTraceEntry">at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess (ForkedBooter.java:153)</div><div class="stackTraceEntry">at org.apache.maven.surefire.booter.ForkedBooter.main (ForkedBooter.java:95)</div><div class="stackTraceExceptionMessage">java.lang.NullPointerException: null</div><div class="stackTraceEntry">at java.net.URI$Parser.parse (URI.java:3021)</div><div class="stackTraceEntry">at java.net.URI.&lt;init&gt; (URI.java:595)</div><div class="stackTraceEntry">at org.etourdot.xincproc.xinclude.XIncProcEngine.parse (XIncProcEngine.java:116)</div><div class="stackTraceEntry">at org.etourdot.xincproc.xinclude.api.ApiTest.execute (ApiTest.java:38)</div><div class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke0 (NativeMethodAccessorImpl.java:-2)</div><div class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:57)</div><div class="stackTraceEntry">at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)</div><div class="stackTraceEntry">at java.lang.reflect.Method.invoke (Method.java:601)</div><div class="stackTraceEntry">at ognl.OgnlRuntime.invokeMethod (OgnlRuntime.java:850)</div><div class="stackTraceEntry">at ognl.OgnlRuntime.callAppropriateMethod (OgnlRuntime.java:1273)</div><div class="stackTraceEntry">at ognl.ObjectMethodAccessor.callMethod (ObjectMethodAccessor.java:68)</div><div class="stackTraceEntry">at ognl.OgnlRuntime.callMethod (OgnlRuntime.java:1349)</div><div class="stackTraceEntry">at ognl.ASTMethod.getValueBody (ASTMethod.java:90)</div><div class="stackTraceEntry">at ognl.SimpleNode.evaluateGetValueBody (SimpleNode.java:212)</div><div class="stackTraceEntry">at ognl.SimpleNode.getValue (SimpleNode.java:258)</div><div class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:494)</div><div class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:596)</div><div class="stackTraceEntry">at ognl.Ognl.getValue (Ognl.java:566)</div><div class="stackTraceEntry">at org.concordion.internal.OgnlEvaluator.evaluate (OgnlEvaluator.java:32)</div><div class="stackTraceEntry">at org.concordion.internal.SimpleEvaluator.evaluate (SimpleEvaluator.java:15)</div><div class="stackTraceEntry">at org.concordion.internal.command.AssertEqualsCommand.verify (AssertEqualsCommand.java:45)</div><div class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator$3.run (AbstractCommandDecorator.java:31)</div><div class="stackTraceEntry">at org.concordion.internal.command.LocalTextDecorator.process (LocalTextDecorator.java:26)</div><div class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator.verify (AbstractCommandDecorator.java:29)</div><div class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator$3.run (AbstractCommandDecorator.java:31)</div><div class="stackTraceEntry">at org.concordion.internal.command.ThrowableCatchingDecorator.process (ThrowableCatchingDecorator.java:37)</div><div class="stackTraceEntry">at org.concordion.api.AbstractCommandDecorator.verify (AbstractCommandDecorator.java:29)</div><div class="stackTraceEntry">at org.concordion.api.CommandCall.verify (CommandCall.java:33)</div><div class="stackTraceEntry">at org.concordion.api.CommandCallList.processSequentially (CommandCallList.java:31)</div><div class="stackTraceEntry">at org.concordion.internal.command.SpecificationCommand.execute (SpecificationCommand.java:23)</div><div class="stackTraceEntry">at org.concordion.api.CommandCall.execute (CommandCall.java:29)</div><div class="stackTraceEntry">at org.concordion.internal.XMLSpecification.process (XMLSpecification.java:17)</div><div class="stackTraceEntry">at org.concordion.Concordion.process (Concordion.java:32)</div><div class="stackTraceEntry">at org.concordion.Concordion.process (Concordion.java:26)</div><div class="stackTraceEntry">at org.concordion.internal.FixtureRunner.run (FixtureRunner.java:18)</div><div class="stackTraceEntry">at org.concordion.integration.junit4.ConcordionRunner$1.evaluate (ConcordionRunner.java:113)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner.runLeaf (ParentRunner.java:271)</div><div class="stackTraceEntry">at org.junit.runners.BlockJUnit4ClassRunner.runChild (BlockJUnit4ClassRunner.java:70)</div><div class="stackTraceEntry">at org.concordion.integration.junit4.ConcordionRunner.runChild (ConcordionRunner.java:104)</div><div class="stackTraceEntry">at org.concordion.integration.junit4.ConcordionRunner.runChild (ConcordionRunner.java:18)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner$3.run (ParentRunner.java:238)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner$1.schedule (ParentRunner.java:63)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner.runChildren (ParentRunner.java:236)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner.access$000 (ParentRunner.java:53)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner$2.evaluate (ParentRunner.java:229)</div><div class="stackTraceEntry">at org.junit.runners.ParentRunner.run (ParentRunner.java:309)</div><div class="stackTraceEntry">at org.apache.maven.surefire.junit4.JUnit4Provider.execute (JUnit4Provider.java:264)</div><div class="stackTraceEntry">at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet (JUnit4Provider.java:153)</div><div class="stackTraceEntry">at org.apache.maven.surefire.junit4.JUnit4Provider.invoke (JUnit4Provider.java:124)</div><div class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke0 (NativeMethodAccessorImpl.java:-2)</div><div class="stackTraceEntry">at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:57)</div><div class="stackTraceEntry">at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)</div><div class="stackTraceEntry">at java.lang.reflect.Method.invoke (Method.java:601)</div><div class="stackTraceEntry">at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2 (ReflectionUtils.java:208)</div><div class="stackTraceEntry">at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke (ProviderFactory.java:158)</div><div class="stackTraceEntry">at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider (ProviderFactory.java:86)</div><div class="stackTraceEntry">at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess (ForkedBooter.java:153)</div><div class="stackTraceEntry">at org.apache.maven.surefire.booter.ForkedBooter.main (ForkedBooter.java:95)</div></div></pre>
+</pre>
 </div>
-<div class="footer">Results generated by <a href="http://www.concordion.org" style="font-weight: bold; text-decoration: none; color: #89C;">Concordion</a><div class="testTime">in 562 ms on 05-mai-2013 at 23:48:42 CEST</div></div></body>
+<div class="footer">Results generated by <a href="http://www.concordion.org" style="font-weight: bold; text-decoration: none; color: #89C;">Concordion</a><div class="testTime">in 816 ms on 06-mai-2013 at 00:44:05 CEST</div></div></body>
 </html>
