@@ -45,7 +45,7 @@
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <stylesheetfile>src/main/javadoc/stylesheet.css</stylesheetfile>
-                    <javadocDirectory>src/main/javadoc</javadocDirectory>
+                    <javadocDirectory>src/javadoc</javadocDirectory>
                     <docfilessubdirs>true</docfilessubdirs>
                 </configuration>
                 <reportSets>

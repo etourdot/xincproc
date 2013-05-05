@@ -89,7 +89,7 @@
                                         <java fork="true" jar="${net.sf.saxon:Saxon-HE:jar}" failonerror="true">
                                             <arg value="-s:${spec.docDirectory}/XIncl20060927/testdescr.xml"/>
                                             <arg value="-xsl:${spec.docDirectory}/xsl/test-suite-to-html.xsl"/>
-                                            <arg value="-o:${spec.docDirectory}/org/etourdot/xincproc/xinclude/testsuite/TestSuite.html"/>
+                                            <arg value="-o:${spec.docDirectory}/org/etourdot/xincproc/xinclude/testsuite/Testsuite.html"/>
                                         </java>
                                     </target>
                                 </configuration>
@@ -112,7 +112,7 @@
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <stylesheetfile>src/main/javadoc/stylesheet.css</stylesheetfile>
-                    <javadocDirectory>src/main/javadoc</javadocDirectory>
+                    <javadocDirectory>src/javadoc</javadocDirectory>
                     <docfilessubdirs>true</docfilessubdirs>
                 </configuration>
                 <reportSets>

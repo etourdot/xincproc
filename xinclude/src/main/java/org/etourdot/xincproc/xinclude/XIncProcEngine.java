@@ -67,6 +67,13 @@ public final class XIncProcEngine
         this.configuration = configuration;
     }
 
+    /**
+     * Create statically a new {@link XIncProcXIncludeFilter}
+     * from a base fixed URI
+     *
+     * @param baseURI initial base URI for the filter
+     * @return an XIncProcXIncludeFilter
+     */
     public static XMLFilter newXIncludeFilter(final URI baseURI)
     {
         final XIncludeContext context = new XIncludeContext(XIncProcEngine.CONFIGURATION);
@@ -75,11 +82,25 @@ public final class XIncProcEngine
         return newXIncludeFilter(context);
     }
 
+    /**
+     * Create statically a new {@link XIncProcXIncludeFilter}
+     * from a {@link XIncludeContext}
+
+     * @param context intial context for the filter
+     * @return an XIncProcXIncludeFilter
+     */
     public static XMLFilter newXIncludeFilter(final XIncludeContext context)
     {
         return new XIncProcXIncludeFilter(context);
     }
 
+    /**
+     * Statically parse an {@link URI}
+     *
+     * @param baseURI URI to be parsed
+     * @param output {@link OutputStream} will store result
+     * @throws XIncludeFatalException
+     */
     public static void parse(final URI baseURI, final OutputStream output)
             throws XIncludeFatalException
     {
@@ -105,6 +126,15 @@ public final class XIncProcEngine
         }
     }
 
+    /**
+     * Statically parse an {@link InputStream}
+     *
+     * @param input {@link InputStream} to parse
+     * @param systemId of the input. If this is null or not an URI, method exits with XIncludeFatalException.
+     * @param output {@link OutputStream} will store result
+     * @throws XIncludeFatalException
+     * @throws IOException
+     */
     public static void parse(final InputStream input, final String systemId, final OutputStream output)
             throws XIncludeFatalException, IOException
     {

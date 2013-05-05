@@ -38,8 +38,8 @@ public final class XIncProcCLI
     {
         this.options = new Options();
         this.options.addOption("h", false, "Help");
-        final Option input = OptionBuilder.hasArg().withArgName("file").withDescription("input file").create("i");
-        final Option output = OptionBuilder.hasArg().withArgName("file").withDescription("output file").create("o");
+        final Option input = OptionBuilder.hasArg().withArgName("file").withDescription("input file").create("if");
+        final Option output = OptionBuilder.hasArg().withArgName("file").withDescription("output file").create("of");
         this.options.addOption(input).addOption(output);
     }
 
@@ -50,19 +50,27 @@ public final class XIncProcCLI
         try
         {
             final CommandLine commandLine = parser.parse(this.options, args);
-            if (!commandLine.hasOption('o') && !commandLine.hasOption('o'))
+            if (!commandLine.hasOption("if"))
             {
                 final HelpFormatter formatter = new HelpFormatter();
                 formatter.printHelp("XIncProc", this.options);
                 return -1;
             }
-            final File inputFile = new File(commandLine.getOptionValue('i'));
-            final File outputFile = new File(commandLine.getOptionValue('o'));
+            final File inputFile = new File(commandLine.getOptionValue("if"));
             final InputStream fis = new FileInputStream(inputFile);
-            final OutputStream fos = new FileOutputStream(outputFile);
+            final OutputStream outputStream;
+            if (commandLine.hasOption("of"))
+            {
+                final File outputFile = new File(commandLine.getOptionValue("of"));
+                outputStream = new FileOutputStream(outputFile);
+            }
+            else
+            {
+                outputStream = stdout;
+            }
             try
             {
-                XIncProcEngine.parse(fis, inputFile.toURI().toASCIIString(), fos);
+                XIncProcEngine.parse(fis, inputFile.toURI().toASCIIString(), outputStream);
             }
             catch (XIncludeFatalException e)
             {
@@ -72,7 +80,7 @@ public final class XIncProcCLI
             finally
             {
                 Closeables.close(fis, true);
-                Closeables.close(fos, true);
+                Closeables.close(outputStream, true);
             }
 
         }

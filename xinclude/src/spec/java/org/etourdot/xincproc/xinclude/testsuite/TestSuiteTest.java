@@ -27,5 +27,5 @@ import org.junit.runner.RunWith;
 @RunWith(ConcordionRunner.class)
 @Extensions(EmbedExtension.class)
 @ExpectedToFail
-public class TestSuiteTest extends AbstractSuiteTest {
+public class TestsuiteTest extends AbstractSuiteTest {
 }

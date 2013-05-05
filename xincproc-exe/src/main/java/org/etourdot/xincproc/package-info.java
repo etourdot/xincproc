@@ -18,7 +18,7 @@
 
 /**
  *
- * This package contains XIncProc XInclude implementation
+ * This package contains XIncProc Command Line Interface
  *
  */
 package org.etourdot.xincproc;

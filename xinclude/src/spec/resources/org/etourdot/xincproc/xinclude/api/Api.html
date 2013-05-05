@@ -8,12 +8,6 @@
 <p>Code to find "genre" node with XPointer engine is as simple as this:</p>
 <ol>
     <li>
-        Instanciate a XIncProcEngine:
-        <pre>
-            XIncProcEngine xIncProcEngine = new XIncProcEngine();
-        </pre>
-    </li>
-    <li>
         Set a source into an InputStream (source including xinclude instructions of course) :
         <pre>
             InputStream sourceStream = ;
@@ -23,7 +17,7 @@
         Call a parse function that resolve xinclude instructions into a new outputstream.
         NB: The source's base URI is needed for xml:base fixup.
         <pre>
-            xIncProcEngine.parse(sourceStream, baseUri, outputStream);
+            XIncProcEngine.parse(sourceStream, baseUri, outputStream);
         </pre>
         Et voila !
     </li>
@@ -38,9 +32,9 @@
 <p>including this document:</p>
 <pre>&lt;foo/&gt;</pre>
 <p>The parsed result document will be this: </p>
-<pre concordion:assertEquals="execute(#source)">
-    &lt;x xmlns:xi="http://www.w3.org/2001/XInclude"&gt;
-    &lt;foo/&gt;
+<pre concordion:assertEquals="execute()">
+    &lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;x&gt;
+    &lt;foo xml:base="include1.xml"/&gt;
     &lt;/x&gt;
 </pre>
 </div>

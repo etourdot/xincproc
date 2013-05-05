@@ -24,18 +24,17 @@ import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 
 @RunWith(ConcordionRunner.class)
-@ExpectedToFail
 public class ApiTest {
-    public String execute(String source) throws XIncludeFatalException, IOException
+    public String execute() throws XIncludeFatalException, IOException
     {
-        final ByteArrayInputStream bais = new ByteArrayInputStream(source.getBytes());
+        final URL urlInput = getClass().getClassLoader().getResource("org/etourdot/xincproc/xinclude/api/ft-include1.xml");
+        final FileInputStream source = new FileInputStream(urlInput.getPath());
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        XIncProcEngine.parse(bais, null, baos);
+        XIncProcEngine.parse(source, urlInput.toExternalForm(), baos);
         return new String(baos.toByteArray());
     }
 }

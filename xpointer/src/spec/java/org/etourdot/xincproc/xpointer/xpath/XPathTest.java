@@ -22,5 +22,5 @@ import org.etourdot.xincproc.xpointer.AbstractXPointerTest;
 import org.junit.runner.RunWith;
 
 @RunWith(ConcordionRunner.class)
-public class XPathTest extends AbstractXPointerTest {
+public class XpathTest extends AbstractXPointerTest {
 }

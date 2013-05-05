@@ -22,5 +22,5 @@ import org.etourdot.xincproc.xpointer.AbstractXPointerTest;
 import org.junit.runner.RunWith;
 
 @RunWith(ConcordionRunner.class)
-public class NotSupportedXPointerTest extends AbstractXPointerTest {
+public class NotSupportedXpointerTest extends AbstractXPointerTest {
 }

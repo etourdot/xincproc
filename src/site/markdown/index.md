@@ -1,6 +1,8 @@
 # XIncProc Framework
 The XIncProc Frameword provides an almost complete implementation of W3C [XML Inclusions (XInclude) Version 1.0 (Second Edition)][xinclude].
+
 Althougt XInclude is supported into Jaxp implementation since Java 1.5, this support is very incomplete.
+
 XIncProc brings a most powerfull support including [xpointer][xpointer], [element][element], [xpath][xpath] and [xmlns][xmlns] schemes.
 
 [xinclude]: http://www.w3.org/TR/xinclude/
@@ -10,28 +12,34 @@ XIncProc brings a most powerfull support including [xpointer][xpointer], [elemen
 [xmlns]: http://www.w3.org/TR/xptr-xmlns/
 
 ## How to use
-### Maven integration
-
-To add XIncProc to your project, just add the following dependency to your `pom.xml`:
-```xml
-    <dependency>
-        <groupId>org.etourdot</groupId>
-        <artifactId>xincproc</artifactId>
-        <version>1.0.0</version>
-    </dependency>
-```
-
 ### API Usage
 ```java
-    // Open a stream
-    final FileInputStream source = new FileInputStream(urlTest.getPath());
-    // Parse it
-    final ByteArrayOutputStream output = new ByteArrayOutputStream();
-    XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
-    // That's all !
-    final String result = output.toString("UTF-8");
+// Open a stream
+final FileInputStream source = new FileInputStream(urlTest.getPath());
+// Parse it
+final ByteArrayOutputStream output = new ByteArrayOutputStream();
+XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
+// That's all !
+final String result = output.toString("UTF-8");
 ```
-Just have a look to [Javadocs](apidocs/index.html) for more samples
+Just have a look to [XInclude Specs](xinclude/specs/org/etourdot/xincproc/xinclude/api/Api.html) for more samples
+and to [XPointer specs](xpointer/specs/org/etourdot/xincproc/xpointer/Xpointer.html) for more details about xpointer resolution.
+
+
+### Line command
+If you to use XInclude resolution in batch mode, you can call the engine through CLI interface :
+
+    java -jar xincproc.jar -if sample.xml -of output.xml
+
+### Maven Usage
+Just add this in your `pom.xml`:
+```xml
+<dependency>
+    <groupId>org.etourdot</groupId>
+    <artifactId>xinclude</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
 ## Specifications and conformance
 XIncProc conformance is tested against the official [Xinclude Test Suite](http://www.w3.org/XML/Test/XInclude/)
