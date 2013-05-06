@@ -42,3 +42,9 @@ You can create issues on Github here: [https://github.com/etourdot/xincproc/issu
 Copyright 2013 Emmanuel Tourdot
 
 The XIncProc frameword is released under version 3.0 of the [LGPL Licence](http://opensource.org/licenses/lgpl-3.0.html)
+
+## Thanks
+Many thanks to :
+
+* Andrius Velykis and his [wonderfull skin for maven site](http://andriusvelykis.github.io/reflow-maven-skin/)
+* David Peterson for [concordion](http://www.concordion.org/)

@@ -32,14 +32,13 @@ If you to use XInclude resolution in batch mode, you can call the engine through
     java -jar xincproc.jar -if sample.xml -of output.xml
 
 ### Maven Usage
-Just add this in your `pom.xml`:
-```xml
-<dependency>
-    <groupId>org.etourdot</groupId>
-    <artifactId>xinclude</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
+Just add this in your *pom.xml*:
+
+    <dependency>
+       <groupId>org.etourdot</groupId>
+       <artifactId>xinclude</artifactId>
+       <version>1.0.0</version>
+    </dependency>
 
 ## Specifications and conformance
 XIncProc conformance is tested against the official [Xinclude Test Suite](http://www.w3.org/XML/Test/XInclude/)
