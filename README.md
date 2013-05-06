@@ -11,7 +11,7 @@ XIncProc brings a most powerfull support including [xpointer][xpointer], [elemen
 [xpath]: http://www.w3.org/2005/04/xpointer-schemes/xpath
 [xmlns]: http://www.w3.org/TR/xptr-xmlns/
 
-For a complete documentation see our [project site](http://xincproc.etourdot.org)
+For a complete documentation see the [project site](http://xincproc.etourdot.org)
 
 ## How to use
 ### API Usage
@@ -42,6 +42,9 @@ You can create issues on Github here: [https://github.com/etourdot/xincproc/issu
 Copyright 2013 Emmanuel Tourdot
 
 The XIncProc frameword is released under version 3.0 of the [LGPL Licence](http://opensource.org/licenses/lgpl-3.0.html)
+
+## Continous Integration
+Current Build-Status: [![Build Status](https://buildhive.cloudbees.com/job/etourdot/job/xincproc/badge/icon)](https://buildhive.cloudbees.com/job/etourdot/job/xincproc/)
 
 ## Thanks
 Many thanks to :
