@@ -3,138 +3,440 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.etourdot</groupId>
-    <artifactId>xinclude</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <description>XInclude implementation</description>
+    <artifactId>xincproc</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-    <url>http://code.google.com/p/xincproc/</url>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <modules>
+        <module>xinclude</module>
+        <module>xpointer</module>
+        <module>xincproc-exe</module>
+    </modules>
+
+    <name>xincproc</name>
+    <description>XInclude processor implementation</description>
+    <url>http://xincproc.etourdot.org</url>
 
     <issueManagement>
-        <system>code.google.com</system>
-        <url>http://code.google.com/p/xincproc/issues/list</url>
+        <system>github</system>
+        <url>https://github.com/etourdot/xincproc/issues</url>
     </issueManagement>
+    <ciManagement>
+        <system>jenkins</system>
+        <url>https://buildhive.cloudbees.com/job/etourdot/job/xincproc/</url>
+    </ciManagement>
 
     <inceptionYear>2011</inceptionYear>
 
-    <distributionManagement>
-        <repository>
-          <id>googlecode.xincproc.repository</id>
-            <url>dav:https://xincproc.googlecode.com/svn/maven/repository/</url>
-            <!--url>scm:svn:https://xincproc.googlecode.com/svn/maven/repository/</url-->
-        </repository>
-        <snapshotRepository>
-          <id>googlecode.xincproc.snapshot.repository</id>
-            <url>dav:https://xincproc.googlecode.com/svn/maven/snapshot/</url>
-            <!--url>scm:svn:https://xincproc.googlecode.com/svn/maven/snapshot/</url-->
-          <uniqueVersion>false</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
-    
     <scm>
-        <connection>scm:svn:https://xincproc.googlecode.com/svn/trunk/</connection>
-        <developerConnection>scm:svn:https://xincproc.googlecode.com/svn/trunk/</developerConnection>
-        <url>http://code.google.com/p/xincproc/source/browse/</url>
+        <connection>scm:git:git://github.com/etourdot/xincproc.git</connection>
+        <developerConnection>scm:git:git@github.com:etourdot/xincproc.git</developerConnection>
+        <url>https://github.com/etourdot/xincproc</url>
+        <tag>HEAD</tag>
     </scm>
+    
+    <distributionManagement>
+        <site>
+            <id>${site.deploy.id}</id>
+            <name>Deployment through GitHub's site deployment plugin</name>
+            <url>${site.deploy.url}</url>
+        </site>
+    </distributionManagement>
 
     <developers>
         <developer>
             <id>etourdot</id>
             <name>Emmanuel Tourdot</name>
+            <email>emmanuel.tourdot@gmail.com</email>
             <roles>
                 <role>owner</role>
                 <role>developer</role>
             </roles>
         </developer>
     </developers>
-    
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
     <licenses>
-		<license>
+        <license>
             <name>LGPL 3.0 license</name>
             <url>http://www.opensource.org/licenses/lgpl-3.0.html</url>
-		</license>
-	</licenses>
-    
+        </license>
+    </licenses>
+
+    <properties>
+        <!-- Globales variables -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <checkstyle.config.path>${project.parent.relativePath}/../checkstyle.xml</checkstyle.config.path>
+        <gpg.keyname>115F1F28</gpg.keyname>
+        <!-- Site generation variables -->
+        <site.url>http://etourdot.github.io/xincproc</site.url>
+        <github.global.server>github</github.global.server>
+        <site.deploy.id>gh-pages</site.deploy.id>
+        <site.deploy.url>http://github.com/etourdot/xincproc/tree/gh-pages/</site.deploy.url>
+        <path.deploy.site />
+        <repositoryName>xincproc</repositoryName>
+        <repositoryOwner>etourdot</repositoryOwner>
+
+        <!-- Integration test path configuration -->
+        <spec.directory>src/spec</spec.directory>
+        <spec.testSourceDirectory>${spec.directory}/java</spec.testSourceDirectory>
+        <spec.docDirectory>${spec.directory}/resources</spec.docDirectory>
+        <itest.testOutputDirectory>${project.build.directory}/integrationtest-classes</itest.testOutputDirectory>
+        <concordion.reportDirectory>${project.build.directory}/concordion-reports</concordion.reportDirectory>
+
+        <!-- Libraries versions -->
+        <slf4j.version>1.7.2</slf4j.version>
+        <logback-classic.version>1.0.6</logback-classic.version>
+        <xmlunit.version>1.4</xmlunit.version>
+        <junit.version>4.11</junit.version>
+        <saxon-he.version>9.5.0.1</saxon-he.version>
+        <guava.version>14.0.1</guava.version>
+        <antlr-runtime.version>3.4</antlr-runtime.version>
+        <stringtemplate.version>3.2.1</stringtemplate.version>
+        <commons-cli.version>1.2</commons-cli.version>
+        <concordion.version>1.4.3</concordion.version>
+        <ognl.version>3.0.2</ognl.version>
+        <xom.version>1.2.5</xom.version>
+        <concordion-extensions.version>1.1.0</concordion-extensions.version>
+        <commons-io.version>2.4</commons-io.version>
+        <commons-lang3.version>3.1</commons-lang3.version>
+        <xercesImpl.version>2.11.0</xercesImpl.version>
+        <xml-apis.version>1.4.01</xml-apis.version>
+
+        <!-- Plugins versions -->
+        <antlr3-maven-plugin.version>3.4</antlr3-maven-plugin.version>
+        <build-helper-maven-plugin.version>1.7</build-helper-maven-plugin.version>
+        <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
+        <maven-failsafe-plugin.version>2.14</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>2.13</maven-surefire-plugin.version>
+        <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
+        <maven-release-plugin.version>2.4.1</maven-release-plugin.version>
+        <maven-javadoc-plugin.version>2.9</maven-javadoc-plugin.version>
+        <maven-checkstyle-plugin.version>2.10</maven-checkstyle-plugin.version>
+        <maven-gpg-plugin.version>1.1</maven-gpg-plugin.version>
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <maven-scm-publish-plugin.version>1.0-beta-2</maven-scm-publish-plugin.version>
+        <maven-site-plugin.version>3.2</maven-site-plugin.version>
+        <githubsite-maven-plugin.version>0.7</githubsite-maven-plugin.version>
+        <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
+        <reflow-velocity-tools.version>1.0.0</reflow-velocity-tools.version>
+        <velocity.version>1.7</velocity.version>
+        <doxia-module-markdown.version>1.3</doxia-module-markdown.version>
+        <maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
+        <copy-maven-plugin.version>0.2.5</copy-maven-plugin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-classic.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xmlunit</groupId>
+                <artifactId>xmlunit</artifactId>
+                <version>${xmlunit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.sf.saxon</groupId>
+                <artifactId>Saxon-HE</artifactId>
+                <version>${saxon-he.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr-runtime</artifactId>
+                <version>${antlr-runtime.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.antlr</groupId>
+                <artifactId>stringtemplate</artifactId>
+                <version>${stringtemplate.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-cli</groupId>
+                <artifactId>commons-cli</artifactId>
+                <version>${commons-cli.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xerces</groupId>
+                <artifactId>xercesImpl</artifactId>
+                <version>${xercesImpl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis</artifactId>
+                <version>${xml-apis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.concordion</groupId>
+                <artifactId>concordion</artifactId>
+                <version>${concordion.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.concordion</groupId>
+                <artifactId>concordion-extensions</artifactId>
+                <version>${concordion-extensions.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>ognl</groupId>
+                <artifactId>ognl</artifactId>
+                <version>${ognl.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>xom</groupId>
+                <artifactId>xom</artifactId>
+                <version>${xom.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.6.5</version>
-        </dependency>
-         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.0.6</version>
-        </dependency>
-        <dependency>
-            <groupId>xmlunit</groupId>
-            <artifactId>xmlunit</artifactId>
-            <version>1.3</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.saxon</groupId>
-            <artifactId>saxon-he</artifactId>
-            <version>9.3.0.4</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>Saxon-HE</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
         </dependency>
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr-runtime</artifactId>
-            <version>3.4</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>stringtemplate</artifactId>
-            <version>3.2.1</version>
-            <scope>compile</scope>
+            <groupId>org.concordion</groupId>
+            <artifactId>concordion</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-cli</groupId>
-            <artifactId>commons-cli</artifactId>
-            <version>1.2</version>
+            <groupId>org.concordion</groupId>
+            <artifactId>concordion-extensions</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ognl</groupId>
+            <artifactId>ognl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>xom</groupId>
+            <artifactId>xom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>integration-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>${build-helper-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>add-test-source</id>
+                                <phase>generate-test-sources</phase>
+                                <goals>
+                                    <goal>add-test-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>${spec.testSourceDirectory}</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>add-test-resource</id>
+                                <phase>generate-test-resources</phase>
+                                <goals>
+                                    <goal>add-test-resource</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>${spec.docDirectory}</directory>
+                                            <targetPath>${itest.testOutputDirectory}</targetPath>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>${maven-antrun-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>move-integration-tests</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <failOnError>false</failOnError>
+                                    <target>
+                                        <mkdir dir="${itest.testOutputDirectory}" />
+                                        <move todir="${itest.testOutputDirectory}">
+                                            <fileset dir="${project.build.testOutputDirectory}">
+                                                <include name="**/*.class" />
+                                                <present targetdir="${spec.testSourceDirectory}">
+                                                    <mapper type="glob" from="*.class" to="*.java" />
+                                                </present>
+                                            </fileset>
+                                        </move>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.github.goldin</groupId>
+                        <artifactId>copy-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-to-site</id>
+                                <phase>pre-site</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <targetPath>${project.build.directory}/site/specs</targetPath>
+                                            <directory>${concordion.reportDirectory}</directory>
+                                            <preservePath>true</preservePath>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${maven-failsafe-plugin.version}</version>
+                        <configuration>
+                            <includes>
+                                <include>**/*Test.java</include>
+                            </includes>
+                            <testClassesDirectory>${itest.testOutputDirectory}</testClassesDirectory>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${project.build.testOutputDirectory}
+                                </additionalClasspathElement>
+                            </additionalClasspathElements>
+                            <systemPropertyVariables>
+                                <concordion.output.dir>${concordion.reportDirectory}</concordion.output.dir>
+                            </systemPropertyVariables>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>integration-test</id>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>verify</id>
+                                <goals>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!--profile>
+            <id>release-xincproc</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>gpg-sign</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile-->
+    </profiles>
 
     <build>
         <extensions>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-webdav</artifactId>
-                <version>1.0-beta-2</version>
+                <artifactId>wagon-ssh</artifactId>
+                <version>2.3</version>
             </extension>
-            <!--extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-scm</artifactId>
-                <version>1.0-beta-6</version>
-            </extension>
-            <extension>
-                <groupId>org.apache.maven.scm</groupId>
-                <artifactId>maven-scm-manager-plexus</artifactId>
-                <version>1.3</version>
-            </extension>
-            <extension>
-                <groupId>org.apache.maven.scm</groupId>
-                <artifactId>maven-scm-provider-svnexe</artifactId>
-                <version>1.3</version>
-            </extension-->
         </extensions>
-
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -147,29 +449,229 @@
                         <showDeprecation>true</showDeprecation>
                     </configuration>
                 </plugin>
+                <!--plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                    <configuration>
+                        <detectLinks>true</detectLinks>
+                        <links>
+                            <link>http://java.sun.com/javase/6/docs/api/</link>
+                        </links>
+                        <source>1.6</source>
+                        <failOnError>false</failOnError>
+                    </configuration>
+                    <!--executions>
+                        <execution>
+                            <id>aggregate</id>
+                            <goals>
+                                <goal>aggregate</goal>
+                            </goals>
+                            <phase>site</phase>
+                        </execution>
+                    </executions-->
+                </plugin>
+                <plugin>
+                    <groupId>org.antlr</groupId>
+                    <artifactId>antlr3-maven-plugin</artifactId>
+                    <version>${antlr3-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>antlr</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <forkMode>always</forkMode>
+                        <childDelegation>true</childDelegation>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${maven-checkstyle-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.goldin</groupId>
+                    <artifactId>copy-maven-plugin</artifactId>
+                    <version>${copy-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
+            <!--plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <arguments>release-xincproc</arguments>
+                    <tagNameFormat>r@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin-->
             <plugin>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr3-maven-plugin</artifactId>
-                <version>3.1.3-1</version>
+                <groupId>com.github.goldin</groupId>
+                <artifactId>copy-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>copy-to-site</id>
+                        <phase>verify</phase>
                         <goals>
-                            <goal>antlr</goal>
+                            <goal>copy</goal>
                         </goals>
+                        <configuration>
+                            <failIfNotFound>false</failIfNotFound>
+                            <resources>
+                                <resource>
+                                    <targetPath>${project.build.directory}/site/specs</targetPath>
+                                    <directory>${concordion.reportDirectory}</directory>
+                                    <preservePath>true</preservePath>
+                                </resource>
+                            </resources>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${maven-site-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>lt.velykis.maven.skins</groupId>
+                        <artifactId>reflow-velocity-tools</artifactId>
+                        <version>${reflow-velocity-tools.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.velocity</groupId>
+                        <artifactId>velocity</artifactId>
+                        <version>${velocity.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-module-markdown</artifactId>
+                        <version>${doxia-module-markdown.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <generateReports>true</generateReports>
+                    <inputEncoding>UTF-8</inputEncoding>
+                    <outputEncoding>UTF-8</outputEncoding>
+                    <skipDeploy>true</skipDeploy>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>stage</id>
+                        <goals>
+                            <goal>stage</goal>
+                        </goals>
+                        <phase>site</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>checkstyle</goal>
+                        </goals>
+                        <configuration>
+                            <configLocation>checkstyle.xml</configLocation>
+                            <failsOnError>true</failsOnError>
+                            <linkXRef>false</linkXRef>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>${githubsite-maven-plugin.version}</version>
+                <configuration>
+                    <message>Creating site for ${project.artifactId}, ${project.version}</message>
+                    <branch>refs/heads/gh-pages</branch>
+                    <path>${path.deploy.site}</path>
+                    <merge>true</merge>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>site-deploy</phase>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.eclipse.mylyn.github</groupId>
+                        <artifactId>org.eclipse.egit.github.core</artifactId>
+                        <version>2.0.3</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${maven-project-info-reports-plugin.version}</version>
+                <configuration>
+                    <anonymousConnection>scm:git:git@github.com:etourdot/xincproc.git</anonymousConnection>
+                    <developerConnection>scm:git:git@github.com:etourdot/xincproc.git</developerConnection>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>summary</report>
+                            <report>license</report>
+                            <report>project-team</report>
+                            <report>scm</report>
+                            <report>issue-tracking</report>
+                            <report>dependencies</report>
+                            <report>dependency-convergence</report>
+                            <report>plugins</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <configuration>
+                    <stylesheetfile>${project.basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+                    <javadocDirectory>src/javadoc</javadocDirectory>
+                    <docfilessubdirs>true</docfilessubdirs>
+                    <aggregate>true</aggregate>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

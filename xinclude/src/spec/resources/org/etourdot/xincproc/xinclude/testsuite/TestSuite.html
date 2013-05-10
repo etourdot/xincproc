@@ -1,0 +1,2245 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:ext="urn:concordion-extensions:2010">
+   <body>
+      <h1>Conformance Test suite</h1>
+      <p>XIncProc conformance is tested against the official<a href="http://www.w3.org/XML/Test/XInclude/">
+            Xinclude Test Suite</a>.
+         
+      </p>
+      <p>All tests Xinclude Conformance Test Suite, 2006-09-27, were passed and results are
+         availables here:
+         
+      </p>
+      <table>
+         <tr>
+            <th width="150px">
+               <p>Id</p>
+               <p>Contributor</p>
+               <p>Date</p>
+            </th>
+            <th width="300px">Description</th>
+            <th width="100px">Result</th>
+            <th>Error message</th>
+         </tr>
+         <tr>
+            <td colspan="4">
+               <h1>Redhat</h1>
+            </td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>imaq-include-xml-01</b></p>
+               <p>Daniel Veillard</p>
+               <p>8-Mar-2002</p>
+            </td>
+            <td>Simple test of including another XML document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Imaq/test/XInclude/docs/include.xml</span><span concordion:set="#outHRef">Imaq/test/XInclude/docs/../../../result/XInclude/include.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>imaq-include-xml-02</b></p>
+               <p>Daniel Veillard</p>
+               <p>8-Mar-2002</p>
+            </td>
+            <td>Test recursive inclusion.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Imaq/test/XInclude/docs/recursive.xml</span><span concordion:set="#outHRef">Imaq/test/XInclude/docs/../../../result/XInclude/recursive.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>imaq-include-xml-03</b></p>
+               <p>Daniel Veillard</p>
+               <p>8-Mar-2002</p>
+            </td>
+            <td>Simple test of including a set of nodes from an XML document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Imaq/test/XInclude/docs/nodes.xml</span><span concordion:set="#outHRef">Imaq/test/XInclude/docs/../../../result/XInclude/nodes.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>imaq-include-xml-04</b></p>
+               <p>Daniel Veillard</p>
+               <p>8-Mar-2002</p>
+            </td>
+            <td>including another XML document with IDs
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Imaq/test/XInclude/docs/docids.xml</span><span concordion:set="#outHRef">Imaq/test/XInclude/docs/../../../result/XInclude/docids.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>imaq-include-xml-05</b></p>
+               <p>Daniel Veillard</p>
+               <p>8-Mar-2002</p>
+            </td>
+            <td>Simple test of including another text document
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Imaq/test/XInclude/docs/txtinclude.xml</span><span concordion:set="#outHRef">Imaq/test/XInclude/docs/../../../result/XInclude/txtinclude.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>imaq-include-xml-06</b></p>
+               <p>Daniel Veillard</p>
+               <p>21-Aug-2002</p>
+            </td>
+            <td>Simple test of a fallback on unavailable URI.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Imaq/test/XInclude/docs/fallback.xml</span><span concordion:set="#outHRef">Imaq/test/XInclude/docs/../../../result/XInclude/fallback.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>imaq-pex1-01</b></p>
+               <p>Daniel Veillard</p>
+               <p>2006-09-27</p>
+            </td>
+            <td>Unused fallbacks must not generate errors, even if broken.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Imaq/test/XInclude/docs/pex1.xml</span><span concordion:set="#outHRef">Imaq/test/XInclude/docs/../../../result/XInclude/include.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>imaq-pex1-02</b></p>
+               <p>Henry S. Thompson</p>
+               <p>2006-09-27</p>
+            </td>
+            <td>Broken fallback must generate errors, if they're needed.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Imaq/test/XInclude/docs/pex1a.xml</span><span concordion:set="#outHRef">Imaq/test/XInclude/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>imaq-pex6-03</b></p>
+               <p>Daniel Veillard</p>
+               <p>2006-09-27</p>
+            </td>
+            <td>A BOM in UTF16 is not added to the resulting document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Imaq/test/XInclude/docs/pex6a.xml</span><span concordion:set="#outHRef">Imaq/test/XInclude/docs/../../../result/XInclude/pex6a.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>imaq-pex6-04</b></p>
+               <p>Daniel Veillard</p>
+               <p>2006-09-27</p>
+            </td>
+            <td>A BOM in UTF16LE is added to the resulting document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Imaq/test/XInclude/docs/pex6b.xml</span><span concordion:set="#outHRef">Imaq/test/XInclude/docs/../../../result/XInclude/pex6b.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>imaq-pex11-05</b></p>
+               <p>Daniel Veillard</p>
+               <p>2006-09-27</p>
+            </td>
+            <td>'accept' attributes with characters outside the range #x20 through #x7E must
+               be flagged as fatal errors.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Imaq/test/XInclude/docs/pex11.xml</span><span concordion:set="#outHRef">Imaq/test/XInclude/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr>
+            <td colspan="4">
+               <h1>FourThought</h1>
+            </td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>FourThought-include-01</b></p>
+               <p>John Evdemon</p>
+               <p>18-September-2002</p>
+            </td>
+            <td>Simple test of including another XML document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">FourThought/test/XInclude/docs/ft-include1.xml</span><span concordion:set="#outHRef">FourThought/test/XInclude/docs/../../../result/XInclude/include1.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>FourThought-include-02</b></p>
+               <p>John Evdemon</p>
+               <p>18-September-2002</p>
+            </td>
+            <td>Test recursive inclusion.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">FourThought/test/XInclude/docs/ft-include2.xml</span><span concordion:set="#outHRef">FourThought/test/XInclude/docs/../../../result/XInclude/include2.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>FourThought-include-03</b></p>
+               <p>John Evdemon</p>
+               <p>18-September-2002</p>
+            </td>
+            <td>Simple test of including another text document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">FourThought/test/XInclude/docs/ft-include3.xml</span><span concordion:set="#outHRef">FourThought/test/XInclude/docs/../../../result/XInclude/include3.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>FourThought-include-04</b></p>
+               <p>John Evdemon</p>
+               <p>18-September-2002</p>
+            </td>
+            <td>Simple test of including a set of nodes from an XML document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">FourThought/test/XInclude/docs/ft-include4.xml</span><span concordion:set="#outHRef">FourThought/test/XInclude/docs/../../../result/XInclude/include4.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>FourThought-include-05</b></p>
+               <p>John Evdemon</p>
+               <p>18-September-2002</p>
+            </td>
+            <td>Simple test of including a set of nodes from an XML document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">FourThought/test/XInclude/docs/ft-include5.xml</span><span concordion:set="#outHRef">FourThought/test/XInclude/docs/../../../result/XInclude/include5.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>FourThought-include-06</b></p>
+               <p>John Evdemon</p>
+               <p>18-September-2002</p>
+            </td>
+            <td>Simple test of including a set of nodes from an XML document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">FourThought/test/XInclude/docs/ft-include6.xml</span><span concordion:set="#outHRef">FourThought/test/XInclude/docs/../../../result/XInclude/include6.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>FourThought-include-07</b></p>
+               <p>John Evdemon</p>
+               <p>18-September-2002</p>
+            </td>
+            <td>Simple test of including a set of nodes from an XML document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">FourThought/test/XInclude/docs/ft-include7.xml</span><span concordion:set="#outHRef">FourThought/test/XInclude/docs/../../../result/XInclude/include7.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr>
+            <td colspan="4">
+               <h1>NIST</h1>
+            </td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-01</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>18-September-2002</p>
+            </td>
+            <td>Test the inclusion of  another XML document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-01.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-01.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-02</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September-2002</p>
+            </td>
+            <td>Test that the encoding attribute in the Xinclude element has no effect when parse="xml".
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-02.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-02.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-03</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td>Test that values other than xml or text, in the parse attribute of the XInclude 
+               				element, result in fatal errors. 
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-03.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-04</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td>Test of fallback element appearing as a child of an xinclude element. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-04.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-04.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-05</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>Septembe, 2002</p>
+            </td>
+            <td> Test a fallback element not appearing as a direct
+               			child of an xinclude element. A fatal error should be generated.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-05.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-06</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test a fallback when a resource error occurs.  
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-06.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-06.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-07</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test an empty fallback element. The xinclude element is
+               			 removed from the results.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-07.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-07.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-08</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test of a fallback element missing from the 
+               				include element. A resource error results in a fatal error. 
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-08.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-09</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test unqualified attributes in the include element. They must be ignored.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-09.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-09.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-10</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test content other than the fallback, in the xinclude element. 
+               			This content must be ignored. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-10.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-10.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-11</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test a resource containing non-well-formed XML. The inclusion results in a fatal
+               error.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-11.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-12</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test that is a fatal error for an include element to contain more than one fallback
+               elements. 
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-12.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-13</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test a fallback element containing markup when parse="text".  
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-13.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-13.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-14</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test a fallback element containing markup when parse="text".  
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-14.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-14.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-15</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> It is illegal for an include element to point to itself, when parse="xml". 
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-15.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-16</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test a document type declaration information item child 
+               			  in the resource information set. the DTD should be excluded for inclusion in
+               the source infoset.  
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-16.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-16.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-17</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test intra-document reference within include elements.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-17.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-17.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-18</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Simple test of including a set of nodes from an XML document. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-18.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-18.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-19</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test the inclusion of a set of nodes from an XML document. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-19.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-19.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-20</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>September, 2002</p>
+            </td>
+            <td> Test an include location identifying a document information item with
+               			an xpointer  locating the document root. In this case
+               			the set of top level include items is the children of acquired infoset's
+               			document information item, except for the document type information
+               			item.  
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-20.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-20.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-21</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Including an XML document with an unparsed entity. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-21.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-21.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-22</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Testing when the document (top level) element in the source infoset is an
+               			include element. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-22.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-22.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-23</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Testing an include element in the document (top-level) element in the source doc.
+               				Test should fail because is including more than one element. 
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-23.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-24</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Testing an include element in the document (top-level) element in the source doc.
+               				Test should fail because is including only a processing instruction. 
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-24.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-25</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Testing an include element in the document (top-level) element in the source doc.
+               				Test should fail because is including only a comment. 
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-25.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-26</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>  Test relative URI references in the included infoset. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-26.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-26.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-27</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>Test that the encoding attribute when parse="xml" does not translate the incoming
+               document. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-27.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-27.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-28</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>  including another XML document with IDs, using a shorthand pointer. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-28.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-28.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-29</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>  including another XML document with IDs, using a shorthand pointer. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-29.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-29.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-30</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>  Including another XML document with IDs, using a shorthand pointer. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-30.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-30.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-31</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>  Including an XML document using an XPointer element scheme. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-31.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-31.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-32</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>  Including an XML document using an XPointer element scheme.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-32.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-33</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>  Including an XML document using an XPointer element scheme.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-33.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-34</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>  Including another XML document with ids using XPointer element scheme. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-34.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-34.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-35</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>  Including an XML document using an XPointer element scheme.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-35.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-35.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-36</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>  Including an XML document using an XPointer element scheme.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-36.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-36.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-37</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Including another XML document using XPointer Framework scheme-base pointer.  
+               				If the processor does not support the scheme used in a pointer part, it skip that
+               pointer part.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-37.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-37.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-38</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Including another XML document using XPointer Framework.  
+               				If the processor does not support the scheme used in a pointer part, it skip that
+               pointer part.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-38.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-38.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>nist-include-39</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Testing the content of the xinclude element. 
+               				The comment  should be ignored .
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-39.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-39.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>nist-include-40</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Testing the content of the xinclude element. 
+               				The element should be ignored .
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-40.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-40.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>nist-include-41</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Testing the content of the xinclude element. 
+               			This test should result in a fatal error.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-41.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-42</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Testing the content of the xinclude element. 
+               				The xinclude element may contain a fallback element; 
+               				other elements from the xinclude namespace result in a fatal error.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-42.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-43</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Testing the content of the xinclude element. 
+               				The content must be one fallback. This test should result in a fatal error.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-43.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-44</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Test a resource that contains not-well-formed XML. 
+               				This test should result in a fatal error.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-44.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-45</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Test a resource that contains not-well-formed XML. 
+               				This test should result in a fatal error.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-45.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-46</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Testing the content of the xinclude element. 
+               				The xinclude element may contain a fallback element; other elements from the xinclude
+               namespace result in a fatal error.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-46.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-47</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Testing the content of the xinclude element. 
+               				The xinclude element may contain a fallback element; other elements from the xinclude
+               namespace result in a fatal error.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-47.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-48</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> It is a fatal error to resolve an xpointer scheme on a document
+               			that contains unexpanded entity reference information items.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-48.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-49</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> The unexpanded entity reference information items, if present in the source infoset,
+               				will appear in the result infoset.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-49.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-49.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-50</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Test an include location identifying the document information item without an Xpointer,
+               
+               			The set of top-level included items should be the children of the acquired inforset's
+               document
+               			information item, except for the document type declaration information item. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-50.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-50.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-51</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Test an include location having an XPointer identifying a comment. 
+               			The set of top-level included items should consist of the information item corresponding
+               
+               			to the comment node in the acquired infoset.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-51.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-51.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-52</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Test an include location having an XPointer identifying a processing instruction.
+               			The set of top-level included items should consist of the information item corresponding
+               
+               			to the processing instruction node in the acquired infoset.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-52.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-52.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-53</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Test that an include location identifying an attribute node will result in a
+               			fatal error. 
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-53.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-54</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>Test that an include location identifying an attribute node will result in a
+               			fatal error. 
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-54.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-55</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td> Including a duplicate unparsed entity. 
+               			Test should ignore duplicate unparsed entity. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-55.xml</span><span concordion:set="#outHRef">Nist/test/docs/../../result/nist-include-55.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>Nist-include-56</b></p>
+               <p>Sandra I. Martinez</p>
+               <p>January, 2003</p>
+            </td>
+            <td>  Including an unparsed entity with same name, 
+               			but different sysid. Test should fail. 
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Nist/test/docs/nist-include-56.xml</span><span concordion:set="#outHRef">Nist/test/docs/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr>
+            <td colspan="4">
+               <h1>LTG, Edinburgh Univ</h1>
+            </td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>eduni-1</b></p>
+               <p>Richard Tobin</p>
+               <p>30-Jun-2004</p>
+            </td>
+            <td>Simple whole-file inclusion.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">EdUni/test/book.xml</span><span concordion:set="#outHRef">EdUni/test/../result/book.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>eduni-2</b></p>
+               <p>Richard Tobin</p>
+               <p>30-Jun-2004</p>
+            </td>
+            <td>Verify that xi:include elements in the target have been processed in the acquired
+               infoset, ie before the xpointer is applied.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">EdUni/test/extract.xml</span><span concordion:set="#outHRef">EdUni/test/../result/extract.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>eduni-3</b></p>
+               <p>Richard Tobin</p>
+               <p>1-Sep-2004</p>
+            </td>
+            <td>Check xml:lang fixup
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">EdUni/test/lang.xml</span><span concordion:set="#outHRef">EdUni/test/../result/lang.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr>
+            <td colspan="4">
+               <h1>Elliotte Rusty Harold</h1>
+            </td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-01</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>xml:base attribute is used to resolve relative URLs in href attributes
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/xmlbasetest.xml</span><span concordion:set="#outHRef">Harold/test/../result/xmlbasetest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-02</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Use XPointer to include an include element in another document,
+               and make sure that's fully resolved too
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/resolvethruxpointer.xml</span><span concordion:set="#outHRef">Harold/test/../result/resolvethruxpointer.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-03</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>xml:base attribute on the xi:include element is used to resolve relative URL in href
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/xmlbasetest2.xml</span><span concordion:set="#outHRef">Harold/test/../result/xmlbasetest2.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-04</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>xml:base attribute from an unincluded element 
+               			still applies to its included descendants
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/xmlbasetest3.xml</span><span concordion:set="#outHRef">Harold/test/../result/xmlbasetest3.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-05</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>An include element includes its following sibling element, which has a child 
+               include element including the sibling element after that one.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/marshtest.xml</span><span concordion:set="#outHRef">Harold/test/../result/marshtest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-06</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Include a document that uses XPointers to reference various parts of itself
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/includedocumentwithintradocumentreferences.xml</span><span concordion:set="#outHRef">Harold/test/../result/includedocumentwithintradocumentreferences.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-07</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>xml:lang attribute from including document does not override xml:lang attribute in
+               included document
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/langtest1.xml</span><span concordion:set="#outHRef">Harold/test/../result/langtest1.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-08</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>xml:lang attribute is added to retain the included element's language, even
+               though the language was originaly declared on an unincluded element
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/langtest2.xml</span><span concordion:set="#outHRef">Harold/test/../result/langtest2.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-09</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>xml:lang='' is added when the included document does not declare a language
+               and the including element does
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/langtest3.xml</span><span concordion:set="#outHRef">Harold/test/../result/langtest3.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-10</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Test that the 
+               xml:base attribute is not used to resolve a missing href.
+               According to RFC 2396 empty string URI always refers to the  current document irrespective
+               of base URI.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/marshtestwithxmlbase.xml</span><span concordion:set="#outHRef">Harold/test/../result/marshtestwithxmlbase.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-11</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>There's no difference between href="" and no href attribute.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/marshtestwithxmlbaseandemptyhref.xml</span><span concordion:set="#outHRef">Harold/test/../result/marshtestwithxmlbase.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-12</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Make sure base URIs are preserved when including from the same document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/includefromsamedocumentwithbase.xml</span><span concordion:set="#outHRef">Harold/test/../result/includefromsamedocumentwithbase.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-13</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Syntactically incorrect IRI is a fatal error (Eitehr I'm missing something or the
+               spec needs to state this prinicple more clearly.)
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/badiri.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-14</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Syntactically incorrect IRI with an unrecognized scheme is a fatal error
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/badiri2.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-15</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Syntactically correct IRI with an unrecognized scheme is a resource error
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/goodiri.xml</span><span concordion:set="#outHRef">Harold/test/../result/goodiri.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-16</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>accept attribute contains carriage-return/linefeed pair
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/badaccept1.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-17</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>accept attribute contains Latin-1 character (non-breaking space)
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/badaccept2.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-18</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Unprefixed, unrecognized attributes on an include element are ignored
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/extraattributes.xml</span><span concordion:set="#outHRef">Harold/test/../result/c1.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-19</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Fallback elements can be empty
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/emptyfallback.xml</span><span concordion:set="#outHRef">Harold/test/../result/emptyfallback.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-20</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Included documents can themselves use fallbacks
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/metafallbacktest.xml</span><span concordion:set="#outHRef">Harold/test/../result/metafallbacktest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-21</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>An included document can use a fallback that points into the included document
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/metafallbacktest6.xml</span><span concordion:set="#outHRef">Harold/test/../result/metafallbacktest6.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-22</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>An included document can use a fallback that includes another document as text
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/metafallbacktest2.xml</span><span concordion:set="#outHRef">Harold/test/../result/metafallbacktest2.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-23</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>A fallback element in an included document contains an include element with a parse
+               attribute with an illegal value.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/metafallbacktest3.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-24</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>A fallback element in an included document contains an include element with neither
+               an xpointer nor an href attribute.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/metafallbacktest4.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-25</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>A fallback element in an included document contains an include element whose href
+               attribute has a fragment ID.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/metafallbacktestwithfragmentid.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-26</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>The XPointer does not select anything in the acquired infoset, but does select something
+               in the source infoset.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/metafallbacktest5.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-27</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>A fallback in an included document contains some text and a comment, but no elements.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/metafallbacktotexttest.xml</span><span concordion:set="#outHRef">Harold/test/../result/metafallbacktotexttest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-28</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Include element points to another include element, which has a missing resource 
+               and therefore activates a fallback.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/metafallbacktestwithxpointer.xml</span><span concordion:set="#outHRef">Harold/test/../result/metafallbacktestwithxpointer.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-29</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>An include element can include another include element that
+               then uses a fallback.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/metafallbacktestwithxpointer2.xml</span><span concordion:set="#outHRef">Harold/test/../result/metafallbacktestwithxpointer2.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-30</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>An include element can include another include element that
+               then fails to find a resource, which is a fatal error if there's no fallback.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/metamissingfallbacktestwithxpointer.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-31</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>An include element can include another include element that
+               then fails to find a resource, but it has a fallback, which itself has an include
+               child, which then throws a fatal error.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/metafallbackwithbadxpointertest.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-32</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Basic test from XInclude spec
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/parseequalxml.xml</span><span concordion:set="#outHRef">Harold/test/../result/c1.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-33</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>An include element points to a document that includes it, using an xpointer to select
+               part of that document.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/legalcircle.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-34</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>An include element points to another include element in the same document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/recursewithinsamedocument.xml</span><span concordion:set="#outHRef">Harold/test/../result/recursewithinsamedocument.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-35</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Include elements can be siblings
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/paralleltest.xml</span><span concordion:set="#outHRef">Harold/test/../result/paralleltest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-36</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Namespaces (and lack thereof) must be preserved in included documents
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/namespacetest.xml</span><span concordion:set="#outHRef">Harold/test/../result/namespacetest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-37</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Detect an inclusion loop when an include element refers to itself
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/internalcircular.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-38</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Detect an inclusion loop when an include element refers to its  ancestor element
+               in the same document
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/internalcircularviaancestor.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-39</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Processing a document that contains no include elements produces the same document.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/latin1.xml</span><span concordion:set="#outHRef">Harold/test/../result/latin1.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-40</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Basic inclusion
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/simple.xml</span><span concordion:set="#outHRef">Harold/test/../result/simple.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-41</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>The root element of a document can be an include element.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/roottest.xml</span><span concordion:set="#outHRef">Harold/test/../result/roottest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-42</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>The root element of a document can be an include element.
+               In this test the included document has a prolog and an epilog and the root element
+               is replaced
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/roottest2.xml</span><span concordion:set="#outHRef">Harold/test/../result/roottest2.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-43</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>testIncludeElementsCannotHaveIncludeChildren
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/nestedxinclude.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-44</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Include elements cannot have children from the xinclude namespace except for fallback.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/nestedxincludenamespace.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-45</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Fallback can only be a child of xinclude element
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/nakedfallback.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-46</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>A fallback element cannot have a fallback child element.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/fallbackcontainsfallback.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-47</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>"The appearance of more than one xi:fallback element, an xi:include element, 
+               or any other element from the XInclude namespace is a fatal error."
+               In this test the fallback is activated.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/multiplefallbacks.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-48</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>"The appearance of more than one xi:fallback element, an xi:include element, 
+               or any other element from the XInclude namespace is a fatal error."
+               In this test the fallback is not activated.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/multiplefallbacks2.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-49</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>A document cannot include itself
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/circle1.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-50</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Document A includes document B which includes document A
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/circle2a.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-51</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Include element is missing an href and xpointer attribute
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/missinghref.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-52</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>parse attribute must have value xml or text
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/badparseattribute.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-53</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Missing resource is fatal when there's no fallback
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/missingfile.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-54</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Missing resource is non-fatal when there's a fallback
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/fallbacktest.xml</span><span concordion:set="#outHRef">Harold/test/../result/fallbacktest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-55</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Fallback elements can themselves contain include elements
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/fallbacktest2.xml</span><span concordion:set="#outHRef">Harold/test/../result/fallbacktest2.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-56</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>encoding="UTF-16"
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/utf16.xml</span><span concordion:set="#outHRef">Harold/test/../result/utf16.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-57</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>A shorthand XPointer
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/xptridtest.xml</span><span concordion:set="#outHRef">Harold/test/../result/xptridtest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-58</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>XPointer that selects nothing is a resource error, and fatal because there's no fallback.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/xptridtest2.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-59</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>XPointers of the forms described in [XPointer Framework] and [XPointer element() scheme]
+               must be supported. 
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/xptrtumblertest.xml</span><span concordion:set="#outHRef">Harold/test/../result/xptrtumblertest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-60</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Unrecognized colonized XPointer schemes are skipped, and the following scheme is used.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/colonizedschemename.xml</span><span concordion:set="#outHRef">Harold/test/../result/xptrtumblertest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-61</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Even if the first XPointer part locates a resource, a syntax error in
+               the second XPointer part is still a fatal error.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/laterfailure.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-62</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Even if the first XPointer part locates a resource, a syntax error in
+               the second XPointer part is still a fatal error.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/laterfailure2.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-63</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>You can include another element from the same document without an href attribute.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/onlyxpointer.xml</span><span concordion:set="#outHRef">Harold/test/../result/onlyxpointer.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-64</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td> Test with 3 element schemes in the XPointer.
+               The first and second one point to nothing. The third one
+               selects something. XPointer parts are evaluated from left to right until one finds
+               something.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/xptr2tumblertest.xml</span><span concordion:set="#outHRef">Harold/test/../result/xptrtumblertest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-65</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Test with 2 element schemes in the XPointer.
+               The first one uses an ID that doesn't exist 
+               and points to nothing. The second one
+               selects something.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/xptrtumblertest.xml</span><span concordion:set="#outHRef">Harold/test/../result/xptrtumblertest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-66</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>  Make sure XPointer syntax errors are treated as a resource 
+               error, not a fatal error; and thus fallbacks are applied
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/xptrtumblerfailsbutfallback.xml</span><span concordion:set="#outHRef">Harold/test/../result/xptrtumblertest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-67</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>  Make sure XPointer syntax errors are treated as a resource 
+               error, not a fatal error; and thus fallbacks are applied
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/xptrsyntaxerrorbutfallback.xml</span><span concordion:set="#outHRef">Harold/test/../result/xptrtumblertest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-68</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td> Test with 3 element schemes in the XPointer, separated by white space.
+               The first one points to nothing. The third one
+               selects something.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/xptrtumblertest.xml</span><span concordion:set="#outHRef">Harold/test/../result/xptrtumblertest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-69</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>An XPointer that doesn't point to anything is a resource error; and fatal because
+               there's no fallback
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/xptrtumblertest2.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-70</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Syntax error in an XPointer is a resource error; and fatal because there's no fallback
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/badxptr.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-71</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Syntax error in an XPointer is a resource error; and fatal because there's no fallback
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/badxptr2.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-72</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Unrecognized XPointer scheme activates fallback
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/xptrfallback.xml</span><span concordion:set="#outHRef">Harold/test/../result/xptrfallback.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-73</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>XPointer uses an element scheme where the first part is an ID
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/xptridandtumblertest.xml</span><span concordion:set="#outHRef">Harold/test/../result/xptridandtumblertest.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-74</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Can autodetect UTF16 big endian files with a with a byte order mark when parse="text"
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/UTF16BigEndianWithByteOrderMark.xml</span><span concordion:set="#outHRef">Harold/test/../result/UTF16BigEndianWithByteOrderMark.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-75</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Can autodetect UTF16 little endian files with a with a byte order mark when parse="text"
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/UTF16LittleEndianWithByteOrderMark.xml</span><span concordion:set="#outHRef">Harold/test/../result/UTF16LittleEndianWithByteOrderMark.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-76</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Can autodetect UTF-8 files with a with a byte order mark when parse="text"
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/UTF8WithByteOrderMark.xml</span><span concordion:set="#outHRef">Harold/test/../result/UTF8WithByteOrderMark.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-77</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Can autodetect UCS2 big endian files with a without a byte order mark when parse="text"
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/UnicodeBigUnmarked.xml</span><span concordion:set="#outHRef">Harold/test/../result/UnicodeBigUnmarked.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-78</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Can autodetect UCS2 little endian files with a without a byte order mark when parse="text"
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/UnicodeLittleUnmarked.xml</span><span concordion:set="#outHRef">Harold/test/../result/UnicodeLittleUnmarked.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-79</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Can autodetect EBCDIC files with a without a byte order mark when parse="text"
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/EBCDIC.xml</span><span concordion:set="#outHRef">Harold/test/../result/EBCDIC.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-80</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Syntax error in an XPointer is a resource error; and fatal becaue there's no fallback
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/badxptr3.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-81</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Syntax error in an XPointer is a resource error; and fatal becaue there's no fallback
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/badxptr4.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-82</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Circular references via xpointer are fatal
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/circlepointer1.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-83</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>href attribute with fragment ID is a fatal error even when there's an xpointer attribute
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/xpointeroverridesfragmentid.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-84</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>href attribute with fragment ID is a fatal error
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/ignoresfragmentid.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-85</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Line breaks must be preserved verbatim when including a document with parse="text"
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/lineends.xml</span><span concordion:set="#outHRef">Harold/test/../result/lineends.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-86</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>A fragment identifier is semantically bad; but still meets the
+               syntax of fragment IDs from RFC 2396. 
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/meaninglessfragmentid.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-87</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>accept-language="fr"
+               			 This test connects to IBiblio to load the included
+               data. This is necessary because file URLs don't support
+               content negotiation
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/acceptfrench.xml</span><span concordion:set="#outHRef">Harold/test/../result/acceptfrench.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-88</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>accept-language="en"
+               This test connects to IBiblio to load the included
+               data. This is necessary because file URLs don't support
+               content negotiation
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/acceptenglish.xml</span><span concordion:set="#outHRef">Harold/test/../result/acceptenglish.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-89</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>accept="text/plain"
+               This test connects to IBiblio to load the included
+               data. This is necessary because file URLs don't support
+               content negotiation
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/acceptplaintext.xml</span><span concordion:set="#outHRef">Harold/test/../result/acceptplaintext.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-90</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>accept="text/html"
+               This test connects to IBiblio to load the included
+               data. This is necessary because file URLs don't support
+               content negotiation
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/accepthtml.xml</span><span concordion:set="#outHRef">Harold/test/../result/accepthtml.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-91</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Unrecognized scheme in XPointer is a fatal error if there's no fallback
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/unrecognizedscheme.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-92</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Unrecognized scheme in XPointer is a resource error so fallbacks apply
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/unrecognizedschemewithfallback.xml</span><span concordion:set="#outHRef">Harold/test/../result/unrecognizedschemewithfallback.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-93</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Basic inclusions as XML and text
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/test.xml</span><span concordion:set="#outHRef">Harold/test/../result/test.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-94</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>31-Aug-2004</p>
+            </td>
+            <td>Included document has an include element with neither href nor xpointer attribute
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/toplevel.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-95</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>12-Sep-2004</p>
+            </td>
+            <td>XPointers are resolved against the acquired infoset, not thge source infoset
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/tobintop.xml</span><span concordion:set="#outHRef">Harold/test/../result/tobintop.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-96</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>12-Sep-2004</p>
+            </td>
+            <td>Test that a non-child sequence in an xpointer is treated as a resource error.
+               <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/badelementschemedata.xml</span><span concordion:set="#outHRef">Harold/test/../result/badelementschemedata.xml</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">success</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+         <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+            <td>
+               <p><b>harold-97</b></p>
+               <p>Elliotte Rusty Harold</p>
+               <p>13-Oct-2004</p>
+            </td>
+            <td>Since the xpointer attribute is not a URI reference, %-escaping must not appear in
+               the XPointer, nor is there any need for a processor to apply or reverse such escaping.
+               <div style="display:none;"><span concordion:set="#type">error</span><span concordion:set="#inHRef">Harold/test/xpointerwithpercentescape.xml</span><span concordion:set="#outHRef">Harold/test/</span></div>
+            </td>
+            <td concordion:assertEquals="#result.result">error</td>
+            <td><span ext:embed="#result.exception"></span></td>
+         </tr>
+      </table>
+   </body>
+</html>

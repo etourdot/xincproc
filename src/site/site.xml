@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="XIncProc Framework"
+         xmlns="http://maven.apache.org/DECORATION/1.3.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.3.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd">
+
+    <bannerLeft>
+        <name><![CDATA[
+      <span class="color-highlight">XInclude</span> processor
+      ]]>
+        </name>
+        <href>http://xincproc.etourdot.org</href>
+    </bannerLeft>
+
+    <publishDate position="bottom" format="yyyy-MM-dd" />
+    <version position="bottom" />
+
+    <skin>
+        <groupId>lt.velykis.maven.skins</groupId>
+        <artifactId>reflow-maven-skin</artifactId>
+        <version>1.0.0</version>
+    </skin>
+
+    <custom>
+        <reflowSkin>
+            <protocolRelativeURLs>false</protocolRelativeURLs>
+            <smoothScroll>true</smoothScroll>
+            <theme>default</theme>
+            <highlightJs>true</highlightJs>
+            <highlightJsTheme>github</highlightJsTheme>
+            <absoluteResourceURL>http://xincproc.etourdot.org/</absoluteResourceURL>
+            <brand>
+                <name>
+                  <![CDATA[
+                  <span class="color-highlight">XInc</span>lude  <span class="color-highlight">Proc</span>essor
+                  ]]>
+                </name>
+                <href>http://xincproc.etourdot.org</href>
+            </brand>
+            <slogan>Most complete java implementation of the W3C XInclude 1.0 recommendation</slogan>
+            <!--toc>top</toc>
+            <tocTopMax>6</tocTopMax-->
+            <bannerLeft>
+                <name><![CDATA[
+                  <span class="color-highlight">XIncProc</span>
+                  ]]></name>
+                <href>http://xincproc.etourdot.org</href>
+            </bannerLeft>
+            <slogan position="bannerLeft">Full java XInclude processor framework.</slogan>
+            <bottomNav>
+                <column>Main</column>
+                <column>Documentation</column>
+                <column>modules</column>
+            </bottomNav>
+            <highlightJs>true</highlightJs>
+            <pages>
+                <developer-info>
+                    <toc>sidebar</toc>
+                </developer-info>
+                <contribute>
+                    <breadcrumbs>false</breadcrumbs>
+                </contribute>
+                <source-repository>
+                    <highlightJs>false</highlightJs>
+                </source-repository>
+                <issue-tracking>
+                    <highlightJs>false</highlightJs>
+                    <toc>false</toc>
+                </issue-tracking>
+                <license>
+                    <highlightJs>false</highlightJs>
+                    <toc>false</toc>
+                </license>
+                <project-info>
+                    <toc>false</toc>
+                </project-info>
+                <dependencies>
+                    <tocTopMax>4</tocTopMax>
+                </dependencies>
+            </pages>
+        </reflowSkin>
+    </custom>
+
+    <body>
+        <breadcrumbs>
+            <item name="XIncProc" href="/" />
+        </breadcrumbs>
+
+        <menu name="Main" inherit="top">
+            <item name="Home" href="./index.html" />
+            <item name="GitHub project" href="http://github.com/etourdot/xincproc/" />
+        </menu>
+        <menu name="Maven documentation" ref="reports" inherit="bottom"/>
+        <menu name="Modules" inherit="bottom">
+            <item name="XInclude" href="xinclude/index.html"/>
+            <item name="XPointer" href="xpointer/index.html"/>
+        </menu>
+    </body>
+</project>

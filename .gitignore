@@ -1,0 +1,76 @@
+#################
+## Eclipse
+#################
+
+*.pydevproject
+.project
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+###############
+## Intellij
+###############
+/.idea/
+.idea
+*.iml
+
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+/xinclude/src/spec/resources/XIncl20060927/CVS
+/xinclude/src/spec/resources/XIncl20060927/EdUni/CVS
+/xinclude/src/spec/resources/XIncl20060927/EdUni/result/CVS
+/xinclude/src/spec/resources/XIncl20060927/EdUni/test/CVS
+/xinclude/src/spec/resources/XIncl20060927/FourThought/CVS
+/xinclude/src/spec/resources/XIncl20060927/FourThought/result/CVS
+/xinclude/src/spec/resources/XIncl20060927/FourThought/result/XInclude/CVS
+/xinclude/src/spec/resources/XIncl20060927/FourThought/test/CVS
+/xinclude/src/spec/resources/XIncl20060927/FourThought/test/XInclude/CVS
+/xinclude/src/spec/resources/XIncl20060927/FourThought/test/XInclude/docs/CVS
+/xinclude/src/spec/resources/XIncl20060927/Harold/CVS
+/xinclude/src/spec/resources/XIncl20060927/Harold/result/CVS
+/xinclude/src/spec/resources/XIncl20060927/Harold/test/CVS
+/xinclude/src/spec/resources/XIncl20060927/Harold/test/a/CVS
+/xinclude/src/spec/resources/XIncl20060927/Harold/test/b/CVS
+/xinclude/src/spec/resources/XIncl20060927/Harold/test/basedata/CVS
+/xinclude/src/spec/resources/XIncl20060927/Harold/test/text/CVS
+/xinclude/src/spec/resources/XIncl20060927/Imaq/CVS
+/xinclude/src/spec/resources/XIncl20060927/Imaq/result/CVS
+/xinclude/src/spec/resources/XIncl20060927/Imaq/result/XInclude/CVS
+/xinclude/src/spec/resources/XIncl20060927/Imaq/test/CVS
+/xinclude/src/spec/resources/XIncl20060927/Imaq/test/XInclude/CVS
+/xinclude/src/spec/resources/XIncl20060927/Imaq/test/XInclude/docs/CVS
+/xinclude/src/spec/resources/XIncl20060927/Imaq/test/XInclude/ents/CVS
+/xinclude/src/spec/resources/XIncl20060927/Nist/CVS
+/xinclude/src/spec/resources/XIncl20060927/Nist/result/CVS
+/xinclude/src/spec/resources/XIncl20060927/Nist/test/CVS
+/xinclude/src/spec/resources/XIncl20060927/Nist/test/docs/CVS
+/xinclude/src/spec/resources/XIncl20060927/Nist/test/ents/CVS

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC  "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<module name="Checker">
+    <module name="TreeWalker">
+        <module name="AbstractClassName">
+            <property name="severity" value="warning" />
+        </module>
+        <module name="ArrayTypeStyle" />
+        <module name="AvoidNestedBlocks" />
+        <module name="ConstantName">
+            <property name="severity" value="warning" />
+        </module>
+        <module name="CovariantEquals" />
+        <module name="EmptyStatement" />
+        <module name="EqualsHashCode" />
+        <module name="FinalClass">
+            <property name="severity" value="warning" />
+        </module>
+        <module name="FinalLocalVariable">
+            <property name="severity" value="warning" />
+        </module>
+        <module name="FinalParameters">
+            <property name="severity" value="warning" />
+        </module>
+        <module name="HideUtilityClassConstructor" />
+        <module name="IllegalInstantiation" />
+        <module name="InnerAssignment">
+            <property name="severity" value="warning" />
+        </module>
+        <module name="LeftCurly">
+            <property name="option" value="nl" />
+        </module>
+        <module name="ModifiedControlVariable">
+            <property name="severity" value="warning" />
+        </module>
+        <module name="ModifierOrder" />
+        <module name="MultipleVariableDeclarations" />
+        <module name="MutableException" />
+        <module name="NeedBraces" />
+        <module name="ParameterAssignment" />
+        <module name="RedundantModifier" />
+        <module name="RedundantThrows" />
+        <module name="SimplifyBooleanExpression" />
+        <module name="SimplifyBooleanReturn" />
+        <module name="StringLiteralEquality" />
+        <module name="TrailingComment">
+            <property name="severity" value="warning" />
+        </module>
+        <module name="UnnecessaryParentheses" />
+    </module>
+    <module name="NewlineAtEndOfFile">
+        <property name="lineSeparator" value="lf" />
+    </module>
+    <module name="RegexpSingleline">
+        <property name="format" value="^\s\+$" />
+    </module>
+    <!--module name="RegexpSingleline">
+        <property name="format" value="[^\*]\s\+$" />
+    </module-->
+    <module name="RegexpMultiline">
+        <property name="format" value="\{\n\n|\n\n\}" />
+    </module>
+</module>

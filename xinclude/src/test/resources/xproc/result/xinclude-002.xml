@@ -1,0 +1,4 @@
+<document>
+  <para>some para</para>
+  <para xml:base="xinclude/para.xml">another para</para>
+</document>
