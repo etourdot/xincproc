@@ -17,11 +17,8 @@
 
 package org.etourdot.xincproc.xinclude.sax;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
-import net.sf.saxon.event.NamespaceReducer;
-import net.sf.saxon.event.ReceivingContentHandler;
 import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.s9api.Destination;
 import net.sf.saxon.s9api.SAXDestination;
@@ -50,9 +47,8 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 import javax.xml.namespace.QName;
 import javax.xml.transform.sax.SAXSource;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Stack;
 
@@ -459,32 +455,17 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         {
             settingLanguage();
             final SAXSource source = buildingXIncludeSource(xIncludeAttributes);
-            final DocumentInfo docInfo = this.context.getConfiguration().getProcessor().getUnderlyingConfiguration().buildDocument(source);
+            final DocumentInfo docInfo = this.context.getConfiguration().getProcessor().getUnderlyingConfiguration()
+                    .buildDocument(source);
             final XdmNode node = new XdmNode(docInfo);
             startingInjectXInclude();
             injectingXInclude(xIncludeAttributes, source, node);
-        }
-        catch (final FileNotFoundException e)
-        {
-            throw new XIncludeResourceException(e.getMessage());
         }
         catch (final XPointerResourceException e)
         {
             throw new XIncludeResourceException(e.getMessage());
         }
         catch (final XPointerException e)
-        {
-            throw new XIncludeFatalException(e.getMessage());
-        }
-        catch (final IOException e)
-        {
-            throw new XIncludeResourceException(e.getMessage());
-        }
-        catch (final XIncludeFatalException e)
-        {
-            throw new XIncludeFatalException(e.getMessage());
-        }
-        catch (final SAXException e)
         {
             throw new XIncludeFatalException(e.getMessage());
         }
@@ -499,10 +480,6 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
                 throw new XIncludeFatalException(e.getMessage());
             }
         }
-        catch (final SaxonApiException e)
-        {
-            throw new XIncludeFatalException(e.getMessage());
-        }
         finally
         {
             if (isInjectingXInclude())
@@ -512,7 +489,8 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         }
     }
 
-    private SAXSource buildingXIncludeSource(final XIncludeAttributes xIncludeAttributes) throws SAXException, FileNotFoundException
+    private SAXSource buildingXIncludeSource(final XIncludeAttributes xIncludeAttributes)
+            throws XIncludeFatalException, XIncludeResourceException
     {
         final SAXSource source;
         if (xIncludeAttributes.isHrefPresent())
@@ -530,13 +508,24 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             }
             newContext.setInitialBaseURI(sourceURI);
             final XMLFilter filter = XIncProcEngine.newXIncludeFilter(newContext);
-            final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
-            xmlReader.setProperty(XIncProcXIncludeFilter.LEXICALID, filter);
-            xmlReader.setProperty(XIncProcXIncludeFilter.DECLID, filter);
-            xmlReader.setFeature("http://xml.org/sax/features/resolve-dtd-uris", false);
-            xmlReader.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            final XMLReader xmlReader;
+            try
+            {
+                xmlReader = XMLReaderFactory.createXMLReader();
+                xmlReader.setProperty(XIncProcXIncludeFilter.LEXICALID, filter);
+                xmlReader.setProperty(XIncProcXIncludeFilter.DECLID, filter);
+                xmlReader.setFeature("http://xml.org/sax/features/resolve-dtd-uris", false);
+                xmlReader.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            }
+            catch (final SAXException e)
+            {
+                throw new XIncludeFatalException(e.getMessage());
+            }
             filter.setParent(xmlReader);
-            source = new SAXSource(filter, new InputSource(new FileReader(sourceURI.getPath())));
+            final InputStream inputStream = readInputStream(sourceURI);
+            final InputStreamReader characterStream = new InputStreamReader(inputStream);
+            final InputSource inputSource = new InputSource(characterStream);
+            source = new SAXSource(filter, inputSource);
             if (!xIncludeAttributes.isXPointerPresent())
             {
                 source.setSystemId(sourceURI.toASCIIString());
@@ -544,9 +533,41 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         }
         else
         {
-            source = new SAXSource(new InputSource(new FileReader(this.context.getInitialBaseURI().getPath())));
+            final InputStream inputStream = readInputStream(this.context.getInitialBaseURI());
+            final InputStreamReader characterStream = new InputStreamReader(inputStream);
+            final InputSource inputSource = new InputSource(characterStream);
+            source = new SAXSource(inputSource);
         }
         return source;
+    }
+
+    private InputStream readInputStream(final URI uri)
+            throws XIncludeResourceException
+    {
+        try
+        {
+            final String scheme = uri.getScheme();
+            if (scheme == null || "file".equals(scheme))
+            {
+                return new FileInputStream(uri.getPath());
+            }
+            else
+            {
+                return uri.toURL().openStream();
+            }
+        }
+        catch (final FileNotFoundException e)
+        {
+            throw new XIncludeResourceException(e.getMessage());
+        }
+        catch (final MalformedURLException e)
+        {
+            throw new XIncludeResourceException(e.getMessage());
+        }
+        catch (final IOException e)
+        {
+            throw new XIncludeResourceException(e.getMessage());
+        }
     }
 
     private void settingLanguage()
@@ -562,7 +583,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     }
 
     private void injectingXInclude(final XIncludeAttributes xIncludeAttributes, final SAXSource source, final XdmNode node)
-            throws XIncludeFatalException, XPointerException, SaxonApiException
+            throws XIncludeFatalException, XPointerException
     {
         final Destination saxDestination = new SAXDestination(this);
         if (xIncludeAttributes.isXPointerPresent())
@@ -595,7 +616,14 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         else
         {
             LOG.trace("includeXmlContent start injecting");
-            this.context.getConfiguration().getProcessor().writeXdmValue(node, saxDestination);
+            try
+            {
+                this.context.getConfiguration().getProcessor().writeXdmValue(node, saxDestination);
+            }
+            catch (final SaxonApiException e)
+            {
+                throw new XIncludeFatalException(e.getMessage());
+            }
             LOG.trace("includeXmlContent end injecting");
         }
     }
@@ -615,7 +643,8 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         }
     }
 
-    private void startCommonElement(final String uri, final String localName, final String qName, final AttributesImpl attributesImpl) throws XIncludeFatalException
+    private void startCommonElement(final String uri, final String localName, final String qName, final AttributesImpl attributesImpl)
+            throws XIncludeFatalException
     {
         final int langAttIdx = attributesImpl.getIndex(NamespaceSupport.XMLNS,
                 XIncludeConstants.XMLLANG_QNAME.getLocalPart());
@@ -667,7 +696,8 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         }
     }
 
-    private void startFallbackElement() throws XIncludeFatalException
+    private void startFallbackElement()
+            throws XIncludeFatalException
     {
         startingFallbackElement();
         if (!isInXIncludeElement() || (isNeedFallback() && (this.fallbackLevel > this.xIncludeLevel)))
@@ -680,7 +710,8 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         }
     }
 
-    private void startXIncludeElement(final Attributes atts) throws XIncludeFatalException, XIncludeResourceException
+    private void startXIncludeElement(final Attributes atts)
+            throws XIncludeFatalException, XIncludeResourceException
     {
         if (isInXIncludeElement() && !isInFallbackElement() && !isInjectingXInclude())
         {

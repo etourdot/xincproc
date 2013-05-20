@@ -1,10 +1,10 @@
 <html xmlns:concordion="http://www.concordion.org/2007/concordion">
 <body>
 
-<h1>Bad XPointer Scheme expression</h1>
+<h1>Bad XPath Scheme expression</h1>
 
 <p>
-    What's up when xpointer expression is not well formed ?
+    What's up when xpath expression is not well formed ?
 </p>
 
 
@@ -37,14 +37,14 @@
             <th concordion:assertEquals="#result.error">ErrorHandler</th>
         </tr>
         <tr>
-            <td>xpointer(//@id='auth1'])</td>
+            <td>xpath(//[@id='auth1'])</td>
             <td></td>
-            <td>expected ")", found "]"</td>
+            <td>Unexpected token "[" in path expression</td>
         </tr>
         <tr>
-            <td>xpointer(//price/following-sibling::)</td>
+            <td>xpath(//price/following-sibling:*)</td>
             <td></td>
-            <td>Unexpected token ")" after axis name</td>
+            <td>Prefix following-sibling has not been declared</td>
         </tr>
     </table>
 
