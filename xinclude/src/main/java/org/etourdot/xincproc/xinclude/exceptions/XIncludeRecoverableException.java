@@ -17,28 +17,32 @@
 
 package org.etourdot.xincproc.xinclude.exceptions;
 
+import org.xml.sax.SAXException;
+
 /**
- * Exception thrown when XInclude engine encounter a resource error
- * See http://www.w3.org/TR/xinclude/#dt-error
+ * Created with IntelliJ IDEA.
+ * User: etourdot
+ * Date: 20/05/13
+ * Time: 23:38
  */
-public class XIncludeResourceException extends XIncludeRecoverableException
+public class XIncludeRecoverableException extends SAXException
 {
     /**
-     * Instantiates a new XIncludeResourceException.
+     * Instantiates a new XIncludeRecoverableException.
      *
      * @param nestedException the nested exception
      */
-    public XIncludeResourceException(final Exception nestedException)
+    public XIncludeRecoverableException(final Exception nestedException)
     {
         super(nestedException);
     }
 
     /**
-     * Instantiates a new XIncludeResourceException.
+     * Instantiates a new XIncludeRecoverableException.
      *
      * @param message the message
      */
-    public XIncludeResourceException(final String message)
+    public XIncludeRecoverableException(final String message)
     {
         super(message);
     }

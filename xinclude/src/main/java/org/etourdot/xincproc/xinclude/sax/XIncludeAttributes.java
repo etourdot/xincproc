@@ -20,7 +20,10 @@ package org.etourdot.xincproc.xinclude.sax;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
+import com.google.common.net.MediaType;
+import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
+import org.etourdot.xincproc.xinclude.exceptions.XIncludeRecoverableException;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException;
 import org.xml.sax.Attributes;
 
@@ -33,13 +36,20 @@ import java.nio.charset.Charset;
  */
 class XIncludeAttributes
 {
-    private static final ImmutableList<String> VALID_PARSE = ImmutableList.of(XIncludeConstants.TEXT, XIncludeConstants.XML);
+    private XIncProcConfiguration configuration;
 
-    XIncludeAttributes(final Attributes attributes)
-            throws XIncludeFatalException, XIncludeResourceException
+    XIncludeAttributes(final XIncProcConfiguration configuration, final Attributes attributes)
+            throws XIncludeFatalException, XIncludeRecoverableException
     {
+        this.configuration = configuration;
         fillAttributes(attributes);
         checkingAttributes();
+    }
+
+    XIncludeAttributes(final Attributes attributes)
+            throws XIncludeFatalException, XIncludeRecoverableException
+    {
+        this(XIncProcConfiguration.newXIncProcConfiguration(), attributes);
     }
 
     private static boolean checkVal(final String val)
@@ -57,7 +67,7 @@ class XIncludeAttributes
 
     private void checkingAttributes() throws XIncludeFatalException, XIncludeResourceException
     {
-        if (this.href.isPresent())
+        if (isHrefPresent())
         {
             if (getHref().toASCIIString().contains("#"))
             {
@@ -66,20 +76,29 @@ class XIncludeAttributes
         }
         else
         {
-            if (this.parse.isPresent() && isXmlParse() && Strings.isNullOrEmpty(getXPointer()))
+            if (isXmlProcessing() && !isPointerForXmlProcessingPresent())
             {
-                throw new XIncludeFatalException("If the href attribute is absent when parse=\"xml\", the xpointer attribute must be present.");
+                final String message;
+                if (configuration.is10Supported())
+                {
+                    message = "If the href attribute is absent when parse=\"xml\", the xpointer attribute must be present.";
+                }
+                else
+                {
+                    message = "If the href attribute is absent when XML processing is specified, the xpointer or fragid attribute must be present.";
+                }
+                throw new XIncludeFatalException(message);
             }
         }
-        if (isTextParse())
+        if (isTextProcessing())
         {
-            if (this.xpointer.isPresent())
+            if (isXPointerPresent())
             {
                 throw new XIncludeFatalException("The xpointer attribute must not be present when parse=\"text\"");
             }
             try
             {
-                if (this.encoding.isPresent())
+                if (isEncodingPresent())
                 {
                     Charset.forName(getEncoding());
                 }
@@ -89,18 +108,18 @@ class XIncludeAttributes
                 throw new XIncludeResourceException("Encoding attribute should be a valid encoding name");
             }
         }
-        if (this.accept.isPresent() && XIncludeAttributes.checkVal(getAccept()))
+        if (isAcceptPresent() && XIncludeAttributes.checkVal(getAccept()))
         {
             throw new XIncludeFatalException("Attribute \"Accept\" containing characters outside the range #x20 through #x7E");
         }
-        if (this.acceptLanguage.isPresent() && XIncludeAttributes.checkVal(getAcceptLanguage()))
+        if (isAcceptLanguagePresent() && XIncludeAttributes.checkVal(getAcceptLanguage()))
         {
             throw new XIncludeFatalException("Attribute \"AcceptLanguage\" containing characters outside the range #x20 through #x7E");
         }
 
     }
 
-    private void fillAttributes(final Attributes attributes) throws XIncludeFatalException
+    private void fillAttributes(final Attributes attributes) throws XIncludeFatalException, XIncludeRecoverableException
     {
         final Optional<String> hrefAtt = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_HREF.getLocalPart()));
         try
@@ -119,11 +138,26 @@ class XIncludeAttributes
             throw new XIncludeFatalException("Href must be a valid URI");
         }
         this.parse = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_PARSE.getLocalPart()));
-        if (this.parse.isPresent() && !XIncludeAttributes.VALID_PARSE.contains(this.parse.get()))
+        if (!isXmlProcessing() && !isTextProcessing())
         {
-            throw new XIncludeFatalException("Parse value must be \"xml\" or \"text\".");
+            if (configuration.is10Supported())
+            {
+                throw new XIncludeFatalException("Parse value must be \"xml\" or \"text\".");
+            }
+            else
+            {
+                throw new XIncludeRecoverableException("XIncProc recognize only XML and text media type for parse attribute.");
+            }
         }
         this.xpointer = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_XPOINTER.getLocalPart()));
+        this.fragid = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_FRAGID.getLocalPart()));
+        if (isPointerForXmlProcessingPresent())
+        {
+            if (!getXPointer().equals(getFragid()))
+            {
+                throw new XIncludeRecoverableException("If both xpointer and fragid are specified, they should be the same.");
+            }
+        }
         this.encoding = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_ENCODING.getLocalPart()));
         this.accept = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_ACCEPT.getLocalPart()));
         this.acceptLanguage = Optional.fromNullable(attributes.getValue(XIncludeConstants.ATT_ACCEPT_LANGUAGE.getLocalPart()));
@@ -186,9 +220,28 @@ class XIncludeAttributes
         return this.href.isPresent();
     }
 
-    boolean isXmlParse()
+    boolean isXmlProcessing()
     {
-        return !this.parse.isPresent() || XIncludeConstants.XML.equals(getParse());
+        return !this.parse.isPresent() || isParseXml(getParse());
+    }
+
+    private boolean isParseXml(final String parse)
+    {
+        final boolean returnValue;
+        if (XIncludeConstants.XML.equals(parse))
+        {
+            returnValue = true;
+        }
+        else if (configuration.is11Supported())
+        {
+            final MediaType mediaType = MediaType.parse(parse);
+            returnValue = mediaType.is(MediaType.ANY_APPLICATION_TYPE) && mediaType.subtype().contains("xml");
+        }
+        else
+        {
+            returnValue = false;
+        }
+        return returnValue;
     }
 
     String getXPointer()
@@ -201,6 +254,25 @@ class XIncludeAttributes
         return this.xpointer.isPresent();
     }
 
+    String getPointerForXmlProcessing()
+    {
+        final String pointer;
+        if (isXPointerPresent())
+        {
+            pointer = getXPointer();
+        }
+        else
+        {
+            pointer = getFragid();
+        }
+        return pointer;
+    }
+
+    boolean isPointerForXmlProcessingPresent()
+    {
+        return isXPointerPresent() || (configuration.is11Supported() && isFragidPresent());
+    }
+
     URI getBase()
     {
         return this.base.orNull();
@@ -211,14 +283,43 @@ class XIncludeAttributes
         return this.base.isPresent();
     }
 
+    String getFragid()
+    {
+        return this.fragid.orNull();
+    }
+
+    boolean isFragidPresent()
+    {
+        return this.fragid.isPresent();
+    }
+
     String getParse()
     {
         return this.parse.orNull();
     }
 
-    boolean isTextParse()
+    boolean isTextProcessing()
     {
-        return this.parse.isPresent() && XIncludeConstants.TEXT.equals(getParse());
+        return this.parse.isPresent() && isParseText(getParse());
+    }
+
+    private boolean isParseText(final String parse)
+    {
+        final boolean returnValue;
+        if (XIncludeConstants.TEXT.equals(parse))
+        {
+            returnValue = true;
+        }
+        else if (configuration.is11Supported())
+        {
+            final MediaType mediaType = MediaType.parse(parse);
+            returnValue = mediaType.is(MediaType.ANY_TEXT_TYPE);
+        }
+        else
+        {
+            returnValue = false;
+        }
+        return returnValue;
     }
 
     private Optional<URI> href = Optional.absent();
@@ -228,4 +329,5 @@ class XIncludeAttributes
     private Optional<String> accept = Optional.absent();
     private Optional<String> acceptLanguage = Optional.absent();
     private Optional<URI> base = Optional.absent();
+    private Optional<String> fragid = Optional.absent();
 }

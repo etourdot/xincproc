@@ -30,6 +30,7 @@ import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
 import org.etourdot.xincproc.xinclude.XIncProcEngine;
 import org.etourdot.xincproc.xinclude.XIncProcUtils;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
+import org.etourdot.xincproc.xinclude.exceptions.XIncludeRecoverableException;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException;
 import org.etourdot.xincproc.xpointer.XPointerEngine;
 import org.etourdot.xincproc.xpointer.exceptions.XPointerException;
@@ -526,7 +527,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             final InputStreamReader characterStream = new InputStreamReader(inputStream);
             final InputSource inputSource = new InputSource(characterStream);
             source = new SAXSource(filter, inputSource);
-            if (!xIncludeAttributes.isXPointerPresent())
+            if (!xIncludeAttributes.isPointerForXmlProcessingPresent())
             {
                 source.setSystemId(sourceURI.toASCIIString());
             }
@@ -586,7 +587,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             throws XIncludeFatalException, XPointerException
     {
         final Destination saxDestination = new SAXDestination(this);
-        if (xIncludeAttributes.isXPointerPresent())
+        if (xIncludeAttributes.isPointerForXmlProcessingPresent())
         {
             if (source.getXMLReader() instanceof XIncProcXIncludeFilter)
             {
@@ -605,7 +606,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             }
             LOG.trace("includeXmlContent start injecting xpointer");
             final int includeLevel = this.elementLevel;
-            final int nbElements = xPointerEngine.executeToDestination(xIncludeAttributes.getXPointer(), node.asSource(),
+            final int nbElements = xPointerEngine.executeToDestination(xIncludeAttributes.getPointerForXmlProcessing(), node.asSource(),
                     saxDestination);
             if ((1 == includeLevel) && (1 != nbElements))
             {
@@ -711,13 +712,13 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     }
 
     private void startXIncludeElement(final Attributes atts)
-            throws XIncludeFatalException, XIncludeResourceException
+            throws XIncludeFatalException, XIncludeRecoverableException
     {
         if (isInXIncludeElement() && !isInFallbackElement() && !isInjectingXInclude())
         {
             throw new XIncludeFatalException("XInclude element is not allowed into xinclude");
         }
-        final XIncludeAttributes xIncludeAttributes = new XIncludeAttributes(atts);
+        final XIncludeAttributes xIncludeAttributes = new XIncludeAttributes(this.context.getConfiguration(), atts);
         startingXIncludeElement();
         final URI hrefUri = xIncludeAttributes.getHref();
         if (xIncludeAttributes.isBasePresent())
@@ -736,15 +737,15 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         this.context.setSourceURI(sourceURI);
         if (xIncludeAttributes.isHrefPresent())
         {
-            this.context.addInInclusionChain(this.context.getSourceURI(), xIncludeAttributes.getXPointer());
+            this.context.addInInclusionChain(this.context.getSourceURI(), xIncludeAttributes.getPointerForXmlProcessing());
         }
         else
         {
-            this.context.addInInclusionChain(this.context.getInitialBaseURI(), xIncludeAttributes.getXPointer());
+            this.context.addInInclusionChain(this.context.getInitialBaseURI(), xIncludeAttributes.getPointerForXmlProcessing());
         }
         try
         {
-            if (xIncludeAttributes.isXmlParse())
+            if (xIncludeAttributes.isXmlProcessing())
             {
                 includeXmlContent(xIncludeAttributes);
             }

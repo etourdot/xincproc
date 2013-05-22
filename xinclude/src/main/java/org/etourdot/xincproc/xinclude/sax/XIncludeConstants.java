@@ -35,6 +35,7 @@ final class XIncludeConstants
     static final QName ATT_HREF = new QName("href");
     static final QName ATT_ACCEPT = new QName("accept");
     static final QName ATT_ACCEPT_LANGUAGE = new QName("accept-language");
+    static final QName ATT_FRAGID = new QName("fragid");
     static final String TEXT = "text";
     static final String XML = "xml";
 

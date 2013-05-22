@@ -40,12 +40,22 @@ public final class XIncProcConfiguration
     /**
      * The XInclude version supported by the XIncProcEngine
      */
-    public static final String SUPPORTED_XINCLUDE_VERSION = "1.0";
+    private int supportXincludeVersion;
+
+    /**
+     * XInclude v1.0
+     */
+    public static final int XINCLUDE_VERSION_10 = 10;
+    /**
+     * XInclude v1.1
+     */
+    public static final int XINCLUDE_VERSION_11 = 11;
 
 
     private XIncProcConfiguration()
     {
         this.processor = new Processor(false);
+        this.supportXincludeVersion = XINCLUDE_VERSION_10;
     }
 
     /**
@@ -181,9 +191,37 @@ public final class XIncProcConfiguration
      *
      * @return version supported (currently only 1.0)
      */
-    public String getSupportedVersion()
+    public int getSupportedVersion()
     {
-        return SUPPORTED_XINCLUDE_VERSION;
+        return supportXincludeVersion;
+    }
+
+    /**
+     * Test supported version is 1.0
+     *
+     * @return true if supported version is 1.0
+     */
+    public boolean is10Supported()
+    {
+        return supportXincludeVersion == XINCLUDE_VERSION_10;
+    }
+
+    /**
+     * Test supported version is 1.0
+     *
+     * @return true if supported version is 1.0
+     */
+    public boolean is11Supported()
+    {
+        return supportXincludeVersion == XINCLUDE_VERSION_11;
+    }
+
+    /**
+     * Set supported XInclude version
+     */
+    public void setSupportedVersion(final int supportedVersion)
+    {
+        this.supportXincludeVersion = supportedVersion;
     }
 
     private boolean baseUrisFixup = true;

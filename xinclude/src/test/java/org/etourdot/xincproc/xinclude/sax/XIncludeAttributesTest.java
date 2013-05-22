@@ -17,11 +17,15 @@
 
 package org.etourdot.xincproc.xinclude.sax;
 
+import com.google.common.net.MediaType;
+import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
+import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
+import org.etourdot.xincproc.xinclude.exceptions.XIncludeRecoverableException;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException;
 import org.junit.Test;
 import org.xml.sax.helpers.AttributesImpl;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -48,6 +52,39 @@ public class XIncludeAttributesTest {
                 XIncludeConstants.ATT_PARSE.getLocalPart(), "CDATA", "xml");
         xIncludeAttributes = new XIncludeAttributes(attributes);
         assertNotNull(xIncludeAttributes);
+        final XIncProcConfiguration configuration = XIncProcConfiguration.newXIncProcConfiguration();
+        attributes = new AttributesImpl();
+        attributes.addAttribute(XIncludeConstants.ATT_HREF.getNamespaceURI(), XIncludeConstants.ATT_HREF.getLocalPart(),
+                XIncludeConstants.ATT_HREF.getLocalPart(), "CDATA", "http://www.google.com");
+        attributes.addAttribute(XIncludeConstants.ATT_PARSE.getNamespaceURI(), XIncludeConstants.ATT_PARSE.getLocalPart(),
+                XIncludeConstants.ATT_PARSE.getLocalPart(), "CDATA", "toto");
+        configuration.setSupportedVersion(XIncProcConfiguration.XINCLUDE_VERSION_10);
+        try
+        {
+            xIncludeAttributes = new XIncludeAttributes(attributes);
+            xIncludeAttributes = new XIncludeAttributes(configuration, attributes);
+        }
+        catch(final XIncludeFatalException e)
+        {
+            assertTrue(true);
+        }
+        catch(final XIncludeRecoverableException e)
+        {
+            fail();
+        }
+        configuration.setSupportedVersion(XIncProcConfiguration.XINCLUDE_VERSION_11);
+        try
+        {
+            xIncludeAttributes = new XIncludeAttributes(configuration, attributes);
+        }
+        catch(final XIncludeRecoverableException e)
+        {
+            assertTrue(true);
+        }
+        catch(final XIncludeFatalException e)
+        {
+            fail();
+        }
     }
 
     @Test(expected = XIncludeResourceException.class)
@@ -59,5 +96,12 @@ public class XIncludeAttributesTest {
         attributes.addAttribute(XIncludeConstants.ATT_PARSE.getNamespaceURI(), XIncludeConstants.ATT_PARSE.getLocalPart(),
                 XIncludeConstants.ATT_PARSE.getLocalPart(), "CDATA", "text");
         XIncludeAttributes xIncludeAttributes = new XIncludeAttributes(attributes);
+    }
+
+    @Test
+    public void testMediaType() throws Exception
+    {
+        MediaType mediaType = MediaType.parse("application/xml");
+        assertEquals("application", mediaType.type());
     }
 }
