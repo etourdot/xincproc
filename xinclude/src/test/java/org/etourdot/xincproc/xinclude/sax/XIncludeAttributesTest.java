@@ -101,7 +101,32 @@ public class XIncludeAttributesTest {
     @Test
     public void testMediaType() throws Exception
     {
-        MediaType mediaType = MediaType.parse("application/xml");
-        assertEquals("application", mediaType.type());
+        AttributesImpl attributes = new AttributesImpl();
+        attributes.addAttribute(XIncludeConstants.ATT_ENCODING.getNamespaceURI(), XIncludeConstants.ATT_ENCODING.getLocalPart(),
+                XIncludeConstants.ATT_ENCODING.getLocalPart(), "CDATA", "utf-8");
+        attributes.addAttribute(XIncludeConstants.ATT_PARSE.getNamespaceURI(), XIncludeConstants.ATT_PARSE.getLocalPart(),
+                XIncludeConstants.ATT_PARSE.getLocalPart(), "CDATA", "text/plain");
+        attributes.addAttribute("http://example.org/namespace/example","root", "root","CDATA","test");
+        XIncProcConfiguration configuration = XIncProcConfiguration.newXIncProcConfiguration();
+        configuration.setSupportedVersion(10);
+        XIncludeAttributes xIncludeAttributes;
+        try
+        {
+            xIncludeAttributes = new XIncludeAttributes(configuration, attributes);
+        }
+        catch(final XIncludeFatalException e)
+        {
+            assertTrue(true);
+        }
+        configuration.setSupportedVersion(11);
+        xIncludeAttributes = new XIncludeAttributes(configuration, attributes);
+        assertEquals(1, xIncludeAttributes.getOtherAttributes().getLength());
+        assertEquals("test", xIncludeAttributes.getOtherAttributes().getValue(0));
+        assertEquals("root", xIncludeAttributes.getOtherAttributes().getLocalName(0));
+        assertEquals("http://example.org/namespace/example", xIncludeAttributes.getOtherAttributes().getURI(0));
+        assertEquals("utf-8", xIncludeAttributes.getEncoding());
+        assertTrue(xIncludeAttributes.isTextProcessing());
+        assertFalse(xIncludeAttributes.isXmlProcessing());
+        assertFalse(xIncludeAttributes.isPointerForXmlProcessingPresent());
     }
 }

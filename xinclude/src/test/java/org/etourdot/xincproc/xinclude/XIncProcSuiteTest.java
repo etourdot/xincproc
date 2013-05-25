@@ -72,6 +72,7 @@ public abstract class XIncProcSuiteTest {
     {
         XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, fixupBase);
         XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, fixupLang);
+        XIncProcEngine.getUnderlyingConfiguration().setSupportedVersion(XIncProcConfiguration.XINCLUDE_VERSION_11);
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final FileInputStream source = new FileInputStream(urlTest.getPath());
         XIncProcEngine.parse(source, urlTest.toExternalForm(), output);

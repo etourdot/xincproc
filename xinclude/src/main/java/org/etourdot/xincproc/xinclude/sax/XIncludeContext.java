@@ -281,6 +281,26 @@ public class XIncludeContext
         this.language = language;
     }
 
+    /**
+     * Gets attributes for current xinclude element
+     *
+     * @return the attributes
+     */
+    public XIncludeAttributes getCurrentAttributes()
+    {
+        return this.currentAttributes;
+    }
+
+    /**
+     * Sets attributes for current xinclude element
+     *
+     * @param currentAttributes the attributes
+     */
+    public void setCurrentAttributes(final XIncludeAttributes currentAttributes)
+    {
+        this.currentAttributes = currentAttributes;
+    }
+
     @Override
     public String toString()
     {
@@ -365,4 +385,5 @@ public class XIncludeContext
     private URI hrefURI;
     private Exception currentException;
     private DocType docType = new DocType();
+    private XIncludeAttributes currentAttributes;
 }

@@ -149,6 +149,17 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         LOG.trace("startElement@{}: {}, {}, {}", Integer.toHexString(hashCode()), uri, localName, qName);
         final AttributesImpl attributesImpl = new AttributesImpl(atts);
         this.context.updateContextWithElementAttributes(attributesImpl);
+        final XIncludeAttributes xIncludeAttributes = this.context.getCurrentAttributes();
+        if (xIncludeAttributes != null && this.context.getConfiguration().is11Supported() &&
+                xIncludeAttributes.isOtherAttributesPresent())
+        {
+            final Attributes attributesToCopy = xIncludeAttributes.getOtherAttributes();
+            for (int i = 0; i < attributesToCopy.getLength(); i++)
+            {
+                attributesImpl.addAttribute(attributesToCopy.getURI(i), attributesToCopy.getLocalName(i),
+                        attributesToCopy.getQName(i), attributesToCopy.getType(i), attributesToCopy.getValue(i));
+            }
+        }
         final QName elementQName = calculateElementName(uri, localName, qName);
 
         startingElement();
@@ -449,9 +460,10 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     ////////////////////////////
     // Private utilities methods
     ////////////////////////////
-    private void includeXmlContent(final XIncludeAttributes xIncludeAttributes)
+    private void includeXmlContent()
             throws XIncludeFatalException, XIncludeResourceException
     {
+        final XIncludeAttributes xIncludeAttributes = this.context.getCurrentAttributes();
         try
         {
             settingLanguage();
@@ -607,7 +619,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             LOG.trace("includeXmlContent start injecting xpointer");
             final int includeLevel = this.elementLevel;
             final int nbElements = xPointerEngine.executeToDestination(xIncludeAttributes.getPointerForXmlProcessing(), node.asSource(),
-                    saxDestination);
+                    saxDestination, xIncludeAttributes.getOtherAttributes());
             if ((1 == includeLevel) && (1 != nbElements))
             {
                 throw new XIncludeFatalException("Attempt to replace top level include with something other than one element.");
@@ -629,9 +641,10 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         }
     }
 
-    private void includeTextContent(final XIncludeAttributes xIncludeAttributes)
+    private void includeTextContent()
             throws XIncludeFatalException, XIncludeResourceException
     {
+        final XIncludeAttributes xIncludeAttributes = this.context.getCurrentAttributes();
         final String content = XIncProcUtils.readTextURI(this.context.getSourceURI(), xIncludeAttributes.getEncoding(),
                 xIncludeAttributes.getAccept(), xIncludeAttributes.getAcceptLanguage());
         try
@@ -745,13 +758,14 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         }
         try
         {
+            this.context.setCurrentAttributes(xIncludeAttributes);
             if (xIncludeAttributes.isXmlProcessing())
             {
-                includeXmlContent(xIncludeAttributes);
+                includeXmlContent();
             }
             else
             {
-                includeTextContent(xIncludeAttributes);
+                includeTextContent();
             }
         }
         catch (final XIncludeResourceException e)
