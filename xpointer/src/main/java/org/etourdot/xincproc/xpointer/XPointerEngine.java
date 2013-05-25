@@ -32,7 +32,6 @@ import org.etourdot.xincproc.xpointer.model.*;
 import org.etourdot.xincproc.xpointer.grammar.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.Attributes;
 
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
@@ -194,36 +193,17 @@ public class XPointerEngine
     public int executeToDestination(final String pointerStr, final Source source, final Destination destination)
             throws XPointerException
     {
-        return executeToDestination(pointerStr, source, destination, null);
-    }
-
-    /**
-     * Execute a xpointer expression on a xml source.
-     * The result is send to a Saxon {@link net.sf.saxon.s9api.Destination}*
-     * The copying attributes are copied to top-level element
-     *
-     * @param pointerStr xpointer expression
-     * @param source xml source
-     * @param destination Saxon destination of result stream
-     * @param copyingAttributes attributes to copy on top-level element
-     * @return number of elements in result infoset excluding comments et processing instructions
-     * @throws XPointerException the x pointer exception
-     */
-    public int executeToDestination(final String pointerStr, final Source source, final Destination destination,
-                                    final Attributes copyingAttributes)
-            throws XPointerException
-    {
         final Pointer pointer = getPointer(pointerStr);
         final XdmNode node = processor.newDocumentBuilder().wrap(source);
         if (pointer != null)
         {
             if (pointer.isShortHandPresent())
             {
-                return executeShorthandPointer(pointer.getShortHand(), node, destination, copyingAttributes);
+                return executeShorthandPointer(pointer.getShortHand(), node, destination);
             }
             else if (pointer.isSchemeBased())
             {
-                return executeSchemaPointer(pointer, node, destination, copyingAttributes);
+                return executeSchemaPointer(pointer, node, destination);
             }
             else
             {
@@ -235,6 +215,7 @@ public class XPointerEngine
             throw new XPointerResourceException("Unknown pointer expression");
         }
     }
+
     /**
      * Utility method for verifying xpath expression
      *
@@ -280,8 +261,7 @@ public class XPointerEngine
         }
     }
 
-    private int executeShorthandPointer(final PointerPart shortHand, final XdmNode node, final Destination destination,
-                                        final Attributes copyingAttributes)
+    private int executeShorthandPointer(final PointerPart shortHand, final XdmNode node, final Destination destination)
             throws XPointerException
     {
         final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(shortHand, node.asSource());
@@ -311,8 +291,7 @@ public class XPointerEngine
         }
     }
 
-    private int executeSchemaPointer(final Pointer pointer, final XdmNode node, final Destination destination,
-                                     final Attributes copyingAttributes)
+    private int executeSchemaPointer(final Pointer pointer, final XdmNode node, final Destination destination)
             throws XPointerException
     {
         Source sourceTransform = node.asSource();
