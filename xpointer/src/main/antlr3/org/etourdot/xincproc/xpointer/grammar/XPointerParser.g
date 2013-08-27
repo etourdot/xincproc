@@ -29,7 +29,6 @@ tokens {
 @header {
     package org.etourdot.xincproc.xpointer.grammar;
     import org.etourdot.xincproc.xpointer.exceptions.*;
-
 }
 
 // Parser rules

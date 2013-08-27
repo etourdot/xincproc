@@ -16,6 +16,7 @@
     <modules>
         <module>xinclude</module>
         <module>xpointer</module>
+        <module>fragid</module>
         <module>xincproc-exe</module>
     </modules>
 

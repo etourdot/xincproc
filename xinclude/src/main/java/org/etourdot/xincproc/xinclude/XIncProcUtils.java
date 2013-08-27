@@ -174,7 +174,6 @@ public final class XIncProcUtils
                 final Charset charset = (null == encoding) ? EncodingUtils.getCharset(supplier.getInput()) : Charset.forName(encoding);
                 return CharStreams.toString(CharStreams.newReaderSupplier(supplier, charset));
             }
-
         }
         catch (MalformedURLException e)
         {
