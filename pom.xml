@@ -129,7 +129,7 @@
         <velocity.version>1.7</velocity.version>
         <doxia-module-markdown.version>1.3</doxia-module-markdown.version>
         <maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
-        <copy-maven-plugin.version>0.2.5</copy-maven-plugin.version>
+        <!--copy-maven-plugin.version>0.2.5</copy-maven-plugin.version-->
     </properties>
 
     <dependencyManagement>
@@ -343,7 +343,7 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
+                    <!--plugin>
                         <groupId>com.github.goldin</groupId>
                         <artifactId>copy-maven-plugin</artifactId>
                         <executions>
@@ -359,6 +359,28 @@
                                             <targetPath>${project.build.directory}/site/specs</targetPath>
                                             <directory>${concordion.reportDirectory}</directory>
                                             <preservePath>true</preservePath>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin-->
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>2.6</version>
+                        <executions>
+                            <execution>
+                                <id>copy-to-site</id>
+                                <phase>pre-site</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/site/specs</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${concordion.reportDirectory}</directory>
+                                            <filtering>true</filtering>
                                         </resource>
                                     </resources>
                                 </configuration>
@@ -505,11 +527,11 @@
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${maven-checkstyle-plugin.version}</version>
                 </plugin>
-                <plugin>
+                <!--plugin>
                     <groupId>com.github.goldin</groupId>
                     <artifactId>copy-maven-plugin</artifactId>
                     <version>${copy-maven-plugin.version}</version>
-                </plugin>
+                </plugin-->
             </plugins>
         </pluginManagement>
         <plugins>
@@ -523,7 +545,7 @@
                     <tagNameFormat>r@{project.version}</tagNameFormat>
                 </configuration>
             </plugin-->
-            <plugin>
+            <!--plugin>
                 <groupId>com.github.goldin</groupId>
                 <artifactId>copy-maven-plugin</artifactId>
                 <executions>
@@ -545,7 +567,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
