@@ -1,4 +1,4 @@
-// $ANTLR 3.4 org/etourdot/xincproc/xpointer/grammar/XPointerLexer.g 2018-12-15 17:34:38
+// $ANTLR 3.4 org/etourdot/xincproc/xpointer/grammar/XPointerLexer.g 2018-12-15 17:51:14
 
     package org.etourdot.xincproc.xpointer.grammar;
 

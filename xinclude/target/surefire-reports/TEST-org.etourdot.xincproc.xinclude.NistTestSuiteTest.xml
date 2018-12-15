@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.175" tests="6" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.235" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
     <property name="file.encoding.pkg" value="sun.io"/>
@@ -16,7 +16,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64"/>
-    <property name="sun.java.command" value="/home/travis/build/etourdot/xincproc/xinclude/target/surefire/surefirebooter808502078625652030.jar /home/travis/build/etourdot/xincproc/xinclude/target/surefire 2018-12-15T17-34-54_084-jvmRun1 surefire7666923454038823136tmp surefire_13134271514977235796tmp"/>
+    <property name="sun.java.command" value="/home/travis/build/etourdot/xincproc/xinclude/target/surefire/surefirebooter2787787743895165383.jar /home/travis/build/etourdot/xincproc/xinclude/target/surefire 2018-12-15T17-51-30_957-jvmRun1 surefire7830640384903845766tmp surefire_11071365410239126169tmp"/>
     <property name="surefire.test.class.path" value="/home/travis/build/etourdot/xincproc/xinclude/target/test-classes:/home/travis/build/etourdot/xincproc/xinclude/target/classes:/home/travis/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar:/home/travis/.m2/repository/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar:/home/travis/.m2/repository/xerces/xercesImpl/2.11.0/xercesImpl-2.11.0.jar:/home/travis/.m2/repository/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar:/home/travis/build/etourdot/xincproc/xpointer/target/classes:/home/travis/.m2/repository/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1.jar:/home/travis/.m2/repository/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2.jar:/home/travis/.m2/repository/com/google/guava/guava/14.0.1/guava-14.0.1.jar:/home/travis/.m2/repository/net/sf/saxon/Saxon-HE/9.5.0.1/Saxon-HE-9.5.0.1.jar:/home/travis/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/travis/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/travis/.m2/repository/xmlunit/xmlunit/1.4/xmlunit-1.4.jar:/home/travis/.m2/repository/org/antlr/antlr-runtime/3.4/antlr-runtime-3.4.jar:/home/travis/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar:/home/travis/.m2/repository/org/concordion/concordion/1.4.3/concordion-1.4.3.jar:/home/travis/.m2/repository/org/concordion/concordion-extensions/1.1.0/concordion-extensions-1.1.0.jar:/home/travis/.m2/repository/ognl/ognl/3.0.2/ognl-3.0.2.jar:/home/travis/.m2/repository/javassist/javassist/3.11.0.GA/javassist-3.11.0.GA.jar:/home/travis/.m2/repository/xom/xom/1.2.5/xom-1.2.5.jar:/home/travis/.m2/repository/xalan/xalan/2.7.0/xalan-2.7.0.jar:/home/travis/.m2/repository/ch/qos/logback/logback-classic/1.0.6/logback-classic-1.0.6.jar:/home/travis/.m2/repository/ch/qos/logback/logback-core/1.0.6/logback-core-1.0.6.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/home/travis"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/travis/build/etourdot/xincproc/xinclude/target/surefire/surefirebooter808502078625652030.jar"/>
+    <property name="surefire.real.class.path" value="/home/travis/build/etourdot/xincproc/xinclude/target/surefire/surefirebooter2787787743895165383.jar"/>
     <property name="sun.boot.class.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="1.8.0_151-b12"/>
@@ -57,10 +57,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="nist_include_15" classname="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.023"/>
-  <testcase name="nist_include_21" classname="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.086"/>
-  <testcase name="nist_include_25" classname="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.019"/>
-  <testcase name="nist_include_42" classname="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.003"/>
-  <testcase name="nist_include_51" classname="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.031"/>
-  <testcase name="nist_include_56" classname="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.007"/>
+  <testcase name="nist_include_15" classname="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.012"/>
+  <testcase name="nist_include_21" classname="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.111"/>
+  <testcase name="nist_include_25" classname="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.032"/>
+  <testcase name="nist_include_42" classname="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.009"/>
+  <testcase name="nist_include_51" classname="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.05"/>
+  <testcase name="nist_include_56" classname="org.etourdot.xincproc.xinclude.NistTestSuiteTest" time="0.011"/>
 </testsuite>

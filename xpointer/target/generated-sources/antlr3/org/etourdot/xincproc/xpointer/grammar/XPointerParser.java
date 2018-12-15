@@ -1,4 +1,4 @@
-// $ANTLR 3.4 org/etourdot/xincproc/xpointer/grammar/XPointerParser.g 2018-12-15 17:34:39
+// $ANTLR 3.4 org/etourdot/xincproc/xpointer/grammar/XPointerParser.g 2018-12-15 17:51:15
 
     package org.etourdot.xincproc.xpointer.grammar;
     import org.etourdot.xincproc.xpointer.exceptions.*;
