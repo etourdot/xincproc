@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.etourdot.xincproc.xinclude.NistTestSuiteTest
--------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.235 s - in org.etourdot.xincproc.xinclude.NistTestSuiteTest

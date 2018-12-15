@@ -1,0 +1,58 @@
+/*!
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+/*!
+ * List styles.
+ */
+
+dt:after {
+    content: ":";
+}
+
+/**
+* Navigation definition list.
+*
+* These are used on the footer, grouping several links on a common theme.
+*/
+
+.dl-nav {
+    width: 12em;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+.dl-nav dt {
+    font-size: 19px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.dl-nav dt:after {
+    content: "";
+}
+
+/**
+* Icons inline list.
+*/
+
+.icons-list {
+    font-size: 0;
+    list-style: none;
+}
+
+.icons-list > li {
+    font-size: 19px;
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 992px) {
+    .icons-list > li {
+        display: inline-block;
+    }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .icons-list > li {
+        display: inline-block;
+    }
+}

@@ -1,6 +1,0 @@
-<!DOCTYPE chapter [
-<!ATTLIST chapter   id       ID    #IMPLIED>
-]>
-<chapter id="chap2">
-And the all lived happily ever after.
-</chapter>
