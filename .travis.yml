@@ -5,6 +5,7 @@ script:
 - mvn -B -Prun-itests verify
 after_success:
 - mvn site
+- mvn site:stage
 deploy:
   provider: pages
   local-dir: "./target/site/"
