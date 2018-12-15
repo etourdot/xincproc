@@ -1,0 +1,159 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<body>
+
+<h1>Lang fixup option</h1>
+
+<p>
+    XIncProc XPointer processor api support an option to fix xml:lang attribute
+</p>
+
+<div class="example">
+
+    <h3>Example</h3>
+
+    <p>Given a simple xml :</p>
+
+        <pre concordion:set="#document">
+            <sentences>
+                &lt;sentences&gt;
+                &lt;sentence id="none"&gt;Hi.&lt;/sentence&gt;
+                &lt;sentence id="english" xml:lang="en-gb"&gt;Hello.&lt;/sentence&gt;
+                &lt;sentence id="french" xml:lang="fr"&gt;Bonjour.&lt;/sentence&gt;
+                &lt;sentences xml:lang="en-gb"&gt;
+                &lt;sentence id="english2"&gt;Hello.&lt;/sentence&gt;
+                &lt;/sentences&gt;
+                &lt;sentences xml:lang="de"&gt;
+                &lt;sentence id="german"&gt;Guten Tag.&lt;/sentence&gt;
+                &lt;sentences xml:lang="en-au"&gt;
+                &lt;sentence id="australian"&gt;G'day mate.&lt;/sentence&gt;
+                &lt;/sentences&gt;
+                &lt;sentences xml:lang=""&gt;
+                &lt;sentence id="none2"&gt;Yo..&lt;/sentence&gt;
+                &lt;/sentences&gt;
+                &lt;/sentences&gt;
+                &lt;/sentences&gt;
+            </sentences>
+        </pre>
+
+    <ol>
+        <li>
+            Instanciate a XPointerEngine:
+                <pre>
+                    final XPointerEngine xPointerEngine = new XPointerEngine();
+                </pre>
+        </li>
+        <li>
+            Set the lang
+                <pre>
+                    xPointerEngine.setLang(langfixup);
+                </pre>
+        </li>
+        <li>
+            Set the error handler and execute
+                <pre>
+                    final PrintableXPointerErrorHandler printableXPointerErrorHandler = new PrintableXPointerErrorHandler();
+                    xPointerEngine.setXPointerErrorHandler(printableXPointerErrorHandler);
+                    xPointerEngine.execute(pointer, new SAXSource(new InputSource(new StringReader(source))));
+                </pre>
+        </li>
+    </ol>
+
+    <p>Expressions matching nodes:</p>
+
+    <table concordion:execute="#result = executeWithLang(#pointer,#lang,#document)">
+        <tr>
+            <th concordion:set="#pointer">Pointer content</th>
+            <th concordion:set="#lang">Lang fixup</th>
+            <th concordion:assertEquals="#result.result">Result</th>
+            <th concordion:assertEquals="#result.error">Error</th>
+        </tr>
+        <tr>
+            <td>none</td>
+            <td>(null)</td>
+            <td>&lt;sentence id="none"&gt;Hi.&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>none2</td>
+            <td>(null)</td>
+            <td>&lt;sentence id="none2"&gt;Yo..&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>english</td>
+            <td>(null)</td>
+            <td>&lt;sentence xml:lang="en-gb" id="english"&gt;Hello.&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>english2</td>
+            <td>(null)</td>
+            <td>&lt;sentence xml:lang="en-gb" id="english2"&gt;Hello.&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>french</td>
+            <td>(null)</td>
+            <td>&lt;sentence xml:lang="fr" id="french"&gt;Bonjour.&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>german</td>
+            <td>(null)</td>
+            <td>&lt;sentence xml:lang="de" id="german"&gt;Guten Tag.&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>australian</td>
+            <td>(null)</td>
+            <td>&lt;sentence xml:lang="en-au" id="australian"&gt;G'day mate.&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>none</td>
+            <td>en-gb</td>
+            <td>&lt;sentence xml:lang="" id="none"&gt;Hi.&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>none2</td>
+            <td>en-gb</td>
+            <td>&lt;sentence xml:lang="" id="none2"&gt;Yo..&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>english</td>
+            <td>en-gb</td>
+            <td>&lt;sentence xml:lang="en-gb" id="english"&gt;Hello.&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>english2</td>
+            <td>en-gb</td>
+            <td>&lt;sentence id="english2"&gt;Hello.&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>french</td>
+            <td>en-gb</td>
+            <td>&lt;sentence xml:lang="fr" id="french"&gt;Bonjour.&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>german</td>
+            <td>en-gb</td>
+            <td>&lt;sentence xml:lang="de" id="german"&gt;Guten Tag.&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>australian</td>
+            <td>en-gb</td>
+            <td>&lt;sentence xml:lang="en-au" id="australian"&gt;G'day mate.&lt;/sentence&gt;</td>
+            <td></td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

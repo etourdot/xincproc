@@ -1,0 +1,11 @@
+/home/travis/build/etourdot/xincproc/xinclude/src/test/java/org/etourdot/xincproc/xinclude/XIncProcSuiteTest.java
+/home/travis/build/etourdot/xincproc/xinclude/src/test/java/org/etourdot/xincproc/xinclude/XIncProcEngineTest.java
+/home/travis/build/etourdot/xincproc/xinclude/src/test/java/org/etourdot/xincproc/xinclude/XIncProcUtilsTest.java
+/home/travis/build/etourdot/xincproc/xinclude/src/test/java/org/etourdot/xincproc/xinclude/HaroldTestSuiteTest.java
+/home/travis/build/etourdot/xincproc/xinclude/src/test/java/org/etourdot/xincproc/xinclude/sax/XIncludeAttributesTest.java
+/home/travis/build/etourdot/xincproc/xinclude/src/test/java/org/etourdot/xincproc/xinclude/NistTestSuiteTest.java
+/home/travis/build/etourdot/xincproc/xinclude/src/test/java/org/etourdot/xincproc/xinclude/FourThoughtTestSuiteTest.java
+/home/travis/build/etourdot/xincproc/xinclude/src/test/java/org/etourdot/xincproc/xinclude/sax/XIncludeContextTest.java
+/home/travis/build/etourdot/xincproc/xinclude/src/test/java/org/etourdot/xincproc/xinclude/ImaqTestSuiteTest.java
+/home/travis/build/etourdot/xincproc/xinclude/src/test/java/org/etourdot/xincproc/xinclude/EdUniTestSuiteTest.java
+/home/travis/build/etourdot/xincproc/xinclude/src/test/java/org/etourdot/xincproc/xinclude/XProcTestSuiteTest.java

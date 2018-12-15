@@ -1,0 +1,11 @@
+org/etourdot/xincproc/xinclude/XIncProcEngineTest.class
+org/etourdot/xincproc/xinclude/XIncProcSuiteTest.class
+org/etourdot/xincproc/xinclude/XProcTestSuiteTest.class
+org/etourdot/xincproc/xinclude/EdUniTestSuiteTest.class
+org/etourdot/xincproc/xinclude/XIncProcUtilsTest.class
+org/etourdot/xincproc/xinclude/FourThoughtTestSuiteTest.class
+org/etourdot/xincproc/xinclude/sax/XIncludeContextTest.class
+org/etourdot/xincproc/xinclude/NistTestSuiteTest.class
+org/etourdot/xincproc/xinclude/HaroldTestSuiteTest.class
+org/etourdot/xincproc/xinclude/ImaqTestSuiteTest.class
+org/etourdot/xincproc/xinclude/sax/XIncludeAttributesTest.class

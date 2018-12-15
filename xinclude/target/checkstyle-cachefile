@@ -1,0 +1,17 @@
+#Sat Dec 15 17:34:47 UTC 2018
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/XIncProcUtils.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/XIncProcConfiguration.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/exceptions/XIncludeFatalException.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/XIncProcEngine.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/XIncludeAttributes.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/package-info.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/exceptions/XIncludeResourceException.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/XIncProcErrorListener.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/EncodingUtils.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/XIncludeContext.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/DocType.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/package-info.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/XIncProcXIncludeFilter.java=1544895260000
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/XIncludeConstants.java=1544895260000
+configuration*?=B5C65CD314DA379EE9E659E40AB7070A6945206A
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/exceptions/package-info.java=1544895260000

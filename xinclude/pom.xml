@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.etourdot</groupId>
+        <artifactId>xincproc</artifactId>
+        <version>1.0.2-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>xinclude</artifactId>
+    <packaging>jar</packaging>
+    
+    <name>XIncproc - XInclude processor</name>
+    <description>XInclude processor is the main part of XIncProc framework.</description>
+    <url>${site.url}/${project.artifactId}</url>
+    <properties>
+        <path.deploy.site>${project.artifactId}</path.deploy.site>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.etourdot</groupId>
+            <artifactId>xpointer</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>pre-integration-tests</id>
+            <!--activation>
+                <activeByDefault>true</activeByDefault>
+            </activation-->
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>${spec.docDirectory}/org/etourdot/xincproc/xinclude/testsuite</directory>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>pre-integration-unzip</id>
+                                <phase>generate-test-sources</phase>
+                                <configuration>
+                                    <target>
+                                        <echo message="Unzip xinclude test archive" />
+                                        <unzip src="${spec.docDirectory}/XIncl20060927.zip" dest="${spec.docDirectory}" />
+                                        <echo message="Generate integration tests pages" />
+                                        <java fork="true" jar="${net.sf.saxon:Saxon-HE:jar}" failonerror="true">
+                                            <arg value="-s:${spec.docDirectory}/XIncl20060927/testdescr.xml" />
+                                            <arg value="-xsl:${spec.docDirectory}/xsl/test-suite-to-html.xsl" />
+                                            <arg value="-o:${spec.docDirectory}/org/etourdot/xincproc/xinclude/testsuite/Testsuite.html" />
+                                        </java>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <distributionManagement>
+        <site>
+            <id>${site.deploy.id}</id>
+            <url>${site.deploy.url}/xinclude</url>
+        </site>
+    </distributionManagement>
+</project>

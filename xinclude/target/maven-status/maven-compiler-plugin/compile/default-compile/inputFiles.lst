@@ -1,0 +1,15 @@
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/exceptions/package-info.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/XIncProcXIncludeFilter.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/XIncludeConstants.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/XIncProcUtils.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/XIncludeContext.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/DocType.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/package-info.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/EncodingUtils.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/XIncludeAttributes.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/XIncProcConfiguration.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/package-info.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/exceptions/XIncludeFatalException.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/exceptions/XIncludeResourceException.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/XIncProcEngine.java
+/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/XIncProcErrorListener.java

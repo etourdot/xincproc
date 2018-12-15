@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>XIncproc - XInclude processor - Checkstyle report</title>
+    <link>http://etourdot.github.io/xincproc/xinclude</link>
+    <description>XIncproc - XInclude processor - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2011 - 2018</copyright>
+    <item>
+      <title>File: 15,
+             Errors: 0,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>http://etourdot.github.io/xincproc/xinclude/checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.XIncProcConfiguration.java">org/etourdot/xincproc/xinclude/XIncProcConfiguration.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.sax.XIncludeContext.java">org/etourdot/xincproc/xinclude/sax/XIncludeContext.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.XIncProcErrorListener.java">org/etourdot/xincproc/xinclude/XIncProcErrorListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.package-info.java">org/etourdot/xincproc/xinclude/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.sax.package-info.java">org/etourdot/xincproc/xinclude/sax/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.sax.XIncProcXIncludeFilter.java">org/etourdot/xincproc/xinclude/sax/XIncProcXIncludeFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException.java">org/etourdot/xincproc/xinclude/exceptions/XIncludeFatalException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.sax.XIncludeAttributes.java">org/etourdot/xincproc/xinclude/sax/XIncludeAttributes.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.EncodingUtils.java">org/etourdot/xincproc/xinclude/EncodingUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.XIncProcEngine.java">org/etourdot/xincproc/xinclude/XIncProcEngine.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.exceptions.package-info.java">org/etourdot/xincproc/xinclude/exceptions/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.sax.XIncludeConstants.java">org/etourdot/xincproc/xinclude/sax/XIncludeConstants.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.sax.DocType.java">org/etourdot/xincproc/xinclude/sax/DocType.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.exceptions.XIncludeResourceException.java">org/etourdot/xincproc/xinclude/exceptions/XIncludeResourceException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/xinclude/checkstyle.html#org.etourdot.xincproc.xinclude.XIncProcUtils.java">org/etourdot/xincproc/xinclude/XIncProcUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

@@ -1,0 +1,5 @@
+<doc>
+ <para xml:id="para-en" xml:lang="en">This paragraph is in English.</para>
+ <para xml:id="para-cs" xml:lang="cs">Tento odstavec je česky.</para>
+</doc>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="5.6">
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/XIncProcErrorListener.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/XIncProcConfiguration.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/XIncProcXIncludeFilter.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/XIncludeAttributes.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/XIncludeContext.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/DocType.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/XIncludeConstants.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/sax/package-info.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/package-info.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/EncodingUtils.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/XIncProcUtils.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/XIncProcEngine.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/exceptions/XIncludeFatalException.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/exceptions/XIncludeResourceException.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xinclude/src/main/java/org/etourdot/xincproc/xinclude/exceptions/package-info.java">
+</file>
+</checkstyle>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="5.6">
+<file name="/home/travis/build/etourdot/xincproc/xincproc-exe/src/main/java/org/etourdot/xincproc/package-info.java">
+</file>
+<file name="/home/travis/build/etourdot/xincproc/xincproc-exe/src/main/java/org/etourdot/xincproc/XIncProcCLI.java">
+</file>
+</checkstyle>

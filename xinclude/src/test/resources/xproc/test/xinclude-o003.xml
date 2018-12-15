@@ -1,0 +1,5 @@
+<document>
+  <xi:include xmlns:xi='http://www.w3.org/2001/XInclude'
+	      href="../doc/xpath-xinclude-doc.xml"
+              xpointer="xpath(/doc/p[1]/node())"/>
+</document>
