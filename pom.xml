@@ -108,28 +108,7 @@
         <commons-lang3.version>3.1</commons-lang3.version>
         <xercesImpl.version>2.11.0</xercesImpl.version>
         <xml-apis.version>1.4.01</xml-apis.version>
-
-        <!-- Plugins versions -->
-        <antlr3-maven-plugin.version>3.4</antlr3-maven-plugin.version>
-        <build-helper-maven-plugin.version>1.7</build-helper-maven-plugin.version>
-        <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
-        <maven-failsafe-plugin.version>2.14</maven-failsafe-plugin.version>
-        <maven-surefire-plugin.version>2.13</maven-surefire-plugin.version>
-        <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
-        <maven-release-plugin.version>2.4.1</maven-release-plugin.version>
-        <maven-javadoc-plugin.version>2.9</maven-javadoc-plugin.version>
-        <maven-checkstyle-plugin.version>2.10</maven-checkstyle-plugin.version>
-        <maven-gpg-plugin.version>1.1</maven-gpg-plugin.version>
-        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-        <maven-scm-publish-plugin.version>1.0-beta-2</maven-scm-publish-plugin.version>
-        <maven-site-plugin.version>3.2</maven-site-plugin.version>
-        <githubsite-maven-plugin.version>0.7</githubsite-maven-plugin.version>
-        <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
-        <reflow-velocity-tools.version>1.0.0</reflow-velocity-tools.version>
-        <velocity.version>1.7</velocity.version>
-        <doxia-module-markdown.version>1.3</doxia-module-markdown.version>
-        <maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
-        <!--copy-maven-plugin.version>0.2.5</copy-maven-plugin.version-->
+        <site.skin.version>1.3.2</site.skin.version>
     </properties>
 
     <dependencyManagement>
@@ -278,13 +257,12 @@
 
     <profiles>
         <profile>
-            <id>integration-tests</id>
+            <id>run-itests</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>${build-helper-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>add-test-source</id>
@@ -318,7 +296,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>${maven-antrun-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>move-integration-tests</id>
@@ -343,54 +320,9 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <!--plugin>
-                        <groupId>com.github.goldin</groupId>
-                        <artifactId>copy-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-to-site</id>
-                                <phase>pre-site</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <resources>
-                                        <resource>
-                                            <targetPath>${project.build.directory}/site/specs</targetPath>
-                                            <directory>${concordion.reportDirectory}</directory>
-                                            <preservePath>true</preservePath>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin-->
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>2.6</version>
-                        <executions>
-                            <execution>
-                                <id>copy-to-site</id>
-                                <phase>pre-site</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}/site/specs</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>${concordion.reportDirectory}</directory>
-                                            <filtering>true</filtering>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${maven-failsafe-plugin.version}</version>
                         <configuration>
                             <includes>
                                 <include>**/*Test.java</include>
@@ -419,11 +351,33 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <!--plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-to-site</id>
+                                <phase>pre-site</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/site/specs</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${concordion.reportDirectory}</directory>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin-->
                 </plugins>
             </build>
         </profile>
-        <!--profile>
-            <id>release-xincproc</id>
+        <profile>
+            <id>release</id>
             <activation>
                 <property>
                     <name>performRelease</name>
@@ -435,10 +389,9 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven-gpg-plugin.version}</version>
                         <executions>
                             <execution>
-                                <id>gpg-sign</id>
+                                <id>sign-artifacts</id>
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
@@ -446,65 +399,71 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <inherited>true</inherited>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources-no-fork</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
-        </profile-->
+        </profile>
     </profiles>
 
     <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-                <version>2.3</version>
-            </extension>
-        </extensions>
         <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.7.0</version>
                     <configuration>
-                        <source>1.6</source>
-                        <target>1.6</target>
+                        <source>1.8</source>
+                        <target>1.8</target>
                         <showWarnings>true</showWarnings>
                         <showDeprecation>true</showDeprecation>
                     </configuration>
                 </plugin>
-                <!--plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>${maven-resources-plugin.version}</version>
+                    <version>3.1.0</version>
                     <configuration>
                         <encoding>UTF-8</encoding>
                     </configuration>
-                </plugin-->
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>${maven-javadoc-plugin.version}</version>
-                    <configuration>
-                        <detectLinks>true</detectLinks>
-                        <links>
-                            <link>http://java.sun.com/javase/6/docs/api/</link>
-                        </links>
-                        <source>1.6</source>
-                        <failOnError>false</failOnError>
-                    </configuration>
-                    <!--executions>
-                        <execution>
-                            <id>aggregate</id>
-                            <goals>
-                                <goal>aggregate</goal>
-                            </goals>
-                            <phase>site</phase>
-                        </execution>
-                    </executions-->
+                    <version>3.0.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.antlr</groupId>
                     <artifactId>antlr3-maven-plugin</artifactId>
-                    <version>${antlr3-maven-plugin.version}</version>
+                    <version>3.4</version>
                     <executions>
                         <execution>
                             <goals>
@@ -516,94 +475,118 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven-surefire-plugin.version}</version>
-                    <configuration>
-                        <forkMode>always</forkMode>
-                        <childDelegation>true</childDelegation>
-                    </configuration>
+                    <version>3.0.0-M1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>${maven-checkstyle-plugin.version}</version>
+                    <version>2.10</version>
                 </plugin>
-                <!--plugin>
-                    <groupId>com.github.goldin</groupId>
-                    <artifactId>copy-maven-plugin</artifactId>
-                    <version>${copy-maven-plugin.version}</version>
-                </plugin-->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.8</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>3.0.0-M1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.3</version>
+                    <configuration>
+                        <!--
+                          ! overwrite arguments of parent pom to
+                          ! prevent activating profile sonatype-oss-release
+                        -->
+                        <arguments combine.self="override" />
+                        <goals>deploy site site:stage scm-publish:publish-scm</goals>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <useReleaseProfile>true</useReleaseProfile>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.7.1</version>
+                    <dependencies>
+                        <!-- https://mvnrepository.com/artifact/com.bernardomg.maven.skins/docs-maven-skin -->
+                        <dependency>
+                            <groupId>com.bernardomg.maven.skins</groupId>
+                            <artifactId>docs-maven-skin</artifactId>
+                            <version>${site.skin.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-scm-publish-plugin</artifactId>
+                    <version>1.11.1</version>
+                    <configuration>
+                        <scmBranch>gh-pages</scmBranch>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.7</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
-            <!--plugin>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>${maven-release-plugin.version}</version>
-                <configuration>
-                    <mavenExecutorId>forked-path</mavenExecutorId>
-                    <useReleaseProfile>false</useReleaseProfile>
-                    <arguments>release-xincproc</arguments>
-                    <tagNameFormat>r@{project.version}</tagNameFormat>
-                </configuration>
-            </plugin-->
-            <!--plugin>
-                <groupId>com.github.goldin</groupId>
-                <artifactId>copy-maven-plugin</artifactId>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>copy-to-site</id>
                         <phase>verify</phase>
                         <goals>
-                            <goal>copy</goal>
+                            <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <failIfNotFound>false</failIfNotFound>
+                            <outputDirectory>${project.build.directory}/site/specs</outputDirectory>
                             <resources>
                                 <resource>
-                                    <targetPath>${project.build.directory}/site/specs</targetPath>
                                     <directory>${concordion.reportDirectory}</directory>
-                                    <preservePath>true</preservePath>
+                                    <filtering>true</filtering>
                                 </resource>
                             </resources>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin-->
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>${maven-site-plugin.version}</version>
                 <dependencies>
-                    <dependency>
-                        <groupId>lt.velykis.maven.skins</groupId>
-                        <artifactId>reflow-velocity-tools</artifactId>
-                        <version>${reflow-velocity-tools.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.velocity</groupId>
-                        <artifactId>velocity</artifactId>
-                        <version>${velocity.version}</version>
-                    </dependency>
                     <dependency>
                         <groupId>org.apache.maven.doxia</groupId>
                         <artifactId>doxia-module-markdown</artifactId>
-                        <version>${doxia-module-markdown.version}</version>
+                        <version>1.7</version>
                     </dependency>
                 </dependencies>
-                <configuration>
-                    <generateReports>true</generateReports>
-                    <inputEncoding>UTF-8</inputEncoding>
-                    <outputEncoding>UTF-8</outputEncoding>
-                    <skipDeploy>true</skipDeploy>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>stage</id>
-                        <goals>
-                            <goal>stage</goal>
-                        </goals>
-                        <phase>site</phase>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -622,32 +605,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>site-maven-plugin</artifactId>
-                <version>${githubsite-maven-plugin.version}</version>
-                <configuration>
-                    <message>Creating site for ${project.artifactId}, ${project.version}</message>
-                    <branch>refs/heads/gh-pages</branch>
-                    <path>${path.deploy.site}</path>
-                    <merge>true</merge>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>site</goal>
-                        </goals>
-                        <phase>site-deploy</phase>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.eclipse.mylyn.github</groupId>
-                        <artifactId>org.eclipse.egit.github.core</artifactId>
-                        <version>2.0.3</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
         </plugins>
     </build>
 
@@ -655,36 +612,29 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${maven-project-info-reports-plugin.version}</version>
-                <configuration>
-                    <anonymousConnection>scm:git:git@github.com:etourdot/xincproc.git</anonymousConnection>
-                    <developerConnection>scm:git:git@github.com:etourdot/xincproc.git</developerConnection>
-                </configuration>
+                <artifactId>maven-surefire-report-plugin</artifactId>
                 <reportSets>
                     <reportSet>
                         <reports>
-                            <report>summary</report>
-                            <report>license</report>
-                            <report>project-team</report>
-                            <report>scm</report>
-                            <report>issue-tracking</report>
-                            <report>dependencies</report>
-                            <report>dependency-convergence</report>
-                            <report>plugins</report>
+                            <report>failsafe-report-only</report>
+                            <report>report</report>
                         </reports>
                     </reportSet>
                 </reportSets>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <stylesheetfile>${project.basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
                     <javadocDirectory>src/javadoc</javadocDirectory>
                     <docfilessubdirs>true</docfilessubdirs>
                     <aggregate>true</aggregate>
+                    <additionalparam>-Xdoclint:none</additionalparam>
                 </configuration>
                 <reportSets>
                     <reportSet>

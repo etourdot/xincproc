@@ -48,9 +48,9 @@ import java.nio.charset.Charset;
 /**
  * This class contains useful methods to manage a {@link org.xml.sax.XMLFilter} for xinclusions
  * and to parse content with xinclude tags.
- * <p/>
- * <p>Static usage of this class only use Saxon He processor. If you want to use another version
- * of the Saxon processor you should instanciate <code>XIncProcEngine</code> with {@link XIncProcConfiguration}.</p>
+ *
+ * Static usage of this class only use Saxon He processor. If you want to use another version
+ * of the Saxon processor you should instanciate <code>XIncProcEngine</code> with {@link XIncProcConfiguration}.
  */
 public final class XIncProcEngine
 {

@@ -6,4 +6,4 @@ The XInclude processor of XIncProc Framework implements
 Here are samples of Api usage of the XIncProc XInclude module: [Samples](specs/org/etourdot/xincproc/xinclude/api/Api.html)
 
 ### Conformance
-The processor is tested against w3c xinclude test suite: [Conformance test suite](specs/org/etourdot/xincproc/xinclude/testsuite/TestSuite.html).
+The processor is tested against w3c xinclude test suite: [Conformance test suite](specs/org/etourdot/xincproc/xinclude/testsuite/Testsuite.html).

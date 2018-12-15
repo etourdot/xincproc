@@ -49,5 +49,4 @@ Current Build-Status: [![Build Status](https://buildhive.cloudbees.com/job/etour
 ## Thanks
 Many thanks to :
 
-* Andrius Velykis and his [wonderfull skin for maven site](http://andriusvelykis.github.io/reflow-maven-skin/)
 * David Peterson for [concordion](http://www.concordion.org/)

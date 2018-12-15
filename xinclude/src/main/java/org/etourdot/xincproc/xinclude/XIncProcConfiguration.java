@@ -60,9 +60,9 @@ public final class XIncProcConfiguration
 
     /**
      * New {@link XPointerEngine}.
-     * <p/>
-     * <p>The best way to get a new xpointer engine.
-     * Usage of this method should be prefered to direct instanciation</p>
+     *
+     * The best way to get a new xpointer engine.
+     * Usage of this method should be prefered to direct instanciation
      *
      * @return the new XPointer engine
      */
@@ -73,9 +73,9 @@ public final class XIncProcConfiguration
 
     /**
      * new {@link XIncProcEngine}.
-     * <p/>
-     * <p>This is the only way to get instance of XIncProcEngine to use custom Saxon Processor
-     * via the XIncProcConfiguration</p>
+     *
+     * This is the only way to get instance of XIncProcEngine to use custom Saxon Processor
+     * via the XIncProcConfiguration
      *
      * @return a new XIncProcEngine
      */
@@ -118,7 +118,7 @@ public final class XIncProcConfiguration
 
     /**
      * Sets an {@link ErrorListener}.
-     * <p/>
+     *
      * The {@link ErrorListener} set in the configuration will be used
      * by the {@link XIncProcEngine}
      *
@@ -131,7 +131,7 @@ public final class XIncProcConfiguration
 
     /**
      * Is base uris fixup sets in configuration ?
-     * <p>Defaut value is <b>true</b></p>
+     * Defaut value is true
      *
      * @return the boolean
      */
@@ -142,7 +142,7 @@ public final class XIncProcConfiguration
 
     /**
      * Is language fixupsets in configuration ?
-     * <p>Defaut value is <b>true</b></p>
+     * Defaut value is true
      *
      * @return the boolean
      */
@@ -153,9 +153,9 @@ public final class XIncProcConfiguration
 
     /**
      * Gets Saxon {@link net.sf.saxon.s9api.Processor}.
-     * <p/>
-     * <p>A simple Saxon HE processor is created by default for the treatment.</p>
-     * <p>Another Saxon processor could be set to replace the default one.</p>
+     *
+     * A simple Saxon HE processor is created by default for the treatment.
+     * Another Saxon processor could be set to replace the default one.
      *
      * @return the Saxon processor
      */
@@ -166,8 +166,8 @@ public final class XIncProcConfiguration
 
     /**
      * Set Saxon {@link net.sf.saxon.s9api.Processor}.
-     * <p/>
-     * <p>The default Saxon HE processor could be replace here.</p>
+     *
+     * The default Saxon HE processor could be replace here.
      *
      * @param processor a Saxon Processor
      */

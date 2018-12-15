@@ -16,84 +16,37 @@
     <version position="bottom" />
 
     <skin>
-        <groupId>lt.velykis.maven.skins</groupId>
-        <artifactId>reflow-maven-skin</artifactId>
-        <version>1.0.0</version>
+        <groupId>com.bernardomg.maven.skins</groupId>
+        <artifactId>docs-maven-skin</artifactId>
+        <version>${site.skin.version}</version>
     </skin>
 
     <custom>
-        <reflowSkin>
-            <protocolRelativeURLs>false</protocolRelativeURLs>
-            <smoothScroll>true</smoothScroll>
-            <theme>default</theme>
-            <highlightJs>true</highlightJs>
-            <highlightJsTheme>github</highlightJsTheme>
-            <absoluteResourceURL>http://xincproc.etourdot.org/</absoluteResourceURL>
-            <brand>
-                <name>
-                  <![CDATA[
-                  <span class="color-highlight">XInc</span>lude  <span class="color-highlight">Proc</span>essor
-                  ]]>
-                </name>
-                <href>http://xincproc.etourdot.org</href>
-            </brand>
-            <slogan>Most complete java implementation of the W3C XInclude 1.0 recommendation</slogan>
-            <!--toc>top</toc>
-            <tocTopMax>6</tocTopMax-->
-            <bannerLeft>
-                <name><![CDATA[
-                  <span class="color-highlight">XIncProc</span>
-                  ]]></name>
-                <href>http://xincproc.etourdot.org</href>
-            </bannerLeft>
-            <slogan position="bannerLeft">Full java XInclude processor framework.</slogan>
-            <bottomNav>
-                <column>Main</column>
-                <column>Documentation</column>
-                <column>modules</column>
-            </bottomNav>
-            <highlightJs>true</highlightJs>
-            <pages>
-                <developer-info>
-                    <toc>sidebar</toc>
-                </developer-info>
-                <contribute>
-                    <breadcrumbs>false</breadcrumbs>
-                </contribute>
-                <source-repository>
-                    <highlightJs>false</highlightJs>
-                </source-repository>
-                <issue-tracking>
-                    <highlightJs>false</highlightJs>
-                    <toc>false</toc>
-                </issue-tracking>
-                <license>
-                    <highlightJs>false</highlightJs>
-                    <toc>false</toc>
-                </license>
-                <project-info>
-                    <toc>false</toc>
-                </project-info>
-                <dependencies>
-                    <tocTopMax>4</tocTopMax>
-                </dependencies>
-            </pages>
-        </reflowSkin>
+        <skinConfig>
+            <keywords>Xinclude, xpointer</keywords>
+            <descriptionUrl>XInclude and XPointer tools</descriptionUrl>
+            <topNav>
+                <menu>Modules</menu>
+                <menu>Info and reports</menu>
+            </topNav>
+            <iconNav>
+                <menu>Icons</menu>
+            </iconNav>
+        </skinConfig>
     </custom>
 
     <body>
-        <breadcrumbs>
-            <item name="XIncProc" href="/" />
-        </breadcrumbs>
-
-        <menu name="Main" inherit="top">
-            <item name="Home" href="./index.html" />
-            <item name="GitHub project" href="http://github.com/etourdot/xincproc/" />
-        </menu>
-        <menu name="Maven documentation" ref="reports" inherit="bottom"/>
         <menu name="Modules" inherit="bottom">
             <item name="XInclude" href="xinclude/index.html"/>
             <item name="XPointer" href="xpointer/index.html"/>
+        </menu>
+        <menu name="Info and reports" inherit="bottom">
+            <item name="Infos" href="./project-info.html" />
+            <item name="Reports" href="./project-reports.html" />
+            <item name="JavaDocs" href="./apidocs/index.html" />
+        </menu>
+        <menu name="Icons" inherit="bottom">
+            <item name="Github" img="github" href="https://github.com/etourdot/xincproc" />
         </menu>
     </body>
 </project>

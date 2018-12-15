@@ -53,12 +53,8 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-clean-plugin</artifactId>
-                        <version>2.5</version>
                         <configuration>
                             <filesets>
-                                <!--fileset>
-                                    <directory>${spec.testSourceDirectory}/org/etourdot/xincproc/xinclude/testsuite</directory>
-                                </fileset-->
                                 <fileset>
                                     <directory>${spec.docDirectory}/org/etourdot/xincproc/xinclude/testsuite</directory>
                                 </fileset>
@@ -68,7 +64,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>${maven-antrun-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>pre-integration-unzip</id>
@@ -77,12 +72,6 @@
                                     <target>
                                         <echo message="Unzip xinclude test archive" />
                                         <unzip src="${spec.docDirectory}/XIncl20060927.zip" dest="${spec.docDirectory}" />
-                                        <!--echo message="Generate integration tests classes" />
-                                        <java fork="true" jar="${net.sf.saxon:Saxon-HE:jar}" failonerror="true">
-                                            <arg value="-s:${spec.docDirectory}/XIncl20060927/testdescr.xml" />
-                                            <arg value="-xsl:${spec.docDirectory}/xsl/test-suite-to-java.xsl" />
-                                            <arg value="-o:${spec.testSourceDirectory}/org/etourdot/xincproc/xinclude/testsuite/dir/" />
-                                        </java-->
                                         <echo message="Generate integration tests pages" />
                                         <java fork="true" jar="${net.sf.saxon:Saxon-HE:jar}" failonerror="true">
                                             <arg value="-s:${spec.docDirectory}/XIncl20060927/testdescr.xml" />
@@ -101,28 +90,6 @@
             </build>
         </profile>
     </profiles>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
-                <configuration>
-                    <stylesheetfile>src/main/javadoc/stylesheet.css</stylesheetfile>
-                    <javadocDirectory>src/javadoc</javadocDirectory>
-                    <docfilessubdirs>true</docfilessubdirs>
-                </configuration>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>javadoc</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-        </plugins>
-    </reporting>
 
     <distributionManagement>
         <site>
