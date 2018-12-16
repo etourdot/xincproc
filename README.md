@@ -48,9 +48,6 @@ Copyright 2013 Emmanuel Tourdot
 
 The XIncProc frameword is released under version 3.0 of the [LGPL Licence](http://opensource.org/licenses/lgpl-3.0.html)
 
-## Continous Integration
-Current Build-Status: [![Build Status](https://buildhive.cloudbees.com/job/etourdot/job/xincproc/badge/icon)](https://buildhive.cloudbees.com/job/etourdot/job/xincproc/)
-
 ## Thanks
 Many thanks to :
 
