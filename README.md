@@ -1,4 +1,7 @@
 # XIncProc Framework
+
+[![Build Status](https://travis-ci.org/etourdot/xincproc.svg?branch=develop)](https://travis-ci.org/etourdot/xincproc)
+
 The XIncProc Frameword provides an almost complete implementation of W3C [XML Inclusions (XInclude) Version 1.0 (Second Edition)][xinclude].
 
 Althougt XInclude is supported into Jaxp implementation since Java 1.5, this support is very incomplete.
