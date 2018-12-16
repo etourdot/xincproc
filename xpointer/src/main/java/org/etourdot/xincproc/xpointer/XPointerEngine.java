@@ -296,7 +296,7 @@ public class XPointerEngine
     {
         Source sourceTransform = node.asSource();
         final int nbPointerPart = pointer.getSchemeBased().size();
-        final ImmutableList.Builder<String> builderExpressions = new ImmutableList.Builder<String>();
+        final ImmutableList.Builder<String> builderExpressions = new ImmutableList.Builder<>();
         for (int i = 0; i < nbPointerPart; i++)
         {
             final PointerPart part = pointer.getSchemeBased().get(i);
@@ -346,11 +346,7 @@ public class XPointerEngine
                                 new StreamSource(new ByteArrayInputStream(baos.toByteArray())));
                     }
                 }
-                catch (final SaxonApiException e)
-                {
-                    throw new XPointerException(e.getLocalizedMessage(), e);
-                }
-                catch (final XPathException e)
+                catch (final SaxonApiException | XPathException e)
                 {
                     throw new XPointerException(e.getLocalizedMessage(), e);
                 }

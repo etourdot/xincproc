@@ -17,32 +17,30 @@
 
 package org.etourdot.xincproc.xpointer.model;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-import java.util.List;
+import static java.util.Optional.ofNullable;
 
 public class Pointer
 {
-    private final Optional<ShortHand> shortHand;
+    private final ShortHand shortHand;
     private ImmutableList<PointerPart> schemeBased;
 
     public Pointer()
     {
-        this.shortHand = Optional.absent();
-        this.schemeBased = ImmutableList.of();
+        this((ShortHand) null);
     }
 
     public Pointer(final ShortHand shortHand)
     {
-        this.shortHand = Optional.fromNullable(shortHand);
+        this.shortHand = shortHand;
         this.schemeBased = ImmutableList.of();
     }
 
     public Pointer(final Iterable<PointerPart> schemeBased)
     {
-        this.shortHand = Optional.absent();
-        final ImmutableList.Builder<PointerPart> builder = new ImmutableList.Builder<PointerPart>();
+        this.shortHand = null;
+        final ImmutableList.Builder<PointerPart> builder = new ImmutableList.Builder<>();
         if (null != schemeBased)
         {
             builder.addAll(schemeBased);
@@ -57,12 +55,12 @@ public class Pointer
 
     public boolean isShortHandPresent()
     {
-        return this.shortHand.isPresent();
+        return ofNullable(this.shortHand).isPresent();
     }
 
     public PointerPart getShortHand()
     {
-        return this.shortHand.get();
+        return ofNullable(this.shortHand).orElse(null);
     }
 
     public boolean isSchemeBased()
@@ -81,7 +79,7 @@ public class Pointer
         final StringBuilder builder = new StringBuilder();
         if (isShortHandPresent())
         {
-            builder.append(this.shortHand.get().toString());
+            builder.append(this.shortHand.toString());
         }
         else
         {

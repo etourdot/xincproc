@@ -57,30 +57,31 @@ public final class XIncProcCLI
                 return -1;
             }
             final File inputFile = new File(commandLine.getOptionValue("if"));
-            final InputStream fis = new FileInputStream(inputFile);
-            final OutputStream outputStream;
-            if (commandLine.hasOption("of"))
+            try (InputStream fis = new FileInputStream(inputFile))
             {
-                final File outputFile = new File(commandLine.getOptionValue("of"));
-                outputStream = new FileOutputStream(outputFile);
-            }
-            else
-            {
-                outputStream = stdout;
-            }
-            try
-            {
-                XIncProcEngine.parse(fis, inputFile.toURI().toASCIIString(), outputStream);
-            }
-            catch (XIncludeFatalException e)
-            {
-                System.err.println("XInclude Fatal error: " + e.getMessage());
-                return -1;
-            }
-            finally
-            {
-                Closeables.close(fis, true);
-                Closeables.close(outputStream, true);
+                final OutputStream outputStream;
+                if (commandLine.hasOption("of"))
+                {
+                    final File outputFile = new File(commandLine.getOptionValue("of"));
+                    outputStream = new FileOutputStream(outputFile);
+                }
+                else
+                {
+                    outputStream = stdout;
+                }
+                try
+                {
+                    XIncProcEngine.parse(fis, inputFile.toURI().toASCIIString(), outputStream);
+                }
+                catch (XIncludeFatalException e)
+                {
+                    System.err.println("XInclude Fatal error: " + e.getMessage());
+                    return -1;
+                }
+                finally
+                {
+                    Closeables.close(outputStream, true);
+                }
             }
 
         }

@@ -115,7 +115,7 @@ class DocType
                                 final String value)
     {
         final DocType.Attribute newAttribute = new DocType.Attribute(aName, type, mode, value);
-        final ImmutableList.Builder<DocType.Attribute> listAttributeBuilder = new ImmutableList.Builder<DocType.Attribute>();
+        final ImmutableList.Builder<DocType.Attribute> listAttributeBuilder = new ImmutableList.Builder<>();
         if (null != this.attributes.get(eName))
         {
             listAttributeBuilder.addAll(this.attributes.get(eName));

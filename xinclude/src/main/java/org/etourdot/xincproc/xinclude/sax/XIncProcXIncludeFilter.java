@@ -71,7 +71,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     public XIncProcXIncludeFilter(final XIncludeContext context)
     {
         this.context = context;
-        this.currentLangStack = new Stack<String>();
+        this.currentLangStack = new Stack<>();
         this.currentLangStack.push(context.getLanguage());
         this.injectingXIncludeLevel = 0;
         this.xIncludeLevel = 0;
@@ -559,12 +559,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         catch (final FileNotFoundException e)
         {
             throw new XIncludeResourceException(e.getMessage());
-        }
-        catch (final MalformedURLException e)
-        {
-            throw new XIncludeResourceException(e.getMessage());
-        }
-        catch (final IOException e)
+        } catch (final IOException e)
         {
             throw new XIncludeResourceException(e.getMessage());
         }

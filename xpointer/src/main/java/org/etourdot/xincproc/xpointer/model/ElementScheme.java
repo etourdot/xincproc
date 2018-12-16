@@ -25,6 +25,8 @@ import com.google.common.collect.Iterables;
 import org.etourdot.xincproc.xpointer.exceptions.ElementSchemeException;
 
 import javax.xml.namespace.QName;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class ElementScheme extends AbstractDefaultScheme
 {

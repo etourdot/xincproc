@@ -176,15 +176,10 @@ public final class XIncProcUtils
             }
 
         }
-        catch (MalformedURLException e)
+        catch (MalformedURLException | UnsupportedEncodingException e)
         {
             throw new XIncludeFatalException(e.getMessage());
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            throw new XIncludeFatalException(e.getMessage());
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             throw new XIncludeResourceException(e.getMessage());
         }

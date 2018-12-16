@@ -228,7 +228,7 @@ public class XIncludeContext
      */
     public List<URI> getBaseURIPaths()
     {
-        return new ArrayList<URI>(this.basesURIDeque);
+        return new ArrayList<>(this.basesURIDeque);
     }
 
     /**
@@ -356,8 +356,8 @@ public class XIncludeContext
     }
 
     private final XIncProcConfiguration configuration;
-    private final Deque<URI> basesURIDeque = new ArrayDeque<URI>();
-    private final Deque<String> xincludeDeque = new ArrayDeque<String>();
+    private final Deque<URI> basesURIDeque = new ArrayDeque<>();
+    private final Deque<String> xincludeDeque = new ArrayDeque<>();
     private URI initialBaseURI;
     private Optional<URI> currentBaseURI = Optional.absent();
     private String language;

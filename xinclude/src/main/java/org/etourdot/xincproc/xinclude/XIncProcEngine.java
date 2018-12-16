@@ -116,11 +116,7 @@ public final class XIncProcEngine
             final Serializer serializer = processor.newSerializer(output);
             processor.writeXdmValue(node, serializer);
         }
-        catch (final SAXException e)
-        {
-            throw new XIncludeFatalException(e);
-        }
-        catch (SaxonApiException e)
+        catch (final SAXException | SaxonApiException e)
         {
             throw new XIncludeFatalException(e);
         }
