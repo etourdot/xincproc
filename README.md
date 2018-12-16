@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/etourdot/xincproc.svg?branch=develop)](https://travis-ci.org/etourdot/xincproc)
 
+[![Quality](https://sonarcloud.io/api/project_badges/measure?project=etourdot_xincproc&metric=alert_status)](https://sonarcloud.io/dashboard?id=etourdot_xincproc)
+
 The XIncProc Frameword provides an almost complete implementation of W3C [XML Inclusions (XInclude) Version 1.0 (Second Edition)][xinclude].
 
 Althougt XInclude is supported into Jaxp implementation since Java 1.5, this support is very incomplete.
