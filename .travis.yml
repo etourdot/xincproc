@@ -8,7 +8,7 @@ after_success:
 - mvn site:stage
 deploy:
   provider: pages
-  local-dir: "./target/site/"
+  local-dir: "./target/staging/"
   skip-cleanup: true
   github-token: "$GITHUB_TOKEN"
   keep-history: true
