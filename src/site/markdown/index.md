@@ -43,7 +43,7 @@ Just add this in your *pom.xml*:
 ## Specifications and conformance
 XIncProc conformance is tested against the official [Xinclude Test Suite](http://www.w3.org/XML/Test/XInclude/)
 
-See [conformance here](xinclude/specs/org/etourdot/xincproc/xinclude/testsuite/TestSuite.html)
+See [conformance here](xinclude/specs/org/etourdot/xincproc/xinclude/testsuite/Testsuite.html)
 
 ## Issue Tracking
 You can create issues on Github here: [https://github.com/etourdot/xincproc/issues](https://github.com/etourdot/xincproc/issues)

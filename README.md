@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/etourdot/xincproc.svg?branch=develop)](https://travis-ci.org/etourdot/xincproc)
 
-[![Quality](https://sonarcloud.io/api/project_badges/measure?project=etourdot_xincproc&metric=alert_status)](https://sonarcloud.io/dashboard?id=etourdot_xincproc)
+[![Quality](https://sonarcloud.io/api/project_badges/measure?project=org.etourdot%3Axincproc&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.etourdot%3Axincproc)
 
 The XIncProc Frameword provides an almost complete implementation of W3C [XML Inclusions (XInclude) Version 1.0 (Second Edition)][xinclude].
 
