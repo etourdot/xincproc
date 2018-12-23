@@ -18,9 +18,9 @@
 package org.etourdot.xincproc.xinclude;
 
 import com.google.common.base.Strings;
+import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.CharStreams;
-import com.google.common.io.InputSupplier;
 import com.google.common.net.HttpHeaders;
 import org.apache.commons.io.input.BOMInputStream;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
@@ -170,9 +170,9 @@ public final class XIncProcUtils
             }
             else
             {
-                final InputSupplier<ByteArrayInputStream> supplier = ByteStreams.newInputStreamSupplier(inputBytes);
-                final Charset charset = (null == encoding) ? EncodingUtils.getCharset(supplier.getInput()) : Charset.forName(encoding);
-                return CharStreams.toString(CharStreams.newReaderSupplier(supplier, charset));
+                final ByteSource supplier = ByteSource.wrap(inputBytes);
+                final Charset charset = (null == encoding) ? EncodingUtils.getCharset(supplier.openBufferedStream()) : Charset.forName(encoding);
+                return CharStreams.toString(new InputStreamReader(supplier.openStream(), charset));
             }
 
         }

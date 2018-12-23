@@ -20,18 +20,17 @@ import com.google.common.io.Closeables;
 import com.google.common.io.Files;
 import net.sf.saxon.lib.Validation;
 import net.sf.saxon.s9api.Processor;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xmlunit.builder.DiffBuilder;
+import org.xmlunit.diff.Diff;
 
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-import static junit.framework.Assert.fail;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public abstract class XIncProcSuiteTest {
     static final Logger LOG = LoggerFactory.getLogger(XIncProcSuiteTest.class);
@@ -40,14 +39,6 @@ public abstract class XIncProcSuiteTest {
     @Before
     public void setUp() throws Exception
     {
-        XMLUnit.setIgnoreWhitespace(true);
-        XMLUnit.setIgnoreAttributeOrder(true);
-        XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
-        XMLUnit.setNormalizeWhitespace(true);
-        XMLUnit.setControlParser("org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
-        XMLUnit.setTestParser("org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
-        XMLUnit.setSAXParserFactory("org.apache.xerces.jaxp.SAXParserFactoryImpl");
-        XMLUnit.setTransformerFactory("org.apache.xalan.processor.TransformerFactoryImpl");
         processor = new Processor(false);
         processor.getUnderlyingConfiguration().setSchemaValidationMode(Validation.LAX);
     }
@@ -58,7 +49,8 @@ public abstract class XIncProcSuiteTest {
         //LOG.debug("Test result:{}", result);
         final String control = Files.toString(new File(fileResult), Charset.forName("UTF-8"));
         //LOG.debug("Test control:{}", control);
-        return new Diff(new StringReader(control), new StringReader(result));
+        return DiffBuilder.compare(new StringReader(control)).withTest(new StringReader(result))
+                .normalizeWhitespace().ignoreWhitespace().build();
     }
 
     protected void testSuccess(final URL urlTest, final URL urlResult) throws Exception
@@ -76,13 +68,11 @@ public abstract class XIncProcSuiteTest {
         final FileInputStream source = new FileInputStream(urlTest.getPath());
         XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
         final String resultat = output.toString("UTF-8");
-        LOG.debug("resultat:{}", resultat);
-        FileReader fileReader = new FileReader(new File(urlResult.getFile()));
-        final Diff diff = XMLUnit.compareXML(fileReader, resultat);
-        //final Diff diff = XMLUnit.compareXML(XIncProcUtils.readTextURI(urlResult.toURI(), "UTF-8", null, null), resultat);
+        final Diff diff = DiffBuilder.compare(new File(urlResult.getFile())).withTest(resultat)
+                .normalizeWhitespace().ignoreWhitespace().build();
         LOG.debug("Diff result:{}", diff.toString());
         Closeables.closeQuietly(source);
-        assertTrue("testSuccess:" + urlTest, diff.identical());
+        assertFalse("testSuccess:" + urlTest, diff.hasDifferences());
     }
 
     protected void testException(final URL urlTest, final Class exception)

@@ -16,6 +16,8 @@
  */
 package org.etourdot.xincproc.xinclude;
 
+import org.junit.Test;
+
 public class FourThoughtTestSuiteTest extends XIncProcSuiteTest {
     /*
     @Test
@@ -31,14 +33,14 @@ public class FourThoughtTestSuiteTest extends XIncProcSuiteTest {
         testSuccess(getClass().getClassLoader().getResource("fourthought/test/XInclude/docs/ft-include2.xml"),
                 getClass().getClassLoader().getResource("fourthought/result/XInclude/include2.xml"));
     }
-
+*/
     @Test
     public void fourthought_include_03() throws Exception
     {
         testSuccess(getClass().getClassLoader().getResource("fourthought/test/XInclude/docs/ft-include3.xml"),
                 getClass().getClassLoader().getResource("fourthought/result/XInclude/include3.xml"));
     }
-
+/*
     @Test
     public void fourthought_include_04() throws Exception
     {

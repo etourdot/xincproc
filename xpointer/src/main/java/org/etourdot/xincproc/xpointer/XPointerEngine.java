@@ -39,6 +39,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.StringWriter;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -267,13 +268,12 @@ public class XPointerEngine
         final XQueryEvaluator xQueryEvaluator = getXQueryEvaluator(shortHand, node.asSource());
         try
         {
-            final XdmValue value = xQueryEvaluator.evaluate();
-            final XdmSequenceIterator itemsIterator = value.iterator();
-            int elementCount = 0;
-            if (value.size() == 0)
+            final XdmSequenceIterator itemsIterator = xQueryEvaluator.iterator();
+            if (!itemsIterator.hasNext())
             {
                 throw new XPointerResourceException("No identified subresource");
             }
+            int elementCount = 0;
             while (itemsIterator.hasNext())
             {
                 final XdmItem item = itemsIterator.next();
@@ -316,14 +316,13 @@ public class XPointerEngine
                     if (i == (nbPointerPart - 1))
                     {
                         teeDestination = new TeeDestination(destination, new SAXDestination(new DebugHandler()));
-                        final XdmValue value = xQueryEvaluator.evaluate();
-                        if (value.size() == 0)
+                        final XdmSequenceIterator<XdmItem> itemsIterator = xQueryEvaluator.iterator();
+                        if (!itemsIterator.hasNext())
                         {
                             throw new XPointerResourceException("No identified subresource");
                         }
                         else
                         {
-                            final XdmSequenceIterator itemsIterator = value.iterator();
                             int elementCount = 0;
                             while (itemsIterator.hasNext())
                             {
@@ -340,7 +339,7 @@ public class XPointerEngine
                     else
                     {
                         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        teeDestination = new TeeDestination(new Serializer(baos), new SAXDestination(new DebugHandler()));
+                        teeDestination = new TeeDestination(processor.newSerializer(baos), new SAXDestination(new DebugHandler()));
                         xQueryEvaluator.run(teeDestination);
                         sourceTransform = processor.getUnderlyingConfiguration().buildDocument(
                                 new StreamSource(new ByteArrayInputStream(baos.toByteArray())));
@@ -368,7 +367,7 @@ public class XPointerEngine
             }
             else
             {
-                final XdmSequenceIterator itemsIterator = value.iterator();
+                final Iterator<XdmItem> itemsIterator = value.iterator();
                 int elementCount = 0;
                 while (itemsIterator.hasNext())
                 {

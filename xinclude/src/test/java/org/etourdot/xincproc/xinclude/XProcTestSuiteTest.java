@@ -20,8 +20,6 @@ import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.File;
-
 public class XProcTestSuiteTest extends XIncProcSuiteTest {
     @Test
     public void xproc_include_loop() throws Exception

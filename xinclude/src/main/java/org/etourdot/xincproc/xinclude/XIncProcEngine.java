@@ -18,8 +18,9 @@
 package org.etourdot.xincproc.xinclude;
 
 import com.google.common.base.Strings;
+import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
-import com.google.common.io.InputSupplier;
+import com.google.common.io.CharSource;
 import net.sf.saxon.s9api.Processor;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.Serializer;
@@ -147,9 +148,9 @@ public final class XIncProcEngine
             throw new XIncludeFatalException(e);
         }
         final byte[] inputBytes = ByteStreams.toByteArray(input);
-        final InputSupplier<ByteArrayInputStream> supplier = ByteStreams.newInputStreamSupplier(inputBytes);
-        final Charset charset = EncodingUtils.getCharset(supplier.getInput());
-        final InputSource inputSource = new InputSource(supplier.getInput());
+        final ByteSource supplier = ByteSource.wrap(inputBytes);
+        final Charset charset = EncodingUtils.getCharset(supplier.openStream());
+        final InputSource inputSource = new InputSource(supplier.openStream());
         inputSource.setSystemId(systemId);
         try
         {

@@ -25,7 +25,6 @@ import net.sf.saxon.s9api.SAXDestination;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.trans.XPathException;
-import org.apache.commons.lang3.StringUtils;
 import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
 import org.etourdot.xincproc.xinclude.XIncProcEngine;
 import org.etourdot.xincproc.xinclude.XIncProcUtils;
@@ -48,7 +47,6 @@ import org.xml.sax.helpers.XMLReaderFactory;
 import javax.xml.namespace.QName;
 import javax.xml.transform.sax.SAXSource;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Stack;
 
@@ -760,7 +758,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         final QName elementQName;
         if (Strings.isNullOrEmpty(uri) && Strings.isNullOrEmpty(localName) && !Strings.isNullOrEmpty(qName))
         {
-            elementQName = QName.valueOf(StringUtils.substringAfter(qName, ":"));
+            elementQName = QName.valueOf(qName.substring(qName.indexOf(":")));
         }
         else
         {

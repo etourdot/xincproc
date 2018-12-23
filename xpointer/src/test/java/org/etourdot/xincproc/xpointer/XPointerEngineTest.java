@@ -28,14 +28,15 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
+import org.xmlunit.assertj.XmlAssert;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
 import java.io.File;
 import java.util.List;
 
-import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
 import static org.junit.Assert.assertEquals;
+import static org.xmlunit.assertj.XmlAssert.assertThat;
 
 public class XPointerEngineTest {
     private static final Logger log = LoggerFactory.getLogger(XPointerEngineTest.class);
@@ -101,7 +102,7 @@ public class XPointerEngineTest {
             throws Exception
     {
         final String result = xPointerEngine.execute("id5", source);
-        assertXMLEqual("<etat xml:id=\"id5\">VIGUEUR</etat>", result);
+        assertThat("<etat xml:id=\"id5\">VIGUEUR</etat>").and(result).areIdentical();
     }
 
     @Test
@@ -109,7 +110,8 @@ public class XPointerEngineTest {
             throws Exception
     {
         final String result = xPointerEngine.setBaseURI(null).execute("id3", source);
-        assertXMLEqual("<?xml version=\"1.0\" encoding=\"UTF-8\"?><etat xml:id=\"id3\">VIGUEUR</etat>", result);
+        assertThat("<?xml version=\"1.0\" encoding=\"UTF-8\"?><etat xml:id=\"id3\">VIGUEUR</etat>")
+          .and(result).areSimilar();
     }
 
     @Test
@@ -117,21 +119,21 @@ public class XPointerEngineTest {
             throws Exception
     {
         final String result = xPointerEngine.setBaseURI(null).setLanguage("fr").execute("id4", source);
-        assertXMLEqual("<?xml version=\"1.0\" encoding=\"UTF-8\"?><contenu id=\"id4\" xml:lang=\"fr\">\n" +
+        assertThat("<?xml version=\"1.0\" encoding=\"UTF-8\"?><contenu id=\"id4\" xml:lang=\"fr\">\n" +
                 "            <para>Est autorisée l'approbation de l'accord entre le Gouvernement de la République française et le\n" +
                 "                Gouvernement de la République du Bénin relatif à la gestion concertée des flux migratoires et au\n" +
                 "                codéveloppement (ensemble cinq annexes), signé à Cotonou le 28 novembre 2007, et dont le texte est\n" +
                 "                annexé à la présente loi (2).\n" +
                 "            </para>\n" +
                 "            <para>La présente loi sera exécutée comme loi de l'Etat.</para>\n" +
-                "        </contenu>", result);
+                "        </contenu>").and(result).areSimilar();
     }
 
     @Test
     public void testExecuteSchema() throws Exception
     {
         final String result = xPointerEngine.execute("element(id5)", source);
-        assertXMLEqual("<etat xml:id=\"id5\">VIGUEUR</etat>", result);
+        assertThat("<etat xml:id=\"id5\">VIGUEUR</etat>").and(result).areIdentical();
     }
 
     @Test
@@ -140,7 +142,7 @@ public class XPointerEngineTest {
         String validExpr = xPointerEngine.verifyXPathExpression(ImmutableList.<XmlNsScheme>of(), "//price/following-sibling::*");
         assertEquals("", validExpr);
         validExpr = xPointerEngine.verifyXPathExpression(ImmutableList.<XmlNsScheme>of(), "//price/following-sibling:*");
-        assertEquals("Prefix following-sibling has not been declared", validExpr);
+        assertEquals("Namespace prefix 'following-sibling' has not been declared", validExpr);
     }
 
     @Test

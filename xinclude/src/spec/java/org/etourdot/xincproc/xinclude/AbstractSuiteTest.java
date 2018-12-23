@@ -17,16 +17,18 @@
 package org.etourdot.xincproc.xinclude;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Joiner;
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
 import net.sf.saxon.lib.Validation;
 import net.sf.saxon.s9api.Processor;
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.XMLUnit;
+import org.apache.commons.text.StringEscapeUtils;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xmlunit.builder.DiffBuilder;
+import org.xmlunit.diff.ComparisonControllers;
+import org.xmlunit.diff.Diff;
 
 import java.io.*;
 import java.net.URL;
@@ -41,13 +43,6 @@ public abstract class AbstractSuiteTest {
     @Before
     public void setUp() throws Exception
     {
-        XMLUnit.setIgnoreWhitespace(true);
-        XMLUnit.setIgnoreAttributeOrder(true);
-        XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
-        XMLUnit.setControlParser("org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
-        XMLUnit.setTestParser("org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
-        XMLUnit.setSAXParserFactory("org.apache.xerces.jaxp.SAXParserFactoryImpl");
-        XMLUnit.setTransformerFactory("org.apache.xalan.processor.TransformerFactoryImpl");
         processor = new Processor(false);
         processor.getUnderlyingConfiguration().setSchemaValidationMode(Validation.LAX);
     }
@@ -58,7 +53,8 @@ public abstract class AbstractSuiteTest {
         //LOG.debug("Test result:{}", result);
         final String control = Files.toString(new File(fileResult), Charset.forName("UTF-8"));
         //LOG.debug("Test control:{}", control);
-        return new Diff(new StringReader(control), new StringReader(result));
+        return DiffBuilder.compare(new StringReader(control)).withTest(new StringReader(result)).normalizeWhitespace()
+          .ignoreWhitespace().build();
     }
 
     protected void testSuccess(final URL urlTest, final URL urlResult) throws Exception
@@ -76,9 +72,10 @@ public abstract class AbstractSuiteTest {
         final FileInputStream source = new FileInputStream(urlTest.getPath());
         XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
         final String resultat = output.toString("UTF-8");
-        final Diff diff = XMLUnit.compareXML(Resources.toString(urlResult, Charsets.UTF_8), resultat);
+        final Diff diff = DiffBuilder.compare(Resources.toString(urlResult, Charsets.UTF_8)).withTest(resultat)
+          .ignoreWhitespace().build();
         source.close();
-        assertTrue("testSuccess:" + urlTest, diff.similar());
+        assertFalse("testSuccess:" + urlTest, diff.hasDifferences());
     }
 
     protected void testException(final URL urlTest, final Class exception)
@@ -129,10 +126,17 @@ public abstract class AbstractSuiteTest {
                 XIncProcEngine.parse(source, urlInput.toExternalForm(), output);
                 final URL urlTest = getClass().getClassLoader().getResource("XIncl20060927/" + outputHref);
                 final String expected = Resources.toString(urlTest, Charsets.UTF_8);
-                final Diff diff = XMLUnit.compareXML(expected, output.toString("UTF-8"));
+                final Diff diff = DiffBuilder.compare(expected).withTest(output.toString("UTF-8"))
+                  .withComparisonController(ComparisonControllers.StopWhenDifferent)
+                  .ignoreWhitespace().build();
                 result.output = StringEscapeUtils.escapeHtml4(new String(output.toByteArray()));
                 result.expected = StringEscapeUtils.escapeHtml4(expected);
-                result.result = diff.similar() ? "success" : "error";
+                if (diff.hasDifferences()) {
+                    result.result = "error";
+                    result.exception = StringEscapeUtils.escapeHtml4(Joiner.on(" ").join(diff.getDifferences()));
+                } else {
+                    result.result = "success";
+                }
             }
             catch (Exception e)
             {
