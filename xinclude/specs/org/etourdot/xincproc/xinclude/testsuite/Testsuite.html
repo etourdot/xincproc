@@ -43,13 +43,13 @@ li {
   margin-bottom: 6px; 
 }
 
-.example {
+.example, :not(th)[concordion\:example] {
   padding: 6px 16px 6px 16px;
   border: 1px solid #C3D9FF;
   margin: 6px 0px 28px 0px;
   background-color: #F5F9FD;
 }
-.example h3 {
+.example h3, [concordion\:example] h3 {
   margin-top: 8px;
   margin-bottom: 8px;
   font-size: 12pt;
@@ -166,12 +166,10 @@ ins {
       <h1>Conformance Test suite</h1>
       <p>XIncProc conformance is tested against the official<a href="http://www.w3.org/XML/Test/XInclude/">
             Xinclude Test Suite</a>.
-         
-      </p>
+         </p>
       <p>All tests Xinclude Conformance Test Suite, 2006-09-27, were passed and results are
          availables here:
-         
-      </p>
+         </p>
       <table>
          <tr>
             <th width="150px">
@@ -1038,7 +1036,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
-            <td><span ext:embed="#result.exception">/home/travis/build/etourdot/xincproc/ents/004.ent (No such file or directory)</span></td>
+            <td><span ext:embed="#result.exception">Expected child 'e' but was 'null' - comparing &lt;!--NodeType 5 e/null--&gt; at /x[1]/doc[1]/ to &lt;NULL&gt; (DIFFERENT)</span></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
             <td>
@@ -1456,8 +1454,43 @@ ins {
             <td>An included document can use a fallback that includes another document as text
                <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/metafallbacktest2.xml</span><span concordion:set="#outHRef">Harold/test/../result/metafallbacktest2.xml</span></div>
             </td>
-            <td concordion:assertEquals="#result.result" class="success">success</td>
-            <td><span ext:embed="#result.exception" /></td>
+            <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
+<ins class="actual">error</ins></td>
+            <td><span ext:embed="#result.exception">Expected node type 'CDATA Section' but was 'Text' - comparing &lt;test ...&gt;&lt;![CDATA[&lt;simple&gt;
+&lt;test xmlns:xinclude="http://www.w3.org/2001/XInclude"&gt;
+  &lt;latin1&gt;
+    &lt;firstElement/&gt;
+    &lt;xinclude:include href="utf8.xml" parse="text"/&gt;
+    &lt;insideChildren/&gt;
+    &lt;another&gt;
+      &lt;deeper&gt;text&lt;/deeper&gt;
+    &lt;/another&gt;
+  &lt;/latin1&gt;
+  &lt;test2&gt;
+    &lt;xinclude:include href="test2.xml"/&gt;
+  &lt;/test2&gt;
+  &lt;test3&gt;
+   &lt;!-- &lt;xinclude:include href="roottest.xml"/&gt; --&gt;
+  &lt;/test3&gt;
+&lt;/test&gt;
+&lt;/simple&gt;]]&gt;&lt;/test&gt; at /root[1]/test[1]/text()[1] to &lt;test ...&gt;&lt;simple&gt;
+&lt;test xmlns:xinclude="http://www.w3.org/2001/XInclude"&gt;
+  &lt;latin1&gt;
+    &lt;firstElement/&gt;
+    &lt;xinclude:include href="utf8.xml" parse="text"/&gt;
+    &lt;insideChildren/&gt;
+    &lt;another&gt;
+      &lt;deeper&gt;text&lt;/deeper&gt;
+    &lt;/another&gt;
+  &lt;/latin1&gt;
+  &lt;test2&gt;
+    &lt;xinclude:include href="test2.xml"/&gt;
+  &lt;/test2&gt;
+  &lt;test3&gt;
+   &lt;!-- &lt;xinclude:include href="roottest.xml"/&gt; --&gt;
+  &lt;/test3&gt;
+&lt;/test&gt;
+&lt;/simple&gt;&lt;/test&gt; at /root[1]/test[1]/text()[1] (SIMILAR)</span></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
             <td>
@@ -2316,8 +2349,9 @@ ins {
                content negotiation
                <div style="display:none;"><span concordion:set="#type">success</span><span concordion:set="#inHRef">Harold/test/accepthtml.xml</span><span concordion:set="#outHRef">Harold/test/../result/accepthtml.xml</span></div>
             </td>
-            <td concordion:assertEquals="#result.result" class="success">success</td>
-            <td><span ext:embed="#result.exception" /></td>
+            <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
+<ins class="actual">error</ins></td>
+            <td><span ext:embed="#result.exception">Expected node type 'CDATA Section' but was 'Text' - comparing &lt;root ...&gt;&lt;![CDATA[&lt;html&gt;&lt;body&gt;content&lt;/body&gt;&lt;/html&gt;]]&gt;&lt;/root&gt; at /root[1]/text()[1] to &lt;root ...&gt;&lt;html&gt;&lt;body&gt;content&lt;/body&gt;&lt;/html&gt;&lt;/root&gt; at /root[1]/text()[1] (SIMILAR)</span></td>
          </tr>
          <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
             <td>
@@ -2405,5 +2439,5 @@ ins {
             <td><span ext:embed="#result.exception">Error reported by XML parser processing file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/xpointerwithpercentescape.xml: Unknown pointer expression</span></td>
          </tr>
       </table>
-   <div class="footer">Results generated by <a href="http://www.concordion.org" style="font-weight: bold; text-decoration: none; color: #89C;">Concordion</a><div class="testTime">in 6328 ms on 16-Dec-2018 at 16:30:47 UTC</div></div></body>
+   <div class="footer">Results generated by <a href="http://www.concordion.org" style="font-weight: bold; text-decoration: none; color: #89C;">Concordion</a><div class="testTime">in 8446 ms on 23-Dec-2018 at 11:15:00 UTC</div></div></body>
 </html>
