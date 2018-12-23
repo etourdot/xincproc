@@ -17,7 +17,6 @@
 
 package org.etourdot.xincproc.xinclude.sax;
 
-import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.s9api.Destination;
@@ -48,6 +47,7 @@ import javax.xml.namespace.QName;
 import javax.xml.transform.sax.SAXSource;
 import java.io.*;
 import java.net.URI;
+import java.util.Optional;
 import java.util.Stack;
 
 /**
@@ -96,7 +96,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     {
         if (XIncProcXIncludeFilter.LEXICALID.equals(name))
         {
-            this.lexicalHandler = Optional.fromNullable((LexicalHandler) value);
+            this.lexicalHandler = Optional.ofNullable((LexicalHandler) value);
         }
         else
         {
@@ -855,7 +855,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     private final Stack<String> currentLangStack;
     private boolean inDTD;
     private boolean hasUnparserEntity;
-    private Optional<LexicalHandler> lexicalHandler = Optional.absent();
+    private Optional<LexicalHandler> lexicalHandler = Optional.empty();
     private boolean alreadyProceedFallback;
     private int elementLevel;
     private int fallbackLevel;
