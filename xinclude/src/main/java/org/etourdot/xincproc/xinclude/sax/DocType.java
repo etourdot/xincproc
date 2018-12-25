@@ -17,11 +17,12 @@
 
 package org.etourdot.xincproc.xinclude.sax;
 
-import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
+
+import static java.util.Optional.ofNullable;
 
 /**
  * Internal class used to store doctype representation
@@ -89,19 +90,19 @@ class DocType
 
     DocType setDoctype(final String doctype)
     {
-        this.doctype = Optional.fromNullable(doctype);
+        this.doctype = doctype;
         return this;
     }
 
     DocType setPublicId(final String publicId)
     {
-        this.publicId = Optional.fromNullable(publicId);
+        this.publicId = publicId;
         return this;
     }
 
     DocType setSystemId(final String systemId)
     {
-        this.systemId = Optional.fromNullable(systemId);
+        this.systemId = systemId;
         return this;
     }
 
@@ -157,19 +158,19 @@ class DocType
     String getDocTypeValue()
     {
         final StringBuilder docTypeBuffer = new StringBuilder();
-        if (this.doctype.isPresent())
+        if (ofNullable(this.doctype).isPresent())
         {
-            docTypeBuffer.append("<!DOCTYPE ").append(this.doctype.get());
-            if (this.systemId.isPresent())
+            docTypeBuffer.append("<!DOCTYPE ").append(this.doctype);
+            if (ofNullable(this.systemId).isPresent())
             {
-                if (this.publicId.isPresent())
+                if (ofNullable(this.publicId).isPresent())
                 {
-                    docTypeBuffer.append("PUBLIC \"").append(this.publicId.get()).append("\" \"")
-                            .append(this.systemId.get()).append('"');
+                    docTypeBuffer.append("PUBLIC \"").append(this.publicId).append("\" \"")
+                            .append(this.systemId).append('"');
                 }
                 else
                 {
-                    docTypeBuffer.append("SYSTEM \"").append(this.systemId.get()).append('"');
+                    docTypeBuffer.append("SYSTEM \"").append(this.systemId).append('"');
                 }
             }
             if (!this.elements.isEmpty())
@@ -308,9 +309,9 @@ class DocType
         private final String notationName;
     }
 
-    private Optional<String> doctype = Optional.absent();
-    private Optional<String> publicId = Optional.absent();
-    private Optional<String> systemId = Optional.absent();
+    private String doctype;
+    private String publicId;
+    private String systemId;
     private ImmutableList<DocType.Element> elements = ImmutableList.of();
     private ImmutableMap<String, ImmutableList<DocType.Attribute>> attributes = ImmutableMap.of();
     private ImmutableList<DocType.ExternalEntity> externalEntities = ImmutableList.of();

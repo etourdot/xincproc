@@ -17,7 +17,6 @@
 
 package org.etourdot.xincproc.xinclude.sax;
 
-import com.google.common.base.Optional;
 import org.etourdot.xincproc.xinclude.XIncProcConfiguration;
 import org.etourdot.xincproc.xinclude.exceptions.XIncludeFatalException;
 import org.xml.sax.Attributes;
@@ -29,6 +28,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+
+import static java.util.Optional.ofNullable;
 
 /**
  * This class represents the context in which the XIncProcXIncludeFilter
@@ -85,9 +86,9 @@ public class XIncludeContext
             throws XIncludeFatalException
     {
         extractCurrentBaseURI(attributes);
-        if (this.currentBaseURI.isPresent())
+        if (ofNullable(this.currentBaseURI).isPresent())
         {
-            addBaseURIPath(this.currentBaseURI.get());
+            addBaseURIPath(this.currentBaseURI);
         }
     }
 
@@ -96,10 +97,10 @@ public class XIncludeContext
      */
     public void updateContextWhenEndElement()
     {
-        if (this.currentBaseURI.isPresent())
+        if (ofNullable(this.currentBaseURI).isPresent())
         {
-            removeBaseURIPath(this.currentBaseURI.get());
-            this.currentBaseURI = Optional.absent();
+            removeBaseURIPath(this.currentBaseURI);
+            this.currentBaseURI = null;
         }
     }
 
@@ -207,7 +208,7 @@ public class XIncludeContext
     public void setInitialBaseURI(final URI initialBaseURI)
     {
         this.initialBaseURI = initialBaseURI;
-        this.currentBaseURI = Optional.absent();
+        this.currentBaseURI = null;
         this.basesURIDeque.clear();
     }
 
@@ -238,7 +239,7 @@ public class XIncludeContext
      */
     public URI getCurrentBaseURI()
     {
-        return this.currentBaseURI.orNull();
+        return this.currentBaseURI;
     }
 
     /**
@@ -284,7 +285,7 @@ public class XIncludeContext
     @Override
     public String toString()
     {
-        return "sourceURI:" + this.sourceURI + "\n,currentBase:" + this.currentBaseURI.get() + ",hrefURI:" + this.hrefURI
+        return "sourceURI:" + this.sourceURI + "\n,currentBase:" + ofNullable(this.currentBaseURI).orElse(URI.create("")) + ",hrefURI:" + this.hrefURI
                 + "\n,lang:" + this.language;
     }
 
@@ -309,7 +310,7 @@ public class XIncludeContext
         {
             foundURI = null;
         }
-        this.currentBaseURI = Optional.fromNullable(foundURI);
+        this.currentBaseURI = foundURI;
     }
 
     void removeBaseURIPath(final URI basePath)
@@ -359,7 +360,7 @@ public class XIncludeContext
     private final Deque<URI> basesURIDeque = new ArrayDeque<>();
     private final Deque<String> xincludeDeque = new ArrayDeque<>();
     private URI initialBaseURI;
-    private Optional<URI> currentBaseURI = Optional.absent();
+    private URI currentBaseURI;
     private String language;
     private URI sourceURI;
     private URI hrefURI;

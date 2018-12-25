@@ -60,7 +60,7 @@ public class Pointer
 
     public PointerPart getShortHand()
     {
-        return ofNullable(this.shortHand).orElse(null);
+        return this.shortHand;
     }
 
     public boolean isSchemeBased()

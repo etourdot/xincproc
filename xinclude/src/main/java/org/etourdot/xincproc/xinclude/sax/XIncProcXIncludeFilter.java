@@ -124,7 +124,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         this.elementLevel = 0;
         if (!isInjectingXInclude())
         {
-            LOG.trace("startDocument@{}", Integer.toHexString(hashCode()));
+            //LOG.trace("startDocument@{}", Integer.toHexString(hashCode()));
             super.startDocument();
         }
     }
@@ -134,7 +134,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     {
         if (!isInjectingXInclude())
         {
-            LOG.trace("endDocument@{}", Integer.toHexString(hashCode()));
+            //LOG.trace("endDocument@{}", Integer.toHexString(hashCode()));
             super.endDocument();
         }
     }
@@ -143,7 +143,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     public void startElement(final String uri, final String localName, final String qName, final Attributes atts)
             throws SAXException
     {
-        LOG.trace("startElement@{}: {}, {}, {}", Integer.toHexString(hashCode()), uri, localName, qName);
+        //LOG.trace("startElement@{}: {}, {}, {}", Integer.toHexString(hashCode()), uri, localName, qName);
         final AttributesImpl attributesImpl = new AttributesImpl(atts);
         this.context.updateContextWithElementAttributes(attributesImpl);
         final QName elementQName = calculateElementName(uri, localName, qName);
@@ -175,7 +175,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     public void endElement(final String uri, final String localName, final String qName)
             throws SAXException
     {
-        LOG.trace("endElement@{}:{},{},{}", Integer.toHexString(hashCode()), uri, localName, qName);
+        //LOG.trace("endElement@{}:{},{},{}", Integer.toHexString(hashCode()), uri, localName, qName);
         this.context.updateContextWhenEndElement();
         final QName elementQName = new QName(uri, localName);
         if (XIncProcUtils.isFallback(elementQName))
@@ -213,7 +213,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     {
         if (isUsable())
         {
-            LOG.trace("characters@{}: {}", Integer.toHexString(hashCode()), new String(ch).substring(start, start + length).trim());
+            //LOG.trace("characters@{}: {}", Integer.toHexString(hashCode()), new String(ch).substring(start, start + length).trim());
             super.characters(ch, start, length);
         }
     }
