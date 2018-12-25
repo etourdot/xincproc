@@ -121,7 +121,7 @@ class XIncludeAttributes
             throw new XIncludeFatalException("Href must be a valid URI");
         }
         this.parse = attributes.getValue(XIncludeConstants.ATT_PARSE.getLocalPart());
-        if (ofNullable(this.parse).isPresent() && !XIncludeAttributes.VALID_PARSE.contains(ofNullable(this.parse).get()))
+        if (ofNullable(this.parse).isPresent() && !XIncludeAttributes.VALID_PARSE.contains(this.parse))
         {
             throw new XIncludeFatalException("Parse value must be \"xml\" or \"text\".");
         }
