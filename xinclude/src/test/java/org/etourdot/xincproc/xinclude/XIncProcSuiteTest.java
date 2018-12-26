@@ -69,7 +69,7 @@ public abstract class XIncProcSuiteTest {
         XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
         final String resultat = output.toString("UTF-8");
         final Diff diff = DiffBuilder.compare(new File(urlResult.getFile())).withTest(resultat)
-                .normalizeWhitespace().ignoreWhitespace().build();
+                .normalizeWhitespace().ignoreWhitespace().checkForSimilar().build();
         LOG.debug("Diff result:{}", diff.toString());
         Closeables.closeQuietly(source);
         assertFalse("testSuccess:" + urlTest, diff.hasDifferences());
