@@ -54,7 +54,7 @@ public abstract class AbstractSuiteTest {
         final String control = Files.toString(new File(fileResult), Charset.forName("UTF-8"));
         //LOG.debug("Test control:{}", control);
         return DiffBuilder.compare(new StringReader(control)).withTest(new StringReader(result)).normalizeWhitespace()
-          .ignoreWhitespace().build();
+          .ignoreWhitespace().checkForSimilar().build();
     }
 
     protected void testSuccess(final URL urlTest, final URL urlResult) throws Exception
@@ -73,7 +73,7 @@ public abstract class AbstractSuiteTest {
         XIncProcEngine.parse(source, urlTest.toExternalForm(), output);
         final String resultat = output.toString("UTF-8");
         final Diff diff = DiffBuilder.compare(Resources.toString(urlResult, Charsets.UTF_8)).withTest(resultat)
-          .ignoreWhitespace().build();
+          .ignoreWhitespace().checkForSimilar().build();
         source.close();
         assertFalse("testSuccess:" + urlTest, diff.hasDifferences());
     }
@@ -128,7 +128,7 @@ public abstract class AbstractSuiteTest {
                 final String expected = Resources.toString(urlTest, Charsets.UTF_8);
                 final Diff diff = DiffBuilder.compare(expected).withTest(output.toString("UTF-8"))
                   .withComparisonController(ComparisonControllers.StopWhenDifferent)
-                  .ignoreWhitespace().build();
+                  .ignoreWhitespace().checkForSimilar().build();
                 result.output = StringEscapeUtils.escapeHtml4(new String(output.toByteArray()));
                 result.expected = StringEscapeUtils.escapeHtml4(expected);
                 if (diff.hasDifferences()) {
