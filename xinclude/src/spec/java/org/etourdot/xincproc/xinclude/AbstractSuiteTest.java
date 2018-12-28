@@ -21,7 +21,10 @@ import com.google.common.base.Joiner;
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
 import net.sf.saxon.lib.Validation;
+import net.sf.saxon.s9api.DocumentBuilder;
 import net.sf.saxon.s9api.Processor;
+import net.sf.saxon.s9api.Serializer;
+import net.sf.saxon.s9api.XdmNode;
 import org.apache.commons.text.StringEscapeUtils;
 import org.junit.Before;
 import org.slf4j.Logger;
@@ -119,11 +122,14 @@ public abstract class AbstractSuiteTest {
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final URL urlInput = getClass().getClassLoader().getResource("XIncl20060927/" + inputHref);
         final FileInputStream source = new FileInputStream(urlInput.getPath());
+        long startTime = System.nanoTime();
         if ("success".equals(type))
         {
             try
             {
                 XIncProcEngine.parse(source, urlInput.toExternalForm(), output);
+                long endTime = System.nanoTime();
+                result.time = (endTime - startTime) / 1000000 + " ms";
                 final URL urlTest = getClass().getClassLoader().getResource("XIncl20060927/" + outputHref);
                 final String expected = Resources.toString(urlTest, Charsets.UTF_8);
                 final Diff diff = DiffBuilder.compare(expected).withTest(output.toString("UTF-8"))
@@ -140,6 +146,8 @@ public abstract class AbstractSuiteTest {
             }
             catch (Exception e)
             {
+                long endTime = System.nanoTime();
+                result.time = (endTime - startTime) / 1000000 + " ms";
                 if (null != e.getCause())
                 {
                     result.exception = e.getCause().getMessage();
@@ -158,9 +166,13 @@ public abstract class AbstractSuiteTest {
                 XIncProcEngine.parse(source, urlInput.toExternalForm(), output);
                 result.output = new String(output.toByteArray());
                 result.result = "success";
+                long endTime = System.nanoTime();
+                result.time = (endTime - startTime) / 1000000 + " ms";
             }
             catch (Exception e)
             {
+                long endTime = System.nanoTime();
+                result.time = (endTime - startTime) / 1000000 + " ms";
                 if (null != e.getCause())
                 {
                     result.exception = e.getCause().getMessage();
@@ -176,6 +188,85 @@ public abstract class AbstractSuiteTest {
         return result;
     }
 
+    public Result executeWithSaxon(final String type, final String inputHref, final String outputHref)
+      throws IOException
+    {
+        final Result result = new Result();
+        final URL urlInput = getClass().getClassLoader().getResource("XIncl20060927/" + inputHref);
+        long startTime = System.nanoTime();
+        if ("success".equals(type))
+        {
+            try
+            {
+                processor.getUnderlyingConfiguration().setXIncludeAware(true);
+                DocumentBuilder documentBuilder = processor.newDocumentBuilder();
+                XdmNode node = documentBuilder.build(new File(urlInput.getPath()));
+                Serializer serializer = processor.newSerializer(new StringWriter());
+                final String output = serializer.serializeNodeToString(node);
+                long endTime = System.nanoTime();
+                result.time = (endTime - startTime) / 1000000 + " ms";
+
+                final URL urlTest = getClass().getClassLoader().getResource("XIncl20060927/" + outputHref);
+                final String expected = Resources.toString(urlTest, Charsets.UTF_8);
+                final Diff diff = DiffBuilder.compare(expected).withTest(output)
+                  .withComparisonController(ComparisonControllers.StopWhenDifferent)
+                  .ignoreWhitespace().checkForSimilar().build();
+                result.output = StringEscapeUtils.escapeHtml4(output);
+                result.expected = StringEscapeUtils.escapeHtml4(expected);
+                if (diff.hasDifferences()) {
+                    result.result = "error";
+                    result.exception = StringEscapeUtils.escapeHtml4(Joiner.on(" ").join(diff.getDifferences()));
+                } else {
+                    result.result = "success";
+                }
+            }
+            catch (Exception e)
+            {
+                long endTime = System.nanoTime();
+                result.time = (endTime - startTime) / 1000000 + " ms";
+                if (null != e.getCause())
+                {
+                    result.exception = e.getCause().getMessage();
+                }
+                else
+                {
+                    result.exception = e.getMessage();
+                }
+                result.result = "error";
+            }
+        }
+        else
+        {
+            try
+            {
+                processor.getUnderlyingConfiguration().setXIncludeAware(true);
+                DocumentBuilder documentBuilder = processor.newDocumentBuilder();
+                XdmNode node = documentBuilder.build(new File(urlInput.getPath()));
+                Serializer serializer = processor.newSerializer(new StringWriter());
+                final String output = serializer.serializeNodeToString(node);
+                result.output = output;
+                result.result = "success";
+                long endTime = System.nanoTime();
+                result.time = (endTime - startTime) / 1000000 + " ms";
+            }
+            catch (Exception e)
+            {
+                long endTime = System.nanoTime();
+                result.time = (endTime - startTime) / 1000000 + " ms";
+                if (null != e.getCause())
+                {
+                    result.exception = e.getCause().getMessage();
+                }
+                else
+                {
+                    result.exception = e.getMessage();
+                }
+                result.result = "error";
+            }
+        }
+        return result;
+    }
+
     class Result {
         Result()
         {
@@ -187,5 +278,6 @@ public abstract class AbstractSuiteTest {
         public String exception;
         public String output;
         public String expected;
+        public String time;
     }
 }

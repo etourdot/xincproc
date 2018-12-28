@@ -8,18 +8,18 @@
     <xsl:template match="testsuite">
         <html xmlns:concordion="http://www.concordion.org/2007/concordion" xmlns:ext="urn:concordion-extensions:2010">
             <body>
-                <h1>Conformance Test suite</h1>
-                <p>XIncProc conformance is tested against the official<a href="http://www.w3.org/XML/Test/XInclude/">
-                    Xinclude Test Suite</a>.
-                </p>
+                <h1>Conformance Test suite with Xerces</h1>
                 <p>All tests Xinclude Conformance Test Suite, 2006-09-27, were passed and results are availables here:
                 </p>
-                <p>Source code is following:</p>
+                <p>This tests are for comparison purpose. Source code is following:</p>
                 <pre>
-                    ByteArrayOutputStream output = new ByteArrayOutputStream();
-                    FileInputStream source = new FileInputStream(urlInput.getPath());
-                    XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, true);
-                    XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, true);                    XIncProcEngine.parse(source, urlInput.toExternalForm(), output);
+                    Processor processor = = new Processor(false);
+                    processor.getUnderlyingConfiguration().setSchemaValidationMode(Validation.LAX);
+                    processor.getUnderlyingConfiguration().setXIncludeAware(true);
+                    DocumentBuilder documentBuilder = processor.newDocumentBuilder();
+                    XdmNode node = documentBuilder.build(new File(urlInput.getPath()));
+                    Serializer serializer = processor.newSerializer(new StringWriter());
+                    String output = serializer.serializeNodeToString(node);
                 </pre>
                 <table>
                     <tr>
@@ -40,7 +40,7 @@
                             </td>
                         </tr>
                         <xsl:for-each select="testcase">
-                            <tr concordion:execute="#result = execute(#type,#inHRef,#outHRef)">
+                            <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
                                 <td>
                                     <p>
                                         <b>

@@ -72,11 +72,27 @@
                                     <target>
                                         <echo message="Unzip xinclude test archive" />
                                         <unzip src="${spec.docDirectory}/XIncl20060927.zip" dest="${spec.docDirectory}" />
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>pre-integration-generate</id>
+                                <phase>generate-test-sources</phase>
+                                <configuration>
+                                    <target>
                                         <echo message="Generate integration tests pages" />
                                         <java fork="true" jar="${net.sf.saxon:Saxon-HE:jar}" failonerror="true">
                                             <arg value="-s:${spec.docDirectory}/XIncl20060927/testdescr.xml" />
                                             <arg value="-xsl:${spec.docDirectory}/xsl/test-suite-to-html.xsl" />
                                             <arg value="-o:${spec.docDirectory}/org/etourdot/xincproc/xinclude/testsuite/Testsuite.html" />
+                                        </java>
+                                        <java fork="true" jar="${net.sf.saxon:Saxon-HE:jar}" failonerror="true">
+                                            <arg value="-s:${spec.docDirectory}/XIncl20060927/testdescr.xml" />
+                                            <arg value="-xsl:${spec.docDirectory}/xsl/test-suite-xerces-to-html.xsl" />
+                                            <arg value="-o:${spec.docDirectory}/org/etourdot/xincproc/xinclude/testsuite/TestsuiteXerces.html" />
                                         </java>
                                     </target>
                                 </configuration>
