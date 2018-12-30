@@ -1,13 +1,24 @@
 dist: xenial
 language: java
-jdk:
-- openjdk8
-- openjdk11
-script:
-- mvn -B -Prun-itests clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
-after_success:
-- mvn site
-- mvn site:stage
+
+cache:
+  directories:
+  - "$HOME/.m2"
+
+jobs:
+  include:
+  - stage: test jdk8
+    jdk: openjdk8
+    script: mvn -B -Prun-itests clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
+  - stage: test jdk11
+    jdk: openjdk8
+    script: mvn -B -Prun-itests clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
+  - stage: ghpages
+    jdk: openjdk8
+    script:
+    - mvn site
+    - mvn site:stage
+
 addons:
   sonarcloud:
     organization: "etourdot-github"
@@ -15,6 +26,7 @@ addons:
       secure: "$SONAR_TOKEN"
     branches:
       - develop
+
 deploy:
   provider: pages
   local-dir: "./target/staging/"
