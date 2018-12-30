@@ -28,7 +28,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
-import org.xmlunit.assertj.XmlAssert;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;

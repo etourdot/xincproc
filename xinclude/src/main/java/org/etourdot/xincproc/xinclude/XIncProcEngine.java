@@ -20,7 +20,6 @@ package org.etourdot.xincproc.xinclude;
 import com.google.common.base.Strings;
 import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
-import com.google.common.io.CharSource;
 import net.sf.saxon.s9api.Processor;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.Serializer;
@@ -36,15 +35,17 @@ import org.xml.sax.XMLFilter;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * This class contains useful methods to manage a {@link org.xml.sax.XMLFilter} for xinclusions
@@ -100,7 +101,7 @@ public final class XIncProcEngine
      *
      * @param baseURI URI to be parsed
      * @param output {@link OutputStream} will store result
-     * @throws XIncludeFatalException
+     * @throws XIncludeFatalException Fatal exception
      */
     public static void parse(final URI baseURI, final OutputStream output)
             throws XIncludeFatalException
@@ -110,14 +111,14 @@ public final class XIncProcEngine
         final InputSource inputSource = new InputSource(baseURI.toASCIIString());
         try
         {
-            final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+            final XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
             filter.setParent(xmlReader);
             final SAXSource saxSource = new SAXSource(filter, inputSource);
             final XdmNode node = processor.newDocumentBuilder().wrap(saxSource);
             final Serializer serializer = processor.newSerializer(output);
             processor.writeXdmValue(node, serializer);
         }
-        catch (final SAXException | SaxonApiException e)
+        catch (final SAXException | SaxonApiException | ParserConfigurationException e)
         {
             throw new XIncludeFatalException(e);
         }
@@ -154,7 +155,7 @@ public final class XIncProcEngine
         inputSource.setSystemId(systemId);
         try
         {
-            final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+            final XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
             xmlReader.setFeature("http://xml.org/sax/features/resolve-dtd-uris", false);
             filter.setParent(xmlReader);
             final Source saxSource = new SAXSource(filter, inputSource);
@@ -163,11 +164,7 @@ public final class XIncProcEngine
             LOG.trace("parse result:{}", node.toString());
             serializeNode(output, processor, filter, charset, node);
         }
-        catch (final SAXException e)
-        {
-            throw new XIncludeFatalException(e.getMessage());
-        }
-        catch (final SaxonApiException e)
+        catch (final SAXException | SaxonApiException | ParserConfigurationException e)
         {
             throw new XIncludeFatalException(e.getMessage());
         }
@@ -184,7 +181,7 @@ public final class XIncProcEngine
         final String docType = filter.getDoctype();
         if (!Strings.isNullOrEmpty(docType))
         {
-            output.write(docType.getBytes("UTF-8"));
+            output.write(docType.getBytes(StandardCharsets.UTF_8));
         }
         final Serializer serializer = processor.newSerializer(output);
         serializer.setOutputProperty(Serializer.Property.OMIT_XML_DECLARATION, "yes");

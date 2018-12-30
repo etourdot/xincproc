@@ -29,7 +29,7 @@ public class XIncProcEngineTest {
     @Test
     public void testResolveBase() throws Exception
     {
-        Stack<URI> stack = new Stack<URI>();
+        Stack<URI> stack = new Stack<>();
         stack.add(new URI("xinclude2.xml"));
         stack.add(new URI("xinclude3.xml"));
         URI resultUri = XIncProcUtils.resolveBase(new URI("xinclude1.xml"), stack);
@@ -47,7 +47,7 @@ public class XIncProcEngineTest {
         stack.add(new URI("docs/xinclude4.xml"));
         resultUri = XIncProcUtils.resolveBase(new URI("test/xinclude1.xml"), stack);
         assertEquals(new URI("test/docs/xinclude4.xml"), resultUri);
-        stack = new Stack<URI>();
+        stack = new Stack<>();
         stack.add(new URI("xinclude3.xml"));
         stack.add(new URI("xinclude/xinclude2.xml"));
         stack.add(new URI("para.xml"));

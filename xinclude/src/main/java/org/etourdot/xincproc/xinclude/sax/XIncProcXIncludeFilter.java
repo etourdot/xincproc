@@ -18,7 +18,7 @@
 package org.etourdot.xincproc.xinclude.sax;
 
 import com.google.common.base.Strings;
-import net.sf.saxon.om.DocumentInfo;
+import net.sf.saxon.om.TreeInfo;
 import net.sf.saxon.s9api.Destination;
 import net.sf.saxon.s9api.SAXDestination;
 import net.sf.saxon.s9api.SaxonApiException;
@@ -44,11 +44,14 @@ import org.xml.sax.helpers.XMLFilterImpl;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import javax.xml.namespace.QName;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.sax.SAXSource;
 import java.io.*;
 import java.net.URI;
-import java.util.Optional;
 import java.util.Stack;
+
+import static java.util.Optional.ofNullable;
 
 /**
  * The type X inc proc x include filter.
@@ -96,7 +99,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     {
         if (XIncProcXIncludeFilter.LEXICALID.equals(name))
         {
-            this.lexicalHandler = Optional.ofNullable((LexicalHandler) value);
+            this.lexicalHandler = (LexicalHandler) value;
         }
         else
         {
@@ -309,9 +312,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     {
         LOG.trace("startDTD:{},{},{}", name, publicId, systemId);
         this.inDTD = true;
-        if (this.lexicalHandler.isPresent())
+        if (ofNullable(this.lexicalHandler).isPresent())
         {
-            this.lexicalHandler.get().startDTD(name, publicId, systemId);
+            this.lexicalHandler.startDTD(name, publicId, systemId);
         }
         this.context.setDocType(name, publicId, systemId);
     }
@@ -321,9 +324,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     {
         LOG.trace("endDTD");
         this.inDTD = false;
-        if (this.lexicalHandler.isPresent())
+        if (ofNullable(this.lexicalHandler).isPresent())
         {
-            this.lexicalHandler.get().endDTD();
+            this.lexicalHandler.endDTD();
         }
     }
 
@@ -332,9 +335,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             throws SAXException
     {
         LOG.trace("startEntity:{}", name);
-        if (this.lexicalHandler.isPresent())
+        if (ofNullable(this.lexicalHandler).isPresent())
         {
-            this.lexicalHandler.get().startEntity(name);
+            this.lexicalHandler.startEntity(name);
         }
     }
 
@@ -343,9 +346,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             throws SAXException
     {
         LOG.trace("endEntity:{}", name);
-        if (this.lexicalHandler.isPresent())
+        if (ofNullable(this.lexicalHandler).isPresent())
         {
-            this.lexicalHandler.get().endEntity(name);
+            this.lexicalHandler.endEntity(name);
         }
     }
 
@@ -354,9 +357,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             throws SAXException
     {
         LOG.trace("startCDATA");
-        if (this.lexicalHandler.isPresent())
+        if (ofNullable(this.lexicalHandler).isPresent())
         {
-            this.lexicalHandler.get().startCDATA();
+            this.lexicalHandler.startCDATA();
         }
     }
 
@@ -365,9 +368,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             throws SAXException
     {
         LOG.trace("endCDATA");
-        if (this.lexicalHandler.isPresent())
+        if (ofNullable(this.lexicalHandler).isPresent())
         {
-            this.lexicalHandler.get().endCDATA();
+            this.lexicalHandler.endCDATA();
         }
     }
 
@@ -376,9 +379,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             throws SAXException
     {
         LOG.trace("comment: {}", new String(ch).substring(start, start + length));
-        if (this.lexicalHandler.isPresent() && !this.inDTD && !(isInXIncludeElement() && !isInjectingXInclude() && !isInFallbackElement()))
+        if (ofNullable(this.lexicalHandler).isPresent() && !this.inDTD && !(isInXIncludeElement() && !isInjectingXInclude() && !isInFallbackElement()))
         {
-            this.lexicalHandler.get().comment(ch, start, length);
+            this.lexicalHandler.comment(ch, start, length);
         }
     }
     /////////////////////////////
@@ -453,9 +456,9 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
         {
             settingLanguage();
             final SAXSource source = buildingXIncludeSource(xIncludeAttributes);
-            final DocumentInfo docInfo = this.context.getConfiguration().getProcessor().getUnderlyingConfiguration()
-                    .buildDocument(source);
-            final XdmNode node = new XdmNode(docInfo);
+            final TreeInfo docInfo = this.context.getConfiguration().getProcessor().getUnderlyingConfiguration()
+                    .buildDocumentTree(source);
+            final XdmNode node = new XdmNode(docInfo.getRootNode());
             startingInjectXInclude();
             injectingXInclude(xIncludeAttributes, source, node);
         }
@@ -509,13 +512,13 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
             final XMLReader xmlReader;
             try
             {
-                xmlReader = XMLReaderFactory.createXMLReader();
+                xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
                 xmlReader.setProperty(XIncProcXIncludeFilter.LEXICALID, filter);
                 xmlReader.setProperty(XIncProcXIncludeFilter.DECLID, filter);
                 xmlReader.setFeature("http://xml.org/sax/features/resolve-dtd-uris", false);
                 xmlReader.setFeature("http://xml.org/sax/features/external-general-entities", false);
             }
-            catch (final SAXException e)
+            catch (final SAXException | ParserConfigurationException e)
             {
                 throw new XIncludeFatalException(e.getMessage());
             }
@@ -554,10 +557,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
                 return uri.toURL().openStream();
             }
         }
-        catch (final FileNotFoundException e)
-        {
-            throw new XIncludeResourceException(e.getMessage());
-        } catch (final IOException e)
+        catch (final IOException e)
         {
             throw new XIncludeResourceException(e.getMessage());
         }
@@ -855,7 +855,7 @@ public class XIncProcXIncludeFilter extends XMLFilterImpl implements DeclHandler
     private final Stack<String> currentLangStack;
     private boolean inDTD;
     private boolean hasUnparserEntity;
-    private Optional<LexicalHandler> lexicalHandler = Optional.empty();
+    private LexicalHandler lexicalHandler;
     private boolean alreadyProceedFallback;
     private int elementLevel;
     private int fallbackLevel;

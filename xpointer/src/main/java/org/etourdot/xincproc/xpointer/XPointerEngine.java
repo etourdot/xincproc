@@ -341,7 +341,7 @@ public class XPointerEngine
                         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         teeDestination = new TeeDestination(processor.newSerializer(baos), new SAXDestination(new DebugHandler()));
                         xQueryEvaluator.run(teeDestination);
-                        sourceTransform = processor.getUnderlyingConfiguration().buildDocument(
+                        sourceTransform = processor.getUnderlyingConfiguration().buildDocumentTree(
                                 new StreamSource(new ByteArrayInputStream(baos.toByteArray())));
                     }
                 }
