@@ -19,7 +19,8 @@
                     ByteArrayOutputStream output = new ByteArrayOutputStream();
                     FileInputStream source = new FileInputStream(urlInput.getPath());
                     XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_BASE_URIS, true);
-                    XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, true);                    XIncProcEngine.parse(source, urlInput.toExternalForm(), output);
+                    XIncProcEngine.getUnderlyingConfiguration().setConfigurationProperty(XIncProcConfiguration.ALLOW_FIXUP_LANGUAGE, true);
+                    XIncProcEngine.parse(source, urlInput.toExternalForm(), output);
                 </pre>
                 <table>
                     <tr>
