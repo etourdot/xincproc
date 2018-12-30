@@ -3,17 +3,26 @@ language: java
 
 jobs:
   include:
+  - stage: test jdk11
+    jdk: openjdk11
+    script: mvn -B -Prun-itests clean verify
   - stage: test jdk8
     jdk: openjdk8
     script: mvn -B -Prun-itests clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
-  - stage: test jdk11
-    jdk: openjdk8
-    script: mvn -B -Prun-itests clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
-  - stage: ghpages
+  - stage: generate site
     jdk: openjdk8
     script:
     - mvn site
     - mvn site:stage
+  - stage: deploy ghpages
+    deploy:
+      provider: pages
+      local-dir: "./target/staging/"
+      skip-cleanup: true
+      github-token: "$GITHUB_TOKEN"
+      keep-history: true
+      on:
+        branch: develop
 
 addons:
   sonarcloud:
@@ -22,12 +31,3 @@ addons:
       secure: "$SONAR_TOKEN"
     branches:
       - develop
-
-deploy:
-  provider: pages
-  local-dir: "./target/staging/"
-  skip-cleanup: true
-  github-token: "$GITHUB_TOKEN"
-  keep-history: true
-  on:
-    branch: develop
