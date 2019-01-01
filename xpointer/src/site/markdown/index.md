@@ -14,8 +14,8 @@ Here are samples of Api usage of the XIncProc XPointer module: [Samples](specs/o
 ### Supported Schemes in details
 * [Element Scheme](specs/org/etourdot/xincproc/xpointer/element/Element.html)
 * [Xmlns Scheme](specs/org/etourdot/xincproc/xpointer/xmlns/Xmlns.html)
-* [XPath Scheme](specs/org/etourdot/xincproc/xpointer/xpath/XPath.html)
-* [XPointer Scheme](specs/org/etourdot/xincproc/xpointer/xpointer/XPointer.html)
+* [XPath Scheme](specs/org/etourdot/xincproc/xpointer/xpath/Xpath.html)
+* [XPointer Scheme](specs/org/etourdot/xincproc/xpointer/xpointer/Xpointer.html)
 
 ### Further details
 How are treated unknown scheme: [UnknownScheme](specs/org/etourdot/xincproc/xpointer/UnknownScheme.html)
