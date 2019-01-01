@@ -9,12 +9,11 @@ jobs:
   - stage: test jdk8
     jdk: openjdk8
     script: mvn -B -Prun-itests clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
-  - stage: generate site
+  - stage: generate and deploy site
     jdk: openjdk8
     script:
     - mvn site
     - mvn site:stage
-  - stage: deploy ghpages
     deploy:
       provider: pages
       local-dir: "./target/staging/"
