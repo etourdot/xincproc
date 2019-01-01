@@ -6,12 +6,10 @@ jobs:
   - stage: test jdk11
     jdk: openjdk11
     script: mvn -B -Prun-itests clean verify
-  - stage: test jdk8
-    jdk: openjdk8
-    script: mvn -B -Prun-itests clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
   - stage: generate and deploy site
     jdk: openjdk8
     script:
+    - mvn -B -Prun-itests clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar
     - mvn site
     - mvn site:stage
     deploy:
