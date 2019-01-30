@@ -1,0 +1,409 @@
+/*!
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+/*!
+ * General-use styles, meant to be applied to all the pages on the site.
+ */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+/**
+* Colors changed to improve contrast against the background.
+*/
+
+a {
+    color: #1552bc;
+}
+
+table a {
+    color: #0050aa;
+}
+
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small,
+.h1 small,
+.h2 small,
+.h3 small,
+.h4 small,
+.h5 small,
+.h6 small,
+h1 .small,
+h2 .small,
+h3 .small,
+h4 .small,
+h5 .small,
+h6 .small,
+.h1 .small,
+.h2 .small,
+.h3 .small,
+.h4 .small,
+.h5 .small,
+.h6 .small {
+    color: #595959;
+}
+
+/**
+* Internal links.
+*
+* These are links pointing to the same page, and are shown this way: "[link]".
+*/
+.internal-link:before {
+    content: "[";
+}
+
+.internal-link:after {
+    content: "]";
+}/*!
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+/*!
+ * Footer styles.
+ */
+
+/* Separates the content from the footer. */
+body {
+    margin-bottom: 11em;
+}
+
+/**
+* General footer configuration.
+*/
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 11em;
+    padding-top: 1em;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ccc;
+}
+
+/* To allow resizing and keeping the background color */
+.footer div {
+    background-color: #f5f5f5;
+}
+
+/**
+* Colors changed to improve contrast against the background.
+*/
+
+.footer {
+    color: #535353;
+}
+
+.footer a {
+    color: #0050aa;
+}
+
+.footer a:hover,
+.footer a:focus {
+    color: #2780e3;
+}
+
+/**
+* Adapting styles to various screen sizes.
+*/
+
+/**
+* Navigation links resizing.
+*/
+
+/* Small Devices, Tablets */
+@media only screen and (min-width: 768px) {
+    .footer dl {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}/*!
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+/*!
+ * Image related styles.
+ */
+
+/**
+* Image configuration
+*/
+
+img {
+    margin-bottom: 1em;
+    -webkit-box-shadow: 0 0 5px #cccccc;
+    -moz-box-shadow: 0 0 5px #cccccc;
+    box-shadow: 0 0 5px #cccccc;
+}
+
+/**
+* General figure configuration.
+*/
+
+figure {
+    display: table;
+    width: 1px;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    text-align: center;
+    background-color: white;
+    -webkit-box-shadow: 0 0 5px #cccccc;
+    -moz-box-shadow: 0 0 5px #cccccc;
+    box-shadow: 0 0 5px #cccccc;
+}
+
+figure img {
+    display: table-row;
+    margin-bottom: 0.5em;
+    border: 1px solid;
+    -webkit-box-shadow: 0 0 0 0;
+    -moz-box-shadow: 0 0 0 0;
+    box-shadow: 0 0 0 0;
+}
+
+figure figcaption {
+    display: table-row;
+    font-style: italic;
+}/*!
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+/*!
+ * Link styles.
+ */
+
+/**
+* Link with a note.
+*
+* It will be shown like: "Link (note)".
+*
+* The note should be marked with <span class="note">note</span> right next to the link name.
+*
+* So a noted link would be: <a href="#" class="link-noted">Link <span class="note">note</span></a>.
+*/
+
+.link-noted .note {
+    font-size: 65%;
+}
+
+.link-noted .note:before {
+    content: "(";
+}
+
+.link-noted .note:after {
+    content: ")";
+}/*!
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+/*!
+ * List styles.
+ */
+
+dt:after {
+    content: ":";
+}
+
+/**
+* Navigation definition list.
+*
+* These are used on the footer, grouping several links on a common theme.
+*/
+
+.dl-nav {
+    width: 12em;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+.dl-nav dt {
+    font-size: 19px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.dl-nav dt:after {
+    content: "";
+}
+
+/**
+* Icons inline list.
+*/
+
+.icons-list {
+    font-size: 0;
+    list-style: none;
+}
+
+.icons-list > li {
+    font-size: 19px;
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 992px) {
+    .icons-list > li {
+        display: inline-block;
+    }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .icons-list > li {
+        display: inline-block;
+    }
+}
+/*!
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+/*!
+ * Navigation bar icons lists styles.
+ */
+
+/* For vertically centering the list */
+.navbar-main .icons-list a {
+    display: block;
+}
+
+/**
+* Resizing for various screen sizes.
+*/
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 992px) {
+    .navbar-main .icons-list > li > a {
+        margin: 1em 0.3em 1em 0.3em;
+    }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .navbar-main .icons-list > li > a {
+        margin: 1em 0.3em 1em 0.3em;
+    }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width: 768px) {
+    .navbar-main .icons-list > li > a {
+        padding: 0.6em 1em 0.6em 1em;
+        margin: 0 0.1em 0 0.2em;
+    }
+}/*!
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+/*!
+ * Navigation bar styles.
+ */
+
+/**
+* Fixes.
+*/
+
+/* Fix for the navigation bar covering the content when using internal links. */
+h1[id]:before,
+h2[id]:before,
+h3[id]:before,
+h4[id]:before,
+h5[id]:before,
+h6[id]:before,
+a[name]:before,
+section[id]:before,
+article[id]:before,
+article[id]:before {
+    display: block;
+    height: 3em;
+    margin-top: -3em;
+    content: "";
+    visibility: hidden;
+}
+
+/* Separates the content from the navigation bar. */
+body {
+    padding-top: 3em;
+}
+
+/**
+* Colors changed to improve contrast against the background.
+*/
+
+header nav a,
+.navbar-brand,
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav>li>a{
+    color: #1552bc;
+}
+
+/**
+* General navigation bar configuration.
+*/
+
+/* To remove the unneeded navbar margin */
+.navbar-fixed-top {
+    margin-bottom: 0;
+}/*!
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+/*!
+ * Quote styles.
+ */
+
+/**
+* Preserve block.
+*/
+
+pre {
+    padding: 0;
+    overflow-x: auto;
+    -webkit-box-shadow: 0 0 5px #cccccc;
+    -moz-box-shadow: 0 0 5px #cccccc;
+    box-shadow: 0 0 5px #cccccc;
+}
+
+/**
+* Preserved code block.
+*/
+
+pre code {
+    padding: 0;
+    margin: 0;
+    white-space: pre;
+    overflow-wrap: normal;
+}/*!
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+/*!
+ * Table styles.
+ */
+
+table {
+    -webkit-box-shadow: 0 0 5px #cccccc;
+    -moz-box-shadow: 0 0 5px #cccccc;
+    box-shadow: 0 0 5px #cccccc;
+}
+
+table > thead > tr > th,
+table > tbody > tr > th,
+table > tfoot > tr > th {
+    background-color: #cccccc;
+}
+
+.table-striped > tbody > tr:nth-of-type(even) {
+    background-color: #ffffff;
+}
+
+/* Centers the column with the icon */
+.table-with-icon > tbody td:first-child {
+    text-align: center;
+}
+
+/**
+* If the table is not stripped all the rows have the same background
+*
+* This is to avoid the tables from having transparent backgrounds.
+*/
+table:not(.table-striped) > thead > tr > td,
+table:not(.table-striped) > tbody > tr > td,
+table:not(.table-striped) > tfoot > tr > td {
+    background-color: #ffffff;
+}

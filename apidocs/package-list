@@ -1,4 +1,6 @@
 org.etourdot.xincproc
+org.etourdot.xincproc.fragid
+org.etourdot.xincproc.fragid.grammar
 org.etourdot.xincproc.xinclude
 org.etourdot.xincproc.xinclude.exceptions
 org.etourdot.xincproc.xinclude.sax

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>XIncproc - FragId processor - Checkstyle report</title>
+    <link>http://etourdot.github.io/xincproc/fragid</link>
+    <description>XIncproc - FragId processor - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2011 - 2019</copyright>
+    <item>
+      <title>File: 9,
+             Errors: 0,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>http://etourdot.github.io/xincproc/fragid/checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://etourdot.github.io/xincproc/fragid/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/fragid/checkstyle.html#org.etourdot.xincproc.fragid.package-info.java">org/etourdot/xincproc/fragid/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/fragid/checkstyle.html#org.etourdot.xincproc.fragid.FragIdLineProcessor.java">org/etourdot/xincproc/fragid/FragIdLineProcessor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/fragid/checkstyle.html#org.etourdot.xincproc.fragid.FragId.java">org/etourdot/xincproc/fragid/FragId.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/fragid/checkstyle.html#org.etourdot.xincproc.fragid.IntegrityCheck.java">org/etourdot/xincproc/fragid/IntegrityCheck.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/fragid/checkstyle.html#org.etourdot.xincproc.fragid.FragIdEngine.java">org/etourdot/xincproc/fragid/FragIdEngine.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/fragid/checkstyle.html#org.etourdot.xincproc.fragid.FragIdEngineListener.java">org/etourdot/xincproc/fragid/FragIdEngineListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/fragid/checkstyle.html#org.etourdot.xincproc.fragid.INTEGRITY_TYPE.java">org/etourdot/xincproc/fragid/INTEGRITY_TYPE.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/fragid/checkstyle.html#org.etourdot.xincproc.fragid.FragIdErrorListener.java">org/etourdot/xincproc/fragid/FragIdErrorListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://etourdot.github.io/xincproc/fragid/checkstyle.html#org.etourdot.xincproc.fragid.FRAG_TYPE.java">org/etourdot/xincproc/fragid/FRAG_TYPE.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

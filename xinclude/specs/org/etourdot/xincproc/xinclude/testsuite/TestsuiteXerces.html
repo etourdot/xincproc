@@ -243,7 +243,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">38 ms</span></td>
+            <td><span ext:embed="#result.time">47 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -256,7 +256,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">8 ms</span></td>
+            <td><span ext:embed="#result.time">11 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -270,7 +270,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Imaq/test/XInclude/docs/nodes.xml; lineNumber: 3; columnNumber: 77; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">41 ms</span></td>
+            <td><span ext:embed="#result.time">59 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -283,7 +283,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">9 ms</span></td>
+            <td><span ext:embed="#result.time">5 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -309,7 +309,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">17 ms</span></td>
+            <td><span ext:embed="#result.time">6 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -322,7 +322,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">7 ms</span></td>
+            <td><span ext:embed="#result.time">9 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -335,7 +335,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Imaq/test/XInclude/docs/pex1a.xml; lineNumber: 6; columnNumber: 25; A 'fallback' element was found that did not have 'include' as the parent.</span></td>
-            <td><span ext:embed="#result.time">23 ms</span></td>
+            <td><span ext:embed="#result.time">20 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -348,7 +348,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">16 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -362,7 +362,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">Expected text value '﻿&lt;t&gt;0123456789&lt;/t&gt;' but was '&lt;t&gt;0123456789&lt;/t&gt;' - comparing &lt;x ...&gt;﻿&lt;t&gt;0123456789&lt;/t&gt;&lt;/x&gt; at /x[1]/text()[1] to &lt;x ...&gt;&lt;t&gt;0123456789&lt;/t&gt;&lt;/x&gt; at /x[1]/text()[1] (DIFFERENT)</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">1 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -376,7 +376,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Imaq/test/XInclude/docs/pex11.xml; lineNumber: 4; columnNumber: 37; Characters outside the range #x20 through #x7E are not allowed in the value of the 'accept' attribute of an 'include' element.</span></td>
-            <td><span ext:embed="#result.time">8 ms</span></td>
+            <td><span ext:embed="#result.time">12 ms</span></td>
          </tr>
          <tr>
             <td colspan="5">
@@ -394,7 +394,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -407,7 +407,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -434,7 +434,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/FourThought/test/XInclude/docs/ft-include4.xml; lineNumber: 2; columnNumber: 71; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">17 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -476,7 +476,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/FourThought/test/XInclude/docs/ft-include7.xml; lineNumber: 2; columnNumber: 76; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">7 ms</span></td>
+            <td><span ext:embed="#result.time">6 ms</span></td>
          </tr>
          <tr>
             <td colspan="5">
@@ -507,7 +507,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -521,7 +521,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-03.xml; lineNumber: 3; columnNumber: 66; Invalid value for 'parse' attribute on 'include' element: 'xtext'.</span></td>
-            <td><span ext:embed="#result.time">2 ms</span></td>
+            <td><span ext:embed="#result.time">1 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -534,7 +534,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -561,7 +561,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">8 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -575,7 +575,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">11 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -589,7 +589,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-08.xml; lineNumber: 5; columnNumber: 60; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">8 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -602,7 +602,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">7 ms</span></td>
+            <td><span ext:embed="#result.time">11 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -644,7 +644,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-12.xml; lineNumber: 11; columnNumber: 21; The [children] of an 'include' element cannot contain more than one 'fallback' element.</span></td>
-            <td><span ext:embed="#result.time">18 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -657,7 +657,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">20 ms</span></td>
+            <td><span ext:embed="#result.time">12 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -670,7 +670,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">12 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -683,7 +683,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-15.xml; lineNumber: 2; columnNumber: 56; Error attempting to parse XML file (href='nist-include-15.xml').</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">11 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -698,7 +698,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -712,7 +712,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-17.xml; lineNumber: 4; columnNumber: 54; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">9 ms</span></td>
+            <td><span ext:embed="#result.time">12 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -726,7 +726,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-18.xml; lineNumber: 3; columnNumber: 79; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">14 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -740,7 +740,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-19.xml; lineNumber: 3; columnNumber: 87; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">10 ms</span></td>
+            <td><span ext:embed="#result.time">22 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -758,7 +758,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-20.xml; lineNumber: 7; columnNumber: 75; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">12 ms</span></td>
+            <td><span ext:embed="#result.time">8 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -786,7 +786,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">8 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -800,7 +800,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-23.xml; lineNumber: 3; columnNumber: 126; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">28 ms</span></td>
+            <td><span ext:embed="#result.time">30 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -814,7 +814,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-24.xml; lineNumber: 3; columnNumber: 146; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -841,7 +841,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">6 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -855,7 +855,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">1 ms</span></td>
+            <td><span ext:embed="#result.time">9 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -907,7 +907,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">6 ms</span></td>
+            <td><span ext:embed="#result.time">8 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -933,7 +933,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-33.xml; lineNumber: 6; columnNumber: 63; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -946,7 +946,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">9 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -972,7 +972,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">2 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1016,7 +1016,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">2 ms</span></td>
+            <td><span ext:embed="#result.time">1 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1030,7 +1030,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">2 ms</span></td>
+            <td><span ext:embed="#result.time">1 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1044,7 +1044,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-41.xml; lineNumber: 7; columnNumber: 45; Elements from namespace 'http://www.w3.org/2001/XInclude', other than 'fallback', are not allowed to be children of 'include' elements.  However, 'include' was found.</span></td>
-            <td><span ext:embed="#result.time">2 ms</span></td>
+            <td><span ext:embed="#result.time">13 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1059,7 +1059,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-42.xml; lineNumber: 6; columnNumber: 45; Elements from namespace 'http://www.w3.org/2001/XInclude', other than 'fallback', are not allowed to be children of 'include' elements.  However, 'include' was found.</span></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">17 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1073,7 +1073,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-43.xml; lineNumber: 7; columnNumber: 16; The [children] of an 'include' element cannot contain more than one 'fallback' element.</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">12 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1087,7 +1087,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-44.xml; lineNumber: 6; columnNumber: 65; Error attempting to parse XML file (href='../ents/nwf1.xml').</span></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">12 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1116,7 +1116,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-46.xml; lineNumber: 7; columnNumber: 44; Elements from namespace 'http://www.w3.org/2001/XInclude', other than 'fallback', are not allowed to be children of 'include' elements.  However, 'include' was found.</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">9 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1131,7 +1131,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-47.xml; lineNumber: 6; columnNumber: 45; Elements from namespace 'http://www.w3.org/2001/XInclude', other than 'fallback', are not allowed to be children of 'include' elements.  However, 'include' was found.</span></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">9 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1145,7 +1145,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-48.xml; lineNumber: 8; columnNumber: 88; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">6 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1177,7 +1177,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">1 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1194,7 +1194,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-51.xml; lineNumber: 5; columnNumber: 84; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">6 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1225,7 +1225,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-53.xml; lineNumber: 4; columnNumber: 74; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">7 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1239,7 +1239,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-54.xml; lineNumber: 4; columnNumber: 87; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">5 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1254,7 +1254,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-55.xml; lineNumber: 17; columnNumber: 64; Error attempting to parse XML file (href='../ents/unparent.xml').</span></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">8 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1268,7 +1268,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Nist/test/docs/nist-include-56.xml; lineNumber: 18; columnNumber: 64; Error attempting to parse XML file (href='../ents/unparent.xml').</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">5 ms</span></td>
          </tr>
          <tr>
             <td colspan="5">
@@ -1286,7 +1286,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">7 ms</span></td>
+            <td><span ext:embed="#result.time">8 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1300,7 +1300,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">7 ms</span></td>
+            <td><span ext:embed="#result.time">6 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1313,7 +1313,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">19 ms</span></td>
+            <td><span ext:embed="#result.time">18 ms</span></td>
          </tr>
          <tr>
             <td colspan="5">
@@ -1345,7 +1345,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1358,7 +1358,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">1 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1372,7 +1372,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">2 ms</span></td>
+            <td><span ext:embed="#result.time">1 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1387,7 +1387,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/marshtest.xml; lineNumber: 5; columnNumber: 29; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">6 ms</span></td>
+            <td><span ext:embed="#result.time">1 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1401,7 +1401,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/includedocumentwithintradocumentreferences.xml; lineNumber: 3; columnNumber: 37; Error attempting to parse XML file (href='marshtest.xml').</span></td>
-            <td><span ext:embed="#result.time">10 ms</span></td>
+            <td><span ext:embed="#result.time">13 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1460,7 +1460,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/marshtestwithxmlbase.xml; lineNumber: 5; columnNumber: 29; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">2 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1488,7 +1488,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/includefromsamedocumentwithbase.xml; lineNumber: 4; columnNumber: 84; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">1 ms</span></td>
+            <td><span ext:embed="#result.time">5 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1502,7 +1502,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/badiri.xml; lineNumber: 2; columnNumber: 52; 'href' attribute value 'http://www.example.com/a%5.html' is syntactically invalid. After applying escaping rules the value is neither a syntactically correct URI or IRI.</span></td>
-            <td><span ext:embed="#result.time">2 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1515,7 +1515,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/badiri2.xml; lineNumber: 2; columnNumber: 54; 'href' attribute value 'scheme://www.example.com/a%5.html' is syntactically invalid. After applying escaping rules the value is neither a syntactically correct URI or IRI.</span></td>
-            <td><span ext:embed="#result.time">1 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1554,7 +1554,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/badaccept2.xml; lineNumber: 3; columnNumber: 84; Characters outside the range #x20 through #x7E are not allowed in the value of the 'accept' attribute of an 'include' element.</span></td>
-            <td><span ext:embed="#result.time">2 ms</span></td>
+            <td><span ext:embed="#result.time">8 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1620,7 +1620,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">7 ms</span></td>
+            <td><span ext:embed="#result.time">10 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1634,7 +1634,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/metafallbacktest3.xml; lineNumber: 2; columnNumber: 120; Error attempting to parse XML file (href='fallbackbadparseattribute.xml').</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">7 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1648,7 +1648,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/metafallbacktest4.xml; lineNumber: 2; columnNumber: 116; Error attempting to parse XML file (href='fallbacknohreforparse.xml').</span></td>
-            <td><span ext:embed="#result.time">11 ms</span></td>
+            <td><span ext:embed="#result.time">8 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1662,7 +1662,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/metafallbacktestwithfragmentid.xml; lineNumber: 2; columnNumber: 96; Fragment identifiers must not be used. The 'href' attribute value 'fallbacktest.xml#element(/1/1)' is not permitted.</span></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">1 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1676,7 +1676,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/metafallbacktest5.xml; lineNumber: 2; columnNumber: 137; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">10 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1689,7 +1689,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">6 ms</span></td>
+            <td><span ext:embed="#result.time">5 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1717,7 +1717,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1731,7 +1731,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/metamissingfallbacktestwithxpointer.xml; lineNumber: 2; columnNumber: 109; Error attempting to parse XML file (href='nofallbacktest.xml').</span></td>
-            <td><span ext:embed="#result.time">6 ms</span></td>
+            <td><span ext:embed="#result.time">7 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1746,7 +1746,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/metafallbackwithbadxpointertest.xml; lineNumber: 2; columnNumber: 114; Error attempting to parse XML file (href='fallbackbadxpointer.xml').</span></td>
-            <td><span ext:embed="#result.time">10 ms</span></td>
+            <td><span ext:embed="#result.time">7 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1759,7 +1759,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1773,7 +1773,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/legalcircle.xml; lineNumber: 4; columnNumber: 38; Error attempting to parse XML file (href='circleback.xml').</span></td>
-            <td><span ext:embed="#result.time">10 ms</span></td>
+            <td><span ext:embed="#result.time">11 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1800,7 +1800,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1826,7 +1826,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/internalcircular.xml; lineNumber: 5; columnNumber: 84; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">2 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1840,7 +1840,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/internalcircularviaancestor.xml; lineNumber: 5; columnNumber: 82; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1880,7 +1880,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1921,7 +1921,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/nestedxincludenamespace.xml; lineNumber: 8; columnNumber: 34; Elements from namespace 'http://www.w3.org/2001/XInclude', other than 'fallback', are not allowed to be children of 'include' elements.  However, 'xi:nonesuch' was found.</span></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">6 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1947,7 +1947,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/fallbackcontainsfallback.xml; lineNumber: 6; columnNumber: 20; A 'fallback' element was found that did not have 'include' as the parent.</span></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1962,7 +1962,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/multiplefallbacks.xml; lineNumber: 6; columnNumber: 18; The [children] of an 'include' element cannot contain more than one 'fallback' element.</span></td>
-            <td><span ext:embed="#result.time">6 ms</span></td>
+            <td><span ext:embed="#result.time">5 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1977,7 +1977,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/multiplefallbacks2.xml; lineNumber: 8; columnNumber: 18; The [children] of an 'include' element cannot contain more than one 'fallback' element.</span></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -1990,7 +1990,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/circle1.xml; lineNumber: 3; columnNumber: 90; Error attempting to parse XML file (href='circle1.xml').</span></td>
-            <td><span ext:embed="#result.time">10 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2003,7 +2003,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/circle2a.xml; lineNumber: 5; columnNumber: 91; Error attempting to parse XML file (href='circle2b.xml').</span></td>
-            <td><span ext:embed="#result.time">27 ms</span></td>
+            <td><span ext:embed="#result.time">17 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2016,7 +2016,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/missinghref.xml; lineNumber: 5; columnNumber: 71; xpointer attribute must be present when href attribute is absent.</span></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2068,7 +2068,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2107,7 +2107,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/xptridtest2.xml; lineNumber: 6; columnNumber: 101; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2148,7 +2148,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/laterfailure.xml; lineNumber: 6; columnNumber: 118; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">1 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2162,7 +2162,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/laterfailure2.xml; lineNumber: 8; columnNumber: 118; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2176,7 +2176,7 @@ ins {
             <td concordion:assertEquals="#result.result" class="failure"><del class="expected">success</del>
 <ins class="actual">error</ins></td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/onlyxpointer.xml; lineNumber: 4; columnNumber: 85; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2222,7 +2222,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">1 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2251,7 +2251,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">1 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2265,7 +2265,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/xptrtumblertest2.xml; lineNumber: 6; columnNumber: 106; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">5 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2291,7 +2291,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/badxptr2.xml; lineNumber: 6; columnNumber: 136; Fragment identifiers must not be used. The 'href' attribute value 'docwithid.xml#element(rose%20red/1/1)' is not permitted.</span></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2408,7 +2408,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/badxptr3.xml; lineNumber: 5; columnNumber: 109; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">1 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2434,7 +2434,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/circlepointer1.xml; lineNumber: 3; columnNumber: 85; Error attempting to parse XML file (href='circlepointer2.xml').</span></td>
-            <td><span ext:embed="#result.time">19 ms</span></td>
+            <td><span ext:embed="#result.time">14 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2447,7 +2447,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/xpointeroverridesfragmentid.xml; lineNumber: 4; columnNumber: 72; Fragment identifiers must not be used. The 'href' attribute value 'test3.xml#element(/1/1)' is not permitted.</span></td>
-            <td><span ext:embed="#result.time">6 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2460,7 +2460,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/ignoresfragmentid.xml; lineNumber: 4; columnNumber: 47; Fragment identifiers must not be used. The 'href' attribute value 'test3.xml#element(/1/1)' is not permitted.</span></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">19 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2487,7 +2487,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/meaninglessfragmentid.xml; lineNumber: 4; columnNumber: 52; Fragment identifiers must not be used. The 'href' attribute value 'test3.xml#nonesuch(/1/name*)' is not permitted.</span></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2503,7 +2503,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">40 ms</span></td>
+            <td><span ext:embed="#result.time">39 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2519,7 +2519,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">38 ms</span></td>
+            <td><span ext:embed="#result.time">43 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2535,7 +2535,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">37 ms</span></td>
+            <td><span ext:embed="#result.time">40 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2551,7 +2551,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">38 ms</span></td>
+            <td><span ext:embed="#result.time">44 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2564,7 +2564,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/unrecognizedscheme.xml; lineNumber: 4; columnNumber: 67; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">5 ms</span></td>
+            <td><span ext:embed="#result.time">4 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2577,7 +2577,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">8 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2590,7 +2590,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">3 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2603,7 +2603,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/toplevel.xml; lineNumber: 3; columnNumber: 35; Error attempting to parse XML file (href='onedown.xml').</span></td>
-            <td><span ext:embed="#result.time">2 ms</span></td>
+            <td><span ext:embed="#result.time">6 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2616,7 +2616,7 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">success</td>
             <td><span ext:embed="#result.exception" /></td>
-            <td><span ext:embed="#result.time">4 ms</span></td>
+            <td><span ext:embed="#result.time">2 ms</span></td>
          </tr>
          <tr concordion:execute="#result = executeWithSaxon(#type,#inHRef,#outHRef)">
             <td>
@@ -2643,8 +2643,8 @@ ins {
             </td>
             <td concordion:assertEquals="#result.result" class="success">error</td>
             <td><span ext:embed="#result.exception">org.xml.sax.SAXParseException; systemId: file:/home/travis/build/etourdot/xincproc/xinclude/target/integrationtest-classes/XIncl20060927/Harold/test/xpointerwithpercentescape.xml; lineNumber: 3; columnNumber: 100; An 'include' failed, and no 'fallback' element was found.</span></td>
-            <td><span ext:embed="#result.time">1 ms</span></td>
+            <td><span ext:embed="#result.time">3 ms</span></td>
          </tr>
       </table>
-   <div class="footer">Results generated by <a href="http://www.concordion.org" style="font-weight: bold; text-decoration: none; color: #89C;">Concordion</a><div class="testTime">in 2510 ms on 01-Jan-2019 at 22:22:52 UTC</div></div></body>
+   <div class="footer">Results generated by <a href="http://www.concordion.org" style="font-weight: bold; text-decoration: none; color: #89C;">Concordion</a><div class="testTime">in 2658 ms on 30-Jan-2019 at 21:20:32 UTC</div></div></body>
 </html>
