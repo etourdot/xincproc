@@ -1,15 +1,16 @@
 # XIncProc Framework
-The XIncProc Frameword provides an almost complete implementation of W3C [XML Inclusions (XInclude) Version 1.0 (Second Edition)][xinclude].
+The XIncProc Frameword provides an almost complete implementation of W3C [XML Inclusions (XInclude) Version 1.1][xinclude].
 
 Althougt XInclude is supported into Jaxp implementation since Java 1.5, this support is very incomplete.
 
-XIncProc brings a most powerfull support including [xpointer][xpointer], [element][element], [xpath][xpath] and [xmlns][xmlns] schemes.
+XIncProc brings a most powerfull support including [xpointer][xpointer], [element][element], [xpath][xpath], [xmlns][xmlns] and [fragid][fragid] schemes.
 
-[xinclude]: http://www.w3.org/TR/xinclude/
+[xinclude]: https://www.w3.org/TR/xinclude-11/
 [xpointer]: http://www.w3.org/TR/xptr-framework/
 [element]: http://www.w3.org/TR/xptr-element/
 [xpath]: http://www.w3.org/2005/04/xpointer-schemes/xpath
 [xmlns]: http://www.w3.org/TR/xptr-xmlns/
+[fragid]: https://www.w3.org/TR/xinclude-11/#xpointer-and-fragid
 
 ## How to use
 ### API Usage
@@ -37,7 +38,7 @@ Just add this in your *pom.xml*:
     <dependency>
        <groupId>org.etourdot</groupId>
        <artifactId>xinclude</artifactId>
-       <version>1.0.0</version>
+       <version>1.1.0</version>
     </dependency>
 
 ## Specifications and conformance

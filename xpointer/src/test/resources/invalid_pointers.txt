@@ -1,5 +1,4 @@
 element(^^^)
-xpointer(id("chap1")/range-to(id("chap2")))
 unknown(somedata)
 element(///)
 element(***)

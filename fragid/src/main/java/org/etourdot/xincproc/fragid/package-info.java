@@ -1,3 +1,4 @@
+
 /*
  * This file is part of the XIncProc framework.
  * Copyright (C) 2011 - 2013 Emmanuel Tourdot
@@ -15,30 +16,9 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.etourdot.xincproc.xpointer.grammar;
-
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.Lexer;
-import org.antlr.runtime.RecognizerSharedState;
-
 /**
- * Abstract parent class for grammar lexer
- * This internal is useful to intercept actions in main lexer class
- * generated via Antlr
+ *
+ * This package contains XPointer engine class
+ *
  */
-abstract class AbstractXPointerLexer extends Lexer
-{
-    AbstractXPointerLexer()
-    {
-    }
-
-    AbstractXPointerLexer(final CharStream input)
-    {
-        this(input, new RecognizerSharedState());
-    }
-
-    AbstractXPointerLexer(final CharStream input, final RecognizerSharedState state)
-    {
-        super(input, state);
-    }
-}
+package org.etourdot.xincproc.fragid;

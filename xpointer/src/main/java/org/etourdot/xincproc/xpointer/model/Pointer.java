@@ -18,6 +18,7 @@
 package org.etourdot.xincproc.xpointer.model;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 
 import static java.util.Optional.ofNullable;
 
@@ -41,7 +42,7 @@ public class Pointer
     {
         this.shortHand = null;
         final ImmutableList.Builder<PointerPart> builder = new ImmutableList.Builder<>();
-        if (null != schemeBased)
+        if (null != schemeBased && !Iterables.isEmpty(schemeBased))
         {
             builder.addAll(schemeBased);
         }

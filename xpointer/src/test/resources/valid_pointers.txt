@@ -1,3 +1,4 @@
+chap1
 xpath(//.[@id='auth1'])
 xmlns(pfx=http://example.org/ns)xpath(/doc/pfx:p)
 test:xpath(somedata)element(/1/1)
@@ -7,7 +8,6 @@ xpath(/doc/p[position()&lt;3])
 xpath(/doc/p[position()>3])
 xpath(/doc/p[1]/node())
 element(intro)
-chap1
 xpointer(/ADDRBOOK/ENTRY)
 xpointer(//book/chapter[1])
 xpointer(//comment())

@@ -22,11 +22,8 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
-import org.etourdot.xincproc.xpointer.exceptions.ElementSchemeException;
 
 import javax.xml.namespace.QName;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class ElementScheme extends AbstractDefaultScheme
 {
@@ -46,13 +43,8 @@ public class ElementScheme extends AbstractDefaultScheme
     private final String childSequence;
 
     public ElementScheme(final String name, final String childSequence)
-            throws ElementSchemeException
     {
         super(ElementScheme.ELEMENT_NAME);
-        if (Strings.isNullOrEmpty(name) && Strings.isNullOrEmpty(childSequence))
-        {
-            throw new ElementSchemeException();
-        }
         this.name = name;
         this.childSequence = childSequence;
         this.expression = initExpression(name, childSequence);

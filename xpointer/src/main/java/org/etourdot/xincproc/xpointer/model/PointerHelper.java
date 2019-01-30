@@ -18,7 +18,6 @@
 package org.etourdot.xincproc.xpointer.model;
 
 import com.google.common.base.Strings;
-import org.etourdot.xincproc.xpointer.exceptions.ElementSchemeException;
 
 import javax.xml.namespace.QName;
 
@@ -30,16 +29,7 @@ public final class PointerHelper
 
     public static ElementScheme createElementScheme(final String name, final String data)
     {
-        ElementScheme newElementScheme = null;
-        try
-        {
-            newElementScheme = new ElementScheme(name, data);
-        }
-        catch (final ElementSchemeException ignored)
-        {
-            // Do Nothing
-        }
-        return newElementScheme;
+        return new ElementScheme(name, data);
     }
 
     public static ShortHand createShortHand(final String name)

@@ -9,10 +9,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>XIncproc - XPointer processor</name>
-    <description>XPointer processor is the XPointer implementation for XIncProc Framework.</description>
+    <name>XIncproc - FragId processor</name>
+    <description>FragId processor is the FragId implementation for XIncProc Framework.</description>
 
-    <artifactId>xpointer</artifactId>
+    <artifactId>fragid</artifactId>
     <packaging>jar</packaging>
     <url>${site.url}/${project.artifactId}</url>
     <properties>
@@ -38,7 +38,7 @@
     <distributionManagement>
         <site>
             <id>${site.deploy.id}</id>
-            <url>${site.deploy.url}/xpointer</url>
+            <url>${site.deploy.url}/fragid</url>
         </site>
     </distributionManagement>
 </project>

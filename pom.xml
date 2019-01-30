@@ -17,6 +17,7 @@
         <module>xinclude</module>
         <module>xpointer</module>
         <module>xincproc-exe</module>
+        <module>fragid</module>
     </modules>
 
     <name>xincproc</name>
@@ -97,7 +98,7 @@
         <junit.version>4.12</junit.version>
         <saxon-he.version>9.9.0-2</saxon-he.version>
         <guava.version>27.0.1-jre</guava.version>
-        <antlr-runtime.version>3.5.2</antlr-runtime.version>
+        <antlr-runtime.version>4.7.2</antlr-runtime.version>
         <stringtemplate.version>4.0.2</stringtemplate.version>
         <commons-cli.version>1.4</commons-cli.version>
         <concordion.version>2.2.0</concordion.version>
@@ -154,13 +155,20 @@
             </dependency>
             <dependency>
                 <groupId>org.antlr</groupId>
-                <artifactId>antlr-runtime</artifactId>
+                <!--artifactId>antlr-runtime</artifactId-->
+                <artifactId>antlr4-runtime</artifactId>
                 <version>${antlr-runtime.version}</version>
             </dependency>
-            <dependency>
+            <!--dependency>
                 <groupId>org.antlr</groupId>
                 <artifactId>stringtemplate</artifactId>
                 <version>${stringtemplate.version}</version>
+                <scope>compile</scope>
+            </dependency-->
+            <dependency>
+                <groupId>org.antlr</groupId>
+                <artifactId>ST4</artifactId>
+                <version>4.1</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
@@ -247,7 +255,8 @@
         </dependency>
         <dependency>
             <groupId>org.antlr</groupId>
-            <artifactId>antlr-runtime</artifactId>
+            <!--artifactId>antlr-runtime</artifactId-->
+            <artifactId>antlr4-runtime</artifactId>
         </dependency>
         <dependency>
             <groupId>org.concordion</groupId>
@@ -478,12 +487,14 @@
                 </plugin>
                 <plugin>
                     <groupId>org.antlr</groupId>
-                    <artifactId>antlr3-maven-plugin</artifactId>
-                    <version>3.4</version>
+                    <!--artifactId>antlr3-maven-plugin</artifactId>
+                    <version>3.4</version-->
+                    <artifactId>antlr4-maven-plugin</artifactId>
+                    <version>4.7.2</version>
                     <executions>
                         <execution>
                             <goals>
-                                <goal>antlr</goal>
+                                <goal>antlr4</goal>
                             </goals>
                         </execution>
                     </executions>

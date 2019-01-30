@@ -20,6 +20,14 @@ package org.etourdot.xincproc.xpointer;
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.Files;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.etourdot.xincproc.xpointer.exceptions.XPointerException;
+import org.etourdot.xincproc.xpointer.grammar.XPointerLexer;
+import org.etourdot.xincproc.xpointer.grammar.XPointerParser;
 import org.etourdot.xincproc.xpointer.model.Pointer;
 import org.etourdot.xincproc.xpointer.model.XmlNsScheme;
 import org.junit.Assert;
@@ -53,6 +61,13 @@ public class XPointerEngineTest {
     }
 
     @Test
+    public void testSimpleCall() throws XPointerException
+    {
+        Pointer pointer =xPointerEngine.getPointer("xpath(/doc/p[position()&lt;3])");
+        System.out.println(pointer);
+    }
+
+    @Test
     public void testValidPointers()
             throws Exception
     {
@@ -60,11 +75,10 @@ public class XPointerEngineTest {
         final List<String> lines = Files.readLines(validPointersFile, Charsets.UTF_8);
         for (String line : lines)
         {
-            log.debug("##############");
             try
             {
                 Pointer pointer = xPointerEngine.getPointer(line);
-                log.debug("Pointer:{}", pointer);
+                System.out.println("Pointer:" + pointer);
                 Assert.assertNotNull(line, pointer);
             }
             catch (Exception e)
@@ -84,7 +98,9 @@ public class XPointerEngineTest {
         {
             try
             {
+                System.out.println("Test :" + line);
                 Pointer pointer = xPointerEngine.getPointer(line);
+                System.out.println("Pointer:" + pointer);
                 if (null != pointer && (pointer.isSchemeBased() || pointer.isShortHandPresent()))
                 {
                     Assert.fail(line);
@@ -92,6 +108,7 @@ public class XPointerEngineTest {
             }
             catch (Exception e)
             {
+                System.out.println("Excetion:"+e.getClass().toString());
             }
         }
     }
@@ -157,6 +174,14 @@ public class XPointerEngineTest {
         final String result = xPointerEngine.execute("xpath(//@id='auth1'])", source);
         assertEquals("", result);
         assertEquals("Unexpected token \"]\" beyond end of expression", printableXPointerErrorHandler.toString());
+    }
+
+    @Test
+    public void testExecuteBadElement() throws Exception
+    {
+        final String result = xPointerEngine.execute("element(///)", source);
+        assertEquals("", result);
+        assertEquals("Error: bad element scheme data '///'\nUnknown pointer expression", printableXPointerErrorHandler.toString());
     }
 
     @Test

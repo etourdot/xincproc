@@ -21,11 +21,9 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import net.sf.saxon.s9api.*;
 import net.sf.saxon.trans.XPathException;
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.etourdot.xincproc.xpointer.exceptions.XPointerException;
 import org.etourdot.xincproc.xpointer.exceptions.XPointerResourceException;
 import org.etourdot.xincproc.xpointer.model.*;
@@ -469,42 +467,24 @@ public class XPointerEngine
             throws XPointerException
     {
         LOG.trace("start analyse '{}'", pointerStr);
-        final CharStream input = new ANTLRStringStream(pointerStr);
+        final CharStream input = CharStreams.fromString(pointerStr);
         LOG.trace("-> start lexer analyse");
         final XPointerLexer xPointerLexer = new XPointerLexer(input);
         final CommonTokenStream commonTokenStream = new CommonTokenStream(xPointerLexer);
         final XPointerParser xPointerParser = new XPointerParser(commonTokenStream);
-        xPointerParser.setErrorHandler(xPointerErrorHandler);
-        final XPointerParser.pointer_return result;
-        try
+        xPointerParser.removeErrorListeners();
+        xPointerParser.addErrorListener(new XPointerErrorListener(xPointerErrorHandler));
+        final ParseTree parseTree = xPointerParser.pointer();
+        if (xPointerParser.getNumberOfSyntaxErrors() > 0)
         {
-            LOG.trace("-> start parser analyse");
-            result = xPointerParser.pointer();
+            throw new XPointerException("Unknown pointer expression");
         }
-        catch (final Exception e)
-        {
-            throw new XPointerException("Unknown pointer expression", e);
-        }
-        final CommonTree ast = (CommonTree) result.getTree();
-        Pointer pointer = null;
-        if (ast != null)
-        {
-            final CommonTreeNodeStream nodes = new CommonTreeNodeStream(ast);
-            nodes.setTokenStream(commonTokenStream);
-            final XPointerTree xPointerTree = new XPointerTree(nodes);
-            xPointerTree.setErrorHandler(xPointerErrorHandler);
-            try
-            {
-                LOG.trace("-> start tree analyse");
-                pointer = xPointerTree.pointer();
-            }
-            catch (final Exception e)
-            {
-                throw new XPointerException(e);
-            }
-        }
+        System.out.println(parseTree.toStringTree(xPointerParser));
+        final ParseTreeWalker walker = new ParseTreeWalker();
+        final XPointerEngineListener listener = new XPointerEngineListener(xPointerErrorHandler);
+        walker.walk(listener, parseTree);
         LOG.trace("end analyse '{}'", pointerStr);
-        return pointer;
+        return listener.getPointer();
     }
 
     private static class NilXPointerErrorHandler implements XPointerErrorHandler
