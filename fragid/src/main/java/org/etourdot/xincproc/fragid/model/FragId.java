@@ -1,4 +1,4 @@
-package org.etourdot.xincproc.fragid;
+package org.etourdot.xincproc.fragid.model;
 
 import java.util.List;
 

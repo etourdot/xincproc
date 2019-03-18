@@ -1,5 +1,7 @@
 package org.etourdot.xincproc.fragid;
 
+import org.etourdot.xincproc.fragid.model.FRAG_TYPE;
+import org.etourdot.xincproc.fragid.model.FragId;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;

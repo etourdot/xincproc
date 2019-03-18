@@ -2,6 +2,10 @@ package org.etourdot.xincproc.fragid;
 
 import org.etourdot.xincproc.fragid.grammar.FragIdBaseListener;
 import org.etourdot.xincproc.fragid.grammar.FragIdParser;
+import org.etourdot.xincproc.fragid.model.FRAG_TYPE;
+import org.etourdot.xincproc.fragid.model.FragId;
+import org.etourdot.xincproc.fragid.model.INTEGRITY_TYPE;
+import org.etourdot.xincproc.fragid.model.IntegrityCheck;
 
 import java.util.ArrayList;
 import java.util.List;

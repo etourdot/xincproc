@@ -1,11 +1,12 @@
 package org.etourdot.xincproc.fragid;
 
 import com.google.common.io.CharStreams;
+import org.etourdot.xincproc.fragid.model.FRAG_TYPE;
+import org.etourdot.xincproc.fragid.model.FragId;
 import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 

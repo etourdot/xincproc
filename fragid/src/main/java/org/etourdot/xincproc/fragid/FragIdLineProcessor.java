@@ -1,8 +1,8 @@
 package org.etourdot.xincproc.fragid;
 
 import com.google.common.io.LineProcessor;
-
-import java.io.IOException;
+import org.etourdot.xincproc.fragid.model.FRAG_TYPE;
+import org.etourdot.xincproc.fragid.model.FragId;
 
 public class FragIdLineProcessor implements LineProcessor<String>
 {
