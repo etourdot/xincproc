@@ -105,7 +105,7 @@
         <ognl.version>3.2.10</ognl.version>
         <xom.version>1.2.5</xom.version>
         <concordion-extensions.version>1.2.0</concordion-extensions.version>
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-text.version>1.6</commons-text.version>
         <xercesImpl.version>2.12.0</xercesImpl.version>
         <xml-apis.version>1.4.01</xml-apis.version>
